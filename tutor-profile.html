@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tutor profile · the three faces</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{background:#fff}
+  body{margin:0;padding:24px 16px;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;--tint:#243cb3;--grey:#F2F2F7}
+  .doc{max-width:860px;margin:0 auto}
+  .head{background:#243cb3;color:#fff;border-radius:16px;padding:24px 26px}
+  .head .t{font-size:23px;font-weight:800;letter-spacing:-.3px}
+  .head .s{font-size:12.5px;opacity:.92;margin-top:6px;line-height:1.55}
+  .intro{background:#eef1fb;border:1px solid rgba(36,60,179,.2);border-radius:13px;padding:16px 20px;margin:16px 0 8px;font-size:12.5px;line-height:1.6;color:#3a3a52}
+  .intro b{color:#243cb3}
+  .sech{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--tint);margin:30px 0 4px}
+  .secs{font-size:12.5px;color:#52525b;margin-bottom:14px;line-height:1.55}.secs b{color:#1a5c38}
+  .face{font-size:17px;font-weight:800;margin:4px 0 2px}
+  .faced{font-size:12px;color:#71717a;margin-bottom:13px;line-height:1.5}
+  .pair{display:flex;gap:16px;align-items:flex-start}
+  .col{flex:1;min-width:0}
+  .cl{font-size:10px;font-weight:800;text-align:center;padding:4px;border-radius:6px;margin-bottom:8px}
+  .cl.b{background:#f1f1f3;color:#71717a}.cl.a{background:#e6eaf9;color:var(--tint)}
+  /* phone frame */
+  .ph{border-radius:28px;padding:14px 12px 10px;width:290px;max-width:100%;margin:0 auto;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.1)}
+  .ph.tall{aspect-ratio:auto;min-height:540px}
+  .ph.bf{background:#fff;border:1px solid #e2e2e6}
+  .ph.af{background:var(--grey)}
+  .ph::after{content:"";flex-shrink:0;width:38%;height:5px;border-radius:99px;background:rgba(0,0,0,.2);margin:11px auto 0}
+  .sb{display:flex;justify-content:space-between;font-size:9px;font-weight:700;margin-bottom:9px}
+  .sp{flex:1 1 auto;min-height:8px}
+  /* showcase */
+  .video{position:relative;background:linear-gradient(135deg,#243cb3,#3a52c8);border-radius:13px;height:128px;display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:10px}
+  .play{font-size:24px}.vlab{position:absolute;bottom:8px;left:10px;font-size:9.5px;font-weight:600}.vdur{position:absolute;bottom:8px;right:10px;font-size:8.5px;background:rgba(0,0,0,.3);padding:1px 6px;border-radius:99px}
+  .nm{font-size:16px;font-weight:800}
+  .badges{display:flex;gap:6px;margin:5px 0 3px;flex-wrap:wrap}
+  .vb{font-size:8.5px;font-weight:800;color:#1f7a44;background:#e9f5ee;border-radius:99px;padding:2px 8px}
+  .tier{font-size:8.5px;font-weight:800;color:#92400e;background:#fff7e6;border-radius:99px;padding:2px 8px}
+  .spec{font-size:10px;color:#71717a;font-weight:600}
+  .stats{display:flex;gap:6px;margin:11px 0}
+  .st{flex:1;background:#fff;border-radius:9px;padding:8px 2px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .st b{display:block;font-size:13px;font-weight:800;color:var(--tint)}.st span{font-size:7.5px;color:#71717a}
+  .cta{background:var(--tint);color:#fff;text-align:center;font-size:14px;font-weight:600;padding:13px;border-radius:999px}
+  .scard{background:#fff;border-radius:10px;padding:10px 12px;margin-top:10px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .scl{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#9a9aa0;margin-bottom:5px}
+  .vrow{font-size:10px;color:#1f7a44;font-weight:600;margin:3px 0}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:3px}.chips span{font-size:9px;background:#eef1fb;color:#243cb3;border-radius:99px;padding:2px 8px;font-weight:600}
+  .about{font-size:10px;color:#3f3f46;line-height:1.5;margin-top:3px}
+  .revph{font-size:9.5px;color:#9a9aa0;background:#f6f6f8;border-radius:7px;padding:8px;text-align:center;margin-top:10px;font-style:italic}
+  /* self-view */
+  .hdr{display:flex;gap:9px;align-items:center;margin-bottom:10px}
+  .av{width:38px;height:38px;border-radius:99px;background:#c4c4c8;color:#fff;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center}.av.on{background:var(--tint)}
+  .em{font-size:9.5px;color:#9a9aa0}
+  .ff{background:#f6f6f8;border-radius:7px;padding:8px 10px;margin-bottom:6px;font-size:9px;color:#9a9aa0}.ff b{color:#18181b;font-size:11px;font-weight:700}
+  .ff.ed{color:#18181b;font-weight:700;font-size:11px;display:flex;justify-content:space-between;align-items:center}.ff.ed span{font-size:9px;color:var(--tint)}
+  .meter{margin-top:6px;background:#f6f6f8;border-radius:8px;padding:9px;font-size:9.5px;font-weight:700}
+  .bar{height:6px;background:#e0e0e6;border-radius:99px;margin:6px 0}.bar i{display:block;height:100%;background:var(--tint);border-radius:99px}
+  .gaps{font-size:8.5px;color:#9a9aa0;font-weight:500}
+  .prev{background:#fff;border:1.5px solid var(--tint);color:var(--tint);border-radius:10px;padding:11px;text-align:center;font-size:11.5px;font-weight:700;margin-bottom:10px}
+  .strength{background:#fff;border-radius:11px;padding:11px;margin-bottom:11px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+  .srow{display:flex;justify-content:space-between;font-size:11px;font-weight:800}.srow span{color:#92400e}
+  .todo{font-size:10px;color:#3f3f46;margin-top:6px;display:flex;justify-content:space-between;align-items:center}.fix{color:var(--tint);font-weight:700;font-size:9.5px}
+  .seclbl{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#9a9aa0;margin-bottom:6px}
+  .grp{background:#fff;border-radius:11px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+  .gr{padding:11px;border-top:1px solid #f0f0f2;display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:700}.gr:first-child{border-top:none}
+  .ok{color:#1f7a44}.ch{color:#c4c4c8;font-weight:800}
+  /* admin web */
+  .before{font-size:11px;color:#92400e;background:#fff7e6;border:1px solid rgba(245,158,11,.3);border-radius:8px;padding:9px 12px;margin:6px 0 14px;line-height:1.45}
+  .tool{border:1px solid #e2e2e6;border-radius:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.08)}
+  .tbar{background:#fff;border-bottom:1px solid #eee;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px}
+  .tbar b{font-weight:800}
+  .q{font-size:10.5px;color:#71717a}.q .nav{color:var(--tint);font-weight:700;margin-left:8px}
+  .tbody{display:flex;background:#fafafd}
+  .evi{flex:1.4;min-width:0;padding:14px;border-right:1px solid #eee}
+  .vid2{position:relative;background:#1a1a2e;border-radius:10px;height:140px;display:flex;align-items:center;justify-content:center;color:#fff}
+  .vid2 .pl{font-size:26px}.vid2 .vl{position:absolute;bottom:8px;left:10px;font-size:10px;font-weight:600}.vid2 .vd{position:absolute;top:8px;right:10px;font-size:8.5px;background:rgba(255,255,255,.18);padding:2px 7px;border-radius:99px}
+  .vcap{font-size:10px;color:#52525b;margin:8px 0 12px;line-height:1.4}.vcap b{color:#1f7a44}
+  .idx{display:flex;gap:10px;margin-bottom:13px}
+  .idc{flex:1;text-align:center}
+  .imgf,.imgi{border-radius:8px;height:52px;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+  .imgf{background:#e8e8ee;font-size:24px}.imgi{background:#eef1fb;font-size:11px;font-weight:700;color:var(--tint)}
+  .idc span{font-size:9px;color:#52525b;font-weight:600}
+  .dlbl{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#9a9aa0;margin-bottom:6px}
+  .docs{background:#fff;border-radius:9px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04);margin-bottom:11px}
+  .dr{display:flex;justify-content:space-between;align-items:center;padding:9px 11px;border-top:1px solid #f2f2f4;font-size:11px;font-weight:600}.dr:first-child{border-top:none}
+  .view{color:var(--tint);font-weight:700;font-size:10px}
+  .dets{font-size:10px;color:#71717a;line-height:1.5}
+  .dec{flex:1;min-width:0;padding:14px;background:#fff}
+  .dh{font-size:11px;font-weight:800;margin-bottom:9px}
+  .ckk{font-size:11px;color:#3f3f46;padding:6px 0;display:flex;align-items:center;gap:8px}.ckk .bx{color:#1f7a44;font-weight:800}
+  .approve{background:#1f7a44;color:#fff;text-align:center;font-size:13px;font-weight:700;padding:12px;border-radius:9px;margin:11px 0 8px}
+  .reject{border:1px solid #d4646e;color:#c0392b;text-align:center;font-size:12px;font-weight:700;padding:11px;border-radius:9px}
+  .rnote{font-size:9px;color:#9a9aa0;text-align:center;margin-top:7px;line-height:1.4}
+  .note{font-size:11.5px;line-height:1.55;color:#52525b;border-radius:9px;padding:11px 14px;margin-bottom:9px}
+  .note.flag{background:#fff7e6;border:1px solid rgba(245,158,11,.3)}
+  .note.spec{background:#eef1fb;border:1px solid rgba(36,60,179,.22)}
+  .foot{margin-top:10px;font-size:13px;font-weight:700;color:#fff;background:#475569;border-radius:12px;padding:14px 18px;line-height:1.5}
+  @media (max-width:680px){ .pair{flex-direction:column;gap:24px} .ph{width:320px} .tbody{flex-direction:column} .evi{border-right:none;border-bottom:1px solid #eee} .head .t{font-size:20px} }
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="head"><div class="t">Tutor profile &middot; the three faces</div><div class="s">The profile a parent uses to CHOOSE, the profile a tutor MANAGES, and the tool an admin uses to VERIFY. North Star: a profile good enough that parents pick in-app, replacing the manual WhatsApp hand-pick, which lifts wins and applications. For Hafiz &middot; 24 June 2026.</div></div>
+
+  <div class="intro">Every "choose this person" profile (Preply, Airbnb, Fiverr, Care.com) runs the same skeleton, and the ones that work <b>without many reviews</b> lean on three things: a verified badge, a single computed tier, and objective volume numbers. That is exactly our asset mix, so the tutor card leans on <b>video &#8594; verified &#8594; tier &#8594; track record</b>, and designs the empty star block out (an empty 0.0 destroys trust). Sifututor's model is curated parent-choice: the admin verifies, the platform shortlists, the parent picks. This profile is what makes that pick confident.</div>
+
+  <div class="sech">Face 1 &middot; Parent showcase (parent app) &middot; NEW</div>
+  <div class="secs">Does not exist today (parents see only an applicant count). This is the choose-a-tutor card, the heart of the wave. The decision is made above the fold: video, identity with the strength tier as the trust badge, the four objective stat chips, the CTA. Verification, fit, and about sit below.</div>
+  <div class="pair">
+    <div class="col" style="max-width:300px;margin:0 auto">
+      <div class="cl a">THE SHOWCASE</div>
+      <div class="ph af tall">
+        <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+        <div class="video"><span class="play">&#9654;</span><span class="vlab">Aisha's 45-sec intro</span><span class="vdur">0:45</span></div>
+        <div class="nm">Aisha Rahman</div>
+        <div class="badges"><span class="vb">&#10003; Verified</span><span class="tier">&#127941; All-Star tutor</span></div>
+        <div class="spec">SPM Maths &amp; Add Maths specialist</div>
+        <div class="stats"><div class="st"><b>120</b><span>classes</span></div><div class="st"><b>180h</b><span>taught</span></div><div class="st"><b>94%</b><span>approval</span></div><div class="st"><b>~2h</b><span>replies</span></div></div>
+        <div class="cta">Choose Aisha</div>
+        <div class="scard"><div class="scl">Verified</div><div class="vrow">&#10003; Identity &nbsp; &#10003; Degree (UM, Maths) &nbsp; &#10003; Teaching documents</div></div>
+        <div class="scard"><div class="scl">Teaches</div><div class="chips"><span>Maths</span><span>Add Maths</span><span>Form 4-5</span><span>SPM</span><span>BM</span><span>English</span><span>Mandarin</span></div></div>
+        <div class="scard"><div class="scl">About</div><div class="about">I help Form 4-5 students make Add Maths click, with past-year drilling and clear steps.</div></div>
+        <div class="revph">&#9733; Parent reviews appear after the first class</div>
+      </div>
+    </div>
+    <div class="col">
+      <div style="font-size:12.5px;line-height:1.65;color:#3a3a52">
+        <p style="margin:0 0 10px"><b>Why this order.</b> The framework, adapted to our assets:</p>
+        <p style="margin:0 0 8px"><b>1 Video hero</b> &middot; the number-one trust object, it replaces stars. Most parents decide in the first 15 seconds (Preply).</p>
+        <p style="margin:0 0 8px"><b>2 Verified + tier badges</b> &middot; the strength tier is the stars-replacement, one glance, high trust (Fiverr level, Airbnb Superhost).</p>
+        <p style="margin:0 0 8px"><b>3 Four stat chips</b> &middot; the objective moat: classes, hours, approval, response. No stars needed (Wyzant hours, Fiverr response rate).</p>
+        <p style="margin:0 0 8px"><b>4 CTA</b> &middot; pinned, choose without scrolling.</p>
+        <p style="margin:0 0 8px"><b>Below the fold</b> &middot; itemised verification (Care.com's whole model), subjects and levels, a short specific about.</p>
+        <p style="margin:0"><b>No empty stars</b> &middot; an honest "reviews after the first class" line, never a 0.0 block (which actively destroys trust).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sech">Face 2 &middot; Tutor self-view (tutor app)</div>
+  <div class="secs">Today it is an account screen (read-only fields + a dead strength meter). It becomes a profile the tutor <b>manages</b>, with the two adds that drive completion: a "preview as a parent sees me" that opens the exact showcase, and a tappable checklist instead of a dead-end meter.</div>
+  <div class="pair">
+    <div class="col">
+      <div class="cl b">BEFORE &middot; account screen</div>
+      <div class="ph bf tall">
+        <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+        <div class="hdr"><div class="av">A</div><div><div class="nm" style="font-size:13.5px">Aisha Rahman</div><div class="em">aisha@email.com</div></div></div>
+        <div class="ff">Full name<br><b>Aisha Rahman</b></div>
+        <div class="ff">Email<br><b>aisha@email.com</b></div>
+        <div class="ff">Phone<br><b>+60 12-345 6789</b></div>
+        <div class="ff ed">Display name &nbsp;<span>edit</span></div>
+        <div class="ff ed">Gender &nbsp;<span>edit</span></div>
+        <div class="meter">Profile strength 60% &middot; Intermediate<div class="bar"><i style="width:60%"></i></div><div class="gaps">Gaps: add languages, add curricula, set availability</div></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="cl a">AFTER &middot; a profile they manage</div>
+      <div class="ph af tall">
+        <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+        <div class="hdr"><div class="av on">A</div><div><div class="nm" style="font-size:13.5px">Aisha Rahman</div><div class="badges" style="margin-top:3px"><span class="vb">&#10003; Verified</span><span class="tier">&#127941; All-Star</span></div></div></div>
+        <div class="prev">&#128065; Preview as a parent sees me &#8250;</div>
+        <div class="strength"><div class="srow"><b>Profile strength 85%</b><span>All-Star</span></div><div class="bar"><i style="width:85%"></i></div><div class="todo">&#9633; Add Mandarin level <span class="fix">Fix</span></div><div class="todo">&#9633; Add a 2nd subject <span class="fix">Fix</span></div></div>
+        <div class="seclbl">Your profile</div>
+        <div class="grp">
+          <div class="gr"><span>Intro video</span><span class="ok">&#10003;</span></div>
+          <div class="gr"><span>Teaching &middot; Maths, Add Maths</span><span class="ch">&#8250;</span></div>
+          <div class="gr"><span>Education &middot; UM</span><span class="ch">&#8250;</span></div>
+          <div class="gr"><span>Documents</span><span class="ok">&#10003;</span></div>
+          <div class="gr"><span>About</span><span class="ch">&#8250;</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sech">Face 3 &middot; Admin verify-review (web portal)</div>
+  <div class="secs">Today verifying a tutor means flipping a status dropdown inside a 7-step edit form. It becomes a real review tool built around the decision, evidence laid out, a checklist, approve or reject with a reason, a queue.</div>
+  <div class="before"><b>BEFORE today:</b> verify = flipping a status dropdown inside a 7-step edit form &middot; no video shown &middot; documents are links only &middot; no reason on reject</div>
+  <div class="tool">
+    <div class="tbar"><div><b>Verify tutor</b> &middot; Aisha Rahman</div><div class="q">Pending &middot; 3 of 7 <span class="nav">Skip</span><span class="nav">Next &#8250;</span></div></div>
+    <div class="tbody">
+      <div class="evi">
+        <div class="vid2"><span class="pl">&#9654;</span><span class="vl">Intro video &middot; 0:45</span><span class="vd">Identity proof</span></div>
+        <div class="vcap">&#9888;&#65039; Confirm the face matches the IC. <b>This is new</b>, the video was invisible to admins before.</div>
+        <div class="idx"><div class="idc"><div class="imgf">&#128100;</div><span>Formal photo</span></div><div class="idc"><div class="imgi">&#127913; IC front</div><span>960101-14-5678 &middot; age 28 &#10003;</span></div></div>
+        <div class="dlbl">Documents</div>
+        <div class="docs"><div class="dr"><span>&#128196; Resume</span><span class="view">View</span></div><div class="dr"><span>&#127891; Transcript</span><span class="view">View</span></div><div class="dr"><span>&#129534; Formal photo</span><span class="view">View</span></div><div class="dr"><span>&#128196; IC front</span><span class="view">View</span></div></div>
+        <div class="dets">Education: UM &middot; Bachelor, Maths &nbsp;|&nbsp; Subjects: Maths, Add Maths &nbsp;|&nbsp; Languages: BM, English, Mandarin</div>
+      </div>
+      <div class="dec">
+        <div class="dh">Verification checklist</div>
+        <div class="ckk"><span class="bx">&#10003;</span> Face matches IC</div>
+        <div class="ckk"><span class="bx">&#10003;</span> IC legible, age 20-50</div>
+        <div class="ckk"><span class="bx">&#10003;</span> Degree verified</div>
+        <div class="ckk"><span class="bx">&#10003;</span> Documents authentic</div>
+        <div class="approve">&#10003; Approve &amp; verify</div>
+        <div class="reject">Reject with reason &#9662;</div>
+        <div class="rnote">Reason is sent to the tutor, so they know what to fix.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sech">Notes for Hafiz</div>
+  <div class="note flag"><b>&#9888;&#65039; Flag (a real gap we found in code):</b> the admin <b>cannot see the intro video</b> during verification today, yet the video is the identity/liveness proof. The redesigned review surfaces it. Likely a small backend add to include the video in the review payload.</div>
+  <div class="note spec"><b>Recommended next piece, post-class rating + review:</b> no parent rating/review exists yet. The showcase leans on video + track record for now, but the strongest social-proof de-risker is a star + comment a parent leaves after a class. A contained backend add: a ratings table, a "rate your tutor" prompt after a completed class, and an average on the showcase (replacing the honest placeholder). Its own pitch when you are ready.</div>
+  <div class="note" style="background:#eef7f1;border:1px solid rgba(31,122,68,.3)"><b>Tap-counts drop across all three:</b> parent chooses in about 2-3 taps (from a WhatsApp scroll), a tutor fixes a profile gap in about 3 (from a dead meter), an admin verifies in about 3 on one screen (from a 5-step form hunt).</div>
+
+  <div class="foot">Scope: this is the tutor profile and the verify tool. The parent's curated shortlist-and-choose surface (browse applicants, trial, switch) and the rating system are their own waves, coming next. This brief is the profile foundation they build on.</div>
+</div>
+</body>
+</html>

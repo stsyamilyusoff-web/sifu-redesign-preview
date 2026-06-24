@@ -151,7 +151,7 @@
   </div>
 
   <div class="sech">Surface 3 &middot; Reports, lighter and progress-aware</div>
-  <div class="secs">The biggest friction today, six dropdowns. The redesign keeps it light: a single quick read, an open note the parent values, and the student's progress across classes.</div>
+  <div class="secs">Today's six dropdowns are a chore, but a field audit found every one is read by the parent report and the admin portal, so we lighten the INPUT, not the data. The default is a quick read + a note; the full detail is preserved behind a tap.</div>
   <div class="pair">
     <div class="col">
       <div class="cl b">BEFORE &middot; a dropdown form</div>
@@ -178,6 +178,7 @@
         <div class="seclbl">A note for the parent</div>
         <div class="note">Adam nailed quadratic equations today and is ready to try past-year questions next week.</div>
         <div class="prog"><div class="pl">Adam's progress &middot; class 3</div><div class="bars"><i style="height:30%"></i><i style="height:55%"></i><i style="height:80%" class="hi"></i></div><div class="ptrend">&#8599; improving</div></div>
+        <div style="font-size:10px;color:#243cb3;font-weight:700;text-align:center;margin-top:11px">+ Detailed report (learning style, knowledge, attitude&hellip;) &#8250;</div>
         <div class="sp"></div><div class="cta">Submit report</div><div class="home"></div>
       </div>
     </div>
@@ -185,7 +186,7 @@
 
   <div class="sech">Notes for Hafiz</div>
   <div class="note2 good"><b>Left alone on purpose:</b> the active-class flow (clock-in with photo proof, the timer, clock-out, crash-recovery) is already solid. We do not touch what works.</div>
-  <div class="note2 spec"><b>Backend dependencies:</b> (1) the per-class EARNING in the class-list payload (shared by the schedule + earnings, build once); (2) the payout DATE + method on the earnings endpoint; (3) a lighter report schema (one read + open text) replacing the six fixed fields; (4) cross-session PROGRESS per student.</div>
+  <div class="note2 spec"><b>Backend dependencies:</b> (1) the per-class EARNING in the class-list payload (shared by the schedule + earnings, build once); (2) the payout DATE + method on the earnings endpoint; (3) a lighter report INPUT (a quick read + a note as the default), with ALL current report fields PRESERVED, the parent report and admin analytics read every one, so any consolidation needs a backend migration + parent-app tests, do not drop fields; (4) cross-session PROGRESS per student.</div>
   <div class="note2 flag"><b>Open questions:</b> is the rate always flat RM18, or does it vary by level/subject; the payout cadence (monthly on the 1st?); whether the lighter report keeps any of the old structured fields for internal analytics.</div>
 
   <div class="foot">Scope: the tutor's delivery loop, teach, report, get paid. The schedule cockpit and earnings are the retention levers; reports lose their friction; the solid clock-in/out stays. This closes the tutor-side funnel after Activate, the profile, and winning a job.</div>

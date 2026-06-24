@@ -200,7 +200,7 @@
   </div>
 
   <div class="sech">Notes for Hafiz</div>
-  <div class="note flag"><b>&#9888;&#65039; Flag (a real gap we found in code):</b> the admin <b>cannot see the intro video</b> during verification today, yet the video is the identity/liveness proof. The redesigned review surfaces it. Likely a small backend add to include the video in the review payload.</div>
+  <div class="note flag"><b>&#9888;&#65039; Flag (code-grounded, bigger than it first looked):</b> the intro video has <b>NO backend yet</b>, no column, no upload endpoint, even though the showcase leads with it and the admin review surfaces it. It is a real BUILD (store + upload + serve the video), not a small add. Also, the showcase stats are real (classes + hours are computed; approval rate, response time, and the strength tier all exist), but several are admin-only or unserialized, so they must be exposed to a parent-facing API. These are the showcase's backend dependencies.</div>
   <div class="note spec"><b>Recommended next piece, post-class rating + review:</b> no parent rating/review exists yet. The showcase leans on video + track record for now, but the strongest social-proof de-risker is a star + comment a parent leaves after a class. A contained backend add: a ratings table, a "rate your tutor" prompt after a completed class, and an average on the showcase (replacing the honest placeholder). Its own pitch when you are ready.</div>
   <div class="note" style="background:#eef7f1;border:1px solid rgba(31,122,68,.3)"><b>Tap-counts drop across all three:</b> parent chooses in about 2-3 taps (from a WhatsApp scroll), a tutor fixes a profile gap in about 3 (from a dead meter), an admin verifies in about 3 on one screen (from a 5-step form hunt).</div>
 

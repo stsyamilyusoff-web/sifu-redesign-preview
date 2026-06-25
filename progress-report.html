@@ -76,6 +76,12 @@
   .note.dep{background:#fff7e6;border:1px solid #f3d98a;border-radius:10px;padding:12px 14px;color:#7c4a03}
   .note.dep b{color:#7c4a03}
   .ft{font-size:11px;color:#9a9aa0;text-align:center;margin:22px 0 4px}
+
+  /* phone view: stack before/after full-width so frames render at true device width */
+  @media (max-width:680px){
+    .frames{gap:20px}
+    .fcol{flex:none;max-width:none;width:100%}
+  }
 </style>
 </head>
 <body>

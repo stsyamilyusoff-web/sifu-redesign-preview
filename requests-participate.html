@@ -17,7 +17,7 @@
   .sh{font-size:17px;font-weight:800}
   .sd{font-size:12.5px;color:#52525b;margin:5px 0 14px;line-height:1.55}
   .frames{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-  .fcol{flex:1;min-width:236px;max-width:264px}
+  .fcol{flex:1;min-width:236px;max-width:360px}
   .cap{font-size:9.5px;font-weight:800;text-align:center;padding:4px;border-radius:6px;margin-bottom:8px}
   .cap.b{background:#f1f1f3;color:#71717a}.cap.a{background:#e6eaf9;color:var(--tint)}
   .ph{border-radius:22px;padding:12px 11px;width:100%;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.1);background:#F2F2F7;position:relative}
@@ -61,10 +61,8 @@
   .s1 .l1{font-size:15px;font-weight:700}.s1 .lvl{font-size:12px;font-weight:400;color:rgba(60,60,67,.55)}
   .s1 .icons{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-top:6px}
   .s1 .ic{font-size:11px;font-weight:600;color:rgba(60,60,67,.62)}.s1 .dot{color:rgba(60,60,67,.3);font-size:10px}
-  .s1 .s2wrap{position:relative;border:1px dashed #d0a843;border-radius:8px;padding:7px 8px 6px;margin-top:8px;background:#fffdf5}
-  .s1 .s2tag{position:absolute;top:-8px;right:7px;font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#fff;background:#d0a843;border-radius:5px;padding:1px 6px}
-  .s1 .match{font-size:11.5px;color:#166534;font-weight:600}.s1 .chk{font-weight:800}
-  .s1 .apps{font-size:11px;color:rgba(60,60,67,.5);margin-top:5px}
+  .s1 .match{font-size:11.5px;color:#166534;font-weight:600;margin-top:6px}.s1 .chk{font-weight:800}
+  .s1 .apps{font-size:11px;color:rgba(60,60,67,.5);margin-top:6px}
   .s1 .rid{font-weight:700;color:rgba(60,60,67,.6)}.s1 .copy{color:var(--tint)}.s1 .besoc{color:#166534;font-weight:700}
   .s1 .anchor{width:72px;flex-shrink:0;border-radius:11px;background:#EAEAEF;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:11px 4px}
   .s1 .mode{font-size:10px;font-weight:800;color:#18181b;white-space:nowrap}
@@ -92,8 +90,7 @@
   .s2 .armrow{display:flex;align-items:baseline;gap:9px;margin-top:8px}
   .s2 .arm{font-size:22px;font-weight:800;letter-spacing:-.5px}.s2 .abreak{font-size:11px;font-weight:700;color:var(--tint)}
   .s2 .arid{font-size:10px;font-weight:700;color:rgba(60,60,67,.5);margin-top:7px}.s2 .copy{color:var(--tint)}
-  .s2 .awhy{font-size:11px;color:#166534;font-weight:600;background:#eef7f1;border-radius:8px;padding:8px 10px;margin-bottom:9px;border:1px dashed #d0a843}
-  .s2 .s2tag{font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#fff;background:#d0a843;border-radius:5px;padding:1px 6px;margin-right:5px}
+  .s2 .awhy{font-size:11px;color:#166534;font-weight:600;background:#eef7f1;border-radius:8px;padding:8px 10px;margin-bottom:9px}
   .s2 .chk{font-weight:800}
   .s2 .acard{background:#fff;border-radius:11px;padding:11px;box-shadow:0 1px 2px rgba(0,0,0,.04);margin-bottom:9px}
   .s2 .acard.ask{background:#fffaf0;border:1px solid #f0e2c0}
@@ -131,6 +128,13 @@
   .s3 .pmeta{font-size:10px;color:#71717a;margin-top:2px}
   .s3 .submit{background:#243cb3;color:#fff;text-align:center;font-size:14px;font-weight:700;padding:13px;border-radius:999px;margin-top:12px}
   .s3 .skip{text-align:center;font-size:11.5px;font-weight:600;color:#71717a;margin-top:10px}
+
+  /* phone view: stack before/after full-width so triage cards keep their scan width and never wrap */
+  @media (max-width:680px){
+    body{padding:18px 12px}
+    .frames{gap:20px}
+    .fcol{flex:none;max-width:none;width:100%}
+  }
 </style>
 </head>
 <body>
@@ -140,12 +144,12 @@
     <div class="s">The growth core: help a tutor find the right jobs and apply with intelligence. The locked Wave-1 feed card stands; this re-grounds it on the live app and folds in the cleaner decide screen and the post-apply pitch. For Hafiz.</div>
   </div>
 
-  <div class="band"><b>Re-grounded, not redesigned.</b> The feed scan card is your approved pattern (15 review rounds). Re-grounding found that three of its decision signals are designed but not yet sent by the feed API, so they are tagged "stage 2". The journey reassessed to 3 right-sized screens.</div>
+  <div class="band"><b>Re-grounded, not redesigned.</b> The feed scan card is your approved pattern (15 review rounds). Re-grounding found that three of its decision signals are designed but not yet sent by the feed API (the one backend ask, noted below). The journey reassessed to 3 right-sized screens.</div>
 
   <!-- S1 FEED -->
   <div class="block s1">
     <div class="sh">1 &middot; The feed (triage)</div>
-    <div class="sd">Same request (TREQ-859807): the live label-value card vs the locked scan card. Reject a non-fit at a glance; the 3 dashed signals light up when the API sends them.</div>
+    <div class="sd">Same request (TREQ-859807): the live label-value card vs the locked scan card. Reject a non-fit at a glance; the match, competition, and freshness lines fill in when the API sends them (see notes).</div>
     <div class="frames">
       <div class="fcol">
         <div class="cap b">Before &middot; live</div>
@@ -178,10 +182,8 @@
             <div class="c">
               <div class="l1">English <span class="lvl">&middot; Standard 1-6</span></div>
               <div class="icons"><span class="ic">&#9792; Female tutor</span><span class="dot">&middot;</span><span class="ic">Mon 8:00 PM</span><span class="dot">&middot;</span><span class="ic">Long-term</span></div>
-              <div class="s2wrap"><span class="s2tag">stage 2</span>
-                <div class="match"><span class="chk">&#10003;</span> Matches your subject &amp; level</div>
-                <div class="apps"><span class="rid">TREQ-859807 <span class="copy">&#10697;</span></span> &middot; <span class="besoc">Be the first to apply</span></div>
-              </div>
+              <div class="match"><span class="chk">&#10003;</span> Matches your subject &amp; level</div>
+              <div class="apps"><span class="rid">TREQ-859807 <span class="copy">&#10697;</span></span> &middot; <span class="besoc">Be the first to apply</span></div>
             </div>
             <div class="anchor"><div class="mode">ONLINE</div><div class="money"><span class="cur">RM</span> 126</div></div>
           </div>
@@ -189,10 +191,8 @@
             <div class="c">
               <div class="l1">Physics <span class="lvl">&middot; Form 4</span></div>
               <div class="icons"><span class="ic">&#9794; Male tutor</span><span class="dot">&middot;</span><span class="ic">Mon 5:00 PM</span><span class="dot">&middot;</span><span class="ic">2h</span><span class="dot">&middot;</span><span class="ic">Bangsar</span></div>
-              <div class="s2wrap"><span class="s2tag">stage 2</span>
-                <div class="match"><span class="chk">&#10003;</span> Matches your area, subject &amp; level</div>
-                <div class="apps"><span class="rid">TREQ-655485 <span class="copy">&#10697;</span></span> &middot; 6 applied &middot; 5h ago</div>
-              </div>
+              <div class="match"><span class="chk">&#10003;</span> Matches your area, subject &amp; level</div>
+              <div class="apps"><span class="rid">TREQ-655485 <span class="copy">&#10697;</span></span> &middot; 6 applied &middot; 5h ago</div>
             </div>
             <div class="anchor"><div class="mode">IN-PERSON</div><div class="money"><span class="cur">RM</span> 120</div></div>
           </div>
@@ -205,7 +205,7 @@
   <!-- S2 DETAIL -->
   <div class="block s2">
     <div class="sh">2 &middot; The detail (clean decide)</div>
-    <div class="sd">The comment box leaves the decide screen (it becomes the post-apply sheet). The parent's Special Request is promoted; the commission breakdown is tappable; "why you're seeing this" is stage-2.</div>
+    <div class="sd">The comment box leaves the decide screen (it becomes the post-apply sheet). The parent's Special Request is promoted; the commission breakdown is tappable; the fit reason fills in when the API sends it (see notes).</div>
     <div class="frames">
       <div class="fcol">
         <div class="cap b">Before &middot; live</div>
@@ -236,7 +236,7 @@
             <div class="armrow"><div class="arm">RM126.00</div><div class="abreak">see breakdown &#8250;</div></div>
             <div class="arid">TREQ-859807 <span class="copy">&#10697;</span></div>
           </div>
-          <div class="awhy"><span class="s2tag">stage 2</span><span class="chk">&#10003;</span> Recommended: matches your subject &amp; level</div>
+          <div class="awhy"><span class="chk">&#10003;</span> Recommended: matches your subject &amp; level</div>
           <div class="acard ask"><div class="al">What the parent asked for</div><div class="askbody">"Patient tutor for my daughter, prefers evening classes and a gentle pace."</div></div>
           <div class="acard"><div class="al">Student</div><div class="arow"><span class="ai">&#9794; Boy, 9</span><span class="ai">Female tutor preferred</span></div></div>
           <div class="acard"><div class="al">Logistics</div><div class="arow"><span class="ai">&#128197; Mon 8:00 PM</span><span class="ai">&#128336; 1h</span><span class="ai">&#128257; 12 sessions</span></div></div>
@@ -295,7 +295,7 @@
   <!-- NOTES -->
   <div class="notes">
     <div class="nh">Notes for Hafiz</div>
-    <div class="note dep"><b>Stage-2 backend (the prerequisite).</b> Three feed signals (match relevance, <b>total_tutors_applied</b>, freshness) already exist in the backend but the feed API does not send them. The card layout ships now; these three light up when the API serializes them. This is the one real backend ask for the feed.</div>
+    <div class="note dep"><b>Stage-2 backend (the one prerequisite).</b> Three feed signals (match relevance, <b>total_tutors_applied</b>, freshness) already exist in the backend but the feed API does not send them yet. They sit on the card as plain lines now and fill in when the API serializes them. This caveat lives here, never as a box on the card (a per-card box bloats the scan and defeats triage). This is the one real backend ask for the feed.</div>
     <div class="note"><b>Swipe-to-apply</b> is the 2-tap fast lane for established tutors (scan, swipe, done). Tapping a card still opens the full detail for the considered path.</div>
     <div class="note"><b>Quick-filters</b> for the top reject-scenarios (gender, mode, schedule-clash) on the feed: an enhancement, <b>not a blocker</b>. The feed ships without them.</div>
     <div class="note"><b>The post-apply pitch</b> adapts by <b>profile_strength_tier</b>. The attached profile reaching the parent needs backend wiring + the customer app (parallel chat).</div>

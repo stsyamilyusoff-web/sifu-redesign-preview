@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sifututor &middot; QA + business sweep</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{background:#f6f7fb;margin:0}
+  body{font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;padding:26px 16px;--tint:#243cb3}
+  .doc{max-width:820px;margin:0 auto}
+  .hd{background:#243cb3;color:#fff;border-radius:18px;padding:26px}
+  .hd .t{font-size:24px;font-weight:800;letter-spacing:-.3px}
+  .hd .s{font-size:13px;opacity:.93;margin-top:8px;line-height:1.6}
+  .band{font-size:12px;color:#7c2d12;background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:13px 15px;margin:14px 0 4px;line-height:1.55}.band b{color:#7c2d12}
+  .block{margin-top:24px}
+  .sh{font-size:17px;font-weight:800;margin-bottom:4px}
+  .shs{font-size:12px;color:#52525b;margin-bottom:12px;line-height:1.5}
+  .row{display:flex;gap:11px;background:#fff;border:1px solid #e6e6ea;border-radius:12px;padding:13px 15px;margin-bottom:9px;align-items:flex-start}
+  .sev{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;border-radius:99px;padding:3px 9px;flex-shrink:0;margin-top:1px}
+  .sev.crit{background:#fee2e2;color:#b91c1c}
+  .sev.high{background:#ffedd5;color:#9a3412}
+  .sev.med{background:#fef9c3;color:#854d0e}
+  .rb{flex:1}
+  .rt{font-size:13px;font-weight:800}
+  .rd{font-size:11.5px;color:#52525b;line-height:1.5;margin-top:3px}
+  .rd code{font-family:ui-monospace,monospace;font-size:10px;background:#f1f1f4;padding:1px 4px;border-radius:4px}
+  .scr{font-size:9.5px;font-weight:700;color:#71717a;margin-top:4px}
+  .bizrow{background:#fff;border:1px solid #e6e6ea;border-radius:11px;padding:12px 14px;margin-bottom:8px}
+  .bt{font-size:12.5px;font-weight:800}.bd{font-size:11.5px;color:#52525b;line-height:1.5;margin-top:3px}
+  .order{background:#eef1fb;border:1px solid rgba(36,60,179,.2);border-radius:12px;padding:14px 16px;margin-top:6px}
+  .ostep{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;color:#3f3f46;padding:5px 0}
+  .on{width:20px;height:20px;border-radius:99px;background:var(--tint);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .xref{font-size:11.5px;color:#3730a3;background:#eef1fb;border:1px solid rgba(36,60,179,.2);border-radius:9px;padding:11px 13px;margin-top:10px;line-height:1.55}
+  .ft{font-size:11px;color:#9a9aa0;text-align:center;margin:22px 0 4px}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="hd">
+    <div class="t">QA + business sweep</div>
+    <div class="s">A first audit of every remaining screen (~40-50): QA-first, plus the business lens and the consistency floor. This is a build backlog, prioritized. It found real bugs, not just polish. For Hafiz.</div>
+  </div>
+
+  <div class="band"><b>Why this matters:</b> the QA pass caught defects a consistency-only sweep would have missed, including a broken parent report, a hard-coded test phone number, and a tutor-pay data-loss path. Three of these are hotfix-class.</div>
+
+  <div class="block">
+    <div class="sh">Priority 0 &middot; bugs to fix first</div>
+    <div class="shs">Correctness + data + leak issues. These should not wait for the redesign build.</div>
+    <div class="row"><span class="sev crit">Critical</span><div class="rb"><div class="rt">The parent's report shows the question, not the answer</div><div class="rd">EvaluationReportView + ProgressReportView render <code>.report_question</code> where <code>.answer</code> belongs. The trust artifact is broken for the parent.</div><div class="scr">StudentReport/EvaluationReportView.tsx, ProgressReportView.tsx</div></div></div>
+    <div class="row"><span class="sev crit">Critical</span><div class="rb"><div class="rt">Hard-coded test phone number in WhatsApp share</div><div class="rd"><code>+601031705750</code> is hard-coded instead of the real support / parent number. A live leak + broken share.</div><div class="scr">ReferFriend/index.tsx, StudentsDetails/index.tsx</div></div></div>
+    <div class="row"><span class="sev crit">Critical</span><div class="rb"><div class="rt">Auto-clock-out can lose a tutor's hours</div><div class="rd">A pending clock-out saved on network failure only syncs if the re-entered class id matches; switch class and the prior hours are orphaned, never submitted. Tutor pay.</div><div class="scr">ClassTimerCountScreen/index.tsx</div></div></div>
+    <div class="row"><span class="sev high">High</span><div class="rb"><div class="rt">Class overlap check is wrong</div><div class="rd">String-compares Date objects (overlaps pass silently); end-time auto-calc calls <code>.getHours()</code> on a string (NaN).</div><div class="scr">AddClassSchedule, BackdateClassSchedule</div></div></div>
+    <div class="row"><span class="sev high">High</span><div class="rb"><div class="rt">File upload accepts any type; report submit can pick the wrong student</div><div class="rd">EditAttendedClass picks <code>allFiles</code> (exe / zip), no MIME check. ReportSubmission filters student by NAME string, so two same-named students submit the wrong id.</div><div class="scr">EditAttendedClass, ReportSubmission</div></div></div>
+    <div class="row"><span class="sev high">High</span><div class="rb"><div class="rt">ExtendClass time bugs</div><div class="rd">Loose-equality breaks the chip highlight; the end-time calc does not handle late-night rollover (23:45 + 30m).</div><div class="scr">AddClassSchedule/ExtendClass.tsx</div></div></div>
+  </div>
+
+  <div class="block">
+    <div class="sh">Privacy / PII &middot; a founder decision</div>
+    <div class="shs">Decide the policy before go-live.</div>
+    <div class="row"><span class="sev high">High</span><div class="rb"><div class="rt">Sensitive PII handled with no stated policy</div><div class="rd">NRIC (no checksum), residential address, ID / transcript / photo documents, parent phone / email / GPS, with no encryption-in-transit or retention policy noted. Plus the test-phone leak above.</div><div class="scr">BioDetails, VerificationDocumentsUpload, StudentsDetails</div></div></div>
+  </div>
+
+  <div class="block">
+    <div class="sh">Business &middot; the funnel is dark + missed moments</div>
+    <div class="bizrow"><div class="bt">Instrument the funnel (the biggest gap)</div><div class="bd">Almost no instrumentation anywhere: verification step drop-off, apply-to-win, extra-class adoption, referral conversion, report views. We cannot diagnose what to fix until these exist.</div></div>
+    <div class="bizrow"><div class="bt">Capture the missed moments</div><div class="bd">A "you're live" arrival + next step after verification (it is a dead end now); a nudge on ExtraClass / ExtendClass (real earn-more moments); social proof + working share on ReferFriend; a rejection reason on the unverify screen (churn risk).</div></div>
+    <div class="bizrow"><div class="bt">Make verification resumable</div><div class="bd">Long, save-less, dead-end flow with silent failures if reference data does not load. Add progress-resume, retry, and re-review.</div></div>
+  </div>
+
+  <div class="block">
+    <div class="sh">Recommended build order</div>
+    <div class="order">
+      <div class="ostep"><span class="on">1</span> P0 bugs (report view, test phone, auto-clock-out) as hotfixes</div>
+      <div class="ostep"><span class="on">2</span> The privacy / PII decision</div>
+      <div class="ostep"><span class="on">3</span> Funnel instrumentation</div>
+      <div class="ostep"><span class="on">4</span> The business moments (arrival, upsells, rejection reason)</div>
+      <div class="ostep"><span class="on">5</span> The consistency floor (the 7 rules)</div>
+    </div>
+    <div class="xref"><b>Consistency floor:</b> see the separate <b>Consistency sweep</b> brief, the 7-rule token + copy migration (fonts, color tokens, 12px radius, copy, one date format, no debug logs, rich empty states), with reference screens to copy.</div>
+  </div>
+
+  <div class="ft">Sifututor redesign &middot; QA + business sweep (build backlog) &middot; 26 June 2026 &middot; audit findings, not the live app</div>
+</div>
+</body>
+</html>

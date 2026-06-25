@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sifututor &middot; Consistency sweep</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{background:#f6f7fb;margin:0}
+  body{font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;padding:26px 16px;--tint:#243cb3}
+  .doc{max-width:820px;margin:0 auto}
+  .hd{background:#243cb3;color:#fff;border-radius:18px;padding:26px}
+  .hd .t{font-size:24px;font-weight:800;letter-spacing:-.3px}
+  .hd .s{font-size:13px;opacity:.93;margin-top:8px;line-height:1.6}
+  .band{font-size:12px;color:#3730a3;background:#eef1fb;border:1px solid rgba(36,60,179,.2);border-radius:12px;padding:13px 15px;margin:14px 0 4px;line-height:1.55}
+  .block{margin-top:24px}
+  .sh{font-size:17px;font-weight:800;margin-bottom:12px}
+  .rules{display:flex;flex-direction:column;gap:9px}
+  .rule{display:flex;gap:12px;background:#fff;border:1px solid #e6e6ea;border-radius:12px;padding:13px 15px}
+  .rn{font-size:15px;font-weight:800;color:#fff;background:var(--tint);width:24px;height:24px;border-radius:99px;flex-shrink:0;text-align:center;line-height:24px}
+  .rb{flex:1}
+  .rt{font-size:13px;font-weight:800}
+  .rd{font-size:11.5px;color:#52525b;line-height:1.5;margin-top:3px}
+  .rd code{font-family:ui-monospace,monospace;font-size:10px;background:#f1f1f4;padding:1px 4px;border-radius:4px}
+
+  .frames{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+  .fcol{flex:1;min-width:230px;max-width:260px}
+  .cap{font-size:9.5px;font-weight:800;text-align:center;padding:4px;border-radius:6px;margin-bottom:8px}
+  .cap.b{background:#f1f1f3;color:#71717a}.cap.a{background:#e9f5ee;color:#1a5c38}
+  .card{border-radius:20px;background:#fff;padding:13px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .card.fixed{border-radius:12px}
+  .crow{display:flex;justify-content:space-between;align-items:center}
+  .cttl{font-size:14px}.cttl.bad{font-family:Georgia,serif}
+  .pill{font-size:9px;font-weight:800;border-radius:99px;padding:3px 9px}
+  .pill.bad{background:#FEBC2A;color:#3a2a00}.pill.good{background:#e9f5ee;color:#1a5c38}
+  .cmeta{font-size:10.5px;margin-top:8px}.cmeta.bad{color:#1a73e8}.cmeta.good{color:#243cb3}
+  .cdate{font-size:9.5px;color:#9a9aa0;margin-top:5px}
+  .anno{font-size:9px;font-style:italic;line-height:1.5;margin-top:9px}
+  .anno.bad{color:#b0392b}.anno.good{color:#1a5c38}
+
+  .clist{display:flex;flex-direction:column;gap:8px}
+  .cl2{background:#fff;border:1px solid #e6e6ea;border-radius:11px;padding:11px 13px}
+  .clh{font-size:12.5px;font-weight:800}
+  .cls{font-size:11px;color:#52525b;line-height:1.5;margin-top:3px}
+  .ref{font-size:11.5px;color:#1a5c38;background:#eef7f1;border:1px solid #cde7d8;border-radius:10px;padding:11px 14px;margin-top:10px;line-height:1.55}.ref b{color:#14532d}
+  .ft{font-size:11px;color:#9a9aa0;text-align:center;margin:22px 0 4px}
+  @media (max-width:680px){ .frames{gap:18px} .fcol{flex:none;max-width:none;width:100%} }
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="hd">
+    <div class="t">Consistency sweep</div>
+    <div class="s">Every remaining screen (~40-50) brought to the design floor. The gaps are systemic, so this is 7 rules applied app-wide, not 50 bespoke fixes. A build spec, with reference screens to copy. For Hafiz.</div>
+  </div>
+
+  <div class="band"><b>Approach:</b> a token + copy migration of the older screens to the v2 system. No layout redesign, no new screens. All gaps are cosmetic + copy (no functional bugs found in the audit). Three screens already do it right; the build copies their pattern.</div>
+
+  <div class="block">
+    <div class="sh">The 7 rules (apply app-wide)</div>
+    <div class="rules">
+      <div class="rule"><div class="rn">1</div><div class="rb"><div class="rt">Fonts to the constant</div><div class="rd">Replace every hard-coded <code>'Circular Std Book/Medium/Bold/Black'</code> with <code>Fonts.book/medium/bold/black</code>. The biggest gap, in nearly every older screen.</div></div></div>
+      <div class="rule"><div class="rn">2</div><div class="rb"><div class="rt">Hex to theme tokens</div><div class="rd"><code>#E6F2FF</code> to PattensBlue, <code>#003E9C</code> to SmaltBlue, <code>#298CFF33</code> to darkGrayLite, <code>#ececec</code> to WhiteSmoke, <code>#CECECE</code> to shinyGrey, Google blue <code>#1a73e8</code> to brand <code>#243CB3</code>, <code>Theme.red</code> to <code>Theme.Red</code>.</div></div></div>
+      <div class="rule"><div class="rn">3</div><div class="rb"><div class="rt">Card radius to 12</div><div class="rd">Standardize the jumble of 5 / 8 / 10 / 15 / 16 / 18 / 20 / 30 to the system 12px.</div></div></div>
+      <div class="rule"><div class="rn">4</div><div class="rb"><div class="rt">Copy</div><div class="rd">Fix typos ("Avaiable" to "available", "Exprience" to "Experience"); remove emojis from strings; sentence case (not "KNOWLEDGE" or Title Case); move hard-coded titles / buttons / placeholders into translations.</div></div></div>
+      <div class="rule"><div class="rn">5</div><div class="rb"><div class="rt">One date format</div><div class="rd">Use <code>DD MMM YYYY</code> via dayjs everywhere; fix the <code>MMM DD</code> / <code>toLocaleDateString</code> / date-fns mismatches.</div></div></div>
+      <div class="rule"><div class="rn">6</div><div class="rb"><div class="rt">Remove debug logs</div><div class="rd">Drop the leftover <code>logger.log</code> / <code>console.log</code> (EvaluationReportView, ProgressReportView, ReferFriend, NewsDetails).</div></div></div>
+      <div class="rule"><div class="rn">7</div><div class="rb"><div class="rt">Rich empty states</div><div class="rd">Icon + line, not bare text. Use the IntroVideoUpload empty state as the model.</div></div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="sh">What a migration looks like (one card)</div>
+    <div class="frames">
+      <div class="fcol">
+        <div class="cap b">Before &middot; older screen</div>
+        <div class="card">
+          <div class="crow"><div class="cttl bad">Class Attended</div><span class="pill bad">Verified</span></div>
+          <div class="cmeta bad">Maths &middot; Form 4</div>
+          <div class="cdate">06/25/2026</div>
+          <div class="anno bad">20px radius, hard-coded font, Title Case, ad-hoc status colour + hex link blue, US date.</div>
+        </div>
+      </div>
+      <div class="fcol">
+        <div class="cap a">After &middot; the floor</div>
+        <div class="card fixed">
+          <div class="crow"><div class="cttl">Class attended</div><span class="pill good">Verified</span></div>
+          <div class="cmeta good">Maths &middot; Form 4</div>
+          <div class="cdate">25 Jun 2026</div>
+          <div class="anno good">12px radius, Fonts constant, sentence case, theme status token, brand blue, one date format.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="sh">The screens (where to apply), ~40-50</div>
+    <div class="clist">
+      <div class="cl2"><div class="clh">Class management (~15)</div><div class="cls">AddClassSchedule (+ Added, Backdate, ExtraClass, ExtendClass), EditPostponedClass (+success), EditAttendedClass, ClassRecords (+filter), legacy clock-in/out, ClockoutSuccessfully. Notable: the "Avaiable" typo + emojis.</div></div>
+      <div class="cl2"><div class="clh">Activate sub-forms (~12)</div><div class="cls">TutorVerificationProcess (+OldTutor), BioDetails, EducationDetails, EmergencyContact, VerificationDocumentsUpload, Declaration, success / unverify. Notable: many hard-coded titles + Theme.red.</div></div>
+      <div class="cl2"><div class="clh">Earnings + students (~10)</div><div class="cls">Payment, PaymentLedger, PendingEarningsDetail, ReferFriend (+MyReferralEarnings), StudentsDetails (the "Exprience" typo), StudentList, Status, CameraScreen.</div></div>
+      <div class="cl2"><div class="clh">Report views + stragglers (~10)</div><div class="cls">StudentReport (+Eval / ProgressReportView, debug logs + Title-Case headers), ReportSubmission, UpdateProfile, Profile, RecommendedRequestDetail, TutorAppliedRequestDetails, TutorTaskList.</div></div>
+    </div>
+    <div class="ref"><b>Reference screens (copy these):</b> IntroVideoUpload (v2 tokens + rich empty state), BackdateEscalationSuccess (tokens, 12px), ServicePreference Step1/Step2 (Fonts + Theme throughout). Align the older screens to these.</div>
+  </div>
+
+  <div class="ft">Sifututor redesign &middot; Consistency sweep (build spec) &middot; 26 June 2026 &middot; design spec, not the live app</div>
+</div>
+</body>
+</html>

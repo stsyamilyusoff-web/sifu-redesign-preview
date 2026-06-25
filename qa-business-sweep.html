@@ -44,6 +44,8 @@
 
   <div class="band"><b>Why this matters:</b> the QA pass caught defects a consistency-only sweep would have missed, including a broken parent report, a hard-coded test phone number, and a tutor-pay data-loss path. Three of these are hotfix-class.</div>
 
+  <div class="band" style="color:#14532d;background:#eef7f1;border-color:#cde7d8"><b>UPDATE (verified, 2026-06-26):</b> P0 #1 (report) and #2 (test phone, StudentsDetails only) are FIXED and type-check clean in commit 0d1a19e. P0 #3 (auto-clock-out) was VERIFIED a non-bug on code review (the sync POSTs every pending item unconditionally; the class-id check only gates local UI cleanup), no fix needed. ReferFriend never had the test phone (audit false positive). So of the 3 flagged criticals, 1 was a genuine critical, 1 was real, 1 was a non-bug. Remaining: push the commit, a device visual-pass on the report render, an optional regression test for the clock-out sync.</div>
+
   <div class="block">
     <div class="sh">Priority 0 &middot; bugs to fix first</div>
     <div class="shs">Correctness + data + leak issues. These should not wait for the redesign build.</div>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sifututor &middot; Requests + Apply</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{background:#f6f7fb;margin:0}
+  body{font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;padding:26px 16px;--tint:#243cb3}
+  .doc{max-width:780px;margin:0 auto}
+  .hd{background:#243cb3;color:#fff;border-radius:18px;padding:26px}
+  .hd .t{font-size:24px;font-weight:800;letter-spacing:-.3px}
+  .hd .s{font-size:13px;opacity:.93;margin-top:8px;line-height:1.6}
+  .band{font-size:12px;color:#3730a3;background:#eef1fb;border:1px solid rgba(36,60,179,.2);border-radius:12px;padding:13px 15px;margin:14px 0 4px;line-height:1.55}
+  .block{margin-top:24px}
+  .sh{font-size:17px;font-weight:800}
+  .sd{font-size:12.5px;color:#52525b;margin:5px 0 14px;line-height:1.55}
+  .frames{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .fcol{flex:1;min-width:236px;max-width:264px}
+  .cap{font-size:9.5px;font-weight:800;text-align:center;padding:4px;border-radius:6px;margin-bottom:8px}
+  .cap.b{background:#f1f1f3;color:#71717a}.cap.a{background:#e6eaf9;color:var(--tint)}
+  .ph{border-radius:22px;padding:12px 11px;width:100%;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.1);background:#F2F2F7;position:relative}
+  .sb{display:flex;justify-content:space-between;font-size:8.5px;font-weight:700;margin-bottom:8px}
+  .notes{margin-top:26px;background:#fff;border:1px solid #e6e6ea;border-radius:14px;padding:20px}
+  .nh{font-size:14px;font-weight:800;margin-bottom:12px}
+  .note{font-size:12px;color:#3f3f46;line-height:1.6;padding:10px 0;border-top:1px solid #f0f0f3}
+  .note:first-of-type{border-top:none}.note b{color:#18181b}
+  .note.dep{background:#fff7e6;border:1px solid #f3d98a;border-radius:10px;padding:12px 14px;color:#7c4a03}.note.dep b{color:#7c4a03}
+  .ft{font-size:11px;color:#9a9aa0;text-align:center;margin:22px 0 4px}
+
+  /* shared bits */
+  .lt{font-size:20px;font-weight:800;margin-bottom:9px}
+  .seg2{display:flex;background:rgba(36,60,179,.09);border-radius:10px;padding:2px;margin-bottom:9px}
+  .seg2 span{flex:1;text-align:center;font-size:11px;font-weight:600;color:rgba(60,60,67,.5);padding:7px 0;border-radius:8px}
+  .seg2 span.on{background:#fff;color:#000;font-weight:700;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+
+  /* S1 FEED */
+  .s1 .segr{display:flex;background:rgba(36,60,179,.09);border-radius:10px;padding:2px;margin-bottom:9px}
+  .s1 .segr span{flex:1;text-align:center;font-size:11px;font-weight:600;color:rgba(60,60,67,.5);padding:7px 0;border-radius:8px}
+  .s1 .segr span.on{background:#243cb3;color:#fff;font-weight:700}
+  .s1 .subf{display:flex;gap:7px;margin-bottom:11px;font-size:11px}
+  .s1 .subf span{color:rgba(60,60,67,.5);font-weight:600;padding-bottom:3px}
+  .s1 .subf .fon{color:#243cb3;font-weight:800;border-bottom:2px solid #243cb3}
+  .s1 .ocard{background:#fff;border-radius:14px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .s1 .orow1{display:flex;justify-content:space-between;align-items:flex-start}
+  .s1 .orid{font-size:10px;font-weight:700;color:#52525b}.s1 .orm{font-size:19px;font-weight:800;margin-top:2px}
+  .s1 .omode{font-size:10px;font-weight:700;border-radius:999px;padding:4px 11px;background:#e7efff;color:#243cb3}
+  .s1 .oline{height:1px;background:#eee;margin:11px 0}
+  .s1 .olv{display:flex;justify-content:space-between;margin-bottom:8px}
+  .s1 .ok2{font-size:12px;color:#71717a}.s1 .ov{font-size:13px;font-weight:700}
+  .s1 .opills{display:flex;gap:6px;margin-top:8px}
+  .s1 .opills span{font-size:11px;font-weight:600;color:#243cb3;background:#eef1fb;border-radius:7px;padding:5px 9px}
+  .s1 .onote{font-size:9px;color:#a0a0a8;font-style:italic;line-height:1.5;margin-top:10px}
+  .s1 .srch{font-size:11px;color:rgba(60,60,67,.4);background:rgba(120,120,128,.1);border-radius:9px;padding:8px 11px;margin-bottom:9px}
+  .s1 .ctrls{display:flex;gap:5px;margin-bottom:11px;flex-wrap:wrap}
+  .s1 .cc{font-size:10.5px;font-weight:600;color:rgba(60,60,67,.55);background:#fff;border-radius:999px;padding:5px 10px}
+  .s1 .cc.sort{color:var(--tint);background:rgba(36,60,179,.1)}.s1 .cc.onf{color:#fff;background:var(--tint)}
+  .s1 .rcard{background:#fff;border-radius:12px;padding:13px;display:flex;align-items:center;gap:11px;box-shadow:0 1px 3px rgba(0,0,0,.05);margin-bottom:9px}
+  .s1 .c{flex:1;min-width:0}
+  .s1 .l1{font-size:15px;font-weight:700}.s1 .lvl{font-size:12px;font-weight:400;color:rgba(60,60,67,.55)}
+  .s1 .icons{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-top:6px}
+  .s1 .ic{font-size:11px;font-weight:600;color:rgba(60,60,67,.62)}.s1 .dot{color:rgba(60,60,67,.3);font-size:10px}
+  .s1 .s2wrap{position:relative;border:1px dashed #d0a843;border-radius:8px;padding:7px 8px 6px;margin-top:8px;background:#fffdf5}
+  .s1 .s2tag{position:absolute;top:-8px;right:7px;font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#fff;background:#d0a843;border-radius:5px;padding:1px 6px}
+  .s1 .match{font-size:11.5px;color:#166534;font-weight:600}.s1 .chk{font-weight:800}
+  .s1 .apps{font-size:11px;color:rgba(60,60,67,.5);margin-top:5px}
+  .s1 .rid{font-weight:700;color:rgba(60,60,67,.6)}.s1 .copy{color:var(--tint)}.s1 .besoc{color:#166534;font-weight:700}
+  .s1 .anchor{width:72px;flex-shrink:0;border-radius:11px;background:#EAEAEF;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:11px 4px}
+  .s1 .mode{font-size:10px;font-weight:800;color:#18181b;white-space:nowrap}
+  .s1 .money{font-size:17px;font-weight:800;letter-spacing:-.4px;line-height:1}.s1 .cur{font-size:9px;font-weight:700;color:rgba(60,60,67,.55)}
+  .s1 .hint{text-align:center;font-size:9.5px;font-weight:600;color:#16A34A;margin-top:3px}
+
+  /* S2 DETAIL */
+  .s2 .dhead{background:#3f3f46;color:#fff;border-radius:12px;padding:12px;position:relative;margin-bottom:11px}
+  .s2 .drid{font-size:11px;font-weight:700;opacity:.85}.s2 .drm{font-size:18px;font-weight:800;margin-top:3px}.s2 .info{font-size:11px;opacity:.7}
+  .s2 .dmode{position:absolute;top:12px;right:12px;font-size:9.5px;font-weight:700;border-radius:999px;padding:3px 9px;background:#5b6cce;color:#fff}
+  .s2 .dsec{font-size:11px;font-weight:800;color:#52525b;margin:10px 0 6px}
+  .s2 .dlv{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid #f3f3f5}
+  .s2 .dk{color:#71717a}.s2 .dv{font-weight:700}
+  .s2 .dpills{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+  .s2 .dpills span{font-size:10px;font-weight:600;color:#243cb3;background:#eef1fb;border-radius:6px;padding:4px 7px}
+  .s2 .dfree{font-size:11px;color:#3f3f46;line-height:1.5;background:#f6f6f8;border-radius:8px;padding:9px}
+  .s2 .dbox{font-size:11px;color:#a0a0a8;font-style:italic;background:#fff;border:1.5px solid #e2e2e6;border-radius:8px;padding:12px;min-height:42px}
+  .s2 .dcta{display:flex;gap:8px;margin-top:11px}
+  .s2 .dapply{flex:1;background:#243cb3;color:#fff;text-align:center;font-size:14px;font-weight:700;padding:12px;border-radius:999px}
+  .s2 .dshare{width:46px;background:#eef1fb;color:#243cb3;text-align:center;font-size:16px;padding:12px 0;border-radius:999px}
+  .s2 .ahdr{background:#fff;border-radius:13px;padding:13px;box-shadow:0 1px 3px rgba(0,0,0,.05);margin-bottom:9px}
+  .s2 .atop{display:flex;justify-content:space-between;align-items:flex-start}
+  .s2 .atitle{font-size:17px;font-weight:800}.s2 .alvl{font-size:13px;font-weight:400;color:rgba(60,60,67,.55)}
+  .s2 .amode{font-size:9.5px;font-weight:800;color:#52525b;background:#eee;border-radius:999px;padding:3px 9px;white-space:nowrap}
+  .s2 .armrow{display:flex;align-items:baseline;gap:9px;margin-top:8px}
+  .s2 .arm{font-size:22px;font-weight:800;letter-spacing:-.5px}.s2 .abreak{font-size:11px;font-weight:700;color:var(--tint)}
+  .s2 .arid{font-size:10px;font-weight:700;color:rgba(60,60,67,.5);margin-top:7px}.s2 .copy{color:var(--tint)}
+  .s2 .awhy{font-size:11px;color:#166534;font-weight:600;background:#eef7f1;border-radius:8px;padding:8px 10px;margin-bottom:9px;border:1px dashed #d0a843}
+  .s2 .s2tag{font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#fff;background:#d0a843;border-radius:5px;padding:1px 6px;margin-right:5px}
+  .s2 .chk{font-weight:800}
+  .s2 .acard{background:#fff;border-radius:11px;padding:11px;box-shadow:0 1px 2px rgba(0,0,0,.04);margin-bottom:9px}
+  .s2 .acard.ask{background:#fffaf0;border:1px solid #f0e2c0}
+  .s2 .al{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--tint);margin-bottom:6px}
+  .s2 .acard.ask .al{color:#92400e}
+  .s2 .askbody{font-size:12px;color:#3f3f46;line-height:1.55;font-style:italic}
+  .s2 .arow{display:flex;flex-wrap:wrap;gap:6px}
+  .s2 .ai{font-size:10.5px;font-weight:600;color:#3f3f46;background:#f4f4f7;border-radius:6px;padding:4px 8px}
+  .s2 .actas{display:flex;gap:8px;margin-top:8px}
+  .s2 .aapply{flex:1;background:#243cb3;color:#fff;text-align:center;font-size:15px;font-weight:700;padding:13px;border-radius:999px}
+  .s2 .ashare{width:48px;background:#eef1fb;color:#243cb3;text-align:center;font-size:16px;padding:13px 0;border-radius:999px}
+  .s2 .ahint{font-size:9.5px;color:#9a9aa0;text-align:center;margin-top:8px}
+
+  /* S3 APPLY */
+  .s3 .phf{height:512px}
+  .s3 .dim{position:absolute;inset:0;padding:16px;filter:blur(.5px);opacity:.5}
+  .s3 .dimt{font-size:16px;font-weight:800;margin-top:6px}.s3 .dimm{font-size:18px;font-weight:800;color:#243cb3;margin-top:6px}
+  .s3 .dimrow{height:40px;background:#fff;border-radius:10px;margin-top:10px}.s3 .dimrow.short{width:70%}
+  .s3 .sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;padding:13px 15px 16px;box-shadow:0 -8px 24px rgba(0,0,0,.18)}
+  .s3 .handle{width:38px;height:4px;border-radius:99px;background:#d4d4d8;margin:0 auto 12px}
+  .s3 .applied{font-size:11px;font-weight:700;color:#166534;background:#eef7f1;border-radius:8px;padding:7px 10px;text-align:center;margin-bottom:12px}
+  .s3 .ok{font-weight:800}
+  .s3 .stitle{font-size:16px;font-weight:800}
+  .s3 .ssub{font-size:11px;color:#71717a;line-height:1.5;margin:4px 0 12px}
+  .s3 .scaff{font-size:9.5px;font-weight:700;color:#52525b;margin-bottom:6px}
+  .s3 .chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+  .s3 .chips span{font-size:10px;font-weight:600;color:#243cb3;background:#eef1fb;border-radius:999px;padding:5px 9px}
+  .s3 .field{font-size:11px;color:#3f3f46;background:#f6f6f8;border:1.5px solid #e2e2e6;border-radius:9px;padding:11px;line-height:1.5}
+  .s3 .field.thin{min-height:42px}.s3 .field.light{color:#a0a0a8;min-height:30px}
+  .s3 .cur{color:var(--tint);font-weight:800}
+  .s3 .nudge{font-size:10px;color:#92400e;background:#fdf0d8;border-radius:7px;padding:8px 10px;margin:10px 0;line-height:1.4}
+  .s3 .pcard{display:flex;align-items:center;gap:10px;background:#f6f6f8;border-radius:11px;padding:10px;margin-bottom:11px}
+  .s3 .pav{width:38px;height:38px;border-radius:99px;background:#243cb3;color:#fff;font-size:17px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .s3 .pname{font-size:13px;font-weight:800}.s3 .tier{font-size:9px;font-weight:800;color:#92400e;background:#fdf0d8;border-radius:5px;padding:1px 6px;margin-left:4px}
+  .s3 .pmeta{font-size:10px;color:#71717a;margin-top:2px}
+  .s3 .submit{background:#243cb3;color:#fff;text-align:center;font-size:14px;font-weight:700;padding:13px;border-radius:999px;margin-top:12px}
+  .s3 .skip{text-align:center;font-size:11.5px;font-weight:600;color:#71717a;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="hd">
+    <div class="t">Requests + Apply</div>
+    <div class="s">The growth core: help a tutor find the right jobs and apply with intelligence. The locked Wave-1 feed card stands; this re-grounds it on the live app and folds in the cleaner decide screen and the post-apply pitch. For Hafiz.</div>
+  </div>
+
+  <div class="band"><b>Re-grounded, not redesigned.</b> The feed scan card is your approved pattern (15 review rounds). Re-grounding found that three of its decision signals are designed but not yet sent by the feed API, so they are tagged "stage 2". The journey reassessed to 3 right-sized screens.</div>
+
+  <!-- S1 FEED -->
+  <div class="block s1">
+    <div class="sh">1 &middot; The feed (triage)</div>
+    <div class="sd">Same request (TREQ-859807): the live label-value card vs the locked scan card. Reject a non-fit at a glance; the 3 dashed signals light up when the API sends them.</div>
+    <div class="frames">
+      <div class="fcol">
+        <div class="cap b">Before &middot; live</div>
+        <div class="ph">
+          <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+          <div class="lt">Student Request</div>
+          <div class="segr"><span class="on">Latest</span><span>Applied (3)</span></div>
+          <div class="subf"><span class="fon">All</span><span>English</span><span>Maths</span></div>
+          <div class="ocard">
+            <div class="orow1"><div><div class="orid">TREQ-859807</div><div class="orm">RM126.00</div></div><div class="omode">Online</div></div>
+            <div class="oline"></div>
+            <div class="olv"><span class="ok2">Subject</span><span class="ov">English</span></div>
+            <div class="olv"><span class="ok2">Pref. Tutor</span><span class="ov">Female</span></div>
+            <div class="olv"><span class="ok2">Level</span><span class="ov">Standard 1-6</span></div>
+            <div class="oline"></div>
+            <div class="opills"><span>&#128197; Mon</span><span>&#128336; 20:00</span><span>&#127909; Long-Term</span></div>
+          </div>
+          <div class="onote">Label-value rows, no decision signals: no competition, freshness, or fit cue.</div>
+        </div>
+      </div>
+      <div class="fcol">
+        <div class="cap a">After &middot; locked scan card</div>
+        <div class="ph">
+          <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+          <div class="lt">Requests</div>
+          <div class="seg2"><span class="on">Open</span><span>Applied</span></div>
+          <div class="srch">Search by Request ID, subject, or area</div>
+          <div class="ctrls"><span class="cc sort">Relevance</span><span class="cc onf">English</span><span class="cc">&#9792; For me</span><span class="cc">Filter</span></div>
+          <div class="rcard">
+            <div class="c">
+              <div class="l1">English <span class="lvl">&middot; Standard 1-6</span></div>
+              <div class="icons"><span class="ic">&#9792; Female tutor</span><span class="dot">&middot;</span><span class="ic">Mon 8:00 PM</span><span class="dot">&middot;</span><span class="ic">Long-term</span></div>
+              <div class="s2wrap"><span class="s2tag">stage 2</span>
+                <div class="match"><span class="chk">&#10003;</span> Matches your subject &amp; level</div>
+                <div class="apps"><span class="rid">TREQ-859807 <span class="copy">&#10697;</span></span> &middot; <span class="besoc">Be the first to apply</span></div>
+              </div>
+            </div>
+            <div class="anchor"><div class="mode">ONLINE</div><div class="money"><span class="cur">RM</span> 126</div></div>
+          </div>
+          <div class="rcard">
+            <div class="c">
+              <div class="l1">Physics <span class="lvl">&middot; Form 4</span></div>
+              <div class="icons"><span class="ic">&#9794; Male tutor</span><span class="dot">&middot;</span><span class="ic">Mon 5:00 PM</span><span class="dot">&middot;</span><span class="ic">2h</span><span class="dot">&middot;</span><span class="ic">Bangsar</span></div>
+              <div class="s2wrap"><span class="s2tag">stage 2</span>
+                <div class="match"><span class="chk">&#10003;</span> Matches your area, subject &amp; level</div>
+                <div class="apps"><span class="rid">TREQ-655485 <span class="copy">&#10697;</span></span> &middot; 6 applied &middot; 5h ago</div>
+              </div>
+            </div>
+            <div class="anchor"><div class="mode">IN-PERSON</div><div class="money"><span class="cur">RM</span> 120</div></div>
+          </div>
+          <div class="hint">swipe any card to apply</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S2 DETAIL -->
+  <div class="block s2">
+    <div class="sh">2 &middot; The detail (clean decide)</div>
+    <div class="sd">The comment box leaves the decide screen (it becomes the post-apply sheet). The parent's Special Request is promoted; the commission breakdown is tappable; "why you're seeing this" is stage-2.</div>
+    <div class="frames">
+      <div class="fcol">
+        <div class="cap b">Before &middot; live</div>
+        <div class="ph" style="background:#fff">
+          <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+          <div class="dhead"><div class="drid">TREQ-859807</div><div class="drm">RM126.00 <span class="info">&#9432;</span></div><div class="dmode">Online</div></div>
+          <div class="dsec">Details</div>
+          <div class="dlv"><span class="dk">Student Name</span><span class="dv">Adam Lim</span></div>
+          <div class="dlv"><span class="dk">Student Detail</span><span class="dv">Male, 9 y/o</span></div>
+          <div class="dlv"><span class="dk">Sessions</span><span class="dv">12</span></div>
+          <div class="dlv"><span class="dk">Level</span><span class="dv">Standard 1-6</span></div>
+          <div class="dlv"><span class="dk">Subject</span><span class="dv">English</span></div>
+          <div class="dlv"><span class="dk">Class</span><span class="dv">Female</span></div>
+          <div class="dpills"><span>&#128197; Mon</span><span>&#128336; 20:00</span><span>&#127909; Long-Term</span></div>
+          <div class="dsec">Special Request</div>
+          <div class="dfree">Patient tutor for my daughter, prefers evening classes and gentle pace.</div>
+          <div class="dsec">Your Comments</div>
+          <div class="dbox">Share your teaching experience...</div>
+          <div class="dcta"><span class="dapply">Apply</span><span class="dshare">&#8682;</span></div>
+        </div>
+      </div>
+      <div class="fcol">
+        <div class="cap a">After &middot; clean decide</div>
+        <div class="ph">
+          <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+          <div class="ahdr">
+            <div class="atop"><div class="atitle">English <span class="alvl">&middot; Standard 1-6</span></div><div class="amode">ONLINE</div></div>
+            <div class="armrow"><div class="arm">RM126.00</div><div class="abreak">see breakdown &#8250;</div></div>
+            <div class="arid">TREQ-859807 <span class="copy">&#10697;</span></div>
+          </div>
+          <div class="awhy"><span class="s2tag">stage 2</span><span class="chk">&#10003;</span> Recommended: matches your subject &amp; level</div>
+          <div class="acard ask"><div class="al">What the parent asked for</div><div class="askbody">"Patient tutor for my daughter, prefers evening classes and a gentle pace."</div></div>
+          <div class="acard"><div class="al">Student</div><div class="arow"><span class="ai">&#9794; Boy, 9</span><span class="ai">Female tutor preferred</span></div></div>
+          <div class="acard"><div class="al">Logistics</div><div class="arow"><span class="ai">&#128197; Mon 8:00 PM</span><span class="ai">&#128336; 1h</span><span class="ai">&#128257; 12 sessions</span></div></div>
+          <div class="actas"><span class="aapply">Apply</span><span class="ashare">&#8682;</span></div>
+          <div class="ahint">Add a note to the parent right after you apply.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S3 APPLY -->
+  <div class="block s3">
+    <div class="sh">3 &middot; The post-apply pitch sheet</div>
+    <div class="sd">Apply stays one tap. The pitch becomes a sheet right after, adapting to profile strength: scaffold a thin profile (its only edge), go light for a strong one (the profile talks). Always optional.</div>
+    <div class="frames">
+      <div class="fcol">
+        <div class="cap a">New tutor &middot; thin profile</div>
+        <div class="ph phf">
+          <div class="dim"><div class="dimt">English &middot; Standard 1-6</div><div class="dimm">RM126.00</div><div class="dimrow"></div><div class="dimrow short"></div></div>
+          <div class="sheet">
+            <div class="handle"></div>
+            <div class="applied"><span class="ok">&#10003;</span> Applied to English &middot; Standard 1-6</div>
+            <div class="stitle">Add a note to stand out</div>
+            <div class="ssub">They asked for a patient, evening tutor.</div>
+            <div class="scaff">Tap to start:</div>
+            <div class="chips"><span>My experience with English</span><span>Why I fit: evenings + gentle pace</span></div>
+            <div class="field thin">I've taught Standard English for<span class="cur">|</span></div>
+            <div class="nudge">&#9888; Tutors who add a note are shortlisted 3x more often.</div>
+            <div class="submit">Submit note</div>
+            <div class="skip">Skip, let my profile speak</div>
+          </div>
+        </div>
+      </div>
+      <div class="fcol">
+        <div class="cap a">Established tutor &middot; strong profile</div>
+        <div class="ph phf">
+          <div class="dim"><div class="dimt">Physics &middot; Form 4</div><div class="dimm">RM120.00</div><div class="dimrow"></div><div class="dimrow short"></div></div>
+          <div class="sheet">
+            <div class="handle"></div>
+            <div class="applied"><span class="ok">&#10003;</span> Applied to Physics &middot; Form 4</div>
+            <div class="stitle">Your profile is attached</div>
+            <div class="ssub">Strong profiles rarely need a note. Yours speaks for you.</div>
+            <div class="pcard">
+              <div class="pav">F</div>
+              <div><div class="pname">Faiz R. <span class="tier">All-star</span></div><div class="pmeta">&#9733; 4.9 &middot; 120 classes &middot; intro video &#10003;</div></div>
+            </div>
+            <div class="field light">Add a quick note (optional)<span class="cur">|</span></div>
+            <div class="submit">Submit</div>
+            <div class="skip">Skip</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="notes">
+    <div class="nh">Notes for Hafiz</div>
+    <div class="note dep"><b>Stage-2 backend (the prerequisite).</b> Three feed signals (match relevance, <b>total_tutors_applied</b>, freshness) already exist in the backend but the feed API does not send them. The card layout ships now; these three light up when the API serializes them. This is the one real backend ask for the feed.</div>
+    <div class="note"><b>Swipe-to-apply</b> is the 2-tap fast lane for established tutors (scan, swipe, done). Tapping a card still opens the full detail for the considered path.</div>
+    <div class="note"><b>Quick-filters</b> for the top reject-scenarios (gender, mode, schedule-clash) on the feed: an enhancement, <b>not a blocker</b>. The feed ships without them.</div>
+    <div class="note"><b>The post-apply pitch</b> adapts by <b>profile_strength_tier</b>. The attached profile reaching the parent needs backend wiring + the customer app (parallel chat).</div>
+    <div class="note"><b>No fields cut.</b> The mid-detail comment box is relocated to the post-apply sheet, not removed. All request fields stay (consumed by triage, the parent, and admin comms).</div>
+    <div class="note"><b>Journey.</b> Established tutor: 2 taps (was 3). New tutor: about 4, but the pitch now sits where it converts. Right-sized at 3 screens, no merge or split.</div>
+  </div>
+
+  <div class="ft">Sifututor redesign &middot; Requests + Apply (Participate) &middot; 25 June 2026 &middot; design mockup, not the live app</div>
+</div>
+</body>
+</html>

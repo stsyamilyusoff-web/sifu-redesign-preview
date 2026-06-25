@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sifututor &middot; Profile-menu hub</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{background:#f6f7fb;margin:0}
+  body{font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;padding:26px 16px;--tint:#243cb3}
+  .doc{max-width:760px;margin:0 auto}
+  .hd{background:#243cb3;color:#fff;border-radius:18px;padding:26px}
+  .hd .t{font-size:24px;font-weight:800;letter-spacing:-.3px}
+  .hd .s{font-size:13px;opacity:.93;margin-top:8px;line-height:1.6}
+  .band{font-size:12px;color:#3730a3;background:#eef1fb;border:1px solid rgba(36,60,179,.2);border-radius:12px;padding:13px 15px;margin:14px 0 4px;line-height:1.55}
+  .block{margin-top:24px}
+  .sh{font-size:17px;font-weight:800}
+  .sd{font-size:12.5px;color:#52525b;margin:5px 0 14px;line-height:1.55}
+  .frames{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .fcol{flex:1;min-width:240px;max-width:262px}
+  .cap{font-size:9.5px;font-weight:800;text-align:center;padding:4px;border-radius:6px;margin-bottom:8px}
+  .cap.b{background:#f1f1f3;color:#71717a}.cap.a{background:#e6eaf9;color:var(--tint)}
+  .notes{margin-top:26px;background:#fff;border:1px solid #e6e6ea;border-radius:14px;padding:20px}
+  .nh{font-size:14px;font-weight:800;margin-bottom:12px}
+  .note{font-size:12px;color:#3f3f46;line-height:1.6;padding:10px 0;border-top:1px solid #f0f0f3}
+  .note:first-of-type{border-top:none}.note b{color:#18181b}
+  .note.dep{background:#fff7e6;border:1px solid #f3d98a;border-radius:10px;padding:12px 14px;color:#7c4a03}.note.dep b{color:#7c4a03}
+  .ft{font-size:11px;color:#9a9aa0;text-align:center;margin:22px 0 4px}
+
+  .ph{border-radius:22px;padding:12px 12px 9px;width:100%;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.1);background:#F5F7FB}
+  .sb{display:flex;justify-content:space-between;font-size:8.5px;font-weight:700;margin-bottom:10px}
+  .hbar{font-size:17px;font-weight:800;margin-bottom:13px}
+  .idthin{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+  .av{width:54px;height:54px;border-radius:99px;background:linear-gradient(135deg,#c9b8a8,#3a3a3a);flex-shrink:0}
+  .av.big{width:58px;height:58px}
+  .idt .vb{font-size:9.5px;font-weight:800;color:#1a5c38}
+  .nm{font-size:17px;font-weight:800}.em{font-size:11px;color:#71717a}
+  .faqban{font-size:12px;font-weight:600;color:#3f3f46;background:#fff;border-radius:10px;padding:11px 12px;margin-bottom:13px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .sec{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#9a9aa0;margin:8px 0 6px}
+  .mr{display:flex;align-items:center;gap:10px;background:#fff;border-radius:10px;padding:11px 12px;margin-bottom:6px;font-size:12.5px;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .mi{font-size:15px;width:20px;text-align:center}
+  .ch{margin-left:auto;color:#c0c0c8;font-size:16px}
+  .new{font-size:8px;font-weight:800;text-transform:uppercase;color:#fff;background:#1f7a44;border-radius:5px;padding:1px 6px;margin-left:auto}
+  .new + .ch{margin-left:8px}
+  .bnote{font-size:9px;color:#a0a0a8;font-style:italic;line-height:1.5;margin-top:10px}
+  .idcard{background:#fff;border-radius:14px;padding:14px;margin-bottom:13px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .idtop{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+  .idt2{flex:1}
+  .nm2{font-size:16px;font-weight:800;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .vchip{font-size:8.5px;font-weight:800;color:#1a5c38;background:#eef7f1;border-radius:5px;padding:2px 6px}
+  .vp{font-size:11px;font-weight:700;color:var(--tint);margin-top:3px}
+  .stats{display:flex;gap:8px;border-top:1px solid #f0f0f3;padding-top:12px}
+  .stat{flex:1;text-align:center}
+  .sv{font-size:15px;font-weight:800;color:#18181b}
+  .sv.tier{color:#92400e;font-size:13px}.sv.earn{color:#166534;font-size:13px}
+  .slb{font-size:8.5px;color:#9a9aa0;margin-top:2px}
+  .logout{font-size:12.5px;font-weight:700;color:#e02424;text-align:center;background:#fff;border-radius:10px;padding:11px;margin-top:8px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+
+  @media (max-width:680px){
+    .frames{gap:20px}
+    .fcol{flex:none;max-width:none;width:100%}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="hd">
+    <div class="t">Profile-menu hub</div>
+    <div class="s">The 5th-tab nav spine, the last main-screen gap. The thin identity becomes an achievement header (rating, tier, total earned), the good grouped nav stays, with Refer &amp; earn back, FAQs deduped, and a Settings entry. For Hafiz.</div>
+  </div>
+
+  <div class="band"><b>The angle:</b> the hub is where the tutor sees themselves, so it leads with recognition by ACHIEVEMENT (good rating + tier badge + total earned, founder's definition), not a "complete your profile" bar. The wayfinding stays grouped and fast. No items cut.</div>
+
+  <div class="block">
+    <div class="sh">Thin identity &#8594; achievement header</div>
+    <div class="sd">Same grouped nav, a stronger top. "View profile" folds in the old "Tutor Profile" link. Refer &amp; earn returns, FAQs is deduped to one, a Settings entry is added.</div>
+    <div class="frames">
+      <div class="fcol">
+        <div class="cap b">Before &middot; live</div>
+        <div class="ph">
+          <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+          <div class="hbar">Profile</div>
+          <div class="idthin">
+            <div class="av"></div>
+            <div class="idt"><div class="vb">&#10003; Verified Tutor</div><div class="nm">Aisha Rahman</div><div class="em">aisha.rahman@email.com</div></div>
+          </div>
+          <div class="faqban">&#10067; FAQs</div>
+          <div class="sec">Dashboard</div>
+          <div class="mr"><span class="mi">&#128100;</span> Tutor Profile <span class="ch">&#8250;</span></div>
+          <div class="mr"><span class="mi">&#128276;</span> Notification <span class="ch">&#8250;</span></div>
+          <div class="mr"><span class="mi">&#128181;</span> Payment <span class="ch">&#8250;</span></div>
+          <div class="sec">Support</div>
+          <div class="mr"><span class="mi">&#10067;</span> FAQs <span class="ch">&#8250;</span></div>
+          <div class="mr"><span class="mi">&#128737;</span> Help Centre <span class="ch">&#8250;</span></div>
+          <div class="bnote">Thin identity (name + email only). FAQs twice (banner + Support). No earnings, tier, settings, or referral.</div>
+        </div>
+      </div>
+      <div class="fcol">
+        <div class="cap a">After &middot; achievement header</div>
+        <div class="ph">
+          <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+          <div class="hbar">Profile</div>
+          <div class="idcard">
+            <div class="idtop"><div class="av big"></div><div class="idt2"><div class="nm2">Aisha Rahman <span class="vchip">&#10003; Verified</span></div><div class="vp">View profile &#8250;</div></div></div>
+            <div class="stats">
+              <div class="stat"><div class="sv">&#9733; 4.9</div><div class="slb">rating</div></div>
+              <div class="stat"><div class="sv tier">All-star</div><div class="slb">tier</div></div>
+              <div class="stat"><div class="sv earn">RM 4,200</div><div class="slb">total earned</div></div>
+            </div>
+          </div>
+          <div class="sec">Earnings</div>
+          <div class="mr"><span class="mi">&#128181;</span> Payment <span class="ch">&#8250;</span></div>
+          <div class="mr"><span class="mi">&#127873;</span> Refer &amp; earn <span class="new">new</span><span class="ch">&#8250;</span></div>
+          <div class="sec">Support</div>
+          <div class="mr"><span class="mi">&#128737;</span> Help Centre <span class="ch">&#8250;</span></div>
+          <div class="mr"><span class="mi">&#10067;</span> FAQs <span class="ch">&#8250;</span></div>
+          <div class="sec">Settings &amp; about</div>
+          <div class="mr"><span class="mi">&#9881;</span> Preferences <span class="new">new</span><span class="ch">&#8250;</span></div>
+          <div class="mr"><span class="mi">&#128196;</span> Terms &amp; Privacy <span class="ch">&#8250;</span></div>
+          <div class="logout">Log out</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="nh">Notes for Hafiz</div>
+    <div class="note"><b>The header is the change.</b> Recognition by achievement: rating, tier badge, and total earned. "View profile" folds in the old "Tutor Profile" menu link. This is the hub where a tutor sees themselves, so it leads with what they have earned and become, honest, no "complete your profile" pressure.</div>
+    <div class="note"><b>Wayfinding kept.</b> The 5 grouped sections stay (good as-is). Refer &amp; earn is re-added (routable in code already), FAQs is deduped to ONE entry, and a Settings (Preferences) entry is added.</div>
+    <div class="note dep"><b>Backend deps.</b> rating + tier (`profile_strength_tier`, exists) on the menu's identity fetch, and a LIFETIME total-earned field (the Home only computes monthly `cumulative_commission`). The Settings/Preferences screen itself is a follow-up; this wave adds the entry.</div>
+    <div class="note"><b>No items cut.</b> All 12 destinations stay; the only removal is the duplicate FAQs banner.</div>
+  </div>
+
+  <div class="ft">Sifututor redesign &middot; Profile-menu hub &middot; 25 June 2026 &middot; design mockup, not the live app</div>
+</div>
+</body>
+</html>

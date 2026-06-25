@@ -110,9 +110,9 @@
         <div class="tsum"><span class="td">Tue, 24 Jun</span><span class="tpill">3 classes &middot; RM54</span></div>
         <div class="week"><div class="wd"><span>M</span><i></i></div><div class="wd today"><span>T</span><i class="dot"></i></div><div class="wd"><span>W</span><i class="dot"></i></div><div class="wd"><span>T</span><i></i></div><div class="wd"><span>F</span><i class="dot"></i></div><div class="wd"><span>S</span><i class="dot"></i></div><div class="wd"><span>S</span><i></i></div></div>
         <div class="seclbl">Today's classes</div>
-        <div class="ac"><div class="act"><b>2:00pm</b><span class="earn">RM18</span></div><div class="acs">Adam Lim &middot; Form 4 Maths</div><div class="acm">&#128205; PJ</div></div>
-        <div class="ac"><div class="act"><b>4:00pm</b><span class="earn">RM18</span></div><div class="acs">Sarah Tan &middot; Add Maths</div><div class="acm">&#128187; Online</div></div>
-        <div class="ac"><div class="act"><b>7:00pm</b><span class="earn">RM18</span></div><div class="acs">Mei Ling &middot; Add Maths</div><div class="acm">&#128187; Online</div></div>
+        <div class="ac"><div class="act"><b>2:00-3:00pm</b><span class="earn">RM18</span></div><div class="acs">Adam Lim &middot; Form 4 Maths</div><div class="acm">&#128205; PJ &middot; <span style="color:#1f7a44;font-weight:700">scheduled</span></div></div>
+        <div class="ac"><div class="act"><b>4:00-5:00pm</b><span class="earn">RM18</span></div><div class="acs">Sarah Tan &middot; Add Maths</div><div class="acm">&#128187; Online &middot; <span style="color:#1f7a44;font-weight:700">scheduled</span></div></div>
+        <div class="ac"><div class="act"><b>7:00-8:00pm</b><span class="earn">RM18</span></div><div class="acs">Mei Ling &middot; Add Maths</div><div class="acm">&#128187; Online &middot; <span style="color:#92400e;font-weight:700">pending</span></div></div>
         <div class="sp"></div><div class="wkfoot">This week &middot; 12 classes &middot; <b>RM216</b></div><div class="home"></div>
       </div>
     </div>
@@ -186,7 +186,7 @@
 
   <div class="sech">Notes for Hafiz</div>
   <div class="note2 good"><b>Left alone on purpose:</b> the active-class flow (clock-in with photo proof, the timer, clock-out, crash-recovery) is already solid. We do not touch what works.</div>
-  <div class="note2 spec"><b>Backend dependencies:</b> (1) the per-class EARNING in the class-list payload (shared by the schedule + earnings, build once); (2) the payout DATE + method on the earnings endpoint; (3) a lighter report INPUT (a quick read + a note as the default), with ALL current report fields PRESERVED, the parent report and admin analytics read every one, so any consolidation needs a backend migration + parent-app tests, do not drop fields; (4) cross-session PROGRESS per student.</div>
+  <div class="note2 spec"><b>Backend dependencies:</b> (1) the per-class EARNING on the schedule, the amount exists in the earnings data but not the class-list payload, and a future class has none yet, so show rate &times; duration on upcoming classes and the stored amount on taught ones (the rate itself is UI-derivable, amount &divide; duration, no backend change); (2) the payout DATE + method, plus the "today" and "this week" totals (aggregations), on the earnings endpoint; (3) a lighter report INPUT (a quick read + a note as the default), with ALL current report fields PRESERVED, the parent report and admin analytics read every one, so any consolidation needs a backend migration + parent-app tests, do not drop fields; (4) cross-session PROGRESS per student.</div>
   <div class="note2 flag"><b>Open questions:</b> is the rate always flat RM18, or does it vary by level/subject; the payout cadence (monthly on the 1st?); whether the lighter report keeps any of the old structured fields for internal analytics.</div>
 
   <div class="foot">Scope: the tutor's delivery loop, teach, report, get paid. The schedule cockpit and earnings are the retention levers; reports lose their friction; the solid clock-in/out stays. This closes the tutor-side funnel after Activate, the profile, and winning a job.</div>

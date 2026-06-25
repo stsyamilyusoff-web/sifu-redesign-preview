@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sifututor &middot; Home (Engage)</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{background:#f6f7fb;margin:0}
+  body{font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;padding:26px 16px;--tint:#243cb3}
+  .doc{max-width:820px;margin:0 auto}
+  .hd{background:#243cb3;color:#fff;border-radius:18px;padding:26px}
+  .hd .t{font-size:24px;font-weight:800;letter-spacing:-.3px}
+  .hd .s{font-size:13px;opacity:.93;margin-top:8px;line-height:1.6}
+  .band{font-size:12px;color:#3730a3;background:#eef1fb;border:1px solid rgba(36,60,179,.2);border-radius:12px;padding:13px 15px;margin:14px 0 4px;line-height:1.55}
+  .block{margin-top:24px}
+  .sh{font-size:17px;font-weight:800}
+  .sd{font-size:12.5px;color:#52525b;margin:5px 0 14px;line-height:1.55}
+  .frames{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .fcol{flex:1;min-width:236px;max-width:264px}
+  .cap{font-size:9.5px;font-weight:800;text-align:center;padding:4px;border-radius:6px;margin-bottom:8px}
+  .cap.b{background:#f1f1f3;color:#71717a}.cap.a{background:#e6eaf9;color:var(--tint)}
+  .notes{margin-top:26px;background:#fff;border:1px solid #e6e6ea;border-radius:14px;padding:20px}
+  .nh{font-size:14px;font-weight:800;margin-bottom:12px}
+  .note{font-size:12px;color:#3f3f46;line-height:1.6;padding:10px 0;border-top:1px solid #f0f0f3}
+  .note:first-of-type{border-top:none}.note b{color:#18181b}
+  .note.dep{background:#fff7e6;border:1px solid #f3d98a;border-radius:10px;padding:12px 14px;color:#7c4a03}.note.dep b{color:#7c4a03}
+  .ft{font-size:11px;color:#9a9aa0;text-align:center;margin:22px 0 4px}
+
+  .ph{border-radius:22px;padding:12px 12px 9px;width:100%;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.1);background:#F5F7FB}
+  .sb{display:flex;justify-content:space-between;font-size:8.5px;font-weight:700;margin-bottom:10px}
+  .home{flex-shrink:0;width:36%;height:4px;border-radius:99px;background:rgba(0,0,0,.2);margin:11px auto 0}
+  .hrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+  .hw{font-size:12px;color:#71717a}.hn{font-size:18px;font-weight:800}.hn2{font-size:11px;color:#71717a;margin-top:2px}
+  .hicons{display:flex;align-items:center;gap:10px}
+  .bell{font-size:16px;position:relative}.bell i{position:absolute;top:-4px;right:-5px;font-size:8px;font-weight:800;font-style:normal;color:#fff;background:#e02424;border-radius:99px;padding:0 4px}
+  .av{width:30px;height:30px;border-radius:99px;background:linear-gradient(135deg,#c9b8a8,#3a3a3a)}
+
+  /* before: metrics grid */
+  .msrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .ms{font-size:17px;font-weight:800}.mo{font-size:10px;font-weight:600;background:#fff;border-radius:8px;padding:5px 9px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px}
+  .mc{background:#fff;border-radius:13px;padding:13px;min-height:72px}
+  .mc.big{background:#243cb3;color:#fff}
+  .mct{font-size:11px;opacity:.8}.mcv{font-size:17px;font-weight:800;margin-top:8px}.mc.big .mct{color:#fff}
+  .reqrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .rqt{font-size:15px;font-weight:800}.sa{font-size:11px;font-weight:700;color:var(--tint)}
+  .jcard{background:#fff;border-radius:13px;padding:13px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+  .jc1{font-size:13px;display:flex;align-items:center;gap:6px}.jc1 b{font-size:15px}.jmode{margin-left:auto;font-size:10px;font-weight:700;background:#18181b;color:#fff;border-radius:999px;padding:4px 10px}
+  .jc2{display:flex;justify-content:space-between;margin-top:10px}.jc2 span{font-size:11px;color:#52525b}
+  .bnote{font-size:9px;color:#a0a0a8;font-style:italic;line-height:1.5;margin-top:11px}
+
+  /* after: supportive coach */
+  .stand{display:flex;align-items:center;gap:7px;background:#fff;border-radius:11px;padding:10px 12px;margin-bottom:11px;box-shadow:0 1px 2px rgba(0,0,0,.04);font-size:11px;font-weight:600;flex-wrap:wrap}
+  .st b{color:#18181b}.st{color:#3f3f46}.stv{color:#1a5c38;font-weight:800}.sdot{color:#c8c8d0}
+  .month{background:#fff;border-radius:14px;padding:14px;margin-bottom:11px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+  .mtop{display:flex;justify-content:space-between;align-items:center}
+  .mlbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#9a9aa0}.mchev{color:#c0c0c8;font-size:16px}
+  .mearn{font-size:25px;font-weight:800;color:#166534;letter-spacing:-.5px;margin-top:5px}
+  .msub{font-size:10.5px;color:#71717a;margin-top:3px}
+  .mdiv{height:1px;background:#f0f0f3;margin:12px 0 11px}
+  .goalt{display:flex;justify-content:space-between;font-size:12px;font-weight:700}.goaln{color:var(--tint)}
+  .gbar{height:7px;background:#eef0f4;border-radius:99px;margin:9px 0 8px;position:relative}.gbar i{position:absolute;left:0;top:0;height:100%;background:#1f7a44;border-radius:99px}
+  .goals{font-size:10.5px;color:#52525b}
+  .welcard{background:#eef7f1;border:1px solid #cde7d8;border-radius:13px;padding:13px;margin-bottom:11px}
+  .welt{font-size:13.5px;font-weight:800;color:#1a5c38}.wels{font-size:10.5px;color:#3f6b50;line-height:1.5;margin-top:4px}
+  .drive{background:linear-gradient(135deg,#243cb3,#3651d4);color:#fff;border-radius:13px;padding:13px;margin-bottom:11px;box-shadow:0 3px 10px rgba(36,60,179,.28)}
+  .drow{display:flex;justify-content:space-between;align-items:center}
+  .dt{font-size:14px;font-weight:800}.dcta{font-size:11.5px;font-weight:800;background:rgba(255,255,255,.2);border-radius:999px;padding:5px 11px}
+  .dsub{font-size:10.5px;opacity:.9;margin-top:5px}
+  .seclbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#9a9aa0;margin:2px 0 7px}
+  .trow{display:flex;align-items:center;gap:10px;background:#fff;border-radius:12px;padding:11px;margin-bottom:8px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .trow.soon{border:1px solid #cdd7f5;background:#fbfcff}
+  .tic{font-size:17px;width:24px;text-align:center;flex-shrink:0}
+  .tbody{flex:1;min-width:0}.tt{font-size:12.5px;font-weight:700}.tts{font-size:10px;color:#71717a;margin-top:1px}
+  .tcta{font-size:11px;font-weight:800;color:#fff;background:#16A34A;border-radius:999px;padding:6px 12px;flex-shrink:0}
+  .tchev{font-size:17px;color:#c0c0c8;flex-shrink:0}
+  .tips{background:#fff;border-radius:12px;padding:12px 13px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .tip{display:flex;align-items:center;gap:9px;font-size:11.5px;color:#3f3f46;padding:5px 0}
+  .tn{width:19px;height:19px;border-radius:99px;background:#eef1fb;color:var(--tint);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="hd">
+    <div class="t">Home (Engage)</div>
+    <div class="s">The daily landing, re-pivoted from a passive metrics dashboard to a supportive coach: assurance, motivation, drive, confidence. Grounded in Grab (clean + glanceable) and Uber (goals + progress, minus the manipulation) and gig-worker research. For Hafiz.</div>
+  </div>
+
+  <div class="band"><b>The angle:</b> a tutor opening the app needs to feel they belong (recognition), see a reason to act (a goal), and know the next step (the matches). Earned earnings from verified sessions stay as the reward; projected income is left out. The screen adapts to a new vs an established tutor.</div>
+
+  <!-- S1: before vs established -->
+  <div class="block">
+    <div class="sh">1 &middot; Established tutor: metrics dashboard &#8594; supportive coach</div>
+    <div class="sd">The live Home leads with a 2x2 metric grid (cold, and all 0.00 for a new tutor). The re-pivot opens with recognition, then earned earnings + a weekly goal (motivation), then the matches as the drive.</div>
+    <div class="frames">
+      <div class="fcol">
+        <div class="cap b">Before &middot; live</div>
+        <div class="ph">
+          <div class="sb"><span>7:40</span><span>&#9646;&#9646;&#9646;</span></div>
+          <div class="hrow"><div><div class="hw">Welcome!</div><div class="hn">Test live</div></div><div class="hicons"><span class="bell">&#128276;<i>1</i></span><span class="av"></span></div></div>
+          <div class="msrow"><div class="ms">Monthly Summary</div><div class="mo">Jun 2026</div></div>
+          <div class="grid">
+            <div class="mc big"><div class="mct">Earnings</div><div class="mcv">RM 0.00</div></div>
+            <div class="mc"><div class="mct">Verified Hours</div><div class="mcv">0.00</div></div>
+            <div class="mc"><div class="mct">Active Student</div><div class="mcv">0</div></div>
+            <div class="mc"><div class="mct">Remaining Hours</div><div class="mcv">0.00</div></div>
+          </div>
+          <div class="reqrow"><span class="rqt">Requests</span><span class="sa">See All</span></div>
+          <div class="jcard"><div class="jc1">Commission <b>RM94.50</b><span class="jmode">Online &#8594;</span></div><div class="jc2"><span>Science</span><span>Tamparuli</span><span>Form 1-3</span></div></div>
+          <div class="bnote">Metrics first (all 0.00 for a new tutor); the Requests funnel sits below.</div>
+        </div>
+      </div>
+      <div class="fcol">
+        <div class="cap a">After &middot; established</div>
+        <div class="ph">
+          <div class="sb"><span>7:40</span><span>&#9646;&#9646;&#9646;</span></div>
+          <div class="hrow"><div><div class="hn">Morning, Aisha</div><div class="hn2">Tuesday, 25 June</div></div><div class="hicons"><span class="bell">&#128276;<i>1</i></span><span class="av"></span></div></div>
+          <div class="stand"><span class="st"><b>4.9</b>&#9733;</span><span class="sdot">&middot;</span><span class="st">24 classes taught</span><span class="sdot">&middot;</span><span class="stv">&#10003; Verified</span></div>
+          <div class="month">
+            <div class="mtop"><div class="mlbl">Earned this month</div><div class="mchev">&#8250;</div></div>
+            <div class="mearn">RM 480.00</div>
+            <div class="msub">from 18 verified hours &middot; 5 students</div>
+            <div class="mdiv"></div>
+            <div class="goalt"><span>This week</span><span class="goaln">3 of 5 classes</span></div>
+            <div class="gbar"><i style="width:60%"></i></div>
+            <div class="goals">Going well. 8 parents have chosen you.</div>
+          </div>
+          <div class="drive"><div class="drow"><div class="dt">3 new requests match you</div><span class="dcta">View &#8594;</span></div><div class="dsub">Maths 2 &middot; Physics 1 &middot; in Kuala Lumpur</div></div>
+          <div class="seclbl">Today</div>
+          <div class="trow soon"><span class="tic">&#128336;</span><div class="tbody"><div class="tt">Class with Adam &middot; 8:00 PM</div><div class="tts">Maths &middot; Form 4 &middot; online</div></div><span class="tcta">Clock in</span></div>
+          <div class="trow"><span class="tic">&#128221;</span><div class="tbody"><div class="tt">1 evaluation report due</div><div class="tts">Adam's first class</div></div><span class="tchev">&#8250;</span></div>
+          <div class="home"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S2: new tutor -->
+  <div class="block">
+    <div class="sh">2 &middot; New tutor (just verified)</div>
+    <div class="sd">No earnings, no track record. So Home leads with assurance ("Verified, your profile is live") and encouragement ("your first class is one step away"), never an empty RM0 grid. The matches are the first opportunity.</div>
+    <div class="frames">
+      <div class="fcol">
+        <div class="cap a">After &middot; new tutor</div>
+        <div class="ph">
+          <div class="sb"><span>7:40</span><span>&#9646;&#9646;&#9646;</span></div>
+          <div class="hrow"><div><div class="hn">Welcome, Aisha</div><div class="hn2">Let's get you started</div></div><div class="hicons"><span class="bell">&#128276;</span><span class="av"></span></div></div>
+          <div class="stand"><span class="stv">&#10003; Verified</span><span class="sdot">&middot;</span><span class="st">Your profile is live to parents</span></div>
+          <div class="welcard"><div class="welt">Your first class is one step away</div><div class="wels">Parents are looking now. Apply to a request that fits you, and your note helps you stand out.</div></div>
+          <div class="drive"><div class="drow"><div class="dt">3 requests match you</div><span class="dcta">View &#8594;</span></div><div class="dsub">Maths 2 &middot; Physics 1 &middot; near you</div></div>
+          <div class="tips">
+            <div class="tip"><span class="tn">1</span> Apply to a matching request</div>
+            <div class="tip"><span class="tn">2</span> A parent reviews and picks you</div>
+            <div class="tip"><span class="tn">3</span> Teach your first class</div>
+          </div>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="fcol" style="display:flex;align-items:center">
+        <div style="font-size:12px;color:#52525b;line-height:1.65">
+          <b>Why two states.</b> A dashboard that leads with RM0 and a 0 rating discourages the exact tutor we most need to activate. The new-tutor Home swaps recognition-of-the-past for assurance + a clear first step, then hands the established treatment over the moment they have a class and earnings.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="notes">
+    <div class="nh">Notes for Hafiz</div>
+    <div class="note"><b>The angle.</b> Home is the daily driver of applications (the North Star). It opens with the four things a worker needs: assurance (recognition), motivation (a goal), drive (the matches), confidence (a warm, personal greeting). Grounded in how Grab and Uber driver Homes work.</div>
+    <div class="note"><b>Earned, not projected.</b> "RM480 earned this month" is real commission from verified sessions (already computed as <code>cumulative_commission</code>), shown as the reward for work done. We do NOT show speculative "up to RM X if you win" pressure.</div>
+    <div class="note"><b>Tenure-adaptive.</b> Established leads with standing + earned earnings + the weekly goal. New leads with "Verified, ready" + a first-class nudge, never an empty RM0 grid.</div>
+    <div class="note dep"><b>Backend deps.</b> The standing fields (rating, classes-taught, parents-chosen), the weekly-goal count, and <code>pending_reports_count</code> + <code>pending_approvals_count</code> for "what you owe". The matches count + subjects already come from <code>demand-summary</code>; earnings + verified hours already come from <code>home-data</code>.</div>
+    <div class="note"><b>Honest + neutral.</b> No fake streaks, no manufactured urgency, no income-targeting pressure. Adopt the goal-and-recognition mechanic from the best gig apps, not their manipulation.</div>
+  </div>
+
+  <div class="ft">Sifututor redesign &middot; Home (Engage) &middot; 25 June 2026 &middot; design mockup, not the live app</div>
+</div>
+</body>
+</html>

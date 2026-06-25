@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Class reports · the evaluation report</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{background:#fff}
+  body{margin:0;padding:24px 16px;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;--tint:#243cb3}
+  .doc{max-width:860px;margin:0 auto}
+  .head{background:#243cb3;color:#fff;border-radius:16px;padding:24px 26px}
+  .head .t{font-size:23px;font-weight:800;letter-spacing:-.3px}
+  .head .s{font-size:12.5px;opacity:.92;margin-top:6px;line-height:1.55}
+  .intro{background:#eef1fb;border:1px solid rgba(36,60,179,.2);border-radius:13px;padding:16px 20px;margin:16px 0 8px;font-size:12.5px;line-height:1.6;color:#3a3a52}.intro b{color:#243cb3}
+  .sech{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--tint);margin:30px 0 4px}
+  .secs{font-size:12.5px;color:#52525b;margin-bottom:14px;line-height:1.55}
+  .pair{display:flex;gap:16px;align-items:flex-start}
+  .col{flex:1;min-width:0}
+  .cl{font-size:10px;font-weight:800;text-align:center;padding:4px;border-radius:6px;margin-bottom:8px}
+  .cl.b{background:#f1f1f3;color:#71717a}.cl.a{background:#e6eaf9;color:var(--tint)}
+  .ph{border-radius:24px;padding:13px 12px 9px;width:256px;max-width:100%;margin:0 auto;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+  .ph.bf{background:#fff;border:1px solid #e2e2e6}.ph.af{background:#F2F2F7}
+  .sb{display:flex;justify-content:space-between;font-size:8.5px;font-weight:700;margin-bottom:10px}
+  .home{flex-shrink:0;width:36%;height:4px;border-radius:99px;background:rgba(0,0,0,.2);margin:11px auto 0}
+  .muted{font-size:9px;color:#b0b0b6;font-style:italic;line-height:1.5;margin-top:6px}
+  /* parent report */
+  .bt{font-size:16px;font-weight:800}.bmeta{font-size:10px;color:#9a9aa0;margin:2px 0 12px}
+  .qb{background:#f6f6f8;border-radius:8px;padding:9px 10px;margin-bottom:7px;font-size:10px;color:#52525b;line-height:1.45}.qb b{color:#18181b;font-size:10.5px}
+  .hdr{font-size:18px;font-weight:800}
+  .hsub{font-size:10px;color:#71717a;margin:3px 0 12px}.vb{color:#1f7a44;font-weight:700}
+  .warm{font-size:11.5px;color:#3f3f46;line-height:1.55;font-style:italic;background:#fff;border-radius:10px;padding:11px;box-shadow:0 1px 2px rgba(0,0,0,.04);margin-bottom:11px}
+  .sec{background:#fff;border-radius:10px;padding:11px;margin-bottom:9px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .sl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--tint);margin-bottom:6px}
+  .sv{font-size:11px;color:#3f3f46;line-height:1.5}
+  .bl{font-size:10.5px;color:#3f3f46;line-height:1.45;margin-bottom:5px;display:flex;gap:6px}
+  .ok{color:#1f7a44;font-weight:800}.dot{color:var(--tint);font-weight:800}
+  .score{display:flex;align-items:center;justify-content:space-between;background:#eef1fb;border-radius:9px;padding:9px 12px;margin-top:8px}
+  .scn{font-size:11px;font-weight:800;color:#243cb3}.scd2{font-size:9px;color:#71717a}
+  .scv{font-size:24px;font-weight:800;color:#243cb3}.scv span{font-size:12px;color:#9aa0c0}
+  .means{font-size:11px;color:#18181b;line-height:1.55;background:#eef7f1;border-radius:10px;padding:11px;margin-bottom:9px;font-weight:500}
+  .chk{font-size:10px;color:#1a5c38;font-weight:700;background:#eef7f1;border-radius:7px;padding:8px;margin-top:7px}
+  .closeln{font-size:11px;color:#3f3f46;font-style:italic;text-align:center;margin:2px 0 11px;line-height:1.5}
+  .rate{background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .rl{font-size:12px;font-weight:800;text-align:center;margin-bottom:8px}
+  .stars{font-size:26px;color:#f5a623;text-align:center;letter-spacing:6px;margin-bottom:10px}
+  .cta{background:var(--tint);color:#fff;text-align:center;font-size:13.5px;font-weight:700;padding:12px;border-radius:999px}
+  .rnote{font-size:9px;color:#9a9aa0;text-align:center;margin-top:7px}
+  /* tutor input */
+  .dd{border:1px solid #cfcfd4;border-radius:8px;padding:12px;font-size:11px;color:#9a9aa0;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+  .fld{background:#fff;border-radius:10px;padding:10px 11px;margin-bottom:8px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .fl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--tint);margin-bottom:7px}
+  .seg{display:flex;background:#eef0f4;border-radius:8px;padding:3px;gap:2px}
+  .seg span{flex:1;text-align:center;font-size:9px;font-weight:700;color:#71717a;padding:7px 2px;border-radius:6px}.seg .on{background:#243cb3;color:#fff}
+  .map{font-size:9.5px;color:#52525b;font-style:italic;margin-top:6px;line-height:1.4}
+  .more{font-size:9.5px;color:#71717a;text-align:center;margin:2px 0 8px}.more span{color:#9a9aa0}
+  .slider{display:flex;align-items:center;gap:9px}
+  .track{flex:1;height:5px;background:#e0e0e6;border-radius:99px;position:relative}.track i{display:block;height:100%;background:#243cb3;border-radius:99px}.track b{position:absolute;left:60%;top:50%;transform:translate(-50%,-50%);width:15px;height:15px;border-radius:99px;background:#243cb3;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+  .sval{font-size:12px;font-weight:800;color:#243cb3}
+  .prompt{font-size:10px;color:#243cb3;font-weight:600;margin-bottom:5px}
+  .ta{font-size:10px;color:#3f3f46;line-height:1.45;background:#f6f6f8;border-radius:7px;padding:8px}
+  .prev{background:#fff;border:1.5px solid var(--tint);color:var(--tint);border-radius:9px;padding:10px;text-align:center;font-size:11px;font-weight:700;margin-bottom:9px}
+  .note2{font-size:11.5px;line-height:1.55;color:#52525b;border-radius:9px;padding:11px 14px;margin-bottom:9px}
+  .note2.flag{background:#eef1fb;border:1px solid rgba(36,60,179,.22)}
+  .note2.spec{background:#fff7e6;border:1px solid rgba(245,158,11,.3)}
+  .note2.good{background:#eef7f1;border:1px solid rgba(31,122,68,.3)}
+  .foot{margin-top:10px;font-size:13px;font-weight:700;color:#fff;background:#475569;border-radius:12px;padding:14px 18px;line-height:1.5}
+  @media (max-width:680px){ .pair{flex-direction:column;gap:24px} .ph{width:300px} .head .t{font-size:20px} }
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="head"><div class="t">Class reports &middot; the evaluation report</div><div class="s">The evaluation report runs once, after the first class. It is the parent's first proof and the foundation of their decision to CONTINUE, so this enhances it as a parent-facing TRUST artifact, while making the tutor's input fast. Same data, no cuts. For Hafiz &middot; 24 June 2026.</div></div>
+
+  <div class="intro">Grounded in how the best first-assessment reports earn a second visit (GoStudent, Preply, a coach's intake, a clinic's first-visit summary): <b>mirror the child back, give an honest baseline you will measure against, then a personal plan with a checkpoint.</b> The 1-to-10 score becomes a <b>starting point, not a grade</b>. The evaluation report is a ONE-TIME baseline, so it carries no progress trend (that belongs to the recurring progress report, a separate brief).</div>
+
+  <div class="sech">Face 1 &middot; Parent-facing report (the trust artifact)</div>
+  <div class="secs">Today the parent receives raw dropdown sentences and a bare score. The redesign turns the same fields into a clear, personal, forward-looking report that ends on a neutral rating.</div>
+  <div class="pair">
+    <div class="col">
+      <div class="cl b">BEFORE &middot; raw answers</div>
+      <div class="ph bf">
+        <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+        <div class="bt">Evaluation Report</div><div class="bmeta">Adam Lim &middot; Maths &middot; 24 Jun</div>
+        <div class="qb"><b>Knowledge</b><br>The student was able to remember most of the basic concepts with minimal errors.</div>
+        <div class="qb"><b>Understanding</b><br>The student is able to apply concepts well and solve certain questions correctly.</div>
+        <div class="qb"><b>Critical Thinking</b><br>The student can answer the majority of questions with a little help.</div>
+        <div class="qb"><b>Observation</b><br>Students learn best by listening and receiving verbal instruction.</div>
+        <div class="qb"><b>Additional Assessment</b><br>6</div>
+        <div class="muted">Raw sentences + a bare "6". No warmth, no baseline framing, no plain meaning, no reason to continue.</div>
+        <div class="home"></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="cl a">AFTER &middot; the first-class trust report</div>
+      <div class="ph af">
+        <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+        <div class="hdr">Adam's first class</div>
+        <div class="hsub">Maths &middot; with Aisha Rahman <span class="vb">&#10003; Verified</span> &middot; 24 Jun</div>
+        <div class="warm">"It was lovely meeting Adam today. He settled in quickly and was not shy to try, even on the harder questions."</div>
+        <div class="sec"><div class="sl">How Adam learns best</div><div class="sv">He learns best talking an idea out loud and working through real examples.</div></div>
+        <div class="sec"><div class="sl">Where Adam is starting</div>
+          <div class="bl"><span class="ok">&#10003;</span> Knowledge: the basics of fractions are secure.</div>
+          <div class="bl"><span class="dot">&middot;</span> Understanding: follows a method once shown, building to independent.</div>
+          <div class="bl"><span class="dot">&middot;</span> Critical thinking: starting to ask "why", a great sign.</div>
+          <div class="score"><div><div class="scn">Starting point today</div><div class="scd2">we will track this together</div></div><div class="scv">6<span>/10</span></div></div>
+        </div>
+        <div class="means">A solid base and the right attitude. The main thing to build is his confidence working on his own, and that is very fixable.</div>
+        <div class="sec"><div class="sl">Adam's plan</div>
+          <div class="bl"><span class="dot">1</span> Build independent problem-solving with guided practice.</div>
+          <div class="bl"><span class="dot">2</span> Use spoken explanations and worked examples.</div>
+          <div class="bl"><span class="dot">3</span> Revisit fractions until they are automatic.</div>
+          <div class="chk">By around lesson 4, I expect his 6 to start moving up, and I will show you.</div>
+        </div>
+        <div class="closeln">Looking forward to working with Adam. Message me anytime.</div>
+        <div class="rate"><div class="rl">How was Adam's first class?</div><div class="stars">&#9734; &#9734; &#9734; &#9734; &#9734;</div><div class="cta">Submit rating</div><div class="rnote">Your honest rating helps other parents choose.</div></div>
+        <div class="home"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sech">Face 2 &middot; Tutor input (fast + guided)</div>
+  <div class="secs">Today every read is a modal: open, scroll, pick, close, nine times. The redesign keeps the same fields but makes them inline, and guides the narrative that gives the report its personal voice.</div>
+  <div class="pair">
+    <div class="col">
+      <div class="cl b">BEFORE &middot; a modal per question</div>
+      <div class="ph bf">
+        <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+        <div class="bt">Evaluation Report</div><div class="bmeta">Adam Lim &middot; Maths</div>
+        <div class="dd">Knowledge <span>&#9662;</span></div>
+        <div class="dd">Understanding <span>&#9662;</span></div>
+        <div class="dd">Critical Thinking <span>&#9662;</span></div>
+        <div class="dd">Observation <span>&#9662;</span></div>
+        <div class="dd">Additional Assessment (1-10)</div>
+        <div class="dd">Teaching Plan</div>
+        <div class="muted">7 dropdowns, each a modal. ~9 fields, all modal. Slow, and it yields clinical raw text.</div>
+        <div class="home"></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="cl a">AFTER &middot; inline + guided</div>
+      <div class="ph af">
+        <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+        <div class="bt">Evaluation report</div><div class="bmeta">Adam &middot; Maths &middot; first class</div>
+        <div class="fld"><div class="fl">Knowledge</div><div class="seg"><span>Needs work</span><span>Developing</span><span class="on">Secure</span></div><div class="map">"Remembers most basics with minimal errors."</div></div>
+        <div class="fld"><div class="fl">Understanding</div><div class="seg"><span>Needs work</span><span class="on">Developing</span><span>Strong</span></div><div class="map">"Follows a method once shown, building to independent."</div></div>
+        <div class="more">Critical thinking &middot; Learning style &nbsp;<span>2 more, same inline taps</span></div>
+        <div class="fld"><div class="fl">Understanding score</div><div class="slider"><div class="track"><i style="width:60%"></i><b></b></div><span class="sval">6/10</span></div></div>
+        <div class="fld"><div class="fl">Your plan for Adam</div><div class="prompt">What will you focus on next, and why?</div><div class="ta">Build his confidence working independently, with guided practice and worked examples&hellip;</div></div>
+        <div class="prev">&#128065; Preview as the parent sees it &#8250;</div>
+        <div class="cta">Submit report</div>
+        <div class="home"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sech">Notes for Hafiz</div>
+  <div class="note2 good"><b>Why this matters:</b> the evaluation report is the parent's first proof and the foundation of the continue-decision. The redesign makes it a report a parent trusts and wants to act on, and ends it on the neutral post-class rating (which builds the tutor's proof, and a low score quietly flags a re-match, the same review loop from the parent wave).</div>
+  <div class="note2 spec"><b>Backend dependencies:</b> (1) render the parent-facing report (the plain layout from the stored answers + the inline level labels; the score shown as a baseline); (2) the rating, already flagged in the parent curated-choice wave. NO new report fields, all 9 are kept, required, and consumed.</div>
+  <div class="note2 flag"><b>Scope:</b> this is the EVALUATION report only (one-time, first class). The PROGRESS report (recurring, monthly) gets the same fast input PLUS carry-forward from last month and a progress trend, its own brief.</div>
+
+  <div class="foot">Same data the tutor already enters, reframed so the parent receives a clear, personal, forward-looking first-class report that earns the continue, and entered in a fraction of the taps. The trust artifact at the activation moment.</div>
+</div>
+</body>
+</html>

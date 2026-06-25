@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sifututor &middot; Progress report</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{background:#f6f7fb;margin:0}
+  body{font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;padding:26px 16px;--tint:#243cb3}
+  .doc{max-width:760px;margin:0 auto}
+  .hd{background:#243cb3;color:#fff;border-radius:18px;padding:26px}
+  .hd .t{font-size:24px;font-weight:800;letter-spacing:-.3px}
+  .hd .s{font-size:13px;opacity:.93;margin-top:8px;line-height:1.6}
+  .band{font-size:12px;color:#3730a3;background:#eef1fb;border:1px solid rgba(36,60,179,.2);border-radius:12px;padding:13px 15px;margin:14px 0 4px;line-height:1.55}
+  .block{margin-top:24px}
+  .sh{font-size:17px;font-weight:800}
+  .sd{font-size:12.5px;color:#52525b;margin:5px 0 14px;line-height:1.55}
+  .frames{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .fcol{flex:1;min-width:240px;max-width:262px}
+  .cap{font-size:9.5px;font-weight:800;text-align:center;padding:4px;border-radius:6px;margin-bottom:8px}
+  .cap.before{background:#f1f1f3;color:#71717a}
+  .cap.after{background:#e9f5ee;color:#1a5c38}
+  .cap.step{background:#eef1fb;color:var(--tint)}
+
+  .ph{border-radius:24px;padding:13px 12px 9px;width:100%;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.1);background:#F2F2F7}
+  .ph.bf{background:#fff;border:1px solid #e2e2e6}
+  .sb{display:flex;justify-content:space-between;font-size:8.5px;font-weight:700;margin-bottom:10px}
+  .home{flex-shrink:0;width:36%;height:4px;border-radius:99px;background:rgba(0,0,0,.2);margin:11px auto 0}
+
+  .bt{font-size:16px;font-weight:800}.bmeta{font-size:10px;color:#9a9aa0;margin:2px 0 12px}
+  .qb{background:#f6f6f8;border-radius:8px;padding:9px 10px;margin-bottom:7px;font-size:10px;color:#52525b;line-height:1.45}.qb b{color:#18181b}
+  .muted{font-size:9px;color:#b0b0b6;font-style:italic;line-height:1.5;margin-top:6px}
+
+  .hdr{font-size:18px;font-weight:800}.hsub{font-size:10px;color:#71717a;margin:3px 0 11px}.vb{color:#1f7a44;font-weight:700}
+  .luna{font-size:9.5px;color:#52525b;background:#f3eefe;border:1px solid #e0d4fb;border-radius:8px;padding:8px 10px;margin-bottom:11px;line-height:1.45}.lb{font-weight:800;color:#6b3fd1}
+  .narr{font-size:12px;color:#3f3f46;line-height:1.6;background:#fff;border-radius:11px;padding:13px;box-shadow:0 1px 2px rgba(0,0,0,.04);margin-bottom:10px}.narr b{color:#18181b}
+  .hl{font-size:10.5px;color:#1a5c38;font-weight:700;background:#eef7f1;border-radius:8px;padding:10px;text-align:center;margin-bottom:10px}.ok{color:#1f7a44}
+  .sec{background:#fff;border-radius:10px;padding:11px;margin-bottom:9px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .sl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--tint);margin-bottom:6px}
+  .gline{font-size:10.5px;color:#3f3f46;line-height:1.5;margin-bottom:3px}.gline b{color:#18181b}
+  .bl{font-size:10.5px;color:#3f3f46;line-height:1.5}
+  .chk{font-size:10px;color:#1a5c38;font-weight:700;background:#eef7f1;border-radius:7px;padding:8px;margin-top:8px}
+  .closeln{font-size:11px;color:#3f3f46;font-style:italic;text-align:center;margin:2px 0 11px;line-height:1.5}
+  .rate{background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .rl{font-size:12px;font-weight:800;text-align:center;margin-bottom:8px}
+  .stars{font-size:25px;color:#f5a623;text-align:center;letter-spacing:6px;margin-bottom:10px}
+  .cta{background:var(--tint);color:#fff;text-align:center;font-size:12.5px;font-weight:800;padding:12px;border-radius:999px}
+  .cta.send{background:#1f7a44}
+  .rnote{font-size:9px;color:#9a9aa0;text-align:center;margin-top:7px}
+
+  .th{font-size:16px;font-weight:800}.tsub{font-size:10px;color:#71717a;margin:3px 0 11px;line-height:1.45}
+  .carry{font-size:9.5px;color:#3730a3;background:#eef1fb;border:1px solid rgba(36,60,179,.18);border-radius:8px;padding:8px 10px;margin-bottom:11px;line-height:1.4;font-weight:600}
+  .frow{background:#fff;border-radius:10px;padding:9px 10px;margin-bottom:7px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .fl{font-size:10px;font-weight:700;color:#18181b;margin-bottom:7px}
+  .chg{font-size:8px;font-weight:800;color:#1a5c38;background:#e9f5ee;border-radius:5px;padding:1px 5px;margin-left:4px}
+  .seg{display:flex;background:#eef0f4;border-radius:7px;padding:2px;gap:2px}
+  .seg span{flex:1;text-align:center;font-size:8.5px;font-weight:600;color:#71717a;padding:5px 2px;border-radius:5px}
+  .seg span.on{background:#fff;color:#18181b;font-weight:800;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+  .seg span.on.hot{background:#1f7a44;color:#fff}
+  .score{display:flex;align-items:center;gap:8px}
+  .sv{font-size:18px;font-weight:800;color:#18181b}.was{font-size:9px;color:#9a9aa0}
+  .track{flex:1;height:7px;background:#eef0f4;border-radius:99px;position:relative}.track i{position:absolute;left:0;top:0;height:100%;background:#1f7a44;border-radius:99px}
+  .plan{background:#fff;border-radius:10px;padding:10px;margin:7px 0 11px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .ptext{font-size:10px;color:#3f3f46;line-height:1.5;margin-top:2px}.cur{color:var(--tint);font-weight:800}
+  .draft{font-size:11px;color:#3f3f46;line-height:1.6;background:#fff;border:1.5px dashed #c9bef0;border-radius:11px;padding:12px;position:relative;margin-bottom:10px}
+  .pencil{position:absolute;right:9px;bottom:7px;font-size:13px;color:#6b3fd1}
+  .also{font-size:9.5px;color:#71717a;background:#fff;border-radius:8px;padding:9px 10px;margin-bottom:11px;line-height:1.45;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .hold{font-size:8.5px;color:#9a9aa0;text-align:center;margin-top:7px}
+
+  .notes{margin-top:26px;background:#fff;border:1px solid #e6e6ea;border-radius:14px;padding:20px}
+  .nh{font-size:14px;font-weight:800;margin-bottom:12px}
+  .note{font-size:12px;color:#3f3f46;line-height:1.6;padding:10px 0;border-top:1px solid #f0f0f3}
+  .note:first-of-type{border-top:none}
+  .note b{color:#18181b}
+  .note.dep{background:#fff7e6;border:1px solid #f3d98a;border-radius:10px;padding:12px 14px;color:#7c4a03}
+  .note.dep b{color:#7c4a03}
+  .ft{font-size:11px;color:#9a9aa0;text-align:center;margin:22px 0 4px}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="hd">
+    <div class="t">Progress report</div>
+    <div class="s">The recurring trust artifact, after every 12 classes. Luna reads the tutor's reports and writes the parent a conclusive verdict; the tutor reviews before it sends. The teacher's input drops from 22 fields to a few edits. For Hafiz.</div>
+  </div>
+
+  <div class="band"><b>When:</b> every 12 completed classes (12, 24, 36), confirmed in code. NOT monthly. The evaluation report is the one-time baseline after class 1; this is the recurring movement after each block of 12.</div>
+
+  <!-- FACE 1 -->
+  <div class="block">
+    <div class="sh">1 &middot; What the parent sees</div>
+    <div class="sd">Today they get raw answers and a bare score. New: Luna reads all of the tutor's reports for the child and writes a conclusive verdict, reviewed by the tutor, with a compact supporting strip and the next-step plan.</div>
+    <div class="frames">
+      <div class="fcol">
+        <div class="cap before">Before &middot; raw answers</div>
+        <div class="ph bf">
+          <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+          <div class="bt">Progress Report</div><div class="bmeta">Adam Lim &middot; Maths</div>
+          <div class="qb"><b>Performance</b><br>Applies concepts well and solves most questions correctly.</div>
+          <div class="qb"><b>Attitude</b><br>Attends regularly, completes homework.</div>
+          <div class="qb"><b>Observation</b><br>Improving steadily; recommend continued practice.</div>
+          <div class="qb"><b>Understanding</b><br>8</div>
+          <div class="muted">Raw answers and a bare "8", no sense of whether that is up or down. The parent cannot see progress, which is the whole point.</div>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="fcol">
+        <div class="cap after">After &middot; Luna's verdict</div>
+        <div class="ph">
+          <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+          <div class="hdr">Adam's progress</div>
+          <div class="hsub">Maths &middot; with Aisha Rahman <span class="vb">&#10003;</span> &middot; after 24 classes</div>
+          <div class="luna"><span class="lb">&#10024; Written by Luna</span> from Aisha's 3 reports &middot; <b>reviewed by Aisha</b></div>
+          <div class="narr">Over his first 24 classes, Adam has moved from needing step-by-step guidance to solving most problems on his own. His sharpest gains are in <b>understanding</b> and <b>critical thinking</b>, the focus on spoken reasoning is clearly working. He has met the independence goal set in his first class and is ready for exam-style questions.</div>
+          <div class="hl"><span class="ok">&#10003;</span> Independence goal met &nbsp;&middot;&nbsp; Understanding 6 &#8594; 8</div>
+          <div class="sec"><div class="sl">Where he grew</div>
+            <div class="gline"><b>Biggest gains:</b> understanding, critical thinking</div>
+            <div class="gline"><b>Steady and strong:</b> knowledge, attitude</div>
+          </div>
+          <div class="sec"><div class="sl">Next 12 classes</div>
+            <div class="bl">Past-year exam questions under light time pressure, keeping the spoken-reasoning habit going.</div>
+            <div class="chk">Target: his 8 holds on harder questions by class 36.</div>
+          </div>
+          <div class="closeln">Really pleased with Adam's progress. Message me anytime.</div>
+          <div class="rate"><div class="rl">How is Adam's tutoring going?</div><div class="stars">&#9734; &#9734; &#9734; &#9734; &#9734;</div><div class="cta">Submit rating</div><div class="rnote">Your honest rating helps other parents choose.</div></div>
+          <div class="home"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FACE 2 -->
+  <div class="block">
+    <div class="sh">2 &middot; What the tutor does</div>
+    <div class="sd">Carry-forward pre-loads the last report so only changes need updating; then the tutor reviews Luna's draft and sends. The 22 fields become a few edits plus one review.</div>
+    <div class="frames">
+      <div class="fcol">
+        <div class="cap step">1 &middot; Fill, carried forward</div>
+        <div class="ph">
+          <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+          <div class="th">Progress report</div>
+          <div class="tsub">Adam Lim &middot; Maths &middot; after 24 classes</div>
+          <div class="carry">&#8635; Carried from his last report. Update only what changed.</div>
+          <div class="frow"><div class="fl">Knowledge</div><div class="seg"><span>Needs work</span><span>Developing</span><span class="on">Secure</span></div></div>
+          <div class="frow"><div class="fl">Understanding</div><div class="seg"><span>Needs work</span><span>Developing</span><span class="on">Secure</span></div></div>
+          <div class="frow"><div class="fl">Critical thinking <span class="chg">&#8593; updated</span></div><div class="seg"><span>Needs work</span><span>Developing</span><span class="on hot">Secure</span></div></div>
+          <div class="frow"><div class="fl">Attitude</div><div class="seg"><span>Needs work</span><span>Developing</span><span class="on">Secure</span></div></div>
+          <div class="frow"><div class="fl">Overall (1&#8211;10)</div><div class="score"><span class="sv">8</span><span class="was">was 7</span><div class="track"><i style="width:80%"></i></div></div></div>
+          <div class="plan"><div class="fl">Plan for the next 12 classes</div><div class="ptext">Move to past-year exam questions under light time pressure; keep the spoken-reasoning habit. <span class="cur">|</span></div></div>
+          <div class="cta">Next: review Luna's summary &#8594;</div>
+          <div class="home"></div>
+        </div>
+      </div>
+      <div class="fcol">
+        <div class="cap step">2 &middot; Review Luna's draft</div>
+        <div class="ph">
+          <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
+          <div class="th">Review before sending</div>
+          <div class="tsub">Luna wrote this for Adam's parent from your report. Edit anything, then send.</div>
+          <div class="luna"><span class="lb">&#10024; Luna's draft</span> &middot; editable</div>
+          <div class="draft">Over his first 24 classes, Adam has moved from needing step-by-step guidance to solving most problems on his own. His sharpest gains are in understanding and critical thinking, the focus on spoken reasoning is clearly working. He has met the independence goal set in his first class and is ready for exam-style questions.<span class="pencil">&#9998;</span></div>
+          <div class="also">The parent also sees: the highlight strip (Understanding 6 &#8594; 8) and your plan.</div>
+          <div class="cta send">Send to parent</div>
+          <div class="hold">Nothing is sent to the parent until you tap send.</div>
+          <div class="home"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="notes">
+    <div class="nh">Notes for Hafiz</div>
+    <div class="note dep"><b>Luna is not yet live.</b> The auto-drafted verdict depends on Luna shipping. Plan: ship the report, carry-forward, and rating now with the TUTOR writing the verdict; layer Luna's auto-draft in when it goes live (the review screen stays, only the draft's source changes). So this wave is not blocked, it ships in two stages.</div>
+    <div class="note"><b>Guardrail.</b> Luna drafts, the tutor reviews and can edit, then sends. The parent sees "reviewed by [tutor]". The verdict is never auto-sent, because it is the trust artifact.</div>
+    <div class="note"><b>Cadence.</b> Every 12 completed classes (12, 24, 36), grounded in the reminder job, not monthly. The trend runs across class milestones, baseline at class 1.</div>
+    <div class="note"><b>No fields cut.</b> All 22 report fields stay (consumed by the report and the admin portal). Luna's verdict is derived from them; carry-forward just pre-fills them.</div>
+    <div class="note"><b>The rating</b> reuses the parent curated-choice review loop, a low score quietly flags a re-match. Neutral wording, no leading.</div>
+    <div class="note"><b>Backend.</b> Luna summary endpoint (gated on Luna), carry-forward pre-fill, parent-report rendering, the rating. No new report fields.</div>
+  </div>
+
+  <div class="ft">Sifututor redesign &middot; progress report &middot; 25 June 2026 &middot; design mockup, not the live app</div>
+</div>
+</body>
+</html>

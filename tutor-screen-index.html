@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sifututor tutor app &middot; complete screen index</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{background:#f6f7fb;margin:0}
+  body{font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;padding:26px 16px;--tint:#243cb3}
+  .doc{max-width:960px;margin:0 auto}
+  .hd{background:#243cb3;color:#fff;border-radius:18px;padding:26px}
+  .hd .t{font-size:24px;font-weight:800;letter-spacing:-.3px}
+  .hd .s{font-size:13px;opacity:.93;margin-top:8px;line-height:1.6}
+  .counts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .cpill{font-size:11px;font-weight:700;border-radius:99px;padding:5px 12px;background:rgba(255,255,255,.16);color:#fff}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11.5px;color:#52525b;margin:16px 4px 6px;line-height:1.5}
+  .legend b{color:#18181b}
+  .lg{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:9px;height:9px;border-radius:99px;display:inline-block}
+  .cat{margin-top:22px}
+  .ch{display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:2px solid #e6e6ea;padding-bottom:7px;margin-bottom:10px}
+  .ct{font-size:16px;font-weight:800}
+  .ctab{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--tint);background:#eef1fb;border-radius:99px;padding:3px 9px}
+  .cnum{font-size:11.5px;color:#9a9aa0;font-weight:600}
+  .rows{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  @media (max-width:680px){ .rows{grid-template-columns:1fr} }
+  .row{display:flex;gap:9px;background:#fff;border:1px solid #e9e9ee;border-radius:10px;padding:9px 11px;align-items:flex-start}
+  .rb{flex:1;min-width:0}
+  .rn{font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .rd{font-size:11px;color:#6b6b73;line-height:1.45;margin-top:2px}
+  .pill{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;border-radius:99px;padding:2px 7px;white-space:nowrap}
+  .p-briefed{background:#e9f5ee;color:#1a5c38}
+  .p-floored{background:#eef1fb;color:#243cb3}
+  .p-baseline{background:#f1f1f4;color:#71717a}
+  .p-deprecated{background:#fff7ed;color:#9a3412}
+  .p-p0{background:#fee2e2;color:#b91c1c}
+  .note{font-size:11.5px;color:#3730a3;background:#eef1fb;border:1px solid rgba(36,60,179,.2);border-radius:10px;padding:11px 14px;margin-top:18px;line-height:1.55}
+  .ft{font-size:11px;color:#9a9aa0;text-align:center;margin:22px 0 4px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="hd">
+    <div class="t">Sifututor tutor app &middot; complete screen index</div>
+    <div class="s">Every screen in the tutor app (sifututor_tutor), categorized by the 5-tab spine and the tutor lifecycle. 93 screen files across 12 categories. Status reflects redesign coverage and the consistency-floor migration. For Hafiz.</div>
+    <div class="counts" id="counts"></div>
+  </div>
+
+  <div class="legend">
+    <span class="lg"><span class="dot" style="background:#1a5c38"></span><b>Briefed</b>: an approved redesign brief covers it</span>
+    <span class="lg"><span class="dot" style="background:#243cb3"></span><b>Floored</b>: consistency migration applied (committed)</span>
+    <span class="lg"><span class="dot" style="background:#71717a"></span><b>Baseline</b>: live, no redesign brief yet</span>
+    <span class="lg"><span class="dot" style="background:#9a3412"></span><b>Deprecated</b>: kept only as kill-switch fallback</span>
+    <span class="lg"><span class="dot" style="background:#b91c1c"></span><b>P0</b>: a critical bug was fixed here</span>
+  </div>
+
+  <div id="cats"></div>
+
+  <div class="note"><b>How to read this:</b> Floored is the new baseline (fonts, color tokens, 12px radius, one date format, no debug logs, rich empty states). Briefed screens additionally have an approved redesign mock waiting to be built. The deep success / filter / sub-form screens inherit their journey's redesign even when not individually briefed. The three deprecated clock screens are replaced by the unified ActiveClass (v2).</div>
+
+  <div class="ft">Sifututor redesign &middot; tutor app screen inventory &middot; 26 June 2026 &middot; inventory of the live app + redesign status, not a mockup</div>
+</div>
+
+<script>
+const CATS = [
+  { t:"Acquire", tab:"Onboarding", desc:"First open, sign in", screens:[
+    {n:"Splash", s:"baseline", d:"Launch splash"},
+    {n:"OnBoarding", s:"briefed", d:"Value carousel (kept as-is)"},
+    {n:"GetStarted", s:"floored", d:"Entry choice"},
+    {n:"Login", s:"briefed", d:"Phone sign-in (step counter + recovery)"},
+    {n:"VerifyCode", s:"briefed", d:"OTP entry (resend copy fixed)"},
+  ]},
+  { t:"Activate", tab:"Verification", desc:"The new-tutor verification on-ramp", screens:[
+    {n:"TutorVerificationProcess", s:"briefed", d:"Verification gate (7 to 4 steps)"},
+    {n:"TutorVerificationProcessForOldTutor", s:"briefed", d:"Returning-tutor variant"},
+    {n:"ServicePreference", s:"baseline", d:"What + where you teach (wrapper)"},
+    {n:"ServicePreference / Step1WhatYouTeach", s:"floored", d:"Subjects + levels (reference screen)"},
+    {n:"ServicePreference / Step2WhereAndHow", s:"floored", d:"Mode + area (reference screen)"},
+    {n:"BioDetails", s:"floored", d:"Personal + NRIC (PII, policy gap flagged)"},
+    {n:"EducationDetails", s:"floored", d:"Qualifications"},
+    {n:"EmergencyContact", s:"floored", d:"Next-of-kin"},
+    {n:"VerificationDocumentsUpload", s:"floored", d:"ID + transcript upload (PII)"},
+    {n:"IntroVideoUpload", s:"baseline", d:"Intro video (v2 reference, rich empty state)"},
+    {n:"TutorVerificationDeclaration", s:"floored", d:"Declaration + consent"},
+    {n:"VerificationSubmittedSuccess", s:"floored", d:"Submitted (dead-end nudge flagged)"},
+    {n:"UnverifyScreen", s:"floored", d:"Unverified state (no rejection reason flagged)"},
+    {n:"ParentApprovalConfirmation", s:"baseline", d:"Parent approval step"},
+  ]},
+  { t:"Participate", tab:"Request", desc:"Find the right jobs and apply", screens:[
+    {n:"TutorRequests", s:"briefed", d:"The request feed (locked scan card)"},
+    {n:"RequestDetails", s:"floored", d:"Request detail + apply"},
+    {n:"RequestDetailById", s:"floored", d:"Deep-link shared request"},
+    {n:"RecommendedRequestDetail", s:"floored", d:"Recommended request"},
+    {n:"SharedRequestDetail", s:"floored", d:"Shared request view"},
+    {n:"TutorAppliedRequestDetails", s:"floored", d:"A request you applied to"},
+    {n:"RequestFilters", s:"floored", d:"Feed filters"},
+    {n:"Filter", s:"baseline", d:"Generic filter sheet"},
+    {n:"TutorTaskList", s:"floored", d:"Task / to-do list"},
+    {n:"JTDetailByNotification", s:"floored", d:"Job ticket opened from a push"},
+  ]},
+  { t:"Deliver", tab:"Calendar", desc:"Teach: schedule, attendance, the class loop", screens:[
+    {n:"ClassSchedule", s:"briefed", d:"Schedule cockpit (Calendar tab)"},
+    {n:"AddClassSchedule", s:"floored", d:"Create a class"},
+    {n:"ClassScheduleAdded", s:"baseline", d:"Class added (success)"},
+    {n:"BackdateClassSchedule", s:"floored", d:"Backdate a class"},
+    {n:"BackdateEscalationSuccess", s:"baseline", d:"Backdate escalated (v2 reference)"},
+    {n:"ExtraClass", s:"floored", d:"Add an extra class (earn-more moment)"},
+    {n:"ExtendClass", s:"floored", d:"Extend a class (time bugs flagged)"},
+    {n:"EditPostponedClass", s:"floored", d:"Reschedule a class"},
+    {n:"ClassPostponeSuccess", s:"floored", d:"Postponed (success)"},
+    {n:"EditAttendedClass", s:"baseline", d:"Edit an attended class (file-type bug flagged)"},
+    {n:"ClassRecords", s:"floored", d:"Past class records"},
+    {n:"ClassRecordFilter", s:"floored", d:"Records filter"},
+    {n:"ActiveClass", s:"baseline", d:"Unified clock-in/out flow (v2, new)"},
+    {n:"ActiveClass / ClockInBody", s:"floored", d:"Clock-in step"},
+    {n:"ActiveClass / InProgressBody", s:"floored", d:"Class in progress"},
+    {n:"ActiveClass / SubmitProofBody", s:"floored", d:"Submit proof step"},
+    {n:"ActiveClass / DoneBody", s:"floored", d:"Class done step"},
+    {n:"ClassTimerCountScreen", s:"deprecated", d:"Legacy timer (kill-switch fallback)"},
+    {n:"ClockInScreen / ClockIn", s:"deprecated", d:"Legacy clock-in (fallback)"},
+    {n:"ClockOutScreen", s:"deprecated", d:"Legacy clock-out (fallback)"},
+    {n:"ClockoutSuccessfully", s:"floored", d:"Clocked out (success)"},
+    {n:"BackToDashboardScreen", s:"floored", d:"Return-to-home interstitial"},
+    {n:"ClassDetailByNotification", s:"floored", d:"Class opened from a push"},
+    {n:"CameraScreen", s:"baseline", d:"In-app camera (proof capture)"},
+  ]},
+  { t:"Report", tab:"Stack", desc:"The trust artifacts: evaluation + progress reports", screens:[
+    {n:"EvaluationReport", s:"baseline", d:"Evaluation report entry"},
+    {n:"SubmitEvaluationReport", s:"briefed", d:"Guided evaluation input"},
+    {n:"EvaluationReportSuccess", s:"baseline", d:"Evaluation submitted (success)"},
+    {n:"ProgressReport", s:"floored", d:"Progress report entry (every 12 classes)"},
+    {n:"ProgressReportSuccess", s:"floored", d:"Progress submitted (success)"},
+    {n:"StudentReport", s:"floored", d:"Per-student report hub"},
+    {n:"StudentReport / EvaluationReportView", s:"briefed", d:"Parent-facing eval report", p0:true},
+    {n:"StudentReport / ProgressReportView", s:"briefed", d:"Parent-facing progress report", p0:true},
+    {n:"ReportSubmission", s:"floored", d:"Report submit (wrong-student bug flagged)"},
+  ]},
+  { t:"Earn", tab:"Stack", desc:"Money: payouts, ledger, referrals", screens:[
+    {n:"Payment", s:"baseline", d:"Payment / payout summary"},
+    {n:"PaymentLedger", s:"baseline", d:"Transaction ledger"},
+    {n:"PendingEarningsDetail", s:"floored", d:"Pending earnings breakdown"},
+    {n:"ReferFriend", s:"floored", d:"Refer a friend (P0 test-phone checked, clean)"},
+    {n:"MyReferralEarnings", s:"floored", d:"Referral earnings"},
+  ]},
+  { t:"Engage", tab:"Home", desc:"The daily landing", screens:[
+    {n:"Home", s:"briefed", d:"Home (re-pivoted to a supportive coach)"},
+    {n:"Home / DemandSummaryCard", s:"floored", d:"Demand summary component"},
+  ]},
+  { t:"Students", tab:"Stack", desc:"Your students", screens:[
+    {n:"StudentList", s:"floored", d:"List of students"},
+    {n:"StudentsDetails", s:"floored", d:"Student detail", p0:true},
+  ]},
+  { t:"Profile + account", tab:"Profile", desc:"The 5th-tab nav spine + identity", screens:[
+    {n:"ProfileMenu", s:"briefed", d:"Profile hub (achievement header)"},
+    {n:"Profile", s:"briefed", d:"Tutor profile (the three faces)"},
+    {n:"UpdateProfile", s:"floored", d:"Edit profile"},
+    {n:"Status", s:"floored", d:"Account status"},
+  ]},
+  { t:"News + notifications", tab:"News", desc:"Updates and the notification feed", screens:[
+    {n:"News", s:"baseline", d:"News list (News tab)"},
+    {n:"NewsDetails", s:"floored", d:"News article (link color fixed)"},
+    {n:"Notifications", s:"floored", d:"Notification feed"},
+  ]},
+  { t:"Support", tab:"Stack", desc:"The help + request loop (pre-WhatsApp deflection)", screens:[
+    {n:"HelpCentre", s:"briefed", d:"Help hub (FAQ + request deflection)"},
+    {n:"ContactCentre", s:"briefed", d:"Pre-WhatsApp deflection (kept by design)"},
+    {n:"MyRequestsList", s:"baseline", d:"Your support tickets"},
+    {n:"TicketDetail", s:"baseline", d:"A support ticket"},
+    {n:"ApplicationStatusDetail", s:"baseline", d:"Application status"},
+    {n:"Discouragement", s:"baseline", d:"Resignation deterrent (folded in)"},
+    {n:"SubmitRequestPicker", s:"floored", d:"Pick a request type"},
+    {n:"SubmitRequestExtraClass", s:"baseline", d:"Request: extra class"},
+    {n:"SubmitRequestClassReschedule", s:"baseline", d:"Request: reschedule"},
+    {n:"SubmitRequestGeneralComplaint", s:"baseline", d:"Request: complaint"},
+    {n:"SubmitRequestResignation", s:"baseline", d:"Request: resignation"},
+  ]},
+  { t:"Static + legal", tab:"Stack", desc:"Reference and legal pages", screens:[
+    {n:"FAQs", s:"floored", d:"Frequently asked questions"},
+    {n:"PrivacyPolicy", s:"baseline", d:"Privacy policy"},
+    {n:"TermAndConditions", s:"baseline", d:"Terms and conditions"},
+    {n:"PolicyScreen", s:"floored", d:"Generic policy viewer"},
+  ]},
+];
+const LABEL = {briefed:"Briefed", floored:"Floored", baseline:"Baseline", deprecated:"Deprecated"};
+let total=0, by={briefed:0,floored:0,baseline:0,deprecated:0}, p0=0;
+CATS.forEach(c=>c.screens.forEach(s=>{total++;by[s.s]++;if(s.p0)p0++;}));
+document.getElementById('counts').innerHTML =
+  `<span class="cpill">${total} screens</span>`+
+  `<span class="cpill">${CATS.length} categories</span>`+
+  `<span class="cpill">5 tabs</span>`+
+  `<span class="cpill">${by.briefed} briefed</span>`+
+  `<span class="cpill">${by.floored} floored</span>`+
+  `<span class="cpill">${by.baseline} baseline</span>`+
+  `<span class="cpill">${by.deprecated} deprecated</span>`;
+document.getElementById('cats').innerHTML = CATS.map(c=>`
+  <div class="cat">
+    <div class="ch"><div style="display:flex;align-items:baseline;gap:9px"><span class="ct">${c.t}</span><span class="ctab">${c.tab}</span></div><span class="cnum">${c.screens.length} screens &middot; ${c.desc}</span></div>
+    <div class="rows">
+      ${c.screens.map(s=>`
+        <div class="row">
+          <div class="rb">
+            <div class="rn">${s.n}<span class="pill p-${s.s}">${LABEL[s.s]}</span>${s.p0?'<span class="pill p-p0">P0</span>':''}</div>
+            <div class="rd">${s.d}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>`).join('');
+</script>
+</body>
+</html>

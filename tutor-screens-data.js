@@ -1,8 +1,22 @@
-// Shared data for the tutor-app screen index + per-category pages.
+// Shared data for the tutor-app redesign hub + screen index + per-category pages.
 // Grounded in sifututor_tutor/Screens + Navigation/AppNavigation.tsx (2026-06-26).
 // status: briefed | floored | baseline | deprecated ; p0:true = a critical bug was fixed here.
+//
+// TUTOR_STAGES = the tutor's JOURNEY (the hub spine), in journey order.
+//   Each stage carries its REDESIGN PHASE (the funnel-impact order from the approved
+//   plan: P1 Participate first, then P2 Activate, ...). Journey order != phase order.
+window.TUTOR_STAGES = [
+  { key:"acquire",     num:"1", t:"Acquire",        tag:"Get tutors in the door",            phase:"Tail", phaseClass:"next", role:"Top of funnel" },
+  { key:"activate",    num:"2", t:"Activate",       tag:"Verify, then the first application", phase:"Phase 2", phaseClass:"now", role:"Feeder — widens the funnel" },
+  { key:"participate", num:"3", t:"Participate",    tag:"Find fit requests and apply",        phase:"Phase 1", phaseClass:"done", role:"★ North Star — the core loop", star:true },
+  { key:"deliver",     num:"4", t:"Win & Deliver",  tag:"Win the job, teach, report",         phase:"Phase 3", phaseClass:"next", role:"Service delivery" },
+  { key:"grow",        num:"5", t:"Retain & Grow",  tag:"Get paid, come back, refer",         phase:"Phase 4", phaseClass:"next", role:"Retention + revenue" },
+  { key:"tail",        num:"6", t:"Reference",      tag:"Legal, policy, utility",             phase:"Tail", phaseClass:"next", role:"Cross-cutting" },
+];
+
+// Each category (cluster) belongs to one stage via `stage`. Order within a stage = journey order.
 window.TUTOR_CATS = [
-  { key:"acquire", t:"Acquire", tab:"Onboarding", desc:"First open, sign in",
+  { key:"acquire", stage:"acquire", t:"Acquire", tab:"Onboarding", desc:"First open, sign in",
     briefs:[{href:"acquire-onboarding.html", label:"Onboarding tidy"}],
     screens:[
       {n:"Splash", s:"baseline", d:"Launch splash"},
@@ -11,14 +25,14 @@ window.TUTOR_CATS = [
       {n:"Login", s:"briefed", d:"Phone sign-in (step counter + recovery)"},
       {n:"VerifyCode", s:"briefed", d:"OTP entry (resend copy fixed)"},
     ]},
-  { key:"activate", t:"Activate", tab:"Verification", desc:"The new-tutor verification on-ramp",
+  { key:"activate", stage:"activate", t:"Activate", tab:"Verification", desc:"The new-tutor verification on-ramp",
     briefs:[{href:"activate.html", label:"Activate"}],
     screens:[
       {n:"TutorVerificationProcess", s:"briefed", d:"Verification gate (7 to 4 steps)"},
       {n:"TutorVerificationProcessForOldTutor", s:"briefed", d:"Returning-tutor variant"},
       {n:"ServicePreference", s:"baseline", d:"What + where you teach (wrapper)"},
-      {n:"ServicePreference / Step1WhatYouTeach", s:"floored", d:"Subjects + levels (reference screen)"},
-      {n:"ServicePreference / Step2WhereAndHow", s:"floored", d:"Mode + area (reference screen)"},
+      {n:"ServicePreference / Step1WhatYouTeach", s:"floored", d:"Subjects + levels (reference screen)", cap:"activate-ServicePreferenceStep1"},
+      {n:"ServicePreference / Step2WhereAndHow", s:"floored", d:"Mode + area (reference screen)", cap:"activate-ServicePreferenceStep2"},
       {n:"BioDetails", s:"floored", d:"Personal + NRIC (PII, policy gap flagged)"},
       {n:"EducationDetails", s:"floored", d:"Qualifications"},
       {n:"EmergencyContact", s:"floored", d:"Next-of-kin"},
@@ -29,7 +43,13 @@ window.TUTOR_CATS = [
       {n:"UnverifyScreen", s:"floored", d:"Unverified state (no rejection reason flagged)"},
       {n:"ParentApprovalConfirmation", s:"baseline", d:"Parent approval step"},
     ]},
-  { key:"participate", t:"Participate", tab:"Request", desc:"Find the right jobs and apply",
+  { key:"engage", stage:"participate", t:"Home", tab:"Home", desc:"The daily landing — the opportunity surface",
+    briefs:[{href:"home-engage.html", label:"Home"}],
+    screens:[
+      {n:"Home", s:"briefed", d:"Home (re-pivoted to a supportive coach)"},
+      {n:"Home / DemandSummaryCard", s:"floored", d:"Demand summary component", cap:"engage-HomeDemandSummary"},
+    ]},
+  { key:"participate", stage:"participate", t:"Participate", tab:"Request", desc:"Find the right jobs and apply",
     briefs:[{href:"requests-participate.html", label:"Requests + Apply"}],
     screens:[
       {n:"TutorRequests", s:"briefed", d:"The request feed (locked scan card)"},
@@ -43,7 +63,7 @@ window.TUTOR_CATS = [
       {n:"TutorTaskList", s:"floored", d:"Task / to-do list"},
       {n:"JTDetailByNotification", s:"floored", d:"Job ticket opened from a push"},
     ]},
-  { key:"deliver", t:"Deliver", tab:"Calendar", desc:"Teach: schedule, attendance, the class loop",
+  { key:"deliver", stage:"deliver", t:"Deliver", tab:"Calendar", desc:"Teach: schedule, attendance, the class loop",
     briefs:[{href:"deliver.html", label:"Deliver"}],
     screens:[
       {n:"ClassSchedule", s:"briefed", d:"Schedule cockpit (Calendar tab)"},
@@ -71,7 +91,7 @@ window.TUTOR_CATS = [
       {n:"ClassDetailByNotification", s:"floored", d:"Class opened from a push"},
       {n:"CameraScreen", s:"baseline", d:"In-app camera (proof capture)"},
     ]},
-  { key:"report", t:"Report", tab:"Stack", desc:"The trust artifacts: evaluation + progress reports",
+  { key:"report", stage:"deliver", t:"Report", tab:"Stack", desc:"The trust artifacts: evaluation + progress reports",
     briefs:[{href:"reports.html", label:"Class reports"},{href:"progress-report.html", label:"Progress report"}],
     screens:[
       {n:"EvaluationReport", s:"baseline", d:"Evaluation report entry"},
@@ -84,7 +104,13 @@ window.TUTOR_CATS = [
       {n:"StudentReport / ProgressReportView", s:"briefed", d:"Parent-facing progress report", p0:true},
       {n:"ReportSubmission", s:"floored", d:"Report submit (wrong-student bug flagged)"},
     ]},
-  { key:"earn", t:"Earn", tab:"Stack", desc:"Money: payouts, ledger, referrals",
+  { key:"students", stage:"deliver", t:"Students", tab:"Stack", desc:"Your students",
+    briefs:[],
+    screens:[
+      {n:"StudentList", s:"floored", d:"List of students"},
+      {n:"StudentsDetails", s:"floored", d:"Student detail", p0:true},
+    ]},
+  { key:"earn", stage:"grow", t:"Earn", tab:"Stack", desc:"Money: payouts, ledger, referrals",
     briefs:[{href:"deliver.html", label:"Deliver (earnings section)"}],
     screens:[
       {n:"Payment", s:"baseline", d:"Payment / payout summary"},
@@ -93,19 +119,7 @@ window.TUTOR_CATS = [
       {n:"ReferFriend", s:"floored", d:"Refer a friend (P0 test-phone checked, clean)"},
       {n:"MyReferralEarnings", s:"floored", d:"Referral earnings"},
     ]},
-  { key:"engage", t:"Engage", tab:"Home", desc:"The daily landing",
-    briefs:[{href:"home-engage.html", label:"Home"}],
-    screens:[
-      {n:"Home", s:"briefed", d:"Home (re-pivoted to a supportive coach)"},
-      {n:"Home / DemandSummaryCard", s:"floored", d:"Demand summary component"},
-    ]},
-  { key:"students", t:"Students", tab:"Stack", desc:"Your students",
-    briefs:[],
-    screens:[
-      {n:"StudentList", s:"floored", d:"List of students"},
-      {n:"StudentsDetails", s:"floored", d:"Student detail", p0:true},
-    ]},
-  { key:"profile", t:"Profile + account", tab:"Profile", desc:"The 5th-tab nav spine + identity",
+  { key:"profile", stage:"grow", t:"Profile + account", tab:"Profile", desc:"The 5th-tab nav spine + identity",
     briefs:[{href:"profile-menu-hub.html", label:"Profile-menu hub"},{href:"tutor-profile.html", label:"Tutor profile"}],
     screens:[
       {n:"ProfileMenu", s:"briefed", d:"Profile hub (achievement header)"},
@@ -113,14 +127,7 @@ window.TUTOR_CATS = [
       {n:"UpdateProfile", s:"floored", d:"Edit profile"},
       {n:"Status", s:"floored", d:"Account status"},
     ]},
-  { key:"news", t:"News + notifications", tab:"News", desc:"Updates and the notification feed",
-    briefs:[{href:"tail-consistency.html", label:"Tail consistency"}],
-    screens:[
-      {n:"News", s:"baseline", d:"News list (News tab)"},
-      {n:"NewsDetails", s:"floored", d:"News article (link color fixed)"},
-      {n:"Notifications", s:"floored", d:"Notification feed"},
-    ]},
-  { key:"support", t:"Support", tab:"Stack", desc:"The help + request loop (pre-WhatsApp deflection)",
+  { key:"support", stage:"grow", t:"Support", tab:"Stack", desc:"The help + request loop (pre-WhatsApp deflection)",
     briefs:[{href:"support-loop.html", label:"Support loop"}],
     screens:[
       {n:"HelpCentre", s:"briefed", d:"Help hub (FAQ + request deflection)"},
@@ -135,7 +142,14 @@ window.TUTOR_CATS = [
       {n:"SubmitRequestGeneralComplaint", s:"baseline", d:"Request: complaint"},
       {n:"SubmitRequestResignation", s:"baseline", d:"Request: resignation"},
     ]},
-  { key:"static", t:"Static + legal", tab:"Stack", desc:"Reference and legal pages",
+  { key:"news", stage:"grow", t:"News + notifications", tab:"News", desc:"Updates and the notification feed",
+    briefs:[{href:"tail-consistency.html", label:"Tail consistency"}],
+    screens:[
+      {n:"News", s:"baseline", d:"News list (News tab)"},
+      {n:"NewsDetails", s:"floored", d:"News article (link color fixed)"},
+      {n:"Notifications", s:"floored", d:"Notification feed"},
+    ]},
+  { key:"static", stage:"tail", t:"Static + legal", tab:"Stack", desc:"Reference and legal pages",
     briefs:[{href:"tail-consistency.html", label:"Tail consistency"},{href:"consistency-sweep.html", label:"Consistency sweep"}],
     screens:[
       {n:"FAQs", s:"floored", d:"Frequently asked questions"},

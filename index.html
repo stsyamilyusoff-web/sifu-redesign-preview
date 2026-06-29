@@ -1,139 +1,270 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sifututor redesign · wave previews</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sifututor Tutor App · Redesign system</title>
 <style>
-  *{box-sizing:border-box}
-  html,body{background:#f6f7fb}
-  body{margin:0;padding:28px 18px;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;--tint:#243cb3}
-  .wrap{max-width:760px;margin:0 auto}
-  .head{background:#243cb3;color:#fff;border-radius:18px;padding:28px 28px}
-  .head .t{font-size:25px;font-weight:800;letter-spacing:-.3px}
-  .head .s{font-size:13px;opacity:.92;margin-top:8px;line-height:1.6}
-  .how{font-size:12px;color:#52525b;margin:18px 4px 14px;line-height:1.55}
-  .grid{display:flex;flex-direction:column;gap:13px}
-  .card{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid #e6e6ea;border-radius:14px;padding:18px 20px;box-shadow:0 1px 3px rgba(0,0,0,.05);transition:box-shadow .15s,transform .15s}
-  a.card:hover{box-shadow:0 6px 20px rgba(36,60,179,.13);transform:translateY(-1px)}
-  .crow{display:flex;align-items:center;justify-content:space-between;gap:12px}
-  .ct{font-size:16.5px;font-weight:800}
-  .pill{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;border-radius:99px;padding:3px 10px;white-space:nowrap}
-  .pill.ready{background:#e9f5ee;color:#1a5c38}
-  .pill.design{background:#fff7e6;color:#92400e}
-  .cd{font-size:12.5px;color:#52525b;margin-top:6px;line-height:1.5}
-  .cgo{font-size:12px;font-weight:700;color:var(--tint);margin-top:10px}
-  .card.soon{opacity:.7}
-  .foot{font-size:11px;color:#9a9aa0;text-align:center;margin-top:22px;line-height:1.6}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <div class="head">
-    <div class="t">Sifututor redesign &middot; wave previews</div>
-    <div class="s">The redesign that turns Sifututor into a growth engine: more verified tutors, a profile parents can choose from in-app, and a smoother teaching loop. One link, every wave. For Hafiz.</div>
+:root{
+  --brand:#243cb3;--brand2:#2b2fbe;--ink:#15161c;--muted:#5b6472;--line:#e4e8ef;
+  --bg:#f4f6fb;--card:#fff;
+  --green:#1a5c38;--greenbg:#e8f5ee;--blue:#243cb3;--bluebg:#e7ecfb;
+  --grey:#71717a;--greybg:#f0f0f3;--amber:#9a3412;--amberbg:#fdf2e3;--red:#b91c1c;--redbg:#fdeaea;
+  --star:#b45309;--starbg:#fef6e7;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 18px 80px}
+/* header */
+.head{background:linear-gradient(135deg,var(--brand) 0%,var(--brand2) 100%);color:#fff;border-radius:20px;padding:26px 28px}
+.head .kick{font-size:11.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;opacity:.82}
+.head h1{font-size:25px;font-weight:850;margin:6px 0 5px;letter-spacing:-.4px}
+.head .ns{font-size:13.5px;opacity:.95;max-width:700px;line-height:1.55}
+.head .ns b{font-weight:800}
+.apptabs{display:flex;gap:8px;margin-top:18px}
+.apptab{font-size:13px;font-weight:700;padding:8px 15px;border-radius:99px;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.25);cursor:pointer}
+.apptab.on{background:#fff;color:var(--brand)}
+.apptab.soon{opacity:.65;cursor:default}
+/* dashboard */
+.dash{display:grid;grid-template-columns:1.35fr 1fr;gap:14px;margin-top:16px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.panel h3{margin:0 0 12px;font-size:11.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted)}
+.bar{height:18px;border-radius:7px;overflow:hidden;display:flex;border:1px solid var(--line)}
+.bar i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:13px;margin-top:11px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.dot{width:9px;height:9px;border-radius:3px;display:inline-block}
+.big{font-size:28px;font-weight:850;letter-spacing:-1px}
+.phaserow{display:flex;align-items:center;gap:6px;font-size:12px;margin-top:9px;flex-wrap:wrap}
+.ph{padding:3px 9px;border-radius:7px;font-weight:700;font-size:11px}
+.ph.done{background:var(--greenbg);color:var(--green)}.ph.now{background:var(--bluebg);color:var(--blue)}.ph.next{background:var(--greybg);color:var(--grey)}
+/* tools */
+.tools{display:flex;gap:9px;margin:18px 0 6px;flex-wrap:wrap;position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 0}
+.search{flex:1;min-width:230px;display:flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:0 14px}
+.search input{border:0;outline:0;font-size:14px;padding:12px 0;width:100%;background:transparent;color:var(--ink)}
+.sel{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:0 10px;font-size:13px;font-weight:600;color:var(--ink)}
+.sel select{border:0;outline:0;background:transparent;font-size:13px;font-weight:600;padding:12px 4px;color:var(--ink)}
+.rescount{font-size:12px;color:var(--muted);align-self:center;padding-left:4px}
+/* spine */
+.spinewrap{margin:16px 0 6px}
+.spinelbl{font-size:11.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.spine{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.schip{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 9px;text-align:center;cursor:pointer;position:relative;transition:.12s}
+.schip:hover{box-shadow:0 4px 14px rgba(36,60,179,.12);transform:translateY(-1px)}
+.schip.star{border-color:#e7b75e;box-shadow:0 0 0 2px var(--starbg)}
+.schip .n{font-size:10.5px;color:var(--muted);font-weight:700}
+.schip .nm{font-size:13px;font-weight:800;margin:2px 0 1px;line-height:1.2}
+.schip .cnt{font-size:10.5px;color:var(--muted)}
+.schip .tag{position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;white-space:nowrap;text-transform:uppercase;letter-spacing:.3px}
+.tag.done{background:var(--green);color:#fff}.tag.now{background:var(--blue);color:#fff}.tag.next{background:#a1a1aa;color:#fff}
+.schip .sbar{height:5px;border-radius:3px;overflow:hidden;display:flex;margin-top:8px;border:1px solid var(--line)}
+.schip .sbar i{height:100%}
+/* stage section */
+.stage{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:14px;scroll-margin-top:70px}
+.stage.star{border-color:#e7b75e}
+.stagehd{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;cursor:pointer}
+.stagehd .l{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.stagehd .num{font-size:13px;font-weight:800;color:var(--muted)}
+.stagehd .t{font-size:18px;font-weight:850}
+.stagehd .t .star{color:var(--star)}
+.stagehd .tag{font-size:10px;font-weight:800;padding:2px 9px;border-radius:99px;text-transform:uppercase;letter-spacing:.3px}
+.stagehd .role{font-size:12px;color:var(--muted);font-weight:600}
+.stagehd .toggle{font-size:12px;color:var(--muted);font-weight:700}
+.cluster{margin-top:16px}
+.cluster .ch{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:7px;margin-bottom:12px}
+.cluster .ct{font-size:13.5px;font-weight:800}
+.cluster .cd{font-size:12px;color:var(--muted);font-weight:500}
+.cluster .briefs{display:flex;gap:6px;flex-wrap:wrap}
+.briefbtn{font-size:11.5px;font-weight:700;color:var(--brand);background:var(--bluebg);border-radius:8px;padding:6px 11px;white-space:nowrap}
+.briefbtn:hover{background:#dbe3fb}
+.flow{display:flex;flex-wrap:wrap;gap:13px}
+.node{width:128px;cursor:pointer}
+.thumb{height:184px;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:linear-gradient(160deg,#fbfcfe,#eef1f7);display:flex;align-items:center;justify-content:center;position:relative}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:top}
+.thumb .holder{font-size:10.5px;color:#9aa2b1;text-align:center;padding:8px;line-height:1.3}
+.thumb .p0{position:absolute;top:6px;left:6px;background:var(--red);color:#fff;font-size:8.5px;font-weight:800;border-radius:5px;padding:1px 5px;letter-spacing:.3px}
+.node .cn{font-weight:700;font-size:12px;margin:7px 1px 2px;line-height:1.25}
+.node .meta{display:flex;gap:4px;flex-wrap:wrap;margin:2px 1px}
+.pill{font-size:9px;font-weight:800;border-radius:99px;padding:2px 6px;text-transform:uppercase;letter-spacing:.2px}
+.pill.briefed{background:var(--greenbg);color:var(--green)}.pill.floored{background:var(--bluebg);color:var(--blue)}
+.pill.baseline{background:var(--greybg);color:var(--grey)}.pill.deprecated{background:var(--amberbg);color:var(--amber)}
+.tab{font-size:9px;font-weight:700;color:var(--muted);background:#f4f4f6;border-radius:99px;padding:2px 6px}
+.collapsed .flow,.collapsed .cluster{display:none}
+.note{margin-top:20px;font-size:12.5px;color:var(--muted);background:#eef1ff;border:1px solid #d6ddff;border-radius:11px;padding:13px 15px;line-height:1.6}
+.note b{color:var(--brand)}
+.foot{font-size:11px;color:#9aa2b1;text-align:center;margin-top:24px;line-height:1.6}
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(10,14,30,.72);display:none;align-items:center;justify-content:center;z-index:50;padding:24px}
+.lb.on{display:flex}
+.lbcard{background:var(--card);border-radius:16px;max-width:760px;width:100%;max-height:92vh;overflow:auto;display:grid;grid-template-columns:300px 1fr;gap:0}
+.lbcard img{width:100%;display:block;border-right:1px solid var(--line)}
+.lbholder{display:flex;align-items:center;justify-content:center;background:#eef1f7;color:#9aa2b1;font-size:12px;padding:30px;text-align:center}
+.lbinfo{padding:22px 24px}
+.lbinfo .x{float:right;font-size:20px;color:var(--muted);cursor:pointer;line-height:1}
+.lbinfo h4{margin:0 0 4px;font-size:19px;font-weight:850}
+.lbinfo .sub{font-size:12px;color:var(--muted);margin-bottom:14px}
+.lbinfo .row{font-size:13px;margin:9px 0;display:flex;gap:8px;align-items:center}
+.lbinfo .row b{min-width:74px;color:var(--muted);font-weight:700}
+.lbinfo .d{font-size:13.5px;color:var(--ink);margin:14px 0;line-height:1.5}
+@media(max-width:560px){.dash{grid-template-columns:1fr}.spine{grid-template-columns:repeat(3,1fr)}.lbcard{grid-template-columns:1fr}.lbcard img{border-right:0;border-bottom:1px solid var(--line)}}
+</style></head><body><div class="wrap">
+
+<div class="head">
+  <div class="kick">Redesign system · whole-app</div>
+  <h1>Sifututor Tutor App · Redesign</h1>
+  <div class="ns">North Star: <b>increase intelligent request applications</b> — fit tutors applying to fit requests, with less friction and smarter surfacing. Every screen earns its place by moving a funnel number.</div>
+  <div class="apptabs">
+    <div class="apptab on">Tutor app · <span id="totscr">93</span> screens</div>
+    <div class="apptab soon">Customer app · coming next</div>
   </div>
-  <div class="how">Pick a wave below to open its before/after brief. Each opens on your phone. Tutors are fictional (Aisha Rahman and friends), no real data.</div>
-  <div class="grid">
-
-    <a class="card" href="tutor-screen-index.html">
-      <div class="crow"><div class="ct">Complete screen index</div><span class="pill ready">93 screens</span></div>
-      <div class="cd">Every screen in the tutor app, categorized by the 5-tab spine and the lifecycle (Acquire to Earn), with redesign + consistency-floor status on each. The map of the whole app, in the format of the customer-app index.</div>
-      <div class="cgo">Open the index &#8594;</div>
-    </a>
-
-    <a class="card" href="tutor-current-screens.html">
-      <div class="crow"><div class="ct">Current app screens (baseline)</div><span class="pill ready">91 of 93</span></div>
-      <div class="cd">A real-device compilation of the current tutor app, live seeded data &mdash; the baseline for the redesign. 91 of 93 captured; the last 2 are CameraScreen (no simulator camera) and ExtendClass (opens mid-flow only). Data-heavy detail + report screens are populated via a dev render-harness.</div>
-      <div class="cgo">Open the compilation &#8594;</div>
-    </a>
-
-    <a class="card" href="requests-participate.html">
-      <div class="crow"><div class="ct">Requests + Apply</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">The growth core: find the right jobs and apply with intelligence. The locked scan card re-grounded, a clean decide screen, and a post-apply pitch that adapts to the tutor's profile strength.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-    <a class="card" href="home-engage.html">
-      <div class="crow"><div class="ct">Home</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">The daily landing, re-pivoted from a metrics dashboard to a supportive coach: recognition, earned earnings, a gentle goal, and the matches as the drive. Adapts to a new vs an established tutor.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-    <a class="card" href="acquire-onboarding.html">
-      <div class="crow"><div class="ct">Onboarding tidy</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">The carousel is kept as-is. A light pass on login and OTP only: a step counter, a reassuring line, a recovery, and the broken "Resend End in 59 Seconds" copy fixed.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-    <a class="card" href="activate.html">
-      <div class="crow"><div class="ct">Activate</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">The new-tutor verification on-ramp. The gate cut from 7 steps to 4, with a progress bar on each, short steps by design.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-    <a class="card" href="tutor-profile.html">
-      <div class="crow"><div class="ct">Tutor profile</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">The three faces: the profile a parent uses to CHOOSE, the profile a tutor MANAGES, and the tool an admin uses to VERIFY. Plus the missing-video flag.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-    <a class="card" href="profile-menu-hub.html">
-      <div class="crow"><div class="ct">Profile-menu hub</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">The 5th-tab nav spine. The thin identity becomes an achievement header (rating, tier, total earned); the grouped nav stays, with Refer &amp; earn back, FAQs deduped, and a Settings entry.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-    <a class="card" href="parent-choice.html">
-      <div class="crow"><div class="ct">Parent curated-choice</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">After a request, the parent picks from a curated shortlist of verified tutors, confirms, and reviews each class. A low review quietly flags a re-match.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-    <a class="card" href="deliver.html">
-      <div class="crow"><div class="ct">Deliver</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">The tutor's teaching path after a class is booked: the schedule cockpit, earnings transparency, and lighter reports. The solid clock-in/out is left alone.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-    <a class="card" href="reports.html">
-      <div class="crow"><div class="ct">Class reports</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">The evaluation report after the first class, reframed as the parent's trust artifact (the continue-decision), plus a faster, guided tutor input.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-    <a class="card" href="progress-report.html">
-      <div class="crow"><div class="ct">Progress report</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">The recurring report after every 12 classes. Luna writes the parent a conclusive verdict from the tutor's reports (the tutor reviews first), and carry-forward turns 22 fields into a few edits.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-    <a class="card" href="support-loop.html">
-      <div class="crow"><div class="ct">Support loop</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">The help + request cluster, lightly consolidated. Two thin screens removed (a submit sheet, Discouragement folded in), with the deliberate WhatsApp deflection left intact.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-    <a class="card" href="tail-consistency.html">
-      <div class="crow"><div class="ct">Tail consistency</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">News, Notifications, and the legal screens brought to the app's standard: theme tokens, brand-blue links, the system card radius, neutral copy. A polish pass on the tail screens.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-    <a class="card" href="consistency-sweep.html">
-      <div class="crow"><div class="ct">Consistency sweep</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">The build spec that takes EVERY remaining screen (~40-50) to the design floor: 7 rules applied app-wide (fonts, color tokens, 12px radius, copy, one date format, no debug logs, rich empty states), with reference screens to copy.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-    <a class="card" href="qa-business-sweep.html">
-      <div class="crow"><div class="ct">QA + business sweep</div><span class="pill ready">Ready for review</span></div>
-      <div class="cd">A first audit of every remaining screen (QA-first + business + consistency). Found real bugs (a broken parent report, a hard-coded test phone, an hours data-loss path) plus the funnel-instrumentation gap. A prioritized build backlog.</div>
-      <div class="cgo">View brief &#8594;</div>
-    </a>
-
-  </div>
-  <div class="foot">Sifututor redesign &middot; updated 26 June 2026 &middot; previews are design mockups, not the live app</div>
 </div>
-</body>
-</html>
+
+<div class="dash">
+  <div class="panel">
+    <h3>Redesign progress · <span id="totscr2">93</span> screens</h3>
+    <div class="bar" id="progbar"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="panel">
+    <h3>Where we are</h3>
+    <div class="big">Phase 2 · Activate</div>
+    <div class="phaserow">
+      <span class="ph done">✓ P1 Participate</span>
+      <span class="ph now">→ P2 Activate</span>
+      <span class="ph next">P3 Deliver</span>
+      <span class="ph next">P4 Grow</span>
+      <span class="ph next">Tail</span>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5">Phases run in <b>funnel-impact</b> order (the North Star first), not screen order.</div>
+  </div>
+</div>
+
+<div class="tools">
+  <div class="search">🔍<input id="q" placeholder="Find any screen, flow, or status…" autocomplete="off"></div>
+  <div class="sel"><select id="fstage"><option value="">All stages</option></select></div>
+  <div class="sel"><select id="fstatus"><option value="">All status</option><option value="briefed">Briefed</option><option value="floored">Floored</option><option value="baseline">Baseline</option><option value="deprecated">Deprecated</option></select></div>
+  <div class="sel"><select id="ftab"><option value="">All tabs</option></select></div>
+  <div class="rescount" id="rescount"></div>
+</div>
+
+<div class="spinewrap">
+  <div class="spinelbl">The tutor's journey — the spine of the whole app (click to jump)</div>
+  <div class="spine" id="spine"></div>
+</div>
+
+<div id="stages"></div>
+
+<div class="note"><b>How the old briefs fit in:</b> every redesign brief is now attached to the stage + cluster it covers (the buttons beside each cluster). Screens are the atomic unit; the briefs are how you go deeper. Click any screen tile to see it bigger with its status and brief.</div>
+
+<div style="text-align:center;margin-top:22px"><a href="tutor-current-screens.html" target="_blank" class="briefbtn" style="font-size:13px;padding:10px 18px">See all 91 current screens as one compilation →</a></div>
+
+<div class="foot">Sifututor tutor app · redesign system · screens grounded in the live app (2026-06-29) · baseline thumbnails are real captures, personal data redacted · previews are design mockups, not the live app.</div>
+
+</div>
+
+<div class="lb" id="lb"><div class="lbcard" id="lbcard"></div></div>
+
+<script src="tutor-screens-data.js"></script>
+<script src="tutor-thumbs.js"></script>
+<script>
+(function(){
+  var CATS=window.TUTOR_CATS, STAGES=window.TUTOR_STAGES, THUMBS=window.TUTOR_THUMBS||{}, LABEL=window.TUTOR_LABEL;
+  var STATUS_COLOR={briefed:"#1a5c38",floored:"#243cb3",baseline:"#a1a1aa",deprecated:"#d8923f"};
+  var STATUS_LABEL={briefed:"Redesigned (briefed)",floored:"Consistency floor",baseline:"Baseline",deprecated:"Retiring"};
+  // ---- thumbnail matching (best-effort across category drift + sub-screens) ----
+  function san(x){return (x||"").replace(/[^A-Za-z0-9]/g,"");}
+  function lastSeg(x){var p=(x||"").split(" / ");return p[p.length-1];}
+  var NAMEIDX={}; Object.keys(THUMBS).forEach(function(k){var nm=k.substring(k.indexOf("-")+1);NAMEIDX[san(nm)]=k;NAMEIDX[san(nm).toLowerCase()]=k;});
+  function thumbFor(catKey,n){
+    var t;
+    t=THUMBS[catKey+"-"+san(n)]; if(t)return t;
+    t=THUMBS[catKey+"-"+san(lastSeg(n))]; if(t)return t;
+    var k=NAMEIDX[san(n)]||NAMEIDX[san(lastSeg(n))]||NAMEIDX[san(n).toLowerCase()]||NAMEIDX[san(lastSeg(n)).toLowerCase()];
+    if(k)return THUMBS[k];
+    return null;
+  }
+  // ---- counts + dashboard ----
+  var all=[]; CATS.forEach(function(c){c.screens.forEach(function(s){all.push({cat:c,s:s});});});
+  var total=all.length; document.getElementById("totscr").textContent=total; document.getElementById("totscr2").textContent=total;
+  var counts={briefed:0,floored:0,baseline:0,deprecated:0}; all.forEach(function(x){counts[x.s.s]=(counts[x.s.s]||0)+1;});
+  var bar=document.getElementById("progbar"), leg=document.getElementById("legend");
+  ["briefed","floored","baseline","deprecated"].forEach(function(k){
+    if(!counts[k])return;
+    var i=document.createElement("i"); i.style.width=(counts[k]/total*100)+"%"; i.style.background=STATUS_COLOR[k]; bar.appendChild(i);
+    var sp=document.createElement("span"); sp.innerHTML='<i class="dot" style="background:'+STATUS_COLOR[k]+'"></i>'+counts[k]+' '+STATUS_LABEL[k]; leg.appendChild(sp);
+  });
+  // ---- filter option lists ----
+  var fstage=document.getElementById("fstage"), ftab=document.getElementById("ftab");
+  STAGES.forEach(function(st){var o=document.createElement("option");o.value=st.key;o.textContent=st.t;fstage.appendChild(o);});
+  var tabs=[]; CATS.forEach(function(c){if(tabs.indexOf(c.tab)<0)tabs.push(c.tab);});
+  tabs.forEach(function(t){var o=document.createElement("option");o.value=t;o.textContent=t+" tab";ftab.appendChild(o);});
+  // ---- spine ----
+  var spine=document.getElementById("spine");
+  STAGES.forEach(function(st){
+    var cats=CATS.filter(function(c){return c.stage===st.key;});
+    var scr=[]; cats.forEach(function(c){scr=scr.concat(c.screens);});
+    var cc={briefed:0,floored:0,baseline:0,deprecated:0}; scr.forEach(function(s){cc[s.s]++;});
+    var sb=""; ["briefed","floored","baseline","deprecated"].forEach(function(k){if(cc[k])sb+='<i style="width:'+(cc[k]/scr.length*100)+'%;background:'+STATUS_COLOR[k]+'"></i>';});
+    var el=document.createElement("div"); el.className="schip"+(st.star?" star":"");
+    el.innerHTML='<span class="tag '+st.phaseClass+'">'+st.phase+'</span><div class="n">'+st.num+'</div><div class="nm">'+st.t+(st.star?' ★':'')+'</div><div class="cnt">'+scr.length+' screens</div><div class="sbar">'+sb+'</div>';
+    el.onclick=function(){var tgt=document.getElementById("stage-"+st.key); if(tgt){tgt.classList.remove("collapsed"); tgt.scrollIntoView({behavior:"smooth",block:"start"});}};
+    spine.appendChild(el);
+  });
+  // ---- stages + clusters + nodes ----
+  var host=document.getElementById("stages");
+  STAGES.forEach(function(st){
+    var cats=CATS.filter(function(c){return c.stage===st.key;}); if(!cats.length)return;
+    var scrN=0; cats.forEach(function(c){scrN+=c.screens.length;});
+    var sec=document.createElement("section"); sec.className="stage"+(st.star?" star":""); sec.id="stage-"+st.key;
+    if(st.key!=="participate") sec.className+=" collapsed"; // Participate (North Star) open by default
+    var clustersHtml="";
+    cats.forEach(function(c){
+      var briefs=(c.briefs||[]).map(function(b){return '<a class="briefbtn" href="'+b.href+'" target="_blank">'+b.label+' · before → after →</a>';}).join("");
+      var nodes=c.screens.map(function(s){
+        var t=(s.cap&&THUMBS[s.cap])||thumbFor(c.key,s.n);
+        var thumb=t?'<img src="'+t+'" alt="'+s.n+'" loading="lazy">':'<div class="holder">'+s.n+'<br><span style="opacity:.6">(in-flow screen)</span></div>';
+        var disp=s.n.indexOf(" / ")>=0?s.n.split(" / ")[1]:s.n;
+        return '<div class="node" data-name="'+(s.n+" "+s.d).toLowerCase().replace(/"/g,'')+'" data-status="'+s.s+'" data-tab="'+c.tab+'" data-stage="'+st.key+'" '+
+               'data-full="'+s.n.replace(/"/g,'')+'" data-desc="'+s.d.replace(/"/g,'')+'" data-cat="'+c.t.replace(/"/g,'')+'" data-thumb="'+(t||"")+'" data-p0="'+(s.p0?1:0)+'">'+
+               '<div class="thumb">'+(s.p0?'<span class="p0">P0 fix</span>':'')+thumb+'</div>'+
+               '<div class="cn">'+disp+'</div><div class="meta"><span class="pill '+s.s+'">'+LABEL[s.s]+'</span><span class="tab">'+c.tab+'</span></div></div>';
+      }).join("");
+      clustersHtml+='<div class="cluster" data-cluster="'+c.key+'"><div class="ch"><div><span class="ct">'+c.t+'</span> &nbsp;<span class="cd">'+c.desc+'</span></div><div class="briefs">'+(briefs||'<span class="cd" style="opacity:.6">no brief yet</span>')+'</div></div><div class="flow">'+nodes+'</div></div>';
+    });
+    sec.innerHTML='<div class="stagehd"><div class="l"><span class="num">Stage '+st.num+'</span><span class="t">'+st.t+(st.star?' <span class="star">★ North Star</span>':'')+'</span><span class="tag '+st.phaseClass+'" style="background:'+(st.phaseClass==="done"?"var(--greenbg)":st.phaseClass==="now"?"var(--bluebg)":"var(--greybg)")+';color:'+(st.phaseClass==="done"?"var(--green)":st.phaseClass==="now"?"var(--blue)":"var(--grey)")+'">'+st.phase+'</span><span class="role">'+st.role+' · '+scrN+' screens</span></div><div class="toggle">▾ toggle</div></div>'+clustersHtml;
+    sec.querySelector(".stagehd").onclick=function(){sec.classList.toggle("collapsed");};
+    host.appendChild(sec);
+  });
+  // ---- search / filter ----
+  var q=document.getElementById("q"),fs=document.getElementById("fstage"),fst=document.getElementById("fstatus"),ft=document.getElementById("ftab"),rc=document.getElementById("rescount");
+  function apply(){
+    var qq=q.value.trim().toLowerCase(),vs=fs.value,vst=fst.value,vt=ft.value,shown=0,filtering=qq||vs||vst||vt;
+    document.querySelectorAll(".stage").forEach(function(sec){
+      var anyStage=false;
+      sec.querySelectorAll(".cluster").forEach(function(cl){
+        var anyCl=false;
+        cl.querySelectorAll(".node").forEach(function(nd){
+          var ok=(!qq||nd.dataset.name.indexOf(qq)>=0||nd.dataset.full.toLowerCase().indexOf(qq)>=0)&&(!vs||nd.dataset.stage===vs)&&(!vst||nd.dataset.status===vst)&&(!vt||nd.dataset.tab===vt);
+          nd.style.display=ok?"":"none"; if(ok){anyCl=true;anyStage=true;shown++;}
+        });
+        cl.style.display=anyCl?"":"none";
+      });
+      if(filtering){sec.classList.remove("collapsed");sec.style.display=anyStage?"":"none";}
+      else{sec.style.display="";}
+    });
+    rc.textContent=filtering?(shown+" of "+total+" screens"):"";
+  }
+  [q,fs,fst,ft].forEach(function(e){e.addEventListener("input",apply);e.addEventListener("change",apply);});
+  // ---- lightbox ----
+  var lb=document.getElementById("lb"),lbc=document.getElementById("lbcard");
+  document.getElementById("stages").addEventListener("click",function(e){
+    var nd=e.target.closest(".node"); if(!nd)return;
+    var t=nd.dataset.thumb, img=t?'<img src="'+t+'">':'<div class="lbholder">'+nd.dataset.full+'<br>(in-flow screen — opens only mid-action)</div>';
+    lbc.innerHTML=img+'<div class="lbinfo"><span class="x" onclick="document.getElementById(\'lb\').classList.remove(\'on\')">✕</span>'+
+      '<h4>'+nd.dataset.full+(nd.dataset.p0==="1"?' <span style="font-size:11px;color:#b91c1c;font-weight:800">P0 fix</span>':'')+'</h4>'+
+      '<div class="sub">'+nd.dataset.cat+' · '+nd.dataset.tab+' tab</div>'+
+      '<div class="row"><b>Status</b><span class="pill '+nd.dataset.status+'">'+LABEL[nd.dataset.status]+'</span></div>'+
+      '<div class="d">'+nd.dataset.desc+'</div></div>';
+    lb.classList.add("on");
+  });
+  lb.addEventListener("click",function(e){if(e.target===lb)lb.classList.remove("on");});
+})();
+</script>
+</body></html>

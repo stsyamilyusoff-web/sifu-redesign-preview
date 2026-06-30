@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acquire A4.1 · Onboarding value carousel (3 slides) · tutor front door</title>
+<style>
+  /* ============== TOKENS (mirrors @sifu/ui semantic layer; no raw hex in app markup) ·
+       SHARED sibling set with the locked report/feed/activate mocks (--brand:#2B2FBE,
+       canvas #F2F2F7, the ink ramp). See deliver-evaluation-report.html + activate-identity-forms.html. ============== */
+  :root{
+    --brand:#2B2FBE; --brand-weak:rgba(43,47,190,.10); --brand-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534;
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.45);
+    --shadow:0 1px 3px rgba(0,0,0,.06); --shadow-cta:0 6px 18px rgba(43,47,190,.32);
+    --radius:12px; --radius-lg:16px; --radius-pill:999px;
+    /* on-photo whites (legible OVER the tint, used only inside the photo overlay) */
+    --on-photo:#FFFFFF; --on-photo-2:rgba(255,255,255,.92); --on-photo-3:rgba(255,255,255,.74);
+  }
+  .dark{
+    --brand:#7C8CF0; --brand-weak:rgba(124,140,240,.18); --brand-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158;
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(0,0,0,.5);
+  }
+
+  /* ============== PAGE CHROME (doc only) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1500px;margin:0 auto;}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+  .docnote h1{font-size:17px;margin:0 0 8px;color:#18181b}
+  .docnote h2{font-size:14px;margin:14px 0 6px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .lockbox{background:#f0f3ff;border:1px solid #c7d2fe;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .lockbox b{color:#1e3a8a;}
+  .pendbox{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .pendbox b{color:#9a3412;}
+  .audit{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:12px;}
+  .audit th,.audit td{border:1px solid #e4e4e7;padding:6px 9px;text-align:left;vertical-align:top;}
+  .audit th{background:#f4f4f5;font-weight:700;color:#18181b;}
+  .audit .keep{color:#166534;font-weight:700;} .audit .add{color:#2B2FBE;font-weight:700;} .audit .cut{color:#9f1239;font-weight:700;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 12px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:8px;text-align:center;max-width:402px;}
+  .framelabel .step{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:#2B2FBE;border-radius:999px;padding:2px 8px;margin-right:6px;}
+
+  /* ============== DEVICE FRAME (402x874, verbatim sibling chrome) ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column;}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0;position:relative;z-index:5;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+  /* on a full-bleed photo slide the status bar reads white */
+  .ph.photo .sb-t{color:#fff;} .ph.photo .sb-sig,.ph.photo .sb-wifi{background:#fff;} .ph.photo .sb-bat{border-color:#fff;} .ph.photo .sb-bat::after{background:#fff;}
+
+  /* ===== TOP BAR: page-indicator dots (left) + slide counter + Skip (right) =====
+     KEEPS every live element: the dots, the "N/3" counter, and Skip. Sits OVER the photo (z-index 4). */
+  .topbar{position:absolute;top:50px;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:6px 18px 0;z-index:4;}
+  .dots{display:flex;align-items:center;gap:6px;}
+  .dot{height:7px;width:7px;border-radius:999px;background:var(--on-photo-3);transition:width .2s;}
+  .dot.on{width:26px;background:var(--on-photo);}
+  .counter{font-size:13px;font-weight:800;color:var(--on-photo-2);letter-spacing:.4px;font-variant-numeric:tabular-nums;flex-shrink:0;min-width:34px;text-align:center;}
+  .skip{font-size:14px;font-weight:700;color:var(--on-photo-2);min-width:34px;text-align:right;}
+  .skip.hidden{visibility:hidden;}
+
+  /* ===== FULL-BLEED PHOTO SLIDE (Treatment A: photo + brand-tint gradient overlay) =====
+     Lifted from the locked photography treatment (.preview/deliver-evaluation-report.html .heroA + the baseline doc).
+     The whole slide is the photo; the gradient carries the contrast so the value copy is legible OVER the tint,
+     in BOTH light and dark. Photo is illustrative; the production build swaps in curated real-Sifututor photography. */
+  .slide{position:absolute;inset:0;overflow:hidden;}
+  .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 32%;}
+  .slide .grad{position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(16,24,72,.34) 0%, rgba(16,24,72,0) 24%, rgba(20,30,86,.30) 52%, rgba(11,18,58,.90) 100%),
+      linear-gradient(80deg, rgba(43,47,190,.36) 0%, rgba(43,47,190,0) 56%);}
+  .dark .slide .grad{
+    background:
+      linear-gradient(180deg, rgba(2,4,16,.42) 0%, rgba(2,4,16,0) 22%, rgba(8,12,38,.42) 52%, rgba(2,4,16,.94) 100%),
+      linear-gradient(80deg, rgba(58,79,208,.34) 0%, rgba(58,79,208,0) 56%);}
+
+  /* ===== the value-prop block: TOP-ANCHORED at a FIXED Y on every slide =====
+     Anchored from the top (not the bottom) so the badge / title / subline sit in the IDENTICAL position
+     on slides 1, 2 and 3 regardless of how long each slide's copy is. The block grows DOWNWARD into the
+     tinted base, so the title's top Y never moves between slides. Only the photo + the words change. */
+  .vp{position:absolute;left:22px;right:22px;top:496px;z-index:3;}
+  .vp .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:5px 12px 5px 8px;margin-bottom:14px;}
+  .vp .badge .icchip{width:22px;height:22px;border-radius:7px;background:var(--on-photo);color:var(--brand);display:inline-flex;align-items:center;justify-content:center;}
+  .vp .badge .icchip .ic{width:13px;height:13px;stroke-width:2.2;}
+  .vp .badge .t{font-size:11.5px;font-weight:800;color:var(--on-photo);letter-spacing:.4px;text-transform:uppercase;}
+  .vp .title{font-size:30px;font-weight:800;color:var(--on-photo);letter-spacing:-.6px;line-height:1.08;margin:0 0 11px;text-shadow:0 1px 14px rgba(0,0,0,.45);}
+  .vp .sub{font-size:15.5px;font-weight:500;color:var(--on-photo-2);line-height:1.46;margin:0;text-shadow:0 1px 10px rgba(0,0,0,.4);max-width:330px;}
+  .vp .sub b{color:var(--on-photo);font-weight:800;}
+
+  /* ===== TRUST-SIGNAL slot (social-proof stat) · slide 3 · FOUNDER-PENDING placeholder =====
+     The audit found ZERO real stat in the code, so this is a clearly-FLAGGED placeholder, not an invented number.
+     Honest-neutral guard: ships only when a TRUE number is confirmed (verified tutors / payout reliability). */
+  .trust{display:inline-flex;align-items:center;gap:9px;margin-top:16px;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);border:1px dashed rgba(255,255,255,.45);border-radius:12px;padding:9px 13px;}
+  .trust .ic{width:17px;height:17px;color:var(--on-photo);stroke-width:1.9;flex-shrink:0;}
+  .trust .tt{font-size:12.5px;font-weight:700;color:var(--on-photo-2);line-height:1.35;}
+  .trust .tt b{color:var(--on-photo);font-weight:800;}
+  .trust .pend{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#ffd9a8;border:1px solid rgba(255,214,160,.6);border-radius:6px;padding:1px 5px;margin-left:2px;vertical-align:middle;}
+
+  /* ===== FOOTER DOCK (over the photo): the CTA(s) =====
+     Non-last slides: ONE "Next" pill. Last slide: "Get Started" (-> Login as register) + "Already have an account? Login".
+     FIXED-HEIGHT dock so the PRIMARY CTA BUTTON sits at the IDENTICAL Y on all 3 slides: the button is pinned to the
+     bottom of a reserved zone, and the sign-in row (slide 3 only) lives in the reserved space BELOW the button, so it
+     NEVER pushes the button up. On slides 1/2 that lower zone is simply empty (more photo shows through). */
+  .dock{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:0 22px 30px;display:flex;flex-direction:column;}
+  /* reserve the sign-in-row height under the button on EVERY slide so the button's Y is constant */
+  .dock::after{content:"";display:block;height:40px;flex-shrink:0;}
+  .btn{height:52px;border-radius:14px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16.5px;font-weight:700;box-shadow:var(--shadow-cta);flex-shrink:0;}
+  .btn .ic{width:18px;height:18px;stroke-width:2.4;}
+  /* the sign-in row sits in the reserved zone below the button (slide 3); absolute so it can't move the button */
+  .signin-row{position:absolute;left:22px;right:22px;bottom:30px;height:40px;display:flex;align-items:center;justify-content:center;gap:7px;}
+  .signin-row .lbl{font-size:14.5px;font-weight:500;color:var(--on-photo-2);}
+  .signin-row .link{font-size:14.5px;font-weight:800;color:var(--on-photo);border-bottom:2px solid rgba(255,255,255,.65);padding-bottom:1px;}
+
+  /* ============== ICON SYSTEM (verbatim SF-Symbols-style line set, theme-aware via currentColor) ============== */
+  .ic{width:1em;height:1em;display:inline-block;vertical-align:-0.125em;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<!-- ============== ICON SPRITE (SF-Symbols-style line set) ============== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 5.2a3 3 0 0 1 0 5.6"/><path d="M17.5 13.6A5.5 5.5 0 0 1 20.5 18.5"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h11a1 1 0 0 1 1 1v2"/><path d="M4 7v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a1 1 0 0 0-1-1H6a2 2 0 0 1-2-2Z"/><circle cx="16.5" cy="13" r="1.1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2.5"/><path d="M4 9.5h16M8 3.5v3M16 3.5v3"/><path d="M9 14l2 2 4-4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.4 3 7.6 7 9 4-1.4 7-4.6 7-9V6l-7-3Z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13"/><path d="M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.5l1.7 4.8 4.8 1.7-4.8 1.7L12 16.5l-1.7-4.8L5.5 10l4.8-1.7Z"/></symbol>
+</svg>
+
+<div class="doc">
+
+  <div class="docnote">
+    <h1>Acquire · A4.1 · Onboarding value carousel (3 slides) · the tutor front door (2026-06-30)</h1>
+    <div class="lockbox" style="background:#ecfdf5;border-color:#a7f3d0;">
+      <b style="color:#065f46;">What this mock is.</b> The redesigned <b>3-slide value carousel</b> a new tutor sees first (cold launch &rarr; Splash &rarr; <b>here</b>). It re-grounds the live <code>Screens/OnBoarding/index.tsx</code> on the locked sibling token set (<code>--brand:#2B2FBE</code>, shared with the report / activate mocks) and the <b>locked 2026-06-30 photography direction</b> (Treatment A: real-human photo + brand-tint). Audit: <code>08-change-log/acquire-onboarding-audit-2026-06-30.md</code>.
+    </div>
+    <div class="lockbox">
+      <b>Every live element KEPT</b> (never-drop rule): the <b>3 value slides</b>, the <b>page-indicator dots</b>, the <b>slide counter "N/3"</b>, the <b>Skip</b>, the <b>Next &rarr; Get Started</b> CTA, and the <b>"Already have an account? Login"</b> affordance (the only sign-in route for returning logged-out tutors). <span class="cut" style="color:#9f1239;font-weight:700;">CUT (confirmed dead only):</span> the junk <code>const COLORS = {primary:'pink', white:'black'}</code> and the commented-out <code>image2</code>/Dot refs.
+      <br><br><b>Value-prop sharpened (audit gap 4.2.1: "generic, no proof, no clarity").</b> Each slide leads with the <b>tutor's concrete benefit</b>, grounded in the real 3 themes but made specific and honest (no hype, no invented numbers): <b>matched students</b> (was "Tutor with Confidence"), <b>billing handled for you</b> (was "Teach, We Manage Billing"), <b>earn per verified class, on your schedule</b> (was "Earn More, Teach Better"). One promise per slide (focus-first, not text-heavy).
+    </div>
+    <div class="pendbox">
+      <b>FOUNDER-PENDING &mdash; the trust / social-proof stat (slide 3).</b> The audit found <b>ZERO real number anywhere in the code</b> (only the vague "Competitive Pay" copy). Per the honest-neutral guard, slide 3 shows a <b>clearly-flagged placeholder</b> (dashed border + "PENDING" tag), NOT an invented figure. It ships only when a <b>true</b> number is confirmed (e.g. count of verified tutors, payout reliability, classes delivered). Decision for the Planner / founder: which real stat, if any, can we honestly show?
+    </div>
+    <div class="lockbox" style="background:#fef9c3;border-color:#fde047;">
+      <b style="color:#854d0e;">Note to BUILD (A4.0 chrome dependency).</b> This mock's CTA is the <b>new-token <code>PrimaryButton</code></b> and the chrome is the new header/dots. The build MUST replace the live <code>CustomButton</code> (defaults to <code>Theme.darkGray</code>/<code>'#000'</code>) and the shared <code>Header</code> with the <code>@sifu/ui</code> kit &mdash; <b>do NOT reuse the old <code>Theme.*</code> chrome</b>, or the old skin leaks through. A4.0 (the CustomButton + Header re-skin seam) lands before A4.2 Login / A4.3 VerifyCode for the same reason.
+    </div>
+
+    <h2>Element audit (live OnBoarding &rarr; this mock)</h2>
+    <table class="audit">
+      <tr><th>Live element (file:line)</th><th>In this mock</th><th>Verdict</th></tr>
+      <tr><td>Slide 1 "Tutor with Confidence" (<code>:28-31</code>)</td><td>"Teach students matched to you" + matched-students subline</td><td class="keep">KEEP &middot; sharpened</td></tr>
+      <tr><td>Slide 2 "Teach, We Manage Billing!" (<code>:36-39</code>)</td><td>"Billing is handled for you" + invoices/collection/payout subline</td><td class="keep">KEEP &middot; sharpened</td></tr>
+      <tr><td>Slide 3 "Earn More, Teach Better!" (<code>:43-47</code>)</td><td>"Earn for every class you teach" + per-verified-class / your-schedule subline</td><td class="keep">KEEP &middot; sharpened</td></tr>
+      <tr><td>Page-indicator dots (<code>:201-230</code>)</td><td>Top-left dots, active = elongated pill</td><td class="keep">KEEP &middot; tokenised</td></tr>
+      <tr><td>Slide counter "N/3" (<code>:267-276</code>)</td><td>Top-centre "1/3 / 2/3 / 3/3"</td><td class="keep">KEEP &middot; tokenised, moved into the top bar (de-cluttered)</td></tr>
+      <tr><td>"Skip" (<code>:244-265</code>)</td><td>Top-right; hidden on the last slide (as live)</td><td class="keep">KEEP</td></tr>
+      <tr><td>"Next" CTA (non-last) (<code>:183</code>)</td><td>One brand pill "Next"</td><td class="keep">KEEP &rarr; PrimaryButton</td></tr>
+      <tr><td>"Get Started" CTA (last) &rarr; Login(register) (<code>:140-143</code>, <code>:127</code>)</td><td>Brand pill "Get Started" on slide 3</td><td class="keep">KEEP &rarr; PrimaryButton</td></tr>
+      <tr><td>"Already have an Account? Login" &rarr; Login(login) (<code>:145-179</code>)</td><td>Under the CTA on slide 3</td><td class="keep">KEEP</td></tr>
+      <tr><td>Slide images (illustration <code>OnBoardingOne/Two/Three.webp</code>)</td><td>Full-bleed real-human photo + brand-tint (Treatment A)</td><td class="add">TRADE &middot; photography direction</td></tr>
+      <tr><td>Trust / social-proof signal</td><td>Slide 3 stat slot (founder-pending placeholder)</td><td class="add">ADD &middot; audit gap 4.2.2</td></tr>
+      <tr><td><code>const COLORS = {primary:'pink', white:'black'}</code> (<code>:21</code>) + <code>styles.subtitle/title</code> consumers</td><td>&mdash;</td><td class="cut">CUT (dead)</td></tr>
+      <tr><td>Commented <code>image2</code> / Dot refs (<code>:27</code>,<code>:35</code>,<code>:43</code>,<code>:240</code>)</td><td>&mdash;</td><td class="cut">CUT (dead)</td></tr>
+    </table>
+    <div style="font-size:12px;margin-top:6px;"><b>Tally:</b> KEEP 9 (3 sharpened) &middot; TRADE 1 (photography) &middot; ADD 1 (trust slot) &middot; CUT 2 (dead only). GetStarted is NOT ported (orphaned in the flow + its copy is parent-facing); founder decision in the audit §6 is delete-or-fold.</div>
+
+    <div class="lockbox" style="background:#eef2ff;border-color:#c7d2fe;">
+      <b>Commercial pass (Rule 16).</b> <b>Founder:</b> the carousel is the mouth of the acquisition funnel; a generic value-prop leaks sign-ups, so concrete + honest promises lift sign-up&rarr;verified&rarr;first-apply (the North Star). <b>Sales:</b> a clear value-prop primes the real conversion (the first application). <b>Marketing:</b> real Malaysian photography + specific honest claims is the on-brand hook (the prior copy was half parent-facing). <b>Analyst:</b> instrument OnBoarding&rarr;Login drop, per-slide drop, Skip rate, and Get-Started CTR. <b>Guard metric:</b> sign-up completion + downstream activation (first apply) must not regress when copy/photography changes. Transparency guard: the trust stat must be TRUE before it ships (hence the founder-pending flag).
+    </div>
+  </div>
+
+  <!-- ===================== LIGHT MODE ===================== -->
+  <div class="modehd">Light mode &middot; the 3 slides (swipe 1 &rarr; 2 &rarr; 3)</div>
+  <div class="frames">
+
+    <!-- ===== SLIDE 1: matched students ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">1</span>Slide 1 &middot; matched students (was "Tutor with Confidence")</div>
+      <div class="ph photo">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="slide">
+          <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=900&q=80&auto=format&fit=crop" alt="A tutor helping a student one-to-one during a lesson">
+          <div class="grad"></div>
+        </div>
+        <div class="topbar">
+          <div class="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="counter">1/3</div>
+          <div class="skip">Skip</div>
+        </div>
+        <div class="vp">
+          <div class="badge"><span class="icchip"><svg class="ic"><use href="#i-people"/></svg></span><span class="t">Real students</span></div>
+          <div class="title">Teach students<br>matched to you</div>
+          <div class="sub">Sifututor sends you students who fit your <b>subjects, levels and area</b>. You teach, they learn.</div>
+        </div>
+        <div class="dock">
+          <div class="btn">Next <svg class="ic"><use href="#i-arrow"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 2: billing handled ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">2</span>Slide 2 &middot; billing handled (was "Teach, We Manage Billing!")</div>
+      <div class="ph photo">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="slide">
+          <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=900&q=80&auto=format&fit=crop" alt="A teacher checking her phone, paperwork handled for her">
+          <div class="grad"></div>
+        </div>
+        <div class="topbar">
+          <div class="dots"><span class="dot"></span><span class="dot on"></span><span class="dot"></span></div>
+          <div class="counter">2/3</div>
+          <div class="skip">Skip</div>
+        </div>
+        <div class="vp">
+          <div class="badge"><span class="icchip"><svg class="ic"><use href="#i-wallet"/></svg></span><span class="t">No admin</span></div>
+          <div class="title">Billing is<br>handled for you</div>
+          <div class="sub">Invoices, collection and payouts are <b>managed for you</b>. Turn up and teach, we sort the rest.</div>
+        </div>
+        <div class="dock">
+          <div class="btn">Next <svg class="ic"><use href="#i-arrow"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 3: earn, on your schedule + trust slot + Get Started + Login ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">3</span>Slide 3 &middot; earn per class + trust slot + Get Started / Login</div>
+      <div class="ph photo">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="slide">
+          <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=900&q=80&auto=format&fit=crop" alt="A confident tutor smiling, ready for the next class">
+          <div class="grad"></div>
+        </div>
+        <div class="topbar">
+          <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot on"></span></div>
+          <div class="counter">3/3</div>
+          <div class="skip hidden">Skip</div>
+        </div>
+        <div class="vp">
+          <div class="badge"><span class="icchip"><svg class="ic"><use href="#i-cal"/></svg></span><span class="t">Your schedule</span></div>
+          <div class="title">Earn for every<br>class you teach</div>
+          <div class="sub">Get paid for each <b>verified class</b> and pick the classes that fit your week.</div>
+          <!-- TRUST SLOT · FOUNDER-PENDING placeholder (no real stat exists in code) -->
+          <div class="trust">
+            <svg class="ic"><use href="#i-shield"/></svg>
+            <span class="tt"><b>Join verified tutors on Sifututor</b><span class="pend">stat pending</span></span>
+          </div>
+        </div>
+        <div class="dock">
+          <div class="btn">Get Started <svg class="ic"><use href="#i-arrow"/></svg></div>
+          <div class="signin-row"><span class="lbl">Already have an account?</span><span class="link">Login</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== DARK MODE ===================== -->
+  <div class="modehd">Dark mode &middot; the same 3 slides</div>
+  <div class="frames">
+
+    <!-- DARK SLIDE 1 -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">1</span>Slide 1 &middot; matched students</div>
+      <div class="ph photo dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="slide">
+          <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=900&q=80&auto=format&fit=crop" alt="A tutor helping a student one-to-one during a lesson">
+          <div class="grad"></div>
+        </div>
+        <div class="topbar">
+          <div class="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="counter">1/3</div>
+          <div class="skip">Skip</div>
+        </div>
+        <div class="vp">
+          <div class="badge"><span class="icchip"><svg class="ic"><use href="#i-people"/></svg></span><span class="t">Real students</span></div>
+          <div class="title">Teach students<br>matched to you</div>
+          <div class="sub">Sifututor sends you students who fit your <b>subjects, levels and area</b>. You teach, they learn.</div>
+        </div>
+        <div class="dock">
+          <div class="btn">Next <svg class="ic"><use href="#i-arrow"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DARK SLIDE 2 -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">2</span>Slide 2 &middot; billing handled</div>
+      <div class="ph photo dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="slide">
+          <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=900&q=80&auto=format&fit=crop" alt="A teacher checking her phone, paperwork handled for her">
+          <div class="grad"></div>
+        </div>
+        <div class="topbar">
+          <div class="dots"><span class="dot"></span><span class="dot on"></span><span class="dot"></span></div>
+          <div class="counter">2/3</div>
+          <div class="skip">Skip</div>
+        </div>
+        <div class="vp">
+          <div class="badge"><span class="icchip"><svg class="ic"><use href="#i-wallet"/></svg></span><span class="t">No admin</span></div>
+          <div class="title">Billing is<br>handled for you</div>
+          <div class="sub">Invoices, collection and payouts are <b>managed for you</b>. Turn up and teach, we sort the rest.</div>
+        </div>
+        <div class="dock">
+          <div class="btn">Next <svg class="ic"><use href="#i-arrow"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DARK SLIDE 3 -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">3</span>Slide 3 &middot; earn + trust slot + Get Started / Login</div>
+      <div class="ph photo dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="slide">
+          <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=900&q=80&auto=format&fit=crop" alt="A confident tutor smiling, ready for the next class">
+          <div class="grad"></div>
+        </div>
+        <div class="topbar">
+          <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot on"></span></div>
+          <div class="counter">3/3</div>
+          <div class="skip hidden">Skip</div>
+        </div>
+        <div class="vp">
+          <div class="badge"><span class="icchip"><svg class="ic"><use href="#i-cal"/></svg></span><span class="t">Your schedule</span></div>
+          <div class="title">Earn for every<br>class you teach</div>
+          <div class="sub">Get paid for each <b>verified class</b> and pick the classes that fit your week.</div>
+          <div class="trust">
+            <svg class="ic"><use href="#i-shield"/></svg>
+            <span class="tt"><b>Join verified tutors on Sifututor</b><span class="pend">stat pending</span></span>
+          </div>
+        </div>
+        <div class="dock">
+          <div class="btn">Get Started <svg class="ic"><use href="#i-arrow"/></svg></div>
+          <div class="signin-row"><span class="lbl">Already have an account?</span><span class="link">Login</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

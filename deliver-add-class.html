@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deliver · Add class (new quota billing model) · focus-first scheduling mock</title>
+<style>
+  /* ============== TOKENS (shared sibling set with deliver-evaluation-report.html / deliver-progress-report.html; mirrors @sifu/ui semantic layer, no raw hex in app markup) ============== */
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.16); --amber-line:rgba(245,158,11,.40);
+    --red:#DC2626; --red-ink:#991B1B; --red-weak:rgba(220,38,38,.10); --red-line:rgba(220,38,38,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --radius:12px; --radius-lg:16px;
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --red:#FF453A; --red-ink:#FF453A; --red-weak:rgba(255,69,58,.16); --red-line:rgba(255,69,58,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5);
+  }
+
+  /* ============== PAGE CHROME (doc only) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1340px;margin:0 auto;}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+  .docnote h1{font-size:17px;margin:0 0 8px;color:#18181b}
+  .docnote h2{font-size:14px;margin:14px 0 6px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .lockbox{background:#f0f3ff;border:1px solid #c7d2fe;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .lockbox b{color:#1e3a8a;}
+  .cutbox{background:#fff1f2;border:1px solid #fecdd3;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .cutbox b{color:#9f1239;}
+  .qbox{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .qbox b{color:#9a3412;}
+  .combox{background:#ecfeff;border:1px solid #a5f3fc;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .combox b{color:#155e75;}
+  .audit{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:12px;}
+  .audit th,.audit td{border:1px solid #e4e4e7;padding:6px 9px;text-align:left;vertical-align:top;}
+  .audit th{background:#f4f4f5;font-weight:700;color:#18181b;}
+  .audit .keep{color:#166534;font-weight:700;} .audit .add{color:#2B2FBE;font-weight:700;} .audit .cut{color:#9f1239;font-weight:700;} .audit .gate{color:#92400e;font-weight:700;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 12px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:8px;text-align:center;max-width:402px;}
+  .framelabel .step{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:#2B2FBE;border-radius:999px;padding:2px 8px;margin-right:6px;}
+
+  /* ============== DEVICE FRAME (verbatim shared chrome) ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column;}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+
+  /* nav: Cancel/Back left · step counter centre · everything quiet */
+  .navbar{display:flex;align-items:center;justify-content:space-between;padding:2px 18px 8px;flex-shrink:0;}
+  .nav-side{font-size:16px;color:var(--tint);font-weight:500;min-width:60px;}
+  .nav-side.r{text-align:right;}
+  .nav-step{font-size:13px;font-weight:700;color:var(--ink-2);}
+
+  /* slim stepped progress bar under the nav (the focus indicator) */
+  .progress{height:4px;border-radius:999px;background:var(--fill-2);margin:0 18px 14px;flex-shrink:0;overflow:hidden;}
+  .progress .pf{height:100%;border-radius:999px;background:var(--tint);}
+
+  .scroll{flex:1;overflow:hidden;padding:0 18px;display:flex;flex-direction:column;}
+
+  /* ONE focal heading per view */
+  .eyebrow{font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--tint-ink);margin:4px 0 6px;}
+  .hero{font-size:25px;font-weight:800;color:var(--ink);letter-spacing:-.4px;line-height:1.12;margin:0 0 8px;}
+  .lede{font-size:14px;color:var(--ink-2);line-height:1.5;margin:0 0 18px;}
+  .lede b{color:var(--ink);font-weight:700;}
+
+  /* step-header row: category chip + eyebrow on one baseline (shared) */
+  .stephd{display:flex;align-items:center;gap:10px;margin:4px 0 10px;}
+  .stephd .eyebrow{margin:0;}
+
+  /* recap (quiet context strip, shared) */
+  .recap{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px;}
+  .recap-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 15px;}
+  .recap-row + .recap-row{border-top:1px solid var(--hair);}
+  .recap-k{font-size:13px;color:var(--ink-2);}
+  .recap-v{font-size:13px;color:var(--ink);font-weight:600;text-align:right;}
+  .recap-foot{font-size:11.5px;color:var(--ink-3);text-align:center;padding:9px 14px;border-top:1px solid var(--hair);background:var(--fill);}
+
+  /* ===== grouped form (native-HIG inset list) ===== */
+  .formsec{margin-bottom:16px;}
+  .form-h{font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-3);margin:0 4px 7px;}
+  .form-card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;}
+  .frow{display:flex;align-items:center;gap:12px;padding:13px 15px;min-height:50px;}
+  .frow + .frow{border-top:1px solid var(--hair);}
+  .frow .ficon{width:28px;height:28px;border-radius:8px;background:var(--fill);color:var(--ink-2);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .frow .ficon .ic{width:16px;height:16px;}
+  .frow .flab{font-size:15px;color:var(--ink);font-weight:500;flex-shrink:0;}
+  .frow .fval{margin-left:auto;font-size:15px;color:var(--ink);font-weight:600;display:inline-flex;align-items:center;gap:7px;text-align:right;}
+  .frow .fval.empty{color:var(--ink-3);font-weight:500;}
+  .frow .chev{color:var(--ink-4);}
+  .frow .chev .ic{width:16px;height:16px;}
+  /* a row carrying a sublabel under the value (subject's package context) */
+  .frow.tall{align-items:flex-start;}
+  .frow .fstack{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:2px;}
+  .frow .fsub{font-size:11.5px;color:var(--ink-3);font-weight:600;}
+  .form-foot{font-size:11.5px;color:var(--ink-3);padding:9px 15px;line-height:1.4;}
+
+  /* time pair: two rows, start + end side by side feel but stacked rows for HIG clarity */
+  .timepair{display:flex;gap:0;}
+  .timepair .frow{flex:1;}
+  .timepair .frow + .frow{border-top:none;border-left:1px solid var(--hair);}
+
+  /* ===== session card (one scheduled session, the focal object) ===== */
+  .sess-card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;margin-bottom:13px;}
+  .sess-head{display:flex;align-items:center;justify-content:space-between;padding:12px 15px 11px;border-bottom:1px solid var(--hair);}
+  .sess-title{font-size:15px;font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:8px;}
+  .sess-title .dot{width:7px;height:7px;border-radius:999px;background:var(--tint);}
+  .sess-remove{color:var(--ink-3);}
+  .sess-remove .ic{width:18px;height:18px;}
+  .sess-body{padding:4px 0;}
+
+  /* ===== backdate cliff banners (3 tiers, grounded in backdate.ts) ===== */
+  .bd{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:11px 13px;margin:12px 15px 4px;}
+  .bd .bdi{flex-shrink:0;margin-top:1px;}
+  .bd .bdt{font-size:12.5px;line-height:1.45;}
+  .bd .bdt b{font-weight:800;display:block;margin-bottom:2px;}
+  /* tier 1: 0-14 days back -> proof reminder (tint notice) */
+  .bd.tier1{background:var(--tint-weak);} .bd.tier1 .bdi{color:var(--tint-ink);} .bd.tier1 .bdt{color:var(--ink-2);} .bd.tier1 .bdt b{color:var(--tint-ink);}
+  /* tier 2: 15-180 days back -> admin review (amber) */
+  .bd.tier2{background:var(--amber-weak);border:1px solid var(--amber-line);} .bd.tier2 .bdi{color:var(--amber-ink);} .bd.tier2 .bdt{color:var(--ink-2);} .bd.tier2 .bdt b{color:var(--amber-ink);}
+  /* tier 3: >180 days -> hard block (red) */
+  .bd.tier3{background:var(--red-weak);border:1px solid var(--red-line);} .bd.tier3 .bdi{color:var(--red-ink);} .bd.tier3 .bdt{color:var(--ink-2);} .bd.tier3 .bdt b{color:var(--red-ink);}
+
+  /* proof-photo attach (dashed, in the tier-1/tier-2 state) */
+  .proof{display:flex;align-items:center;gap:11px;margin:8px 15px 13px;border:1.5px dashed var(--tint);background:var(--tint-weak);border-radius:12px;padding:11px 13px;}
+  .proof.req{border-color:var(--amber-line);background:var(--amber-weak);}
+  .proof .pthumb{width:38px;height:38px;border-radius:9px;background:var(--fill-2);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--ink-3);overflow:hidden;position:relative;}
+  .proof .pthumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .proof .pt{font-size:12.5px;color:var(--ink);font-weight:600;line-height:1.35;flex:1;min-width:0;}
+  .proof .pt small{display:block;font-size:11px;color:var(--ink-3);font-weight:600;margin-top:1px;}
+  .proof.req .pt small{color:var(--amber-ink);}
+  .proof .padd{font-size:13px;font-weight:700;color:var(--tint-ink);display:inline-flex;align-items:center;gap:5px;}
+  .proof.req .padd{color:var(--amber-ink);}
+
+  /* ===== repeat-weekly section (grounded in renderRepeatWeeklySection) ===== */
+  .rep-card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;margin-bottom:13px;}
+  .rep-head{display:flex;align-items:center;gap:12px;padding:13px 15px;}
+  .rep-head .ficon{width:28px;height:28px;border-radius:8px;background:var(--fill);color:var(--ink-2);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .rep-head .ficon .ic{width:16px;height:16px;}
+  .rep-head .rl{flex:1;min-width:0;}
+  .rep-head .rl .rt{font-size:15px;font-weight:600;color:var(--ink);}
+  .rep-head .rl .rs{font-size:12px;color:var(--ink-3);margin-top:1px;}
+  /* iOS switch */
+  .sw{width:51px;height:31px;border-radius:999px;background:var(--green);position:relative;flex-shrink:0;}
+  .sw.off{background:var(--fill-2);}
+  .sw::after{content:"";position:absolute;top:2px;left:22px;width:27px;height:27px;border-radius:999px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:left .15s;}
+  .sw.off::after{left:2px;}
+  .rep-body{border-top:1px solid var(--hair);}
+  .rep-adj{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;}
+  .rep-adj .ral{font-size:14px;color:var(--ink);font-weight:500;}
+  .stepper{display:inline-flex;align-items:center;background:var(--fill);border-radius:999px;padding:3px;gap:2px;flex-shrink:0;}
+  .stepper .sbn{width:32px;height:32px;border-radius:999px;background:var(--card);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;color:var(--tint);}
+  .stepper .sbn .ic{width:16px;height:16px;stroke-width:2.4;}
+  .stepper .sbn.dis{opacity:.4;}
+  .stepper .sv{min-width:34px;text-align:center;font-size:16px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .rep-list{padding:2px 15px 10px;}
+  .rep-chip{display:flex;align-items:center;gap:11px;padding:9px 2px;}
+  .rep-chip + .rep-chip{border-top:1px solid var(--hair);}
+  .rep-chip .cbx{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--ink-4);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:transparent;}
+  .rep-chip.on .cbx{background:var(--tint);border-color:var(--tint);color:#fff;}
+  .rep-chip .cl{font-size:13.5px;color:var(--ink);font-weight:500;}
+  .rep-chip.off .cl{color:var(--ink-3);text-decoration:line-through;}
+
+  /* generic add-row (Add another session) */
+  .addrow{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:14px;margin-bottom:13px;font-size:15px;font-weight:600;color:var(--tint);}
+  .addrow .ic{width:18px;height:18px;}
+
+  .spacer{flex:1;}
+
+  /* sticky footer dock: ONE primary action (shared) */
+  .dock{flex-shrink:0;padding:11px 18px 22px;background:var(--canvas);border-top:1px solid var(--hair);}
+  .btn{height:50px;border-radius:14px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600;}
+  .btn.ghost{background:var(--fill);color:var(--ink);}
+  .btn.disabled{opacity:.45;}
+  .btn.amber{background:var(--amber-weak);color:var(--amber-ink);border:1px solid var(--amber-line);}
+  .dock-row{display:flex;gap:10px;}
+  .dock-row .btn{flex:1;}
+  .dock-note{font-size:11px;color:var(--ink-3);text-align:center;margin-top:8px;line-height:1.4;}
+  .dock-note.warn{color:var(--amber-ink);}
+
+  /* ============== ICON SYSTEM (VERBATIM line set, theme-aware via currentColor) ============== */
+  .ic{width:1em;height:1em;display:inline-block;vertical-align:-0.125em;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+  .icchip{width:30px;height:30px;border-radius:9px;background:var(--tint-weak);color:var(--tint-ink);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .icchip .ic{width:17px;height:17px;}
+  .icchip.sm{width:24px;height:24px;border-radius:7px;} .icchip.sm .ic{width:14px;height:14px;}
+</style>
+</head>
+<body>
+
+<!-- ============== ICON SPRITE (SF-Symbols-style line set; calendar/clock/person/book/repeat/camera/check/plus/minus/trash/info/alert/auto) ============== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H12v15H5.5A1.5 1.5 0 0 0 4 20.5Z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H12v15h6.5a1.5 1.5 0 0 1 1.5 1.5Z"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M4 11V9.5A3.5 3.5 0 0 1 7.5 6H18"/><path d="M15 3l3 3-3 3"/><path d="M20 13v1.5A3.5 3.5 0 0 1 16.5 18H6"/><path d="M9 21l-3-3 3-3"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3.5 8.5A2 2 0 0 1 5.5 6.5H8l1.3-2h5.4L16 6.5h2.5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Z"/><circle cx="12" cy="12.5" r="3.2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5 10 17l9-10"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M6 7l1 12.5A1.5 1.5 0 0 0 8.5 21h7a1.5 1.5 0 0 0 1.5-1.5L18 7"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5 21.5 20H2.5Z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 7.8-7 9-4-1.2-7-4.6-7-9V6Z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-chevdown" viewBox="0 0 24 24"><path d="M8 9l4 4 4-4"/></symbol>
+  <symbol id="i-auto" viewBox="0 0 24 24"><path d="M13 3 4 14h7l-1 7 9-11h-7Z"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3.5h12v17l-2.2-1.4L13.5 20l-1.5-1.4L10.5 20l-2.3-.9L6 20.5Z"/><path d="M9 8h6M9 12h6"/></symbol>
+</svg>
+
+<div class="doc">
+
+  <div class="docnote">
+    <h1>Deliver · Add class (the ONE create-class form) · new quota billing model · focus-first scheduling (2026-06-30)</h1>
+
+    <div class="lockbox" style="background:#fef9c3;border-color:#fde047;"><b style="color:#854d0e;">One create-class form. Consolidation resolved.</b> <code>AddClassSchedule</code> is now the single create-class entry. <b>Backdate</b> (the dead <code>BackdateClassSchedule.tsx</code> route) and <b>both extra-class paths</b> (<code>ExtraClass.tsx</code> + <code>SubmitRequestExtraClass</code>) are RETIRED. The reach-points that fed the retired routes (<code>SubmitRequestPicker</code> "Extra class" tile; the in-form "Add Extra Class" popup) drop with them. This mock targets the <b>new quota billing model</b>: scheduling a class that uses quota auto-invoices through the allocator, so there is no manual extra-class request and no quota-cap block. <b>Gated on the allocator flag</b>: this app update ships with the cutover.</div>
+
+    <div class="combox"><b>What is consciously DIFFERENT vs the live screen (new model only):</b> (1) the <b>quota-cap block is gone</b>: the live form hides session rows, the Add button, and the Confirm button behind <code>MAX_CLASSES = remaining_classes</code> and pops an "Add Extra Class" dialog when <code>MAX_CLASSES &lt; 0</code>; here scheduling is never capped, the allocator auto-invoices the overage. (2) the <b>extra-class path is gone</b>. (3) the seven emoji "remaining N classes / paid sessions from last month" status sentences (the <code>MAX_CLASSES</code> ladder, lines 1133-1219) are <b>replaced by one neutral allocator line</b> ("Each class you schedule is invoiced automatically.") honouring the neutral-copy rule and the no-em-dash rule. Everything that is a <b>scheduling safeguard</b> is kept exactly.</div>
+
+    <div class="lockbox"><b>Safeguards KEPT verbatim from the live code (these are scheduling, not billing):</b> the <b>3-tier backdate cliff</b> from <code>backdate.ts</code>. <b>0 to 14 days back</b> = proof-photo reminder (<code>isBackdate &amp;&amp; !requiresEscalation</code>, line 320); <b>15 to 180 days</b> = admin review, submit returns <code>pending_approval</code> → <code>BackdateEscalationSuccess</code> (<code>requiresEscalation &amp;&amp; !exceedsHardLimit</code>, line 328 + 668); <b>beyond 180 days</b> = hard block (<code>exceedsHardLimit</code>, line 342). The <b>proof photo</b> for any backdated session (line 352, gated on submit line 914). <b>Repeat-weekly</b> recurring with the per-week preview + exclude toggles (<code>renderRepeatWeeklySection</code>, line 722). The <b>clash check</b> (<code>scheduleValidation.ts</code>) and the <b>forward 60-day / back 180-day</b> date window (<code>getAddClassDateWindow</code>) are unchanged.</div>
+
+    <div class="combox"><b>New-model dependency note (one carried decision for Hafiz):</b> repeat-weekly's offer + cap was tied to <code>remaining_classes</code> in the live code (<code>shouldShowRepeatSection = repeatMax &gt; 1</code>; the +/- stepper capped at <code>repeatMax</code>, line 726). With the quota cap removed, that gate must move OFF <code>remaining_classes</code>. This mock offers repeat-weekly whenever one complete session exists and bounds the week count by the <b>forward 60-day window</b> instead (a calendar bound, not a quota bound). Confirm the new bound + default (mock uses default 4 weeks, max bounded by the window).</div>
+
+    <h2>Field-level audit (Rule 7 Step 0), grounded in <code>Screens/AddClassSchedule/index.tsx</code> + <code>backdate.ts</code></h2>
+    <table class="audit">
+      <tr><th>Field / element</th><th>Provenance (live code)</th><th>What consumes it</th><th>Verdict</th></tr>
+      <tr><td>Student picker</td><td><code>CustomDropDown ddTitle="Student"</code> (1044); <code>useStudents</code></td><td><code>student_id</code> on every class row in the submit FormData (623)</td><td class="keep">KEEP</td></tr>
+      <tr><td>Subject picker (per student)</td><td><code>CustomDropDown ddTitle="Subject"</code> (1081); <code>useStudentSubjects</code></td><td><code>subject_id</code> + <code>ticketID</code> (<code>tutor_request_id</code>) on submit (619, 624)</td><td class="keep">KEEP</td></tr>
+      <tr><td>Subject package context (duration, total)</td><td><code>class_duration</code> (215), <code>total_classes</code></td><td><code>class_duration</code> auto-computes End time (278, 952); shown as quiet sublabel</td><td class="keep">KEEP</td></tr>
+      <tr><td>Date (per session)</td><td><code>setClassDate('date')</code> + <code>DateTimePickerModal</code> (387, 1264)</td><td><code>date</code> on submit; drives backdate detection (629)</td><td class="keep">KEEP</td></tr>
+      <tr><td>Start time (per session)</td><td><code>setClassDate('time', i, true)</code> (427)</td><td><code>start_time</code> on submit (624); clash check</td><td class="keep">KEEP</td></tr>
+      <tr><td>End time (auto from duration)</td><td><code>calculateEndTime</code> = start + <code>class_duration</code> (276)</td><td><code>end_time</code> on submit (625); read-only, computed</td><td class="keep">KEEP</td></tr>
+      <tr><td>Multiple sessions (add / remove)</td><td><code>addClass</code> (558) / delete modal (310, 1310)</td><td>array <code>classes[]</code> submitted together (621)</td><td class="keep">KEEP</td></tr>
+      <tr><td>Clash guard between sessions</td><td><code>classesClash</code> (591, 840) · <code>scheduleValidation.ts</code></td><td>blocks overlapping same-day sessions (safeguard)</td><td class="keep">KEEP</td></tr>
+      <tr><td><b>Backdate tier 1</b> (0-14d) proof reminder</td><td><code>isBackdate &amp;&amp; !requiresEscalation</code> banner (320)</td><td>warns class already happened; needs parent-confirm photo</td><td class="keep">KEEP</td></tr>
+      <tr><td><b>Backdate tier 2</b> (15-180d) admin review</td><td><code>requiresEscalation &amp;&amp; !exceedsHardLimit</code> (328); submit → <code>pending_approval</code> (668)</td><td>raises admin-review ticket → <code>BackdateEscalationSuccess</code></td><td class="keep">KEEP</td></tr>
+      <tr><td><b>Backdate tier 3</b> (&gt;180d) hard block</td><td><code>exceedsHardLimit</code> error banner (342); <code>BACKDATE_HARD_LIMIT_DAYS=180</code></td><td>blocks submit entirely (safeguard)</td><td class="keep">KEEP</td></tr>
+      <tr><td><b>Proof photo</b> (backdated sessions)</td><td><code>handlePickProofPhoto</code> (705); attach button (352)</td><td><code>proof_image</code> on submit (630); required gate (914)</td><td class="keep">KEEP</td></tr>
+      <tr><td><b>Repeat-weekly</b> toggle + week count + preview/exclude</td><td><code>renderRepeatWeeklySection</code> (722); <code>buildRepeatPreviewItems</code> (69)</td><td>clones the first session weekly; submitted as extra rows (826)</td><td class="keep">KEEP*</td></tr>
+      <tr><td>Forward 60d / back 180d date window</td><td><code>getAddClassDateWindow</code> (58); picker min/max (1271)</td><td>bounds the date picker (safeguard)</td><td class="keep">KEEP</td></tr>
+      <tr><td>Escalation to <code>pending_approval</code></td><td><code>result.status === 'pending_approval'</code> (668)</td><td>routes tier-2 to the escalation success screen</td><td class="keep">KEEP</td></tr>
+      <tr><td>Allocator auto-invoice line</td><td>NEW, replaces the <code>MAX_CLASSES</code> emoji ladder (1133)</td><td>UI only; neutral, names what scheduling triggers</td><td class="add">ADD</td></tr>
+      <tr><td>Focus-first sectioning + sticky single CTA</td><td>NEW, restructure of the one long ScrollView</td><td>UI only; one focal thing per view</td><td class="add">ADD</td></tr>
+      <tr><td>Per-value provenance ("From the ticket")</td><td>NEW, smart-default trust on the subject sublabel</td><td>UI only</td><td class="add">ADD</td></tr>
+      <tr><td><b>Quota-cap block</b> (<code>MAX_CLASSES</code> gates rows + buttons)</td><td><code>remaining_classes</code> (214); <code>renderClasses</code> null (272); button gates (1240, 1252)</td><td>blocked scheduling past quota; allocator now auto-invoices</td><td class="cut">CUT (new model)</td></tr>
+      <tr><td><b>Extra-class path</b> + "Add Extra Class" popup</td><td><code>navigateToExtraClass</code> → <code>ExtraClass</code> (1006); popup (1357)</td><td>obsolete; allocator handles the overage</td><td class="cut">CUT (new model)</td></tr>
+      <tr><td>7 emoji "remaining N / paid last-month" status sentences</td><td><code>MAX_CLASSES</code> ladder (1133-1219)</td><td>quota-derived nudges; replaced by one neutral allocator line</td><td class="cut">CUT (new model)</td></tr>
+    </table>
+    <div style="font-size:12px;margin-top:6px;"><b>Tally:</b> KEEP 16 &middot; ADD 3 &middot; CUT 3 (all 3 gated on the new billing model / allocator flag). <b>Every scheduling safeguard kept.</b> The only removals are the quota cap, the extra-class path, and the quota-derived status copy. <b>*Repeat-weekly</b> kept but re-bounded off <code>remaining_classes</code> onto the calendar window (see dependency note).</div>
+
+    <div class="cutbox"><b>Removed (and why each is safe):</b> <b>(1) Quota-cap block:</b> in the live model a session past <code>remaining_classes</code> could not be scheduled and pushed you to the extra-class request. The allocator now auto-invoices each scheduled class, so capping scheduling would block real teaching that should simply be billed. <b>(2) Extra-class path</b> (<code>ExtraClass</code> + <code>SubmitRequestExtraClass</code>): its only job was requesting paid sessions beyond quota; the auto-invoice makes the request redundant. <b>(3) The 7 emoji status sentences:</b> they narrated the quota count ("schedule the remaining 3 classes", "paid sessions from last month"); with no cap they are inaccurate and chatty. All three are <b>gated on the allocator flag</b> and ship with the cutover, not before.</div>
+
+    <h2>Commercial pass (Rule 16)</h2>
+    <div class="lockbox" style="background:#f0fdf4;border-color:#bbf7d0;">
+      <b style="color:#065f46;">Founder:</b> in the new model every scheduled class drives an auto-invoice, so this form sits directly on the revenue line. Its job is to make scheduling <b>fast and correct</b> (more classes scheduled = more GMV recognised), not to gate it. Highest leverage = removing the cap friction that previously sent tutors into a dead-end request.<br>
+      <b style="color:#065f46;">Sales:</b> no upsell surface here (utility form); the auto-invoice IS the monetisation, happening silently and correctly. The honest move is the neutral "Each class you schedule is invoiced automatically" line so the tutor (and downstream the parent) is never surprised by a charge.<br>
+      <b style="color:#065f46;">Marketing:</b> "schedule in seconds, billing handled for you" is the tutor-facing promise; the removed cap + removed extra-class detour is a real friction win to message in release notes.<br>
+      <b style="color:#065f46;">Analyst:</b> primary metric = <b>classes scheduled per active tutor / week</b> (expect a lift once the cap is gone) and <b>schedule-to-invoice accuracy</b>. <b>Guard metric (non-negotiable): no accidental over-scheduling / wrong-date classes.</b> Because each row now bills, an over-scheduled or mis-dated class is a billing error. The guard is held by keeping every safeguard (clash check, the backdate cliff, the explicit confirm), plus the review-before-confirm summary. Instrument: rate of invoiced classes later cancelled/refunded as wrong-date, and backdate-escalation volume.
+    </div>
+
+    <div class="qbox"><b>Hafiz questions (flagged, not resolved):</b> <b>Q1</b> with the cap gone, what bounds repeat-weekly's week count and offer: confirm the forward 60-day window is the right calendar bound + the default (mock uses 4)? <b>Q2</b> the auto-invoice copy: should the form name the per-class price / total at confirm (transparency) or stay silent and let the invoice land separately? <b>Q3</b> does the allocator distinguish in-quota vs overage classes for the tutor at all, or is scheduling now fully quota-agnostic on this screen (mock assumes fully agnostic)? <b>Q4</b> backdated + auto-invoice: a tier-2 (15-180d) class goes to <code>pending_approval</code>; does the auto-invoice fire on schedule or only after admin approval (timing affects the guard metric)?</div>
+  </div>
+
+  <!-- ===================== LIGHT MODE ===================== -->
+  <div class="modehd">Light mode &middot; the focused scheduling flow</div>
+  <div class="frames">
+
+    <!-- VIEW A: PICK who + what (the focal first decision) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">A</span>Pick &middot; ONE focal point: who + which subject</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">Cancel</span><span class="nav-step">Add class</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:33%"></div></div>
+        <div class="scroll">
+          <div class="hero" style="font-size:23px;margin-bottom:6px;">Who are you teaching?</div>
+          <div class="lede">Pick the student and subject, then set the time. We handle billing.</div>
+
+          <div class="formsec">
+            <div class="form-h">Student &amp; subject</div>
+            <div class="form-card">
+              <div class="frow">
+                <span class="ficon"><svg class="ic"><use href="#i-person"/></svg></span>
+                <span class="flab">Student</span>
+                <span class="fval">Adam Lim<span class="chev"><svg class="ic"><use href="#i-chevdown"/></svg></span></span>
+              </div>
+              <div class="frow tall">
+                <span class="ficon"><svg class="ic"><use href="#i-book"/></svg></span>
+                <span class="flab">Subject</span>
+                <span class="fstack">
+                  <span class="fval" style="margin:0;">Mathematics &middot; Form 4<span class="chev"><svg class="ic"><use href="#i-chevdown"/></svg></span></span>
+                  <span class="fsub">1 hour per class &middot; from the ticket</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- NEW-MODEL line: replaces the 7 emoji quota sentences. Neutral, names what scheduling triggers. -->
+          <div class="formsec">
+            <div class="form-card">
+              <div class="frow">
+                <span class="ficon" style="background:var(--tint-weak);color:var(--tint-ink);"><svg class="ic"><use href="#i-receipt"/></svg></span>
+                <span class="flab" style="font-weight:500;color:var(--ink-2);font-size:13.5px;line-height:1.4;">Each class you schedule is invoiced automatically.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Next &middot; Set the time</div>
+          <div class="dock-note">Takes about a minute. You can review before confirming.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW B: SCHEDULE a future class (the happy path) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">B</span>Future class &middot; date + time, end auto-filled, repeat offered</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 2 of 3</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:66%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-cal"/></svg></span><div class="eyebrow">When is the class?</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">Set the date and time</div>
+
+          <div class="sess-card">
+            <div class="sess-head"><span class="sess-title"><span class="dot"></span>Session 1</span></div>
+            <div class="sess-body">
+              <div class="frow">
+                <span class="ficon"><svg class="ic"><use href="#i-cal"/></svg></span>
+                <span class="flab">Date</span>
+                <span class="fval">04-Jul-2026<span class="chev"><svg class="ic"><use href="#i-chev"/></svg></span></span>
+              </div>
+              <div class="timepair">
+                <div class="frow">
+                  <span class="ficon"><svg class="ic"><use href="#i-clock"/></svg></span>
+                  <span class="flab">Start</span>
+                  <span class="fval" style="font-variant-numeric:tabular-nums;">16:00</span>
+                </div>
+                <div class="frow">
+                  <span class="flab">End</span>
+                  <span class="fval" style="font-variant-numeric:tabular-nums;color:var(--ink-2);">17:00</span>
+                </div>
+              </div>
+              <div class="form-foot">End time follows the 1-hour package automatically.</div>
+            </div>
+          </div>
+
+          <!-- repeat-weekly, OFF here (offered once one complete session exists) -->
+          <div class="rep-card">
+            <div class="rep-head">
+              <span class="ficon"><svg class="ic"><use href="#i-repeat"/></svg></span>
+              <span class="rl"><span class="rt">Repeat weekly</span></span>
+              <span class="sw off"></span>
+            </div>
+          </div>
+
+          <div class="addrow"><svg class="ic"><use href="#i-plus"/></svg>Add another session</div>
+
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Review &middot; 1 class</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW C: REPEAT-WEEKLY on (the recurring option, per-week preview + exclude) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">C</span>Repeat weekly ON &middot; per-week preview, one week excluded</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 2 of 3</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:66%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-cal"/></svg></span><div class="eyebrow">When is the class?</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">Set the date and time</div>
+
+          <div class="sess-card">
+            <div class="sess-head"><span class="sess-title"><span class="dot"></span>Session 1</span></div>
+            <div class="sess-body">
+              <div class="frow">
+                <span class="ficon"><svg class="ic"><use href="#i-cal"/></svg></span>
+                <span class="flab">Date</span>
+                <span class="fval">04-Jul-2026<span class="chev"><svg class="ic"><use href="#i-chev"/></svg></span></span>
+              </div>
+              <div class="timepair">
+                <div class="frow">
+                  <span class="ficon"><svg class="ic"><use href="#i-clock"/></svg></span>
+                  <span class="flab">Start</span>
+                  <span class="fval" style="font-variant-numeric:tabular-nums;">16:00</span>
+                </div>
+                <div class="frow">
+                  <span class="flab">End</span>
+                  <span class="fval" style="font-variant-numeric:tabular-nums;color:var(--ink-2);">17:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rep-card">
+            <div class="rep-head">
+              <span class="ficon" style="background:var(--tint-weak);color:var(--tint-ink);"><svg class="ic"><use href="#i-repeat"/></svg></span>
+              <span class="rl"><span class="rt">Repeat weekly</span></span>
+              <span class="sw"></span>
+            </div>
+            <div class="rep-body">
+              <div class="rep-adj">
+                <span class="ral">Repeat for 4 weeks</span>
+                <span class="stepper"><span class="sbn"><svg class="ic"><use href="#i-minus"/></svg></span><span class="sv">4</span><span class="sbn"><svg class="ic"><use href="#i-plus"/></svg></span></span>
+              </div>
+              <div class="rep-list">
+                <div class="rep-chip on"><span class="cbx"><svg class="ic" style="width:13px;height:13px"><use href="#i-check"/></svg></span><span class="cl">Week 2 &middot; Sat, 11-Jul</span></div>
+                <div class="rep-chip on"><span class="cbx"><svg class="ic" style="width:13px;height:13px"><use href="#i-check"/></svg></span><span class="cl">Week 3 &middot; Sat, 18-Jul</span></div>
+                <div class="rep-chip off"><span class="cbx"></span><span class="cl">Week 4 &middot; Sat, 25-Jul</span></div>
+              </div>
+              <div class="form-foot">Untick a week to skip it. School holiday on the 25th.</div>
+            </div>
+          </div>
+
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Review &middot; 3 classes</div>
+          <div class="dock-note">1 set, plus 2 weekly repeats.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW D: BACKDATED within 14 days (tier 1 proof reminder + proof attach) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">D</span>Backdated &lt;14 days &middot; proof-photo requirement visible</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 2 of 3</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:66%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-cal"/></svg></span><div class="eyebrow">When is the class?</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">Set the date and time</div>
+
+          <div class="sess-card">
+            <div class="sess-head"><span class="sess-title"><span class="dot" style="background:var(--tint-ink);"></span>Session 1</span></div>
+            <div class="sess-body">
+              <div class="frow">
+                <span class="ficon"><svg class="ic"><use href="#i-cal"/></svg></span>
+                <span class="flab">Date</span>
+                <span class="fval">27-Jun-2026<span class="chev"><svg class="ic"><use href="#i-chev"/></svg></span></span>
+              </div>
+
+              <!-- TIER 1 backdate banner: 0-14 days back -> proof reminder (line 320) -->
+              <div class="bd tier1">
+                <span class="bdi"><svg class="ic" style="width:17px;height:17px"><use href="#i-info"/></svg></span>
+                <span class="bdt"><b>This class already happened</b>Attach a photo so the parent can confirm it before it counts toward your hours.</span>
+              </div>
+              <!-- proof attach (attached state shown) -->
+              <div class="proof">
+                <span class="pthumb"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=200&q=70&auto=format&fit=crop" alt="Photo of the class session"></span>
+                <span class="pt">Proof photo attached<small>Tap to change</small></span>
+              </div>
+
+              <div class="timepair">
+                <div class="frow">
+                  <span class="ficon"><svg class="ic"><use href="#i-clock"/></svg></span>
+                  <span class="flab">Start</span>
+                  <span class="fval" style="font-variant-numeric:tabular-nums;">14:00</span>
+                </div>
+                <div class="frow">
+                  <span class="flab">End</span>
+                  <span class="fval" style="font-variant-numeric:tabular-nums;color:var(--ink-2);">15:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Review &middot; 1 class</div>
+          <div class="dock-note">Proof attached. The parent confirms before it counts.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW E: REVIEW & confirm (the guard-metric gate: see exactly what bills) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">E</span>Review &middot; exactly what gets scheduled + invoiced</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Review</span><span class="nav-side r"></span></div>
+        <div class="scroll">
+          <div class="hero" style="font-size:21px;margin:4px 0 4px;">Confirm the schedule</div>
+          <div class="lede" style="margin-bottom:14px;">Adam &middot; Mathematics. Tap any line to change it.</div>
+
+          <div class="formsec">
+            <div class="form-h">Classes &middot; 3</div>
+            <div class="form-card">
+              <div class="frow">
+                <span class="ficon"><svg class="ic"><use href="#i-cal"/></svg></span>
+                <span class="flab" style="font-weight:600;">Sat, 04-Jul</span>
+                <span class="fval" style="font-variant-numeric:tabular-nums;">16:00 &ndash; 17:00</span>
+              </div>
+              <div class="frow">
+                <span class="ficon"><svg class="ic"><use href="#i-cal"/></svg></span>
+                <span class="flab" style="font-weight:600;">Sat, 11-Jul</span>
+                <span class="fval" style="font-variant-numeric:tabular-nums;">16:00 &ndash; 17:00</span>
+              </div>
+              <div class="frow">
+                <span class="ficon"><svg class="ic"><use href="#i-cal"/></svg></span>
+                <span class="flab" style="font-weight:600;">Sat, 18-Jul</span>
+                <span class="fval" style="font-variant-numeric:tabular-nums;">16:00 &ndash; 17:00</span>
+              </div>
+            </div>
+            <div class="form-foot">Weekly repeat. Week 4 (25-Jul) skipped.</div>
+          </div>
+
+          <!-- auto-invoice transparency: names what confirming triggers (honest, not a dark pattern) -->
+          <div class="formsec">
+            <div class="form-card">
+              <div class="frow">
+                <span class="ficon" style="background:var(--tint-weak);color:var(--tint-ink);"><svg class="ic"><use href="#i-receipt"/></svg></span>
+                <span class="flab" style="font-weight:500;color:var(--ink-2);font-size:13.5px;line-height:1.4;flex:1;min-width:0;">Schedules all 3 classes, each auto-invoiced.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Confirm schedule</div>
+          <div class="dock-note">3 classes added to your calendar.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== DARK MODE ===================== -->
+  <div class="modehd">Dark mode &middot; the same focused flow</div>
+  <div class="frames">
+
+    <!-- DARK A: PICK -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">A</span>Pick</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">Cancel</span><span class="nav-step">Add class</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:33%"></div></div>
+        <div class="scroll">
+          <div class="hero" style="font-size:23px;margin-bottom:6px;">Who are you teaching?</div>
+          <div class="lede">Pick the student and subject, then set the time. We handle billing.</div>
+          <div class="formsec">
+            <div class="form-h">Student &amp; subject</div>
+            <div class="form-card">
+              <div class="frow">
+                <span class="ficon"><svg class="ic"><use href="#i-person"/></svg></span>
+                <span class="flab">Student</span>
+                <span class="fval">Adam Lim<span class="chev"><svg class="ic"><use href="#i-chevdown"/></svg></span></span>
+              </div>
+              <div class="frow tall">
+                <span class="ficon"><svg class="ic"><use href="#i-book"/></svg></span>
+                <span class="flab">Subject</span>
+                <span class="fstack">
+                  <span class="fval" style="margin:0;">Mathematics &middot; Form 4<span class="chev"><svg class="ic"><use href="#i-chevdown"/></svg></span></span>
+                  <span class="fsub">1 hour per class &middot; from the ticket</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="formsec">
+            <div class="form-card">
+              <div class="frow">
+                <span class="ficon" style="background:var(--tint-weak);color:var(--tint-ink);"><svg class="ic"><use href="#i-receipt"/></svg></span>
+                <span class="flab" style="font-weight:500;color:var(--ink-2);font-size:13.5px;line-height:1.4;">Each class you schedule is invoiced automatically.</span>
+              </div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Next &middot; Set the time</div>
+          <div class="dock-note">Takes about a minute. You can review before confirming.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DARK C: REPEAT-WEEKLY on -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">C</span>Repeat weekly ON</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 2 of 3</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:66%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-cal"/></svg></span><div class="eyebrow">When is the class?</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">Set the date and time</div>
+          <div class="sess-card">
+            <div class="sess-head"><span class="sess-title"><span class="dot"></span>Session 1</span></div>
+            <div class="sess-body">
+              <div class="frow">
+                <span class="ficon"><svg class="ic"><use href="#i-cal"/></svg></span>
+                <span class="flab">Date</span>
+                <span class="fval">04-Jul-2026<span class="chev"><svg class="ic"><use href="#i-chev"/></svg></span></span>
+              </div>
+              <div class="timepair">
+                <div class="frow">
+                  <span class="ficon"><svg class="ic"><use href="#i-clock"/></svg></span>
+                  <span class="flab">Start</span>
+                  <span class="fval" style="font-variant-numeric:tabular-nums;">16:00</span>
+                </div>
+                <div class="frow">
+                  <span class="flab">End</span>
+                  <span class="fval" style="font-variant-numeric:tabular-nums;color:var(--ink-2);">17:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rep-card">
+            <div class="rep-head">
+              <span class="ficon" style="background:var(--tint-weak);color:var(--tint-ink);"><svg class="ic"><use href="#i-repeat"/></svg></span>
+              <span class="rl"><span class="rt">Repeat weekly</span></span>
+              <span class="sw"></span>
+            </div>
+            <div class="rep-body">
+              <div class="rep-adj">
+                <span class="ral">Repeat for 4 weeks</span>
+                <span class="stepper"><span class="sbn"><svg class="ic"><use href="#i-minus"/></svg></span><span class="sv">4</span><span class="sbn"><svg class="ic"><use href="#i-plus"/></svg></span></span>
+              </div>
+              <div class="rep-list">
+                <div class="rep-chip on"><span class="cbx"><svg class="ic" style="width:13px;height:13px"><use href="#i-check"/></svg></span><span class="cl">Week 2 &middot; Sat, 11-Jul</span></div>
+                <div class="rep-chip on"><span class="cbx"><svg class="ic" style="width:13px;height:13px"><use href="#i-check"/></svg></span><span class="cl">Week 3 &middot; Sat, 18-Jul</span></div>
+                <div class="rep-chip off"><span class="cbx"></span><span class="cl">Week 4 &middot; Sat, 25-Jul</span></div>
+              </div>
+              <div class="form-foot">Untick a week to skip it. School holiday on the 25th.</div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Review &middot; 3 classes</div>
+          <div class="dock-note">1 set, plus 2 weekly repeats.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DARK D: BACKDATED <14d (proof) + the tier-2 / tier-3 banners shown together for reference -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">D</span>Backdated &middot; tier-1 proof + the tier-2/tier-3 cliff banners</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 2 of 3</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:66%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-cal"/></svg></span><div class="eyebrow">When is the class?</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">Set the date and time</div>
+
+          <div class="sess-card">
+            <div class="sess-head"><span class="sess-title"><span class="dot" style="background:var(--tint-ink);"></span>Session 1</span></div>
+            <div class="sess-body">
+              <div class="frow">
+                <span class="ficon"><svg class="ic"><use href="#i-cal"/></svg></span>
+                <span class="flab">Date</span>
+                <span class="fval">27-Jun-2026<span class="chev"><svg class="ic"><use href="#i-chev"/></svg></span></span>
+              </div>
+              <div class="bd tier1">
+                <span class="bdi"><svg class="ic" style="width:17px;height:17px"><use href="#i-info"/></svg></span>
+                <span class="bdt"><b>This class already happened</b>Attach a photo so the parent can confirm it before it counts toward your hours.</span>
+              </div>
+              <div class="proof">
+                <span class="pthumb"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=200&q=70&auto=format&fit=crop" alt="Photo of the class session"></span>
+                <span class="pt">Proof photo attached<small>Tap to change</small></span>
+              </div>
+              <div class="timepair">
+                <div class="frow">
+                  <span class="ficon"><svg class="ic"><use href="#i-clock"/></svg></span>
+                  <span class="flab">Start</span>
+                  <span class="fval" style="font-variant-numeric:tabular-nums;">14:00</span>
+                </div>
+                <div class="frow">
+                  <span class="flab">End</span>
+                  <span class="fval" style="font-variant-numeric:tabular-nums;color:var(--ink-2);">15:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- reference: the other two cliff tiers as they appear on a deeper-backdated date -->
+          <div class="form-h" style="margin-top:4px;">The cliff &middot; deeper backdates (reference)</div>
+          <div class="bd tier2" style="margin:0 0 8px;">
+            <span class="bdi"><svg class="ic" style="width:17px;height:17px"><use href="#i-shield"/></svg></span>
+            <span class="bdt"><b>Admin review needed</b>Classes older than 14 days are reviewed by admin, usually within 24 hours.</span>
+          </div>
+          <div class="bd tier3" style="margin:0 0 4px;">
+            <span class="bdi"><svg class="ic" style="width:17px;height:17px"><use href="#i-alert"/></svg></span>
+            <span class="bdt"><b>Too far back</b>Classes cannot be older than 180 days.</span>
+          </div>
+
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Review &middot; 1 class</div>
+          <div class="dock-note">Proof attached. The parent confirms before it counts.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DARK E: REVIEW -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">E</span>Review &amp; confirm</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Review</span><span class="nav-side r"></span></div>
+        <div class="scroll">
+          <div class="hero" style="font-size:21px;margin:4px 0 4px;">Confirm the schedule</div>
+          <div class="lede" style="margin-bottom:14px;">Adam &middot; Mathematics. Tap any line to change it.</div>
+          <div class="formsec">
+            <div class="form-h">Classes &middot; 3</div>
+            <div class="form-card">
+              <div class="frow">
+                <span class="ficon"><svg class="ic"><use href="#i-cal"/></svg></span>
+                <span class="flab" style="font-weight:600;">Sat, 04-Jul</span>
+                <span class="fval" style="font-variant-numeric:tabular-nums;">16:00 &ndash; 17:00</span>
+              </div>
+              <div class="frow">
+                <span class="ficon"><svg class="ic"><use href="#i-cal"/></svg></span>
+                <span class="flab" style="font-weight:600;">Sat, 11-Jul</span>
+                <span class="fval" style="font-variant-numeric:tabular-nums;">16:00 &ndash; 17:00</span>
+              </div>
+              <div class="frow">
+                <span class="ficon"><svg class="ic"><use href="#i-cal"/></svg></span>
+                <span class="flab" style="font-weight:600;">Sat, 18-Jul</span>
+                <span class="fval" style="font-variant-numeric:tabular-nums;">16:00 &ndash; 17:00</span>
+              </div>
+            </div>
+            <div class="form-foot">Weekly repeat. Week 4 (25-Jul) skipped.</div>
+          </div>
+          <div class="formsec">
+            <div class="form-card">
+              <div class="frow">
+                <span class="ficon" style="background:var(--tint-weak);color:var(--tint-ink);"><svg class="ic"><use href="#i-receipt"/></svg></span>
+                <span class="flab" style="font-weight:500;color:var(--ink-2);font-size:13.5px;line-height:1.4;flex:1;min-width:0;">Schedules all 3 classes, each auto-invoiced.</span>
+              </div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Confirm schedule</div>
+          <div class="dock-note">3 classes added to your calendar.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

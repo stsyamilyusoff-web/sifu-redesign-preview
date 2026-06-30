@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deliver · Evaluation report (first-class baseline) · focus-first stepped mock</title>
+<style>
+  /* ============== TOKENS (mirrors @sifu/ui semantic layer; no raw hex in app markup) · shared sibling set with deliver-progress-report.html ============== */
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --radius:12px; --radius-lg:16px;
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5);
+  }
+
+  /* ============== PAGE CHROME (doc only) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1340px;margin:0 auto;}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+  .docnote h1{font-size:17px;margin:0 0 8px;color:#18181b}
+  .docnote h2{font-size:14px;margin:14px 0 6px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .lockbox{background:#f0f3ff;border:1px solid #c7d2fe;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .lockbox b{color:#1e3a8a;}
+  .qbox{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .qbox b{color:#9a3412;}
+  .audit{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:12px;}
+  .audit th,.audit td{border:1px solid #e4e4e7;padding:6px 9px;text-align:left;vertical-align:top;}
+  .audit th{background:#f4f4f5;font-weight:700;color:#18181b;}
+  .audit .keep{color:#166534;font-weight:700;} .audit .add{color:#2B2FBE;font-weight:700;} .audit .cut{color:#9f1239;font-weight:700;} .audit .gate{color:#92400e;font-weight:700;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 12px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:8px;text-align:center;max-width:402px;}
+  .framelabel .step{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:#2B2FBE;border-radius:999px;padding:2px 8px;margin-right:6px;}
+
+  /* ============== DEVICE FRAME ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column;}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+
+  /* nav: Cancel/Back left · step counter centre · everything quiet */
+  .navbar{display:flex;align-items:center;justify-content:space-between;padding:2px 18px 8px;flex-shrink:0;}
+  .nav-side{font-size:16px;color:var(--tint);font-weight:500;min-width:60px;}
+  .nav-side.r{text-align:right;}
+  .nav-step{font-size:13px;font-weight:700;color:var(--ink-2);}
+
+  /* slim stepped progress bar under the nav (the focus indicator) */
+  .progress{height:4px;border-radius:999px;background:var(--fill-2);margin:0 18px 14px;flex-shrink:0;overflow:hidden;}
+  .progress .pf{height:100%;border-radius:999px;background:var(--tint);}
+
+  .scroll{flex:1;overflow:hidden;padding:0 18px;display:flex;flex-direction:column;}
+
+  /* ONE focal heading per view */
+  .eyebrow{font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--tint-ink);margin:4px 0 6px;}
+  .hero{font-size:25px;font-weight:800;color:var(--ink);letter-spacing:-.4px;line-height:1.12;margin:0 0 8px;}
+  .lede{font-size:14px;color:var(--ink-2);line-height:1.5;margin:0 0 18px;}
+  .lede b{color:var(--ink);font-weight:700;}
+
+  /* intro context recap: quiet, recedes behind the hero */
+  .recap{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px;}
+  .recap-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 15px;}
+  .recap-row + .recap-row{border-top:1px solid var(--hair);}
+  .recap-k{font-size:13px;color:var(--ink-2);}
+  .recap-v{font-size:13px;color:var(--ink);font-weight:600;text-align:right;}
+  .recap-foot{font-size:11.5px;color:var(--ink-3);text-align:center;padding:9px 14px;border-top:1px solid var(--hair);background:var(--fill);}
+
+  /* baseline note (eval): NO progress framing: names the one-time baseline */
+  .bnote{display:flex;gap:9px;align-items:flex-start;background:var(--tint-weak);border-radius:12px;padding:11px 13px;margin-bottom:16px;}
+  .bnote .bi{display:inline-flex;flex-shrink:0;color:var(--tint-ink);margin-top:1px;}
+  .bnote .bt{font-size:12.5px;color:var(--ink-2);line-height:1.5;}
+  .bnote .bt b{color:var(--tint-ink);font-weight:800;}
+
+  /* ===== the compact visual rating question (the big text reduction) ===== */
+  .qcard{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:15px 15px 14px;margin-bottom:13px;}
+  .q-n{font-size:11px;font-weight:800;color:var(--ink-3);letter-spacing:.3px;margin-bottom:6px;}
+  .q-title{font-size:15.5px;font-weight:700;color:var(--ink);line-height:1.32;margin-bottom:13px;}
+  /* segmented ordinal scale: 3 or 4 taps, low->high, ONE selected */
+  .scale{display:flex;gap:6px;}
+  .seg{flex:1;height:46px;border-radius:11px;background:var(--fill);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1.5px solid transparent;}
+  .seg .dot{width:7px;height:7px;border-radius:999px;background:var(--ink-4);}
+  .seg .sl{font-size:10.5px;font-weight:800;letter-spacing:.2px;color:var(--ink-3);text-transform:uppercase;}
+  /* the four-level ramp uses dot count to read as ordinal at a glance */
+  .seg .dots{display:flex;gap:2px;}
+  .seg .dots i{width:5px;height:5px;border-radius:999px;background:var(--ink-4);}
+  .seg.sel{background:var(--tint-weak);border-color:var(--tint);}
+  .seg.sel .sl{color:var(--tint-ink);}
+  .seg.sel .dot,.seg.sel .dots i{background:var(--tint);}
+  /* the selected option's full sentence, revealed compactly below the scale (progressive disclosure) */
+  .reveal{display:flex;gap:8px;align-items:flex-start;margin-top:12px;padding:10px 12px;background:var(--fill);border-radius:10px;}
+  .reveal .rk{flex-shrink:0;color:var(--green);font-size:14px;font-weight:800;margin-top:1px;}
+  .reveal .rt{font-size:13px;color:var(--ink);line-height:1.45;}
+  .reveal.empty .rk{color:var(--ink-4);}
+  .reveal.empty .rt{color:var(--ink-3);}
+
+  /* ===== VERTICAL LEVEL LADDER (rating input · matched to deliver-progress-report.html · board S2-C IELTS / Whoop) =====
+     Rising rungs, highest at top (column-reverse), each rung names the level + a short non-repetitive descriptor; selected rung highlighted. */
+  .ladder{width:100%;display:flex;flex-direction:column-reverse;gap:6px;}
+  .lad-rung{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:11px;background:var(--fill);border:1.5px solid transparent;}
+  .lad-rung.on{background:var(--tint-weak);border-color:var(--tint);}
+  .lad-bars{display:flex;align-items:flex-end;gap:2px;height:18px;width:22px;flex-shrink:0;}
+  .lad-bars b{flex:1;border-radius:2px;background:var(--ink-4);}
+  .lad-rung.on .lad-bars b{background:var(--tint);}
+  .lad-txt{flex:1;min-width:0;}
+  .lad-lv{font-size:12.5px;font-weight:800;color:var(--ink);}
+  .lad-rung.on .lad-lv{color:var(--tint-ink);}
+  .lad-d{font-size:10.5px;color:var(--ink-3);font-weight:600;line-height:1.3;}
+  .lad-chk{width:18px;height:18px;border-radius:999px;border:1.5px solid var(--ink-4);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:transparent;}
+  .lad-rung.on .lad-chk{background:var(--tint);border-color:var(--tint);color:#fff;}
+
+  /* ===== BASELINE SCORE DIAL (score · matched to the progress credit-score dial, board S1-A, BUT baseline-only) =====
+     The eval is the FIRST-CLASS BASELINE, so the dial shows JUST the number the tutor sets (the reference point):
+     the arc fills to that value, NO now-dot, NO baseline-vs-now compare, NO gain caption. It IS where Adam starts. */
+  .dialcard{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:16px 15px 16px;margin-bottom:13px;display:flex;flex-direction:column;align-items:center;}
+  .dial-lab{font-size:12px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:var(--ink-3);align-self:flex-start;display:inline-flex;align-items:center;gap:8px;margin-bottom:2px;}
+  .arcwrap{position:relative;width:248px;height:150px;}
+  .arc-read{position:absolute;left:0;right:0;bottom:2px;text-align:center;}
+  .arc-now{font-size:48px;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-1px;font-variant-numeric:tabular-nums;}
+  .arc-now small{font-size:19px;font-weight:700;color:var(--ink-3);}
+  /* baseline caption (NOT a trend/gain): names what the number is */
+  .arc-cap{font-size:11px;font-weight:800;color:var(--tint-ink);margin-top:4px;letter-spacing:.3px;text-transform:uppercase;}
+  .arc-set{position:absolute;right:14px;bottom:30px;display:inline-flex;flex-direction:column;align-items:center;gap:2px;}
+  .arc-ends{display:flex;justify-content:space-between;width:228px;margin-top:-4px;}
+  .arc-ends span{font-size:10px;font-weight:700;color:var(--ink-4);}
+  .dial-foot{font-size:11px;color:var(--ink-3);margin-top:10px;line-height:1.45;text-align:center;}
+  /* the score stepper sits UNDER the dial so the tutor sets the value the dial shows */
+  .dial-stepper{display:inline-flex;align-items:center;background:var(--fill);border-radius:999px;padding:4px;gap:4px;margin-top:12px;}
+  .dial-stepper .sbn{width:38px;height:38px;border-radius:999px;background:var(--card);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;color:var(--tint);}
+  .dial-stepper .sbn .ic{width:18px;height:18px;stroke-width:2.4;}
+  .dial-stepper .sv{min-width:58px;text-align:center;font-size:15px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;}
+
+  /* score stepper (E): compact */
+  .scard{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:15px;margin-bottom:13px;}
+  .score-row{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .score-l .q-title{margin-bottom:2px;}
+  .score-hint{font-size:12px;color:var(--ink-3);font-weight:600;}
+  .stepper{display:inline-flex;align-items:center;background:var(--fill);border-radius:999px;padding:3px;gap:2px;flex-shrink:0;}
+  .stepper .sbn{width:32px;height:32px;border-radius:999px;background:var(--card);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:600;color:var(--tint);}
+  .stepper .sv{min-width:46px;text-align:center;font-size:17px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .stepper .sv small{font-size:12px;font-weight:700;color:var(--ink-3);}
+
+  /* plan textarea (E): compact */
+  .tacard{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:15px;margin-bottom:13px;}
+  .ta-lab{font-size:14px;color:var(--ink);font-weight:700;margin-bottom:9px;}
+  .ta-box{background:var(--fill);border-radius:12px;padding:11px 12px;min-height:74px;font-size:13.5px;color:var(--ink);line-height:1.5;}
+  .ta-box.ph{color:var(--ink-3);}
+  .ta-count{font-size:11px;color:var(--ink-3);text-align:right;margin-top:6px;font-variant-numeric:tabular-nums;}
+
+  /* review list (final view): compact answered summary, all fields visible, quiet */
+  .rev-sec{margin-bottom:14px;}
+  .rev-h{font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-3);margin:0 4px 7px;}
+  .rev-card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;}
+  .rev-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;}
+  .rev-row + .rev-row{border-top:1px solid var(--hair);}
+  .rev-q{font-size:12.5px;color:var(--ink-2);flex:1;min-width:0;line-height:1.35;}
+  .rev-a{font-size:12.5px;color:var(--ink);font-weight:700;flex-shrink:0;display:inline-flex;align-items:center;gap:5px;}
+  .rev-a .lv{width:6px;height:6px;border-radius:999px;background:var(--tint);}
+  .rev-edit{font-size:12px;color:var(--tint);font-weight:700;}
+
+  .spacer{flex:1;}
+
+  /* sticky footer dock: ONE primary action */
+  .dock{flex-shrink:0;padding:11px 18px 22px;background:var(--canvas);border-top:1px solid var(--hair);}
+  .btn{height:50px;border-radius:14px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600;}
+  .btn.ghost{background:var(--fill);color:var(--ink);}
+  .btn.disabled{opacity:.45;}
+  .dock-row{display:flex;gap:10px;}
+  .dock-row .btn{flex:1;}
+  .dock-note{font-size:11px;color:var(--ink-3);text-align:center;margin-top:8px;line-height:1.4;}
+
+  /* ============== ICON SYSTEM (VERBATIM from deliver-progress-report.html; one SF-Symbols-style line set, theme-aware via currentColor) ============== */
+  .ic{width:1em;height:1em;display:inline-block;vertical-align:-0.125em;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+  .icchip{width:30px;height:30px;border-radius:9px;background:var(--tint-weak);color:var(--tint-ink);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .icchip .ic{width:17px;height:17px;}
+  .icchip.sm{width:24px;height:24px;border-radius:7px;} .icchip.sm .ic{width:14px;height:14px;}
+  /* step-header row: category chip + eyebrow on one baseline */
+  .stephd{display:flex;align-items:center;gap:10px;margin:4px 0 10px;}
+  .stephd .eyebrow{margin:0;}
+
+  /* ============== HERO · INTRO (photography, TREATMENT A) ==============
+     Founder-validated direction: the emotional/hero graphic is a REAL HUMAN PHOTO, not the geometric sapling.
+     TREATMENT A (the picked standard) = full-bleed photo + brand-tint gradient overlay, the badge + title legible
+     OVER the tinted base (the gradient carries the contrast in both light + dark). CSS lifted verbatim from
+     .preview/photography-direction-baseline.html. The data-viz (the baseline dial / ladder / icon chips) is NOT
+     replaced by photography; only this intro emotional graphic becomes the photo. Photo is illustrative; the
+     production build swaps in a curated real-Sifututor photo. NO trend (it is still the baseline "starting point"). */
+  .hs-badge{position:absolute;top:11px;left:13px;display:inline-flex;align-items:center;gap:6px;background:var(--card);box-shadow:var(--shadow);border-radius:999px;padding:5px 11px 5px 6px;z-index:3;}
+  .hs-badge .icchip.sm{background:var(--tint);color:#fff;}
+  .hs-badge .t{font-size:11.5px;font-weight:800;color:var(--ink);letter-spacing:.1px;}
+  /* lighter glassy badge variant for use OVER a photo */
+  .hs-badge.onphoto{background:rgba(255,255,255,.92);backdrop-filter:blur(6px);}
+
+  /* TREATMENT A: full-bleed photo + brand-tint gradient overlay (verbatim) */
+  .heroA{position:relative;width:100%;height:200px;border-radius:var(--radius-lg);overflow:hidden;background:var(--fill-2);margin:2px 0 14px;}
+  .heroA img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%;}
+  .heroA .grad{position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(43,47,190,0) 28%, rgba(43,47,190,.18) 60%, rgba(16,32,79,.86) 100%),
+      linear-gradient(80deg, rgba(43,47,190,.32) 0%, rgba(43,47,190,0) 55%);
+    mix-blend-mode:normal;}
+  .dark .heroA .grad{background:
+      linear-gradient(180deg, rgba(5,8,28,0) 22%, rgba(10,16,48,.45) 55%, rgba(5,8,28,.92) 100%),
+      linear-gradient(80deg, rgba(58,79,208,.30) 0%, rgba(58,79,208,0) 55%);}
+  .heroA .cap{position:absolute;left:14px;right:14px;bottom:13px;z-index:2;}
+  .heroA .cap .ey{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#fff;opacity:.92;margin-bottom:3px;text-shadow:0 1px 6px rgba(0,0,0,.35);}
+  .heroA .cap .ti{font-size:23px;font-weight:800;color:#fff;letter-spacing:-.4px;line-height:1.1;text-shadow:0 1px 10px rgba(0,0,0,.4);}
+</style>
+</head>
+<body>
+
+<!-- ============== ICON SPRITE (VERBATIM SF-Symbols-style line set from the progress mock + eval-specific category glyphs) ==============
+     Shared with deliver-progress-report.html: eye / chart / heart / rosette / up / same / sparkle / pencil / check.
+     Eval-specific category mapping: Knowledge = book ; Understanding = lightbulb.
+     Illustration glyph: mappin (the "you are here / starting line" baseline marker).
+-->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="2.6"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v15a1 1 0 0 0 1 1h15"/><path d="M7 14l3.5-4 3 2.5L20 6"/><path d="M16 6h4v4"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.3-7-9.4A4 4 0 0 1 12 7a4 4 0 0 1 7-2.4c0 5.1-7 9.4-7 9.4Z" transform="translate(0 1)"/></symbol>
+  <symbol id="i-rosette" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M9 13.5 7.5 21 12 18.7 16.5 21 15 13.5"/><path d="M12 6.6l.9 1.6 1.8.2-1.3 1.2.3 1.7-1.7-.9-1.7.9.3-1.7-1.3-1.2 1.8-.2Z"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></symbol>
+  <symbol id="i-same" viewBox="0 0 24 24"><path d="M5 12h13"/><path d="M14 7l5 5-5 5"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3.5l1.7 4.8 4.8 1.7-4.8 1.7L12 16.5l-1.7-4.8L5.5 10l4.8-1.7Z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7Z"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M14.5 5.5l4 4"/><path d="M4 20l1-4L16 5a1.5 1.5 0 0 1 2 0l1 1a1.5 1.5 0 0 1 0 2L8 19l-4 1Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5 10 17l9-10"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <!-- eval-specific category glyphs -->
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H12v15H5.5A1.5 1.5 0 0 0 4 20.5Z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H12v15h6.5a1.5 1.5 0 0 1 1.5 1.5Z"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 1 4 10.5c-.8.7-1 1.2-1 2.5H9c0-1.3-.2-1.8-1-2.5A6 6 0 0 1 12 3Z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+</svg>
+
+<div class="doc">
+
+  <div class="docnote">
+    <h1>Deliver · Evaluation report · photography intro (Treatment A) + dial + ladder, matched to the progress report (2026-06-30)</h1>
+    <div class="lockbox" style="background:#fef9c3;border-color:#fde047;"><b style="color:#854d0e;">Full package applied to match the final progress report, with the eval's BASELINE semantics.</b> <b>(1) Score dial = baseline-only.</b> Same credit-score arc as the progress, but the eval is the first-class baseline, so the dial shows JUST the number the tutor sets (5/10): the arc fills to it, <b>no now-dot, no baseline-vs-now compare, no "+2" gain</b>. Labelled <b>"Baseline score / Starting point"</b>, on the Score step (and the Review reads "Baseline score 5/10"). Honours the NO-trend / NO-progress-bar rule. <b>(2) Sapling reconciliation:</b> I <b>kept the sapling illustration on the INTRO</b> (it frames the whole baseline journey, "you are at the start") and put the <b>baseline dial on the Score step</b> (the numeric starting point). They are complementary, not redundant: the sapling says "this is the start", the dial says "here is the starting number". <b>(3) Ladder</b> on every ordinal rubric question (Recall / Sharing ideas / Explaining / Applying / Problem solving / Methods); the categorical learning-style question stays a tap-select (no false ordering). <b>(4) Conciseness:</b> de-duplicated the question headers (concise title + bare "N of N", the eyebrow category dropped) and the ladder rung descriptors (no echoing the level word; short meaning-adding descriptors, e.g. Recall High = "Secure, minimal errors"). Same dial style + ladder + icon chips + chrome as the progress, so the two are a matched set.</div>
+    <div class="lockbox" style="background:#ecfdf5;border-color:#a7f3d0;"><b style="color:#065f46;">Intro hero = founder-validated PHOTOGRAPHY (Treatment A), replacing the geometric sapling.</b> The intro's emotional graphic is now a <b>full-bleed real-human photo + brand-tint gradient overlay</b> (Treatment A from <code>.preview/photography-direction-baseline.html</code>, CSS + the verified Unsplash URL reused verbatim): a student at the start of learning, with the "Starting point" badge + the "Set Adam's starting point" title legible OVER the tinted base (the gradient carries the contrast in light AND dark). The photo has <b>alt text</b> and is illustrative; the production build swaps in a curated real-Sifututor photo. <b>Only the intro emotional graphic became the photo</b>, the data-viz (baseline dial, vertical ladder, icon chips) is unchanged. Still the BASELINE: the photo replaces the sapling but adds <b>no trend</b> (no climb, no progress bar). Everything else matches the progress report: same baseline dial style (baseline-only, no now-dot/gain), same ladder, same icon chips + chrome, same conciseness pass on headers + rung descriptors. Colour budget intact.</div>
+    Re-mocked for <b>focus</b> after founder feedback that the single long form was too text-heavy with no clear focal point. Same real fields, restructured so the tutor faces <b>one thing at a time</b>. Sibling pattern shared with <code>deliver-progress-report.html</code>: a quiet intro that frames the job, then a <b>stepped flow</b> (one rubric category per view, "Step N of 3" + a slim progress bar), a <b>compact visual scale</b> per question (3 to 4 taps, the full sentence revealed only on selection), and <b>one hero + one primary action</b> per view. The evaluation stays a <b>baseline</b>: no trend, no progress bar over the student. Grounded in <code>Screens/EvaluationReport/index.tsx</code> + the evaluation branch of <code>Screens/ReportSubmission/index.tsx</code>.
+
+    <div class="lockbox">
+      <b>Step structure (7 rubric questions + score + plan, nothing cut):</b> Intro (baseline framing + context) &rarr; <b>Step 1 Knowledge &amp; understanding</b> (4 questions) &rarr; <b>Step 2 Critical thinking &amp; observation</b> (3 questions) &rarr; <b>Step 3 Score &amp; plan</b> (the 1 to 10 score + the tutoring plan) &rarr; Review &amp; submit. The whole rubric is never on screen at once.<br>
+      <b>Locked rules held:</b> NO progress bar / trend / improvement framing on the eval (the only bar is the slim FORM-step indicator, not a student metric); neutral copy (ordinal scale, plain prompts); Sifututor; no em-dashes; DD-MMM-YYYY; English-first; colour budget (green only as the "answered" tick).
+    </div>
+
+    <b>What changed vs the first mock (UI only, no field changes):</b> the 7 full-sentence dropdowns became compact ordinal scales (low &rarr; high taps; the chosen sentence is disclosed in one line under the scale), the form was split into 3 focused steps behind an intro, and each view now has a single clear heading + one button. Field set and audit are unchanged from the prior eval mock; the restructure note is added below.
+
+    <h2>Field-level audit (unchanged fields; restructured across steps)</h2>
+    <table class="audit">
+      <tr><th>Field</th><th>Now on</th><th>Provenance / consumer</th><th>Verdict</th></tr>
+      <tr><td>Report type = "Evaluation"</td><td>Intro recap</td><td>Fixed label; routes the submit</td><td class="keep">KEEP</td></tr>
+      <tr><td>First-class date</td><td>Intro recap</td><td><code>dayjs(firstClass)</code>; parent header. DD-MMM-YYYY</td><td class="keep">KEEP</td></tr>
+      <tr><td>Student</td><td>Intro recap</td><td><code>student_name</code>; <code>student_id</code> on every answer row</td><td class="keep">KEEP</td></tr>
+      <tr><td>Subject</td><td>Intro recap</td><td><code>subject_name</code>; <code>subject_id</code> on every row</td><td class="keep">KEEP</td></tr>
+      <tr><td>A. Knowledge Q1 (recall basics)</td><td>Step 1</td><td><code>evaluationQuestions[0]</code> + <code>knowledge[]</code> &rarr; <code>knowledgeAnswer</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>A. Knowledge Q2 (shares ideas)</td><td>Step 1</td><td><code>evaluationQuestions[1]</code> + <code>knowledge2[]</code> &rarr; <code>knowledgeAnswer2</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>B. Understanding Q1 (explains)</td><td>Step 1</td><td><code>evaluationQuestions[2]</code> + <code>understanding[]</code> &rarr; <code>understandingAnswer</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>B. Understanding Q2 (applies)</td><td>Step 1</td><td><code>evaluationQuestions[3]</code> + <code>understanding2[]</code> &rarr; <code>understandingAnswer2</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>C. Critical thinking Q1 (solves w/ minimal help)</td><td>Step 2</td><td><code>evaluationQuestions[4]</code> + <code>CT[]</code> &rarr; <code>ctAnswer</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>C. Critical thinking Q2 (varied methods)</td><td>Step 2</td><td><code>evaluationQuestions[5]</code> + <code>CT2[]</code> &rarr; <code>ctAnswer2</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>D. Observation (learning style, 4 opts)</td><td>Step 2</td><td><code>evaluationQuestions[6]</code> + <code>Observation[]</code> &rarr; <code>observationEReport</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>E. First-assessment score (1 to 10)</td><td>Step 3</td><td><code>evaluationQuestions[7]</code> &rarr; <code>addationalAssessments</code>; validated 1 to 10. Bounded stepper</td><td class="keep">KEEP</td></tr>
+      <tr><td>E. Tutoring plan (text, max 300)</td><td>Step 3</td><td><code>evaluationQuestions[8]</code> &rarr; <code>plan</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>Stepped progress indicator ("Step N of 3" + slim bar)</td><td>All steps</td><td>UI only; the focus affordance. Counts FORM steps, not student progress</td><td class="add">ADD</td></tr>
+      <tr><td>Compact ordinal scale + progressive sentence reveal</td><td>Steps 1-2</td><td>UI only; same answers, far less on-screen text</td><td class="add">ADD</td></tr>
+      <tr><td>Per-value provenance ("From the class record")</td><td>Intro recap</td><td>UI only; smart-default trust</td><td class="add">ADD</td></tr>
+      <tr><td>"Submit Evaluation Report" interstitial</td><td>removed</td><td>Pass-through screen folded into clock-out success</td><td class="cut">CUT</td></tr>
+    </table>
+    <div style="font-size:12px;margin-top:6px;"><b>Tally:</b> KEEP 13 &middot; CUT 1 &middot; GATE 0 &middot; ADD 3. Every real field kept, now spread across 3 focused steps. (Prior mock's free-numeric-input CUT is now folded into the KEEP score row as the bounded stepper.)</div>
+
+    <div class="qbox">
+      <b>Hafiz questions (unchanged, flagged not resolved):</b> Q1 should the rubric <b>answer options</b> come from the API (today only the questions do; the 3 to 4 options are hard-coded; submit maps by index <code>[0..8]</code>)? Q2 the live "B" header reads backend <code>category</code> "Performance" while its options describe understanding; canonical label? Q3 cross-screen: the PROGRESS report's cadence (Month vs every-12-classes) + Luna AI parent verdict are handled in the progress mock, not here.
+    </div>
+  </div>
+
+  <!-- ===================== LIGHT MODE ===================== -->
+  <div class="modehd">Light mode &middot; the focused stepped flow</div>
+  <div class="frames">
+
+    <!-- VIEW 0: INTRO: one hero (baseline framing) + quiet context + one action -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">A</span>Intro &middot; ONE focal point: the baseline framing</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">Cancel</span><span class="nav-step">Evaluation report</span><span class="nav-side r"></span></div>
+        <div class="scroll">
+
+          <!-- HERO · TREATMENT A: full-bleed real photo + brand-tint gradient. The badge + the "Set Adam's starting point"
+               title sit OVER the tinted base (the gradient carries the contrast). Still the BASELINE: no trend, no climb.
+               Photo is illustrative (alt described); production swaps in a curated real-Sifututor photo. -->
+          <div class="heroA">
+            <img src="https://images.unsplash.com/photo-1514355315815-2b64b0216b14?w=900&q=80&auto=format&fit=crop" alt="A student focused on her work at the start of tutoring">
+            <div class="grad"></div>
+            <div class="hs-badge onphoto"><span class="icchip sm"><svg class="ic"><use href="#i-pin"/></svg></span><span class="t">Starting point</span></div>
+            <div class="cap"><div class="ey">First class &middot; baseline</div><div class="ti">Set Adam's starting point</div></div>
+          </div>
+
+          <div class="lede">A <b>one-time baseline</b> after your first class. Three quick steps record where Adam starts, so future reports have something to compare against.</div>
+
+          <div class="recap">
+            <div class="recap-row"><span class="recap-k">Student</span><span class="recap-v">Adam Lim</span></div>
+            <div class="recap-row"><span class="recap-k">Subject</span><span class="recap-v">Mathematics &middot; Form 4</span></div>
+            <div class="recap-row"><span class="recap-k">First class</span><span class="recap-v">24-Jun-2026</span></div>
+            <div class="recap-foot">From the class record</div>
+          </div>
+
+          <div class="bnote"><span class="bi"><svg class="ic" style="width:15px;height:15px"><use href="#i-pin"/></svg></span><span class="bt">This is a <b>baseline</b>, not a progress check. You are noting where Adam is today, no comparison yet.</span></div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Start &middot; Step 1 of 3</div>
+          <div class="dock-note">About a minute. You can review everything before submitting.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 1: STEP 1: Knowledge & understanding (4 Qs): the compact visual scale -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">B</span>Step 1 &middot; compact ordinal scale + one-line reveal</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 1 of 3</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:33%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-book"/></svg></span><div class="eyebrow">A &middot; Knowledge &amp; understanding</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">How is Adam doing on the basics?</div>
+
+          <div class="qcard">
+            <div class="q-n">1 of 4</div>
+            <div class="q-title">Recalls the basics</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Forgets the basics</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Recalls with guidance</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Secure, minimal errors</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+
+          <div class="qcard">
+            <div class="q-n">2 of 4</div>
+            <div class="q-title">Shares their ideas</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Rarely speaks up</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Shares with prompting</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Clear and active</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+
+          <div class="qcard">
+            <div class="q-n">3 of 4</div>
+            <div class="q-title">Explains the basics</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Struggles to explain</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Mostly clear, a few errors</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Clear and accurate</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+
+          <div class="qcard">
+            <div class="q-n">4 of 4</div>
+            <div class="q-title">Applies concepts</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Cannot apply yet</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Solves some questions</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Solves most correctly</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Next &middot; Critical thinking</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 2: STEP 2: Critical thinking + Observation (3 Qs), incl the 4-option D -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">C</span>Step 2 &middot; 4-point scale on Observation + a not-yet-answered state</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 2 of 3</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:66%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-bulb"/></svg></span><div class="eyebrow">C &middot; Critical thinking &amp; observation</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">How does Adam think and learn?</div>
+
+          <div class="qcard">
+            <div class="q-n">1 of 3</div>
+            <div class="q-title">Solves problems</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Needs heavy guidance</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Manages with a little help</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Works independently</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+
+          <div class="qcard">
+            <div class="q-n">2 of 3</div>
+            <div class="q-title">Uses varied methods</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Sticks to one method</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Some variety, not often</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Flexible across methods</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+
+          <div class="qcard">
+            <div class="q-n">3 of 3</div>
+            <div class="q-title">Learning style</div>
+            <div class="scale">
+              <div class="seg"><span class="sl">Visual</span></div>
+              <div class="seg"><span class="sl">Audio</span></div>
+              <div class="seg"><span class="sl">Read</span></div>
+              <div class="seg"><span class="sl">Mixed</span></div>
+            </div>
+            <div class="reveal empty"><span class="rk">&#9675;</span><span class="rt">Tap a style above to record it.</span></div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Next &middot; Score &amp; plan</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 3: STEP 3: Score (stepper) + Plan (textarea) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">D</span>Step 3 &middot; the score + the plan, focused alone</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 3 of 3</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:100%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-rosette"/></svg></span><div class="eyebrow">E &middot; Score &amp; plan</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">Where Adam starts</div>
+
+          <!-- BASELINE SCORE DIAL: the arc fills to the value the tutor sets (5/10). NO now-dot, NO baseline-vs-now, NO gain. It IS the reference point. -->
+          <div class="dialcard">
+            <div class="dial-lab"><span class="icchip sm"><svg class="ic"><use href="#i-rosette"/></svg></span>Baseline score</div>
+            <div class="arcwrap">
+              <svg viewBox="0 0 248 150" width="248" height="150" aria-hidden="true">
+                <path d="M 24.00 128.00 A 100 100 0 0 1 224.00 128.00" fill="none" stroke="var(--fill-2)" stroke-width="14" stroke-linecap="round"/>
+                <!-- arc fills to the SET baseline value (5 -> 0..90deg). No second marker; this is the starting number, not a comparison. -->
+                <path d="M 24.00 128.00 A 100 100 0 0 1 124.00 28.00" fill="none" stroke="var(--tint)" stroke-width="14" stroke-linecap="round"/>
+                <circle cx="124.00" cy="28.00" r="8" fill="var(--card)" stroke="var(--tint)" stroke-width="4"/>
+              </svg>
+              <div class="arc-read">
+                <div class="arc-now">5<small>/10</small></div>
+                <div class="arc-cap">Starting point</div>
+              </div>
+            </div>
+            <div class="arc-ends"><span>0</span><span>10</span></div>
+            <div class="dial-stepper"><span class="sbn"><svg class="ic"><use href="#i-minus"/></svg></span><span class="sv">Set score</span><span class="sbn"><svg class="ic"><use href="#i-plus"/></svg></span></div>
+            <div class="dial-foot">The first-class baseline for this subject. Future reports measure from here.</div>
+          </div>
+
+          <div class="tacard">
+            <div class="ta-lab">Your tutoring plan for Adam</div>
+            <div class="ta-box">Build fluency in algebraic fractions first, then move to quadratics. Short weekly recall quizzes to lock in the basics, with worked examples before independent practice.</div>
+            <div class="ta-count">218 / 300</div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Review &middot; 7 of 7 done</div>
+          <div class="dock-note">Check everything on one page before you submit.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 4: REVIEW & SUBMIT: all fields visible, compact, quiet -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">E</span>Review &middot; every answer compact + ONE submit</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Review</span><span class="nav-side r"></span></div>
+        <div class="scroll">
+          <div class="hero" style="font-size:21px;margin:4px 0 4px;">Looks right?</div>
+          <div class="lede" style="margin-bottom:14px;">Adam's baseline, ready to save. Tap any line to change it.</div>
+
+          <div class="rev-sec">
+            <div class="rev-h">Knowledge &amp; understanding</div>
+            <div class="rev-card">
+              <div class="rev-row"><span class="rev-q">Recall</span><span class="rev-a"><span class="lv"></span>High</span></div>
+              <div class="rev-row"><span class="rev-q">Sharing ideas</span><span class="rev-a"><span class="lv"></span>High</span></div>
+              <div class="rev-row"><span class="rev-q">Explaining</span><span class="rev-a"><span class="lv"></span>Mid</span></div>
+              <div class="rev-row"><span class="rev-q">Applying</span><span class="rev-a"><span class="lv"></span>Mid</span></div>
+            </div>
+          </div>
+
+          <div class="rev-sec">
+            <div class="rev-h">Critical thinking &amp; observation</div>
+            <div class="rev-card">
+              <div class="rev-row"><span class="rev-q">Problem solving</span><span class="rev-a"><span class="lv"></span>Mid</span></div>
+              <div class="rev-row"><span class="rev-q">Methods</span><span class="rev-a"><span class="lv"></span>Mid</span></div>
+              <div class="rev-row"><span class="rev-q">Learning style</span><span class="rev-a"><span class="lv"></span>Mixed</span></div>
+            </div>
+          </div>
+
+          <div class="rev-sec">
+            <div class="rev-h">Score &amp; plan</div>
+            <div class="rev-card">
+              <div class="rev-row"><span class="rev-q">Baseline score</span><span class="rev-a">5 / 10</span></div>
+              <div class="rev-row"><span class="rev-q">Tutoring plan</span><span class="rev-edit">View &amp; edit</span></div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Submit baseline</div>
+          <div class="dock-note">Saved as Adam's baseline and shared with the parent.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== DARK MODE ===================== -->
+  <div class="modehd">Dark mode &middot; the same focused flow</div>
+  <div class="frames">
+
+    <!-- DARK VIEW 0: INTRO -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">A</span>Intro</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">Cancel</span><span class="nav-step">Evaluation report</span><span class="nav-side r"></span></div>
+        <div class="scroll">
+
+          <!-- HERO · TREATMENT A (dark): full-bleed photo + brand-tint gradient (the dark gradient floor keeps the white title legible). -->
+          <div class="heroA">
+            <img src="https://images.unsplash.com/photo-1514355315815-2b64b0216b14?w=900&q=80&auto=format&fit=crop" alt="A student focused on her work at the start of tutoring">
+            <div class="grad"></div>
+            <div class="hs-badge onphoto"><span class="icchip sm"><svg class="ic"><use href="#i-pin"/></svg></span><span class="t">Starting point</span></div>
+            <div class="cap"><div class="ey">First class &middot; baseline</div><div class="ti">Set Adam's starting point</div></div>
+          </div>
+
+          <div class="lede">A <b>one-time baseline</b> after your first class. Three quick steps record where Adam starts, so future reports have something to compare against.</div>
+          <div class="recap">
+            <div class="recap-row"><span class="recap-k">Student</span><span class="recap-v">Adam Lim</span></div>
+            <div class="recap-row"><span class="recap-k">Subject</span><span class="recap-v">Mathematics &middot; Form 4</span></div>
+            <div class="recap-row"><span class="recap-k">First class</span><span class="recap-v">24-Jun-2026</span></div>
+            <div class="recap-foot">From the class record</div>
+          </div>
+          <div class="bnote"><span class="bi"><svg class="ic" style="width:15px;height:15px"><use href="#i-pin"/></svg></span><span class="bt">This is a <b>baseline</b>, not a progress check. You are noting where Adam is today, no comparison yet.</span></div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Start &middot; Step 1 of 3</div>
+          <div class="dock-note">About a minute. You can review everything before submitting.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DARK VIEW 1: STEP 1 -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">B</span>Step 1 &middot; visual scale</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 1 of 3</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:33%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-book"/></svg></span><div class="eyebrow">A &middot; Knowledge &amp; understanding</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">How is Adam doing on the basics?</div>
+          <div class="qcard">
+            <div class="q-n">1 of 4</div>
+            <div class="q-title">Recalls the basics</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Forgets the basics</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Recalls with guidance</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Secure, minimal errors</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="qcard">
+            <div class="q-n">2 of 4</div>
+            <div class="q-title">Shares their ideas</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Rarely speaks up</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Shares with prompting</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Clear and active</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="qcard">
+            <div class="q-n">3 of 4</div>
+            <div class="q-title">Explains the basics</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Struggles to explain</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Mostly clear, a few errors</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Clear and accurate</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="qcard">
+            <div class="q-n">4 of 4</div>
+            <div class="q-title">Applies concepts</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Cannot apply yet</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Solves some questions</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Solves most correctly</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock"><div class="btn">Next &middot; Critical thinking</div></div>
+      </div>
+    </div>
+
+    <!-- DARK VIEW 2: STEP 2 -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">C</span>Step 2 &middot; 4-point + empty state</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 2 of 3</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:66%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-bulb"/></svg></span><div class="eyebrow">C &middot; Critical thinking &amp; observation</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">How does Adam think and learn?</div>
+          <div class="qcard">
+            <div class="q-n">1 of 3</div>
+            <div class="q-title">Solves problems</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Needs heavy guidance</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Manages with a little help</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Works independently</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="qcard">
+            <div class="q-n">2 of 3</div>
+            <div class="q-title">Uses varied methods</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Sticks to one method</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Some variety, not often</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Flexible across methods</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="qcard">
+            <div class="q-n">3 of 3</div>
+            <div class="q-title">Learning style</div>
+            <div class="scale">
+              <div class="seg"><span class="sl">Visual</span></div>
+              <div class="seg"><span class="sl">Audio</span></div>
+              <div class="seg"><span class="sl">Read</span></div>
+              <div class="seg"><span class="sl">Mixed</span></div>
+            </div>
+            <div class="reveal empty"><span class="rk">&#9675;</span><span class="rt">Tap a style above to record it.</span></div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock"><div class="btn">Next &middot; Score &amp; plan</div></div>
+      </div>
+    </div>
+
+    <!-- DARK VIEW 3: STEP 3 -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">D</span>Step 3 &middot; score + plan</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 3 of 3</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:100%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-rosette"/></svg></span><div class="eyebrow">E &middot; Score &amp; plan</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">Where Adam starts</div>
+
+          <!-- BASELINE SCORE DIAL (dark): fills to the set value, no now-dot, no compare, no gain -->
+          <div class="dialcard">
+            <div class="dial-lab"><span class="icchip sm"><svg class="ic"><use href="#i-rosette"/></svg></span>Baseline score</div>
+            <div class="arcwrap">
+              <svg viewBox="0 0 248 150" width="248" height="150" aria-hidden="true">
+                <path d="M 24.00 128.00 A 100 100 0 0 1 224.00 128.00" fill="none" stroke="var(--fill-2)" stroke-width="14" stroke-linecap="round"/>
+                <path d="M 24.00 128.00 A 100 100 0 0 1 124.00 28.00" fill="none" stroke="var(--tint)" stroke-width="14" stroke-linecap="round"/>
+                <circle cx="124.00" cy="28.00" r="8" fill="var(--card)" stroke="var(--tint)" stroke-width="4"/>
+              </svg>
+              <div class="arc-read">
+                <div class="arc-now">5<small>/10</small></div>
+                <div class="arc-cap">Starting point</div>
+              </div>
+            </div>
+            <div class="arc-ends"><span>0</span><span>10</span></div>
+            <div class="dial-stepper"><span class="sbn"><svg class="ic"><use href="#i-minus"/></svg></span><span class="sv">Set score</span><span class="sbn"><svg class="ic"><use href="#i-plus"/></svg></span></div>
+            <div class="dial-foot">The first-class baseline for this subject. Future reports measure from here.</div>
+          </div>
+
+          <div class="tacard">
+            <div class="ta-lab">Your tutoring plan for Adam</div>
+            <div class="ta-box">Build fluency in algebraic fractions first, then move to quadratics. Short weekly recall quizzes to lock in the basics, with worked examples before independent practice.</div>
+            <div class="ta-count">218 / 300</div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Review &middot; 7 of 7 done</div>
+          <div class="dock-note">Check everything on one page before you submit.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DARK VIEW 4: REVIEW -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">E</span>Review &amp; submit</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Review</span><span class="nav-side r"></span></div>
+        <div class="scroll">
+          <div class="hero" style="font-size:21px;margin:4px 0 4px;">Looks right?</div>
+          <div class="lede" style="margin-bottom:14px;">Adam's baseline, ready to save. Tap any line to change it.</div>
+          <div class="rev-sec">
+            <div class="rev-h">Knowledge &amp; understanding</div>
+            <div class="rev-card">
+              <div class="rev-row"><span class="rev-q">Recall</span><span class="rev-a"><span class="lv"></span>High</span></div>
+              <div class="rev-row"><span class="rev-q">Sharing ideas</span><span class="rev-a"><span class="lv"></span>High</span></div>
+              <div class="rev-row"><span class="rev-q">Explaining</span><span class="rev-a"><span class="lv"></span>Mid</span></div>
+              <div class="rev-row"><span class="rev-q">Applying</span><span class="rev-a"><span class="lv"></span>Mid</span></div>
+            </div>
+          </div>
+          <div class="rev-sec">
+            <div class="rev-h">Critical thinking &amp; observation</div>
+            <div class="rev-card">
+              <div class="rev-row"><span class="rev-q">Problem solving</span><span class="rev-a"><span class="lv"></span>Mid</span></div>
+              <div class="rev-row"><span class="rev-q">Methods</span><span class="rev-a"><span class="lv"></span>Mid</span></div>
+              <div class="rev-row"><span class="rev-q">Learning style</span><span class="rev-a"><span class="lv"></span>Mixed</span></div>
+            </div>
+          </div>
+          <div class="rev-sec">
+            <div class="rev-h">Score &amp; plan</div>
+            <div class="rev-card">
+              <div class="rev-row"><span class="rev-q">Baseline score</span><span class="rev-a">5 / 10</span></div>
+              <div class="rev-row"><span class="rev-q">Tutoring plan</span><span class="rev-edit">View &amp; edit</span></div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Submit baseline</div>
+          <div class="dock-note">Saved as Adam's baseline and shared with the parent.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

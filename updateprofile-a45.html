@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acquire A4.5 · UpdateProfile + ConsentGate + the "you're in" arrival · the Activate seam (GROUNDED)</title>
+<style>
+  /* ============== TOKENS (mirrors @sifu/ui semantic layer; no raw hex in app markup) ·
+       VERBATIM sibling set with the LOCKED A4.1 OnBoarding (onboarding-a41.html),
+       A4.2 Login (login-a42.html), A4.3 VerifyCode (verifycode-a43.html), A4.4 Splash
+       (splash-a44.html) and the locked Activate forms (activate-identity-forms.html).
+       UpdateProfile + ConsentGate are the LAST Acquire steps + the seam INTO Activate, so this
+       root is identical to its Acquire siblings so the whole front door reads as ONE flow.
+       (--brand:#2B2FBE, canvas #F2F2F7, the ink ramp.) NOTE-TO-BUILD: these map to
+       @sifu/ui named tokens - see updateprofile-a45-manifest.md. ============== */
+  :root{
+    --brand:#2B2FBE; --brand-weak:rgba(43,47,190,.10); --brand-weaker:rgba(43,47,190,.06); --brand-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF; --field:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-placeholder:rgba(60,60,67,.35);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.18); --fill:rgba(120,120,128,.10); --lock-bg:rgba(60,60,67,.05);
+    --ok:#1c7a45; --ok-bg:rgba(52,199,89,.14);
+    --err:#b3261e; --err-bg:rgba(179,38,30,.10); --err-line:rgba(179,38,30,.45);
+    --shadow-card:0 1px 3px rgba(0,0,0,.06); --shadow-cta:0 6px 18px rgba(43,47,190,.32);
+    --r-card:12px; --r-field:12px; --r-pill:999px; --r-lg:16px;
+    /* on-brand whites (legible OVER the arrival flood, used only there) */
+    --on-brand:#FFFFFF; --on-brand-2:rgba(255,255,255,.92); --on-brand-3:rgba(255,255,255,.72);
+    --brand-deep:#1F2390;
+    /* optional-field tint (referral) */
+    --opt-bg:rgba(120,120,128,.08);
+  }
+  .dark{
+    --brand:#7C8CF0; --brand-weak:rgba(124,140,240,.18); --brand-weaker:rgba(124,140,240,.10); --brand-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E; --field:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-placeholder:rgba(235,235,245,.3);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.75); --fill:rgba(120,120,128,.24); --lock-bg:rgba(235,235,245,.06);
+    --ok:#5fd08a; --ok-bg:rgba(52,199,89,.18);
+    --err:#FF6B61; --err-bg:rgba(255,107,97,.14); --err-line:rgba(255,107,97,.45);
+    --shadow-card:0 1px 3px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(0,0,0,.5);
+    --brand-deep:#11143A;
+    --opt-bg:rgba(120,120,128,.16);
+  }
+
+  /* ============== PAGE CHROME (doc only) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1500px;margin:0 auto;}
+  .docnote{font-size:13px;line-height:1.62;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+  .docnote h1{font-size:17px;margin:0 0 8px;color:#18181b}
+  .docnote h2{font-size:14px;margin:14px 0 6px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .lockbox{background:#f0f3ff;border:1px solid #c7d2fe;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .lockbox b{color:#1e3a8a;}
+  .flagbox{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .flagbox b{color:#9a3412;}
+  .audit{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:12px;}
+  .audit th,.audit td{border:1px solid #e4e4e7;padding:6px 9px;text-align:left;vertical-align:top;}
+  .audit th{background:#f4f4f5;font-weight:700;color:#18181b;}
+  .audit .keep{color:#166534;font-weight:700;} .audit .add{color:#2B2FBE;font-weight:700;} .audit .cut{color:#9f1239;font-weight:700;} .audit .opt{color:#854d0e;font-weight:700;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 12px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:8px;text-align:center;max-width:402px;}
+  .framelabel .step{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:#2B2FBE;border-radius:999px;padding:2px 8px;margin-right:6px;}
+  .framelabel .be{color:#a1a1aa;}
+
+  /* ============== DEVICE FRAME (402x874, verbatim Acquire sibling chrome) ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column;}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0;position:relative;z-index:5;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+  /* on the brand-flood arrival the status bar reads white */
+  .ph.onbrand .sb-t{color:#fff;} .ph.onbrand .sb-sig,.ph.onbrand .sb-wifi{background:#fff;} .ph.onbrand .sb-bat{border-color:#fff;} .ph.onbrand .sb-bat::after{background:#fff;}
+
+  /* ===== NAV: back chevron + title (mirrors live <Header> → @sifu/ui header) ===== */
+  .nav{display:flex;align-items:center;gap:10px;padding:2px 20px 4px;flex-shrink:0;}
+  .nav .bk{font-size:26px;color:var(--brand);line-height:1;font-weight:600;width:20px;}
+  .nav .navttl{font-size:18px;font-weight:800;color:var(--ink);letter-spacing:-.2px;}
+
+  /* ===== BODY column ===== */
+  .screen{flex:1;display:flex;flex-direction:column;padding:0 22px;overflow:hidden;}
+  .body{flex:1;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:14px;padding-top:6px;}
+  .body::-webkit-scrollbar{width:0;height:0;}
+
+  /* brand mark: small, calm; the focus is the fields, not a hero (verbatim A4.2/A4.3) */
+  .brandmark{display:flex;align-items:center;gap:10px;margin:2px 0 18px;flex-shrink:0;}
+  .brandmark .glyph{width:40px;height:40px;border-radius:11px;background:var(--brand);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-cta);}
+  .brandmark .glyph svg{width:22px;height:22px;color:#fff;stroke-width:2.2;}
+  .brandmark .wm{font-size:18px;font-weight:800;color:var(--ink);letter-spacing:-.3px;}
+
+  /* ===== large title + subline (ONE focus) ===== */
+  .lt{font-size:31px;font-weight:800;color:var(--ink);letter-spacing:-.6px;line-height:1.1;margin:2px 0 0;flex-shrink:0;}
+  .ltsub{font-size:14.5px;font-weight:500;color:var(--ink-2);line-height:1.46;margin:8px 0 2px;flex-shrink:0;}
+  .ltsub b{color:var(--ink);font-weight:700;}
+
+  /* ===== grouped card (the wizard pattern, verbatim activate-identity-forms.html) ===== */
+  .grp{background:var(--card);border-radius:var(--r-card);box-shadow:var(--shadow-card);overflow:hidden;flex-shrink:0;}
+  .gr{padding:12px 14px;border-top:1px solid var(--hair);}
+  .gr:first-child{border-top:none;}
+  .fl{font-size:11px;color:var(--ink-3);font-weight:700;letter-spacing:.01em;display:flex;align-items:center;gap:6px;}
+  .fl .req{color:var(--err);}
+  .fl .opttag{font-size:9px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-3);background:var(--opt-bg);border-radius:5px;padding:1px 6px;}
+  .fv{font-size:15px;font-weight:600;color:var(--ink);margin-top:4px;}
+  .fv.placeholder{color:var(--ink-placeholder);font-weight:400;}
+  .gr.locked{background:var(--lock-bg);}
+  .lockrow{display:flex;align-items:center;gap:8px;}
+  .lockrow .fvwrap{flex:1;min-width:0;}
+  .locktag{font-size:9.5px;font-weight:800;color:var(--ink-3);background:var(--lock-bg);border:1px solid var(--hair);border-radius:var(--r-pill);padding:2px 8px;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;}
+  .caret-bar{display:inline-block;width:2px;height:17px;background:var(--brand);border-radius:1px;vertical-align:-3px;animation:blink 1s step-end infinite;margin-left:1px;}
+  @keyframes blink{50%{opacity:0}}
+
+  /* helper / privacy line (verbatim convention) */
+  .help{font-size:11.5px;color:var(--ink-2);line-height:1.42;display:flex;gap:7px;align-items:flex-start;padding:0 4px;flex-shrink:0;}
+  .help .ico{color:var(--brand);flex-shrink:0;width:14px;height:14px;stroke-width:2;margin-top:1px;}
+  .help.lock .ico{color:var(--ink-3);}
+
+  /* ===== ConsentGate: summary card (what we collect / how we use it) ===== */
+  .summary{background:var(--card);border-radius:var(--r-card);box-shadow:var(--shadow-card);padding:15px 16px;flex-shrink:0;}
+  .summary .sh{font-size:12px;font-weight:800;color:var(--ink);margin:0 0 8px;display:flex;align-items:center;gap:7px;}
+  .summary .sh svg{width:15px;height:15px;color:var(--brand);stroke-width:2;}
+  .summary .brow{font-size:12.5px;color:var(--ink-2);line-height:1.5;display:flex;gap:8px;margin:5px 0;}
+  .summary .brow .dot{color:var(--brand);font-weight:800;flex-shrink:0;}
+  .summary .sdiv{height:1px;background:var(--hair);margin:13px 0;}
+
+  /* read-the-docs link row */
+  .doclinks{display:flex;gap:9px;flex-shrink:0;}
+  .doclink{flex:1;border:1px solid var(--hair);border-radius:var(--r-field);background:var(--card);padding:11px 12px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;font-weight:700;color:var(--brand-ink);box-shadow:var(--shadow-card);}
+  .doclink svg{width:15px;height:15px;stroke-width:2;}
+
+  /* T&C consent row (re-skin of the live ConsentGate checkbox) */
+  .consent{display:flex;gap:11px;align-items:flex-start;padding:13px 14px;}
+  .cb{width:24px;height:24px;border-radius:7px;border:2px solid var(--hair-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+  .cb.on{background:var(--brand);border-color:var(--brand);}
+  .cb svg{width:14px;height:14px;color:#fff;stroke-width:3;}
+  .consent .ct{font-size:13.5px;line-height:1.5;color:var(--ink);font-weight:500;}
+  .consent .ct a{color:var(--brand);font-weight:700;text-decoration:none;}
+
+  /* footer dock: the CTA pinned to the bottom (live CustomButton → PrimaryButton) */
+  .foot{margin-top:auto;flex-shrink:0;padding:10px 0 14px;}
+  .cta{height:52px;border-radius:14px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16.5px;font-weight:700;box-shadow:var(--shadow-cta);}
+  .cta svg{width:18px;height:18px;stroke-width:2.4;}
+  .cta.disabled{opacity:.4;box-shadow:none;}
+  .foot .subaction{text-align:center;margin-top:13px;font-size:14px;font-weight:600;color:var(--ink-2);}
+  .foot .subaction .lk{color:var(--brand);font-weight:700;}
+  .home-ind{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:128px;height:5px;border-radius:99px;background:var(--ink);opacity:.3;}
+  .ph.onbrand .home-ind{background:#fff;}
+
+  /* ===================== THE "YOU'RE IN" ARRIVAL ===================== */
+  .arrival{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;
+    background:linear-gradient(168deg,var(--brand) 0%,var(--brand-deep) 100%);}
+  .arrival .wm-bg{position:absolute;top:-40px;right:-46px;width:240px;height:240px;opacity:.06;color:#fff;}
+  .arrival .acol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 30px;z-index:2;}
+  .arrival .seal{width:104px;height:104px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;margin-bottom:26px;}
+  .arrival .seal svg{width:50px;height:50px;color:#fff;stroke-width:2.4;}
+  .arrival .eyebrow{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--on-brand-3);margin-bottom:12px;}
+  .arrival .at{font-size:33px;font-weight:800;color:var(--on-brand);letter-spacing:-.7px;line-height:1.08;margin:0 0 13px;}
+  .arrival .asub{font-size:15.5px;font-weight:500;color:var(--on-brand-2);line-height:1.5;margin:0;max-width:300px;}
+  .arrival .asub b{color:var(--on-brand);font-weight:800;}
+  .nextcard{margin-top:28px;width:100%;max-width:320px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:var(--r-lg);backdrop-filter:blur(8px);padding:15px 16px;text-align:left;}
+  .nextcard .nh{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--on-brand-3);margin:0 0 10px;}
+  .nextcard .nrow{display:flex;align-items:center;gap:11px;padding:7px 0;}
+  .nextcard .nrow .nn{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .nextcard .nrow .nt{font-size:13.5px;font-weight:600;color:var(--on-brand-2);}
+  .arrival .afoot{flex-shrink:0;padding:0 24px 30px;z-index:2;}
+  .arrival .acta{height:52px;border-radius:14px;background:#fff;color:var(--brand);display:flex;align-items:center;justify-content:center;gap:8px;font-size:16.5px;font-weight:800;box-shadow:0 8px 22px rgba(0,0,0,.28);}
+  .arrival .acta svg{width:18px;height:18px;stroke-width:2.6;}
+
+  /* ===== BEFORE (live) panel ===== */
+  .b-ttl{font-size:19px;font-weight:800;color:var(--ink);margin-left:2px;}
+  .b-intro{font-size:15px;font-weight:600;color:var(--ink-2);line-height:1.4;margin:14px 2px 16px;}
+  .b-field{background:var(--field);border:1px solid var(--hair-strong);border-radius:var(--r-field);padding:13px;font-size:14px;color:var(--ink-placeholder);margin-bottom:13px;}
+  .b-cta{height:48px;border-radius:var(--r-pill);background:#9aa0a6;color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;margin-top:6px;}
+  .b-note{font-size:11px;color:var(--ink-3);line-height:1.4;margin:14px 2px 0;font-style:italic;}
+
+  .ic{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+  <div class="docnote">
+    <h1>Acquire · A4.5 · UpdateProfile + ConsentGate + the "you're in" arrival · the seam INTO Activate (GROUNDED rebuild, 2026-06-30)</h1>
+    <div class="lockbox" style="background:#ecfdf5;border-color:#a7f3d0;">
+      <b style="color:#065f46;">What this mock is (re-grounded on the LIVE code).</b> The real final-Acquire flow a tutor hits after VerifyCode: <b>UpdateProfile</b> (name + email) <span style="color:#065f46">&rarr;</span> <b>ConsentGate</b> (the save-on-consent gate) <span style="color:#065f46">&rarr;</span> a <b>"you're in" arrival</b> that hands to Activate. On the verbatim locked Acquire token set (<code>--brand:#2B2FBE</code>, shared with <a href="onboarding-a41.html">A4.1</a> / <a href="login-a42.html">A4.2</a> / <a href="verifycode-a43.html">A4.3</a> / <a href="splash-a44.html">A4.4</a> + <a href="activate-identity-forms.html">activate-identity-forms.html</a>).
+    </div>
+    <div class="flagbox">
+      <b>COURSE-CORRECTION (the audit was wrong - this is the grounded build).</b> The audit §3.6 carried a FULLER (older 2026-06-25 cluster-A) field list forward and called UpdateProfile a "~13-tap wall". <b>The live code is NOT a wall.</b> Verified in <code>Screens/UpdateProfile/index.tsx</code>: it holds <b>only fullName + email</b> (+ <code>referral_code</code>, input commented = optional; + the verified phone passed in from sign-up). <b>T&amp;C is commented out and moved to <code>ConsentGate</code></b>, which performs the DB save after consent. There is <b>NO gender, NO address, NO DOB</b> in this flow - those live in the already-done Activate screens (<code>BioDetails</code> / <code>EducationDetails</code>, mocked in <code>activate-identity-forms.html</code>) and are <b>NOT duplicated here</b>. So UpdateProfile stays a <b>clean 2-field screen</b>; it is intentionally light and not padded.
+    </div>
+    <div class="lockbox" style="background:#fef9c3;border-color:#fde047;">
+      <b style="color:#854d0e;">Note to BUILD (A4.0 chrome dependency).</b> Every CTA is the <b>new-token <code>PrimaryButton</code></b> and the nav/header is the <b>new <code>@sifu/ui</code> header</b> (both replace the live <code>Theme.*</code> <code>Header</code> + the grey <code>CustomButton</code>). The ConsentGate re-skin keeps the live structure (summary card + Read Terms / Read Privacy + checkbox + Continue + "Cancel and sign out"). <b>Do NOT reuse the old <code>Theme.*</code> chrome.</b> Casing fix: the legacy <code>by_agreeing_text</code> string reads "<b>SifuTutor's</b>" (<code>TranslationContext:192</code>); the live <code>ConsentGate</code> checkbox already says "<b>Sifututor's</b>" - the mock uses the correct "<b>Sifututor's</b>" casing throughout.
+    </div>
+
+    <h2>Field audit (the real flow · never-drop)</h2>
+    <table class="audit">
+      <tr><th>Field / element</th><th>Screen</th><th>In this mock</th><th>Verdict</th></tr>
+      <tr><td><b>Full name</b></td><td>UpdateProfile</td><td>Text field, autofocus; required (live <code>updateProfile.fullName</code>)</td><td class="keep">KEEP</td></tr>
+      <tr><td><b>Email</b></td><td>UpdateProfile</td><td>Text field, email keyboard; inline format validation (live <code>updateProfile.email</code>)</td><td class="keep">KEEP</td></tr>
+      <tr><td><b>Phone (verified)</b></td><td>UpdateProfile</td><td>Read-only locked row (the verified number passed in as <code>VerifyData.contact</code>; persisted on save)</td><td class="keep">KEEP · shown locked</td></tr>
+      <tr><td><b>Referral code</b></td><td>UpdateProfile</td><td>OPTIONAL field, clearly tagged (live <code>referral_code</code> wiring exists; the <code>&lt;InputText&gt;</code> is commented out)</td><td class="opt">OPTIONAL · founder decision to restore or cut (see flag)</td></tr>
+      <tr><td><b>Terms &amp; Conditions + Privacy consent</b></td><td>ConsentGate</td><td>Read Terms / Read Privacy doc-links + the consent checkbox; the save happens on agree</td><td class="keep">KEEP · casing "Sifututor's"</td></tr>
+      <tr><td>Summary "what we collect / how we use it"</td><td>ConsentGate</td><td>Re-skin of the live summary card (PDPA framing)</td><td class="keep">KEEP</td></tr>
+      <tr><td>"Cancel and sign out" secondary action</td><td>ConsentGate</td><td>Re-skin of the live secondary action</td><td class="keep">KEEP</td></tr>
+      <tr><td><b>DOB date picker</b></td><td>-</td><td>Not present (the live <code>UpdateProfile</code> has none; the prior audit invented it)</td><td class="cut">CUT · dead / non-existent</td></tr>
+      <tr><td><b>Gender / Address / IC / State</b></td><td>-</td><td>NOT added here - they live in the already-done Activate screens (<code>BioDetails</code>)</td><td class="cut">NOT DUPLICATED</td></tr>
+    </table>
+    <div style="font-size:12px;margin-top:6px;"><b>Tally:</b> KEEP every real field/element (name, email, verified phone, consent + the ConsentGate summary &amp; sign-out) · OPTIONAL 1 (referral, flagged) · CUT 1 (dead/invented DOB) · NOT DUPLICATED (gender/address live in Activate). UpdateProfile is a clean 2-field screen, not padded. No real field dropped, no duplicate words, no em-dashes.</div>
+
+    <div class="lockbox" style="background:#eef2ff;border-color:#c7d2fe;">
+      <b>Commercial pass (Rule 16).</b> <b>Founder:</b> this is the last seam before Activate; a clean, fast identity capture + a warm "you're in" arrival lifts sign-up &rarr; first-apply (the North Star) by carrying momentum INTO verification instead of dead-ending. <b>Sales:</b> the referral code is the one honest acquisition lever that belongs here (restore decision flagged); no other upsell on a setup/consent gate (transparency guard: nothing to decline; the sign-out exit stays one tap). <b>Marketing:</b> the arrival is the first "you belong here" moment on-brand. <b>Analyst:</b> instrument UpdateProfile-complete, consent-agree rate, and arrival &rarr; Get-verified taps. <b>Guard metric: sign-up &rarr; consent-complete rate</b> must not regress on the re-skin.
+    </div>
+  </div>
+
+  <!-- ===================== LIGHT MODE ===================== -->
+  <div class="modehd">Light mode &middot; one - UpdateProfile (clean name + email) · two - ConsentGate · three - the "you're in" arrival</div>
+  <div class="frames">
+
+    <!-- ===== LIGHT · 1 UpdateProfile (identity: name + email + verified phone + optional referral) ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">1</span>UpdateProfile &middot; ONE focus: your identity (name + email) &middot; clean, NOT padded</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="bk">&#8249;</span></div>
+        <div class="screen">
+          <div class="body">
+            <div class="brandmark">
+              <span class="glyph"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 4 6.5v5.2c0 4.6 3.4 8.1 8 9.3 4.6-1.2 8-4.7 8-9.3V6.5L12 3Z"/><path d="M9 12l2 2 4-4"/></svg></span>
+              <span class="wm">Sifututor</span>
+            </div>
+            <div class="lt">Your details</div>
+            <div class="ltsub">Welcome to <b>Sifututor</b>. Tell us your name and email so we can set up your account.</div>
+            <div class="grp" style="margin-top:18px">
+              <div class="gr"><div class="fl">Full name<span class="req">*</span></div><div class="fv">Ahmad bin Razak<span class="caret-bar"></span></div></div>
+              <div class="gr"><div class="fl">Email<span class="req">*</span></div><div class="fv">ahmad.razak@email.com</div></div>
+              <div class="gr locked"><div class="lockrow"><div class="fvwrap"><div class="fl">Phone number</div><div class="fv">+60 12 345 6789</div></div><span class="locktag"><svg class="ic" viewBox="0 0 24 24" style="width:10px;height:10px"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Verified</span></div></div>
+              <div class="gr"><div class="fl">Referral code<span class="opttag">Optional</span></div><div class="fv placeholder">Enter a code if you have one</div></div>
+            </div>
+            <div class="help lock"><svg class="ic ico" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Your number is already confirmed from sign-up, so you do not enter it again.</span></div>
+          </div>
+          <div class="foot"><div class="cta">Continue <svg class="ic" viewBox="0 0 24 24"><path d="M5 12h13"/><path d="M13 6l6 6-6 6"/></svg></div></div>
+        </div>
+        <div class="home-ind"></div>
+      </div>
+    </div>
+
+    <!-- ===== LIGHT · 2 ConsentGate (Terms + Privacy + checkbox; save on agree) ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">2</span>ConsentGate &middot; ONE focus: review &amp; agree &middot; the save happens here</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="bk">&#8249;</span><span class="navttl">Privacy &amp; Consents</span></div>
+        <div class="screen">
+          <div class="body">
+            <div class="ltsub" style="margin:2px 0 0">Before you continue, please review how <b>Sifututor</b> handles your data.</div>
+            <div class="summary">
+              <div class="sh"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 4 6.5v5.2c0 4.6 3.4 8.1 8 9.3 4.6-1.2 8-4.7 8-9.3V6.5L12 3Z"/></svg>What we collect</div>
+              <div class="brow"><span class="dot">&bull;</span><span>Identity details (name, phone, NRIC, documents) to verify you as a tutor</span></div>
+              <div class="brow"><span class="dot">&bull;</span><span>Contact details and preferences so parents and students can reach you</span></div>
+              <div class="sdiv"></div>
+              <div class="sh"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>How we use it</div>
+              <div class="brow"><span class="dot">&bull;</span><span>Match you with suitable tuition requests and keep your account secure (Malaysian PDPA)</span></div>
+            </div>
+            <div class="doclinks">
+              <div class="doclink"><svg class="ic" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v5h5"/></svg>Read Terms</div>
+              <div class="doclink"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.4 3 7.6 7 8.8 4-1.2 7-4.4 7-8.8V6l-7-3Z"/></svg>Read Privacy</div>
+            </div>
+            <div class="grp">
+              <div class="consent">
+                <div class="cb on"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></div>
+                <div class="ct">I agree to <a>Sifututor's Terms of Service</a> and <a>Privacy Policy</a>, and I consent to the collection of my identity and account data for tutor verification and account management.</div>
+              </div>
+            </div>
+          </div>
+          <div class="foot">
+            <div class="cta">Agree &amp; continue <svg class="ic" viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></div>
+            <div class="subaction">Not now? <span class="lk">Cancel and sign out</span></div>
+          </div>
+        </div>
+        <div class="home-ind"></div>
+      </div>
+    </div>
+
+    <!-- ===== LIGHT · 3 THE ARRIVAL · "you're in" ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">3</span>The "you're in" ARRIVAL &middot; welcome + hand-off to Activate (the audit's missing moment)</div>
+      <div class="ph onbrand">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="arrival">
+          <svg class="wm-bg ic" viewBox="0 0 24 24"><path d="M12 3 4 6.5v5.2c0 4.6 3.4 8.1 8 9.3 4.6-1.2 8-4.7 8-9.3V6.5L12 3Z"/><path d="M9 12l2 2 4-4"/></svg>
+          <div class="acol">
+            <div class="seal"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></div>
+            <div class="eyebrow">You're in</div>
+            <div class="at">Welcome, Ahmad</div>
+            <div class="asub">Your account is set up. <b>One short step left</b> to start receiving student requests: get verified.</div>
+            <div class="nextcard">
+              <div class="nh">What's next</div>
+              <div class="nrow"><span class="nn">1</span><span class="nt">Verify your identity and qualifications</span></div>
+              <div class="nrow"><span class="nn">2</span><span class="nt">Set your subjects and availability</span></div>
+              <div class="nrow"><span class="nn">3</span><span class="nt">Start applying to student requests</span></div>
+            </div>
+          </div>
+          <div class="afoot"><div class="acta">Get verified <svg class="ic" viewBox="0 0 24 24"><path d="M5 12h13"/><path d="M13 6l6 6-6 6"/></svg></div></div>
+        </div>
+        <div class="home-ind"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== DARK MODE ===================== -->
+  <div class="modehd">Dark mode &middot; one - UpdateProfile · two - ConsentGate · three - the "you're in" arrival</div>
+  <div class="frames">
+
+    <!-- ===== DARK · 1 UpdateProfile ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">1</span>UpdateProfile &middot; clean name + email (verified phone locked, optional referral)</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="bk">&#8249;</span></div>
+        <div class="screen">
+          <div class="body">
+            <div class="brandmark">
+              <span class="glyph"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 4 6.5v5.2c0 4.6 3.4 8.1 8 9.3 4.6-1.2 8-4.7 8-9.3V6.5L12 3Z"/><path d="M9 12l2 2 4-4"/></svg></span>
+              <span class="wm">Sifututor</span>
+            </div>
+            <div class="lt">Your details</div>
+            <div class="ltsub">Welcome to <b>Sifututor</b>. Tell us your name and email so we can set up your account.</div>
+            <div class="grp" style="margin-top:18px">
+              <div class="gr"><div class="fl">Full name<span class="req">*</span></div><div class="fv">Ahmad bin Razak<span class="caret-bar"></span></div></div>
+              <div class="gr"><div class="fl">Email<span class="req">*</span></div><div class="fv">ahmad.razak@email.com</div></div>
+              <div class="gr locked"><div class="lockrow"><div class="fvwrap"><div class="fl">Phone number</div><div class="fv">+60 12 345 6789</div></div><span class="locktag"><svg class="ic" viewBox="0 0 24 24" style="width:10px;height:10px"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Verified</span></div></div>
+              <div class="gr"><div class="fl">Referral code<span class="opttag">Optional</span></div><div class="fv placeholder">Enter a code if you have one</div></div>
+            </div>
+            <div class="help lock"><svg class="ic ico" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Your number is already confirmed from sign-up, so you do not enter it again.</span></div>
+          </div>
+          <div class="foot"><div class="cta">Continue <svg class="ic" viewBox="0 0 24 24"><path d="M5 12h13"/><path d="M13 6l6 6-6 6"/></svg></div></div>
+        </div>
+        <div class="home-ind"></div>
+      </div>
+    </div>
+
+    <!-- ===== DARK · 2 ConsentGate ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">2</span>ConsentGate &middot; review &amp; agree (save on agree)</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="bk">&#8249;</span><span class="navttl">Privacy &amp; Consents</span></div>
+        <div class="screen">
+          <div class="body">
+            <div class="ltsub" style="margin:2px 0 0">Before you continue, please review how <b>Sifututor</b> handles your data.</div>
+            <div class="summary">
+              <div class="sh"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 4 6.5v5.2c0 4.6 3.4 8.1 8 9.3 4.6-1.2 8-4.7 8-9.3V6.5L12 3Z"/></svg>What we collect</div>
+              <div class="brow"><span class="dot">&bull;</span><span>Identity details (name, phone, NRIC, documents) to verify you as a tutor</span></div>
+              <div class="brow"><span class="dot">&bull;</span><span>Contact details and preferences so parents and students can reach you</span></div>
+              <div class="sdiv"></div>
+              <div class="sh"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>How we use it</div>
+              <div class="brow"><span class="dot">&bull;</span><span>Match you with suitable tuition requests and keep your account secure (Malaysian PDPA)</span></div>
+            </div>
+            <div class="doclinks">
+              <div class="doclink"><svg class="ic" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v5h5"/></svg>Read Terms</div>
+              <div class="doclink"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.4 3 7.6 7 8.8 4-1.2 7-4.4 7-8.8V6l-7-3Z"/></svg>Read Privacy</div>
+            </div>
+            <div class="grp">
+              <div class="consent">
+                <div class="cb on"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></div>
+                <div class="ct">I agree to <a>Sifututor's Terms of Service</a> and <a>Privacy Policy</a>, and I consent to the collection of my identity and account data for tutor verification and account management.</div>
+              </div>
+            </div>
+          </div>
+          <div class="foot">
+            <div class="cta">Agree &amp; continue <svg class="ic" viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></div>
+            <div class="subaction">Not now? <span class="lk">Cancel and sign out</span></div>
+          </div>
+        </div>
+        <div class="home-ind"></div>
+      </div>
+    </div>
+
+    <!-- ===== DARK · 3 ARRIVAL ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">3</span>The "you're in" ARRIVAL &middot; hand-off to Activate</div>
+      <div class="ph dark onbrand">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="arrival">
+          <svg class="wm-bg ic" viewBox="0 0 24 24"><path d="M12 3 4 6.5v5.2c0 4.6 3.4 8.1 8 9.3 4.6-1.2 8-4.7 8-9.3V6.5L12 3Z"/><path d="M9 12l2 2 4-4"/></svg>
+          <div class="acol">
+            <div class="seal"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></div>
+            <div class="eyebrow">You're in</div>
+            <div class="at">Welcome, Ahmad</div>
+            <div class="asub">Your account is set up. <b>One short step left</b> to start receiving student requests: get verified.</div>
+            <div class="nextcard">
+              <div class="nh">What's next</div>
+              <div class="nrow"><span class="nn">1</span><span class="nt">Verify your identity and qualifications</span></div>
+              <div class="nrow"><span class="nn">2</span><span class="nt">Set your subjects and availability</span></div>
+              <div class="nrow"><span class="nn">3</span><span class="nt">Start applying to student requests</span></div>
+            </div>
+          </div>
+          <div class="afoot"><div class="acta">Get verified <svg class="ic" viewBox="0 0 24 24"><path d="M5 12h13"/><path d="M13 6l6 6-6 6"/></svg></div></div>
+        </div>
+        <div class="home-ind"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== BEFORE (live) ===================== -->
+  <div class="modehd">Before &middot; the live screens (what ships today)</div>
+  <div class="frames">
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live UpdateProfile (name + email + "Save" &rarr; ConsentGate)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="bk">&#8249;</span><span class="b-ttl">Update Profile</span></div>
+        <div class="screen">
+          <div class="body" style="gap:0;padding-top:4px">
+            <div class="b-intro">We are glad that you Joined with us,<br>Enter your details.</div>
+            <div class="b-field">Full Name</div>
+            <div class="b-field">Email</div>
+            <div class="b-cta">Save</div>
+            <div class="b-note">Live UpdateProfile = name + email only (referral input commented out; no T&amp;C, no gender, no address, no DOB). "Save" hands to ConsentGate, which collects consent + performs the DB save. No arrival.</div>
+          </div>
+        </div>
+        <div class="home-ind"></div>
+      </div>
+    </div>
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live ConsentGate (Privacy &amp; Consents &rarr; save)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="bk">&#8249;</span><span class="b-ttl">Privacy &amp; Consents</span></div>
+        <div class="screen">
+          <div class="body" style="gap:0;padding-top:4px">
+            <div class="b-intro" style="margin-bottom:12px">Before you continue, please review how Sifututor handles your data.</div>
+            <div class="b-field" style="color:var(--ink-2);background:var(--lock-bg)">What we collect / How we use it (summary card)</div>
+            <div style="display:flex;gap:10px;margin-bottom:13px"><div class="b-field" style="flex:1;margin:0;text-align:center">Read Terms</div><div class="b-field" style="flex:1;margin:0;text-align:center">Read Privacy</div></div>
+            <div class="b-field">[ ] I agree to Sifututor's Terms of Service and Privacy Policy</div>
+            <div class="b-cta">Continue</div>
+            <div class="b-note">Live ConsentGate already on the correct "Sifututor's" casing in its checkbox; the legacy <code>by_agreeing_text</code> string still reads "SifuTutor's" (fixed in the re-skin).</div>
+          </div>
+        </div>
+        <div class="home-ind"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="docnote" style="margin-top:18px">
+    <h2>Founder decision (the one flag)</h2>
+    <div style="font-size:12.5px;line-height:1.7;">
+      <b>Referral code.</b> The live <code>UpdateProfile</code> has the <code>referral_code</code> wiring in place but its <code>&lt;InputText&gt;</code> is commented out. This mock shows it as an <b>optional</b> field (an honest acquisition lever, surfaced not silent). <b>Decide: restore it as optional, or cut the dead wiring.</b> Recommendation: restore - it is the one acquisition lever that belongs at sign-up, low friction (optional), and the wiring already exists.<br>
+      <span style="color:#71717a">Not in scope (already done elsewhere): gender / address / IC / state / education live in the Activate wizard (<code>BioDetails</code> / <code>EducationDetails</code>, see <code>activate-identity-forms.html</code>) and are deliberately not duplicated on this seam.</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

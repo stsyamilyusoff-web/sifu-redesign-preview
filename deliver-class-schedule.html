@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deliver · Class schedule cockpit — rich mock (light + dark)</title>
+<style>
+  /* ============== TOKENS (mirrors @sifu/ui semantic layer; no raw hex in markup) ============== */
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --radius:12px; --radius-lg:16px;
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5);
+  }
+
+  /* ============== PAGE CHROME (doc only) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1340px;margin:0 auto;}
+  .docnote{font-size:13px;line-height:1.65;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+  .docnote h1{font-size:17px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .audit{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:12px;}
+  .audit th,.audit td{border:1px solid #e4e4e7;padding:6px 9px;text-align:left;vertical-align:top;}
+  .audit th{background:#f4f4f5;font-weight:700;color:#18181b;}
+  .audit .keep{color:#166534;font-weight:700;} .audit .add{color:#2B2FBE;font-weight:700;} .audit .cut{color:#9f1239;font-weight:700;} .audit .gate{color:#92400e;font-weight:700;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 12px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:8px;text-align:center;max-width:402px;}
+  .framelabel .step{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:#2B2FBE;border-radius:999px;padding:2px 8px;margin-right:6px;}
+
+  /* ============== DEVICE FRAME ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;padding:0 16px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 6px 0 4px;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+
+  /* large title + add */
+  .titlerow{display:flex;align-items:center;justify-content:space-between;margin:2px 0 4px;}
+  .lt{font-size:29px;font-weight:800;color:var(--ink);letter-spacing:-.5px;}
+  .addbtn{width:34px;height:34px;border-radius:999px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:300;line-height:1;}
+
+  /* today-summary strip (NEW) */
+  .todaybar{display:flex;align-items:center;justify-content:space-between;margin:6px 0 12px;}
+  .today-l{font-size:14px;color:var(--ink-2);font-weight:600;}
+  .today-l b{color:var(--ink);font-weight:800;}
+  .today-pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:var(--ink-2);background:var(--fill);border-radius:999px;padding:6px 12px;}
+
+  /* week strip with density dots — all 7 cards share one shape + height; today = tint highlight */
+  .weekstrip{display:flex;gap:7px;margin-bottom:14px;overflow:hidden;}
+  .wd{flex:1;min-width:0;background:var(--card);border:1.5px solid transparent;border-radius:14px;padding:9px 0 7px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:var(--shadow);}
+  .wd .dn{font-size:11px;color:var(--ink-3);font-weight:700;line-height:1;}
+  .wd .dd{font-size:17px;font-weight:800;color:var(--ink);line-height:1;}
+  .wd .dots{display:flex;gap:3px;height:6px;align-items:center;}        /* fixed height keeps baselines aligned with dot-less days */
+  .wd .dots i{width:5px;height:5px;border-radius:999px;background:var(--tint);opacity:.55;}
+  .wd.today{border-color:var(--tint);background:var(--tint-weak);}        /* same card, brand highlight — not a taller widget */
+  .wd.today .dn{color:var(--tint-ink);}
+  .wd.today .dd{color:var(--tint-ink);}
+  .wd.today .dots i{opacity:.9;}
+  .wd.noclass .dd{color:var(--ink-3);}        /* free day — renamed off ".empty" to avoid colliding with the full-screen empty-state ".empty" rule */
+
+  /* expand/collapse affordance — a drag handle + chevron signalling the week strip pulls down to a month grid */
+  .calexpand{display:flex;flex-direction:column;align-items:center;gap:3px;margin:-6px 0 12px;}
+  .calexpand .grip{width:36px;height:5px;border-radius:999px;background:var(--ink-4);}
+  .calexpand .cev{font-size:11px;font-weight:700;color:var(--ink-3);display:inline-flex;align-items:center;gap:4px;}
+  .calexpand .cev .chev{font-size:9px;}
+
+  /* EXPANDED month grid (ExpandableCalendar pattern) — week strip pulls down to a full month */
+  .monthcard{background:var(--card);border-radius:var(--radius-lg);padding:12px 12px 10px;box-shadow:var(--shadow);margin-bottom:12px;}
+  .monthhd{display:flex;align-items:center;justify-content:space-between;margin:0 2px 10px;}
+  .monthhd .ml{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.3px;}
+  .monthhd .mnav{display:flex;align-items:center;gap:14px;color:var(--ink-3);font-size:15px;font-weight:700;}
+  .dowrow{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:4px;}
+  .dowrow span{text-align:center;font-size:11px;font-weight:700;color:var(--ink-3);}
+  .mgrid{display:grid;grid-template-columns:repeat(7,1fr);row-gap:2px;}
+  .mcell{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:10px;border:1.5px solid transparent;}
+  .mcell .mnum{font-size:14px;font-weight:700;color:var(--ink);line-height:1;}
+  .mcell .mdots{display:flex;gap:2px;height:5px;align-items:center;}     /* fixed height keeps every cell's number on one baseline */
+  .mcell .mdots i{width:4px;height:4px;border-radius:999px;background:var(--tint);opacity:.5;}
+  .mcell.noclass .mnum{color:var(--ink-3);}
+  .mcell.today{background:var(--tint-weak);border-color:var(--tint);}     /* today = brand tint (green stays reserved) */
+  .mcell.today .mnum{color:var(--tint-ink);}
+  .mcell.today .mdots i{opacity:.9;}
+  .mcell.sel{background:var(--tint);}                                     /* selected day = solid brand tint */
+  .mcell.sel .mnum{color:#fff;}
+  .mcell.sel .mdots i{background:#fff;opacity:.9;}
+  /* selected-day band under the grid */
+  .selday{display:flex;align-items:center;justify-content:space-between;margin:2px 2px 10px;}
+  .selday .sl{font-size:14px;color:var(--ink-2);font-weight:600;}
+  .selday .sl b{color:var(--ink);font-weight:800;}
+  .selday .scount{font-size:13px;font-weight:800;color:var(--ink-2);background:var(--fill);border-radius:999px;padding:5px 11px;}
+
+  /* full-width day agenda (no left gutter — time lives ON the card) */
+  .tl{position:relative;display:flex;flex-direction:column;gap:11px;}
+  /* time-group header — full width above a card or a back-to-back set */
+  .slotgroup{display:flex;flex-direction:column;gap:8px;}
+  .grouphd{display:flex;align-items:center;gap:8px;margin:1px 0 -2px;}
+  .grouphd .gh-node{width:9px;height:9px;border-radius:999px;background:var(--card);border:2.5px solid var(--tint);flex-shrink:0;}
+  .grouphd .gh-node.live{background:var(--green);border-color:var(--green);}
+  .grouphd .gh-node.done{background:var(--ink-4);border-color:var(--ink-4);}
+  .grouphd .gh-time{font-size:12px;font-weight:800;letter-spacing:.2px;color:var(--ink-2);font-variant-numeric:tabular-nums;text-transform:uppercase;}
+  .grouphd .gh-tag{font-size:10.5px;font-weight:800;letter-spacing:.3px;color:var(--amber-ink);background:var(--amber-weak);border:1px solid var(--amber-line);border-radius:999px;padding:2px 8px;text-transform:uppercase;}
+  .grouphd .gh-line{flex:1;height:1px;background:var(--hair);}
+  /* back-to-back set: two cards share the slot, joined by a hairline */
+  .b2b{display:flex;flex-direction:column;gap:7px;position:relative;padding-left:13px;}
+  .b2b::before{content:"";position:absolute;left:3px;top:4px;bottom:4px;width:2px;border-radius:2px;background:var(--hair);}
+
+  .ccard{background:var(--card);border-radius:var(--radius);padding:13px;box-shadow:var(--shadow);}
+  /* card time-lead header — time + duration LEFT, mode + status RIGHT (no money; no empty right side) */
+  .cc-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px;}
+  .cc-time{display:inline-flex;align-items:baseline;gap:6px;font-size:13px;font-weight:800;color:var(--ink);letter-spacing:-.1px;font-variant-numeric:tabular-nums;min-width:0;}
+  .cc-time .dur{font-size:12px;font-weight:700;color:var(--ink-3);letter-spacing:0;}
+  .cc-time .sep{color:var(--ink-4);font-size:11px;font-weight:700;}
+  .cc-end{flex-shrink:0;display:inline-flex;align-items:center;gap:8px;}
+  .cc-mode{font-size:11px;font-weight:700;color:var(--ink-2);display:inline-flex;align-items:center;gap:4px;}
+  .cc-mode .g{font-size:13px;opacity:.85;}
+  .cc-id{min-width:0;}
+  .cc-name{font-size:16px;font-weight:700;color:var(--ink);}
+  .cc-sub{font-size:13px;color:var(--ink-2);margin-top:1px;}
+  .cc-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:9px;}
+  .ic{font-size:12.5px;font-weight:600;color:var(--ink-2);display:inline-flex;align-items:center;gap:4px;}
+  .ic .g{font-size:13px;opacity:.85;}
+  .sep{color:var(--ink-4);font-size:11px;}
+  /* status chip — GOVERNED NEUTRAL for the real ClassStatus lifecycle (Scheduled/Ongoing/Attended/Verified).
+     The backend enum assigns its own colours (blue/amber/purple/green) that clash with our colour budget
+     (green = live/fit only). We hold all chips neutral-grey for now and flag the reconciliation as OPEN —
+     see the docnote. Only the Ongoing "now" card keeps the green LIVE indicator (the locked now-card treatment). */
+  .cc-state{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 9px;margin-top:9px;}
+  .cc-state.inhead{margin-top:0;}        /* when the chip rides in the card header's right side */
+  .cc-state .nd{width:6px;height:6px;border-radius:999px;background:var(--ink-4);}  /* neutral status dot */
+  .cc-state.scheduled{background:var(--fill);color:var(--ink-2);}
+  .cc-state.attended{background:var(--fill);color:var(--ink-2);}
+  .cc-state.verified{background:var(--fill);color:var(--ink-2);}
+  .cc-state.live{background:var(--green-weak);color:var(--green-ink);}   /* Ongoing now-card live indicator (locked) */
+  .cc-state.live .sd{width:7px;height:7px;border-radius:999px;background:var(--green);animation:pulse 1.4s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  /* awaiting-next-step caption under a finished/attended card */
+  .cc-await{font-size:11.5px;font-weight:600;color:var(--ink-3);margin-top:7px;}
+  /* SLIM finished-class row — a done class is "for reference", so it gets the lightest weight
+     (DR-002 density grammar: density scales with importance). Thinner padding, no shadow, a flat
+     hairline-bordered single row; reads quieter than the live + upcoming full cards above it. */
+  .cc-doner{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--hair);border-radius:10px;padding:8px 11px;}
+  .cc-doner .dr-time{font-size:12px;font-weight:800;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .cc-doner .dr-id{flex:1;min-width:0;font-size:13px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .cc-doner .dr-id b{font-weight:700;color:var(--ink);}
+  .cc-doner .dr-id .dr-sub{color:var(--ink-3);}
+  .cc-doner .dr-state{flex-shrink:0;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--ink-3);}
+  .cc-doner .dr-state .nd{width:6px;height:6px;border-radius:999px;background:var(--ink-4);}
+  /* the "now" (Ongoing) class gets a left accent + CTA */
+  .ccard.now{border:1.5px solid var(--green);}
+  .cc-cta{margin-top:11px;height:42px;border-radius:999px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;gap:7px;font-size:14px;font-weight:600;}
+  .cc-cta.go{background:var(--tint);}
+  /* Scheduled card's two-button action row (live app: Postpone + Attend) */
+  .cc-actions{display:flex;gap:8px;margin-top:11px;}
+  .cc-btn{flex:1;height:40px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13.5px;font-weight:700;}
+  .cc-btn.primary{background:var(--tint);color:#fff;}
+  .cc-btn.ghost{background:var(--fill);color:var(--ink);}
+
+  /* week footer total */
+  .wkfoot{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;color:var(--ink-2);font-weight:600;background:var(--card);border-radius:var(--radius);padding:11px;box-shadow:var(--shadow);margin-top:4px;}
+  .wkfoot b{color:var(--ink);font-weight:800;}
+
+  /* day-empty (a working day with no class) */
+  .dayempty{text-align:center;padding:14px 12px;color:var(--ink-3);font-size:13px;font-weight:600;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);}
+  .dayempty .de-add{color:var(--tint);font-weight:700;margin-top:4px;display:block;}
+
+  /* full empty state (no classes at all) */
+  .empty{text-align:center;padding:26px 14px 0;}
+  .eic{width:64px;height:64px;border-radius:999px;background:var(--tint-weak);display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 12px;}
+  .etit{font-size:18px;font-weight:800;color:var(--ink);}
+  .esub{font-size:13.5px;color:var(--ink-2);margin:7px 0 18px;line-height:1.5;}
+  .eb{height:50px;border-radius:999px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600;}
+  .eb.sec{background:var(--card);color:var(--tint);box-shadow:var(--shadow);height:46px;font-size:14px;margin-top:10px;}
+  .ehint{font-size:12px;color:var(--ink-3);margin-top:16px;line-height:1.5;}
+  .ehint b{color:var(--ink-2);}
+
+  .spacer{flex:1;}
+  @media (max-width:900px){ .frames{gap:30px} }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="docnote">
+    <h1>Deliver · Class schedule cockpit — rich mock (2026-06-30)</h1>
+    The schedule is the tutor's <b>daily home</b> and the top retention lever after ActiveClass: a tutor who opens it, sees their day at a glance, and walks into the next class easily comes back and applies more. <b>Honest read after re-grounding on the live populated screen:</b> the live app already has a week strip + a vertical timeline + reasonably rich class cards, so this is <b>enrichment, not a rebuild</b>. The gaps are: no today-summary, no week-level density, a colour-budget violation (green In-Person pill + green status both shout), a noisy radio-icon status, and a <b>dead empty state</b> ("No Class, Yet" + a big illustration + nothing actionable).
+    <br><br>
+    <b>What changes:</b> (1) a <b>today-summary</b> ("4 classes · RM 72" by the date); (2) <b>density dots</b> on the week strip so the tutor sees load at a glance + a <b>this-week count</b> footer; (3) the <b>Ongoing "now"</b> class gets a green accent + an inline "Clock out" CTA that jumps straight into the ActiveClass cockpit (closing schedule -> class loop); (4) governed <b>status chips</b> on the real lifecycle (see below) instead of two competing greens; (5) a <b>working empty state</b> (add a class · why it matters) and a per-day empty row for a free day inside a populated week. Mode + location are neutral (colour budget).
+    <br><br>
+    <b>Schedule focuses on the CLASS, not money (2026-06-30, founder feedback):</b> the per-class <b>RM earning is removed</b> from the cards, the today-summary, and the week footer — earnings live in the <b>Earn</b> cluster, not here. The schedule shows just the class facts and class counts. The week footer reads "12 classes" and the today-summary "4 classes".
+    <br><br>
+    <b>Time handling (gutter removed, 2026-06-29; card restructured, 2026-06-30):</b> the narrow left time-gutter is <b>removed</b> — it ate horizontal width and crammed the labels onto two wrapped lines, squeezing the cards. Time now lives <b>on the card</b>: each card opens with a full-width header — full range + duration ("2:00 – 3:00 PM · 1h") on the <b>left</b>, mode (🏠 In-person / 💻 Online) + the governed status chip on the <b>right</b> — so there is no empty right side and the card body gets the <b>full frame width</b>. A slim full-width <b>time-group header</b> (state node + "2:00 PM" + hairline) sits above each slot for at-a-glance scanning, replacing the gutter without pushing the cards right. <b>Overlapping / back-to-back classes</b> are grouped under one slot header with a "Back-to-back" tag and a shared connector hairline, so two same-window classes read as one tight set instead of overlapping time labels.
+    <br><br>
+    <b>Week strip alignment (2026-06-30, founder feedback):</b> all 7 day cards share <b>one shape and height</b>; today is a simple <b>brand-tint highlight</b> (fill + tint border + tint number) on the same card, not a taller black widget. The dots row has a fixed height so day labels and numbers stay aligned across days with and without density dots.
+    <br><br>
+    <b>Expandable week-to-month calendar (2026-06-30, founder-approved enhancement):</b> the week strip now pulls down to a full month grid (the ExpandableCalendar pattern). <b>Collapsed = week</b> = the existing 7-day strip, unchanged, with a small drag-handle + "Tap to see the month ▾" affordance below it. <b>Expanded = month</b> (the new frame) = a "June 2026" card with a S M T W T F S header and a 7-column date grid; each day cell carries the <b>same density dots</b> as the week strip (1 to 4 = class count), today gets the brand-tint highlight, the selected day a solid tint fill, and a "Tap to collapse to the week ▴" handle sits under the grid. Below the grid: the selected day's compact list (its slim Attended row + the Ongoing now-card). This is an <b>enhancement</b> — the live app already has the month context (<code>react-native-month-year-picker</code> + <code>getCurrentMonthDates</code> in <code>Screens/ClassSchedule/index.tsx</code>) and a month picker, but <b>no grid view</b>; the per-day density comes from the <b>same schedule data</b> the week strip already reads, nothing faked. Today/selected use the brand tint (green stays reserved for live/fit). <i>Note: the grid uses the mock's internal sample calendar where 24 = Tuesday, to stay consistent with the locked week strip above it; a real build would derive the weekday layout from the actual month.</i>
+    <br><br>
+    <b>Cards rebuilt on the REAL ClassStatus lifecycle (2026-06-30, founder-approved):</b> grounded in the backend enum <code>app/Enums/ClassStatus.php</code>, not invented states. The authoritative 7 statuses are <b>Scheduled · Ongoing · Attended · Verified</b> (the happy path) plus the edges <b>Cancelled · Postponed · Refunded</b>. Lifecycle: <code>Scheduled -> Ongoing -> Attended -> Verified</code> (with Scheduled/Ongoing -> Cancelled, and Cancelled -> Refunded). The day now shows that lifecycle across time: a finished earlier class is <b>Attended</b> (clocked out, awaiting verification) — shown as a <b>slim, de-emphasized one-line row</b> since a done class is "for reference" and earns the lightest weight (DR-002 density grammar); the current class is <b>Ongoing</b> (the locked now-card treatment + Clock-out CTA, grounded in the live app's ongoing -> clock_out action); the upcoming classes are <b>Scheduled</b> (with the live app's <b>Postpone</b> + <b>Attend</b> actions on the next-up card); and the past-day frame's class is <b>Verified</b> (a past class now confirmed, the truthful end-state). The fake "Pending parent confirm" card is <b>removed</b> — "pending" has no backing in the enum (the live app still carries a dead <code>== 'pending'</code> check in its status filter + status-dot switch, alongside non-enum <code>'approved'</code>/<code>'rejected'</code> cases).
+    <br><br>
+    <b>OPEN QUESTION — status-chip colour reconciliation (not decided here):</b> the backend enum assigns each status its own colour — <code>Scheduled=blue · Ongoing=amber · Attended=purple · Verified=green · Cancelled=red · Postponed=amber · Refunded=slate</code>. These <b>conflict with our colour budget</b> (where green = live/fit only, amber = a single "check this" flag). For now every status chip is held as a <b>governed NEUTRAL grey pill</b> (only the Ongoing now-card keeps the green live indicator, which is the locked now-card treatment, not the enum's green). We are <b>not</b> adopting the backend colours and <b>not</b> claiming this neutral mapping is final — the reconciliation (do we recolour the chips to the enum, keep neutral, or define a budget-safe subset?) is an open decision for the founder.
+    <br><br>
+    Grounded in the gig-worker "today" view (Grab / Uber driver daily plan: today's jobs up top) and calendar day-agendas (Apple / Google Calendar timeline + Fantastical's day list), and in the live app's per-state actions (<code>Screens/ClassSchedule/index.tsx</code>: Scheduled = Postpone/Attend, Ongoing = Clock out, past/ongoing = Mark attended). Tokens only, no raw hex in app UI. Sample data labelled; backend deps at the foot.
+
+    <h1 style="margin-top:16px;font-size:15px">Field-level audit (keep / cut / gate / add)</h1>
+    <table class="audit">
+      <tr><th>Field</th><th>Verdict</th><th>Reason / consumer</th></tr>
+      <tr><td>Student name</td><td class="keep">KEEP</td><td>Identifies the class; leads the card. Real.</td></tr>
+      <tr><td>Subject</td><td class="keep">KEEP</td><td>Core class fact. Moves to the sub-line with level. Real.</td></tr>
+      <tr><td>Level / form</td><td class="add">ADD</td><td>Live card omits it; needed to know which class. From the class record. <b>Gate:</b> on the schedule payload?</td></tr>
+      <tr><td>Time range (09:00-11:00)</td><td class="keep">KEEP</td><td>Now leads the card header (range + duration), not a left gutter; also drives the slot group header. Real.</td></tr>
+      <tr><td>Location</td><td class="keep">KEEP</td><td>Needed for in-person; neutral icon-fact in the card body. Real.</td></tr>
+      <tr><td>Mode (In-Person / Online)</td><td class="keep">KEEP</td><td>Now rides in the card header's right side (🏠 / 💻 + word), neutral. Real.</td></tr>
+      <tr><td>Status — real <b>ClassStatus</b> enum: Scheduled · Ongoing · Attended · Verified (+ Cancelled · Postponed · Refunded)</td><td class="keep">KEEP</td><td>Grounded in <code>app/Enums/ClassStatus.php</code>; lifecycle Scheduled-&gt;Ongoing-&gt;Attended-&gt;Verified. Chip rides inline in the header right. <b>Dead code flagged:</b> the live app filters + colours a <code>== 'pending'</code> status (and <code>'approved'</code>/<code>'rejected'</code>) that have <b>no enum backing</b> — the fake "Pending" card is cut. <b>Colour OPEN:</b> enum colours (blue/amber/purple/green) clash with our budget; held neutral-grey for now, reconciliation is a founder decision (not final).</td></tr>
+      <tr><td>Per-class earning (RM)</td><td class="cut">CUT</td><td>Removed (founder 2026-06-30): schedule focuses on the class, not money. Earnings live in the <b>Earn</b> cluster. UI only.</td></tr>
+      <tr><td>Today-summary (class count)</td><td class="add">ADD</td><td>Aggregation; the "why open this" hook. Count only, no RM. <b>Gate:</b> daily count endpoint.</td></tr>
+      <tr><td>Week density dots + week count</td><td class="add">ADD</td><td>Load-at-a-glance + the weekly count. <b>Gate:</b> per-day counts + weekly count.</td></tr>
+      <tr><td>"Now / up next" + Clock-in CTA</td><td class="add">ADD</td><td>Jumps schedule -> ActiveClass; closes the loop. Derivable from time + status.</td></tr>
+      <tr><td>Month picker (Jun 2026)</td><td class="keep">KEEP</td><td>Jump to a month. Keep, lighter. Real.</td></tr>
+      <tr><td>Empty-state illustration + "No Class, Yet"</td><td class="cut">CUT</td><td>Dead end. Replace with actionable empty (add a class + why). Import-timetable action dropped (founder 2026-06-30, not relevant). UI only.</td></tr>
+    </table>
+  </div>
+
+  <!-- ===================== LIGHT MODE ===================== -->
+  <div class="modehd">Light mode</div>
+  <div class="frames">
+
+    <!-- POPULATED -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">1</span>Populated · today + this week · back-to-back at 4 PM</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="titlerow"><div class="lt">Schedule</div><div class="addbtn">+</div></div>
+        <div class="todaybar"><div class="today-l">Today · <b>Tue, 24 Jun</b></div><div class="today-pill">4 classes · RM 72</div></div>
+
+        <div class="weekstrip">
+          <div class="wd"><span class="dn">Mon</span><span class="dd">23</span><span class="dots"><i></i></span></div>
+          <div class="wd today"><span class="dn">Tue</span><span class="dd">24</span><span class="dots"><i></i><i></i><i></i><i></i></span></div>
+          <div class="wd"><span class="dn">Wed</span><span class="dd">25</span><span class="dots"><i></i><i></i></span></div>
+          <div class="wd noclass"><span class="dn">Thu</span><span class="dd">26</span><span class="dots"></span></div>
+          <div class="wd"><span class="dn">Fri</span><span class="dd">27</span><span class="dots"><i></i><i></i></span></div>
+          <div class="wd"><span class="dn">Sat</span><span class="dd">28</span><span class="dots"><i></i></span></div>
+          <div class="wd noclass"><span class="dn">Sun</span><span class="dd">29</span><span class="dots"></span></div>
+        </div>
+        <div class="calexpand"><span class="grip"></span><span class="cev">Tap to see the month <span class="chev">▾</span></span></div>
+
+        <div class="tl">
+          <!-- ATTENDED — earlier today, clocked out, awaiting verification (real lifecycle: Ongoing -> Attended -> Verified) -->
+          <div class="slotgroup">
+            <div class="grouphd"><span class="gh-node done"></span><span class="gh-time">10:00 AM</span><span class="gh-line"></span></div>
+            <div class="cc-doner">
+              <span class="dr-time">10:00 AM</span>
+              <span class="dr-id"><b>Nur Aisyah</b> <span class="dr-sub">· Science · Form 4</span></span>
+              <span class="dr-state"><span class="nd"></span>Attended</span>
+            </div>
+            <div class="cc-await" style="margin-top:5px;margin-left:2px;">Awaiting verification</div>
+          </div>
+          <!-- ONGOING — the current class (now-card treatment locked: green border + live indicator + Clock-out CTA) -->
+          <div class="slotgroup">
+            <div class="grouphd"><span class="gh-node live"></span><span class="gh-time">2:00 PM</span><span class="gh-line"></span></div>
+            <div class="ccard now">
+              <div class="cc-head">
+                <span class="cc-time">2:00 – 3:00 PM <span class="sep">·</span><span class="dur">1h</span></span>
+                <span class="cc-end"><span class="cc-mode"><span class="g">🏠</span> In-person</span></span>
+              </div>
+              <div class="cc-id"><div class="cc-name">Adam Lim</div><div class="cc-sub">Mathematics · Form 4</div></div>
+              <div class="cc-row"><span class="ic"><span class="g">📍</span> Petaling Jaya</span></div>
+              <span class="cc-state live"><span class="sd"></span>Ongoing · in progress</span>
+              <div class="cc-cta go"><span>📷</span> Clock out</div>
+            </div>
+          </div>
+          <!-- SCHEDULED (back-to-back) — 4 PM group; the next-up card shows the live-app Postpone + Attend actions -->
+          <div class="slotgroup">
+            <div class="grouphd"><span class="gh-node"></span><span class="gh-time">4:00 PM</span><span class="gh-tag">Back-to-back</span><span class="gh-line"></span></div>
+            <div class="b2b">
+              <div class="ccard">
+                <div class="cc-head">
+                  <span class="cc-time">4:00 – 5:00 PM <span class="sep">·</span><span class="dur">1h</span></span>
+                  <span class="cc-end"><span class="cc-mode"><span class="g">💻</span> Online</span><span class="cc-state scheduled inhead"><span class="nd"></span>Scheduled</span></span>
+                </div>
+                <div class="cc-id"><div class="cc-name">Sarah Tan</div><div class="cc-sub">Add Maths · Form 5</div></div>
+                <div class="cc-actions"><span class="cc-btn ghost">Postpone</span><span class="cc-btn primary">Attend</span></div>
+              </div>
+              <div class="ccard">
+                <div class="cc-head">
+                  <span class="cc-time">5:00 – 6:00 PM <span class="sep">·</span><span class="dur">1h</span></span>
+                  <span class="cc-end"><span class="cc-mode"><span class="g">💻</span> Online</span><span class="cc-state scheduled inhead"><span class="nd"></span>Scheduled</span></span>
+                </div>
+                <div class="cc-id"><div class="cc-name">Daniel Wong</div><div class="cc-sub">Physics · Form 5</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="wkfoot">This week · 12 classes · <b>RM 216</b></div>
+      </div>
+    </div>
+
+    <!-- ANOTHER DAY (a Verified past class + a free-day row) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">2</span>A past day · Verified class + a free day row</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="titlerow"><div class="lt">Schedule</div><div class="addbtn">+</div></div>
+        <div class="todaybar"><div class="today-l">Mon · <b>23 Jun</b></div><div class="today-pill">1 class · RM 18</div></div>
+
+        <div class="weekstrip">
+          <div class="wd today"><span class="dn">Mon</span><span class="dd">23</span><span class="dots"><i></i></span></div>
+          <div class="wd"><span class="dn">Tue</span><span class="dd">24</span><span class="dots"><i></i><i></i><i></i></span></div>
+          <div class="wd"><span class="dn">Wed</span><span class="dd">25</span><span class="dots"><i></i><i></i></span></div>
+          <div class="wd noclass"><span class="dn">Thu</span><span class="dd">26</span><span class="dots"></span></div>
+          <div class="wd"><span class="dn">Fri</span><span class="dd">27</span><span class="dots"><i></i><i></i></span></div>
+          <div class="wd"><span class="dn">Sat</span><span class="dd">28</span><span class="dots"><i></i></span></div>
+          <div class="wd noclass"><span class="dn">Sun</span><span class="dd">29</span><span class="dots"></span></div>
+        </div>
+        <div class="calexpand"><span class="grip"></span><span class="cev">Tap to see the month <span class="chev">▾</span></span></div>
+
+        <div class="tl">
+          <div class="slotgroup">
+            <div class="grouphd"><span class="gh-node done"></span><span class="gh-time">10:00 AM</span><span class="gh-line"></span></div>
+            <div class="ccard">
+              <div class="cc-head">
+                <span class="cc-time">10:00 – 11:00 AM <span class="sep">·</span><span class="dur">1h</span></span>
+                <span class="cc-end"><span class="cc-mode"><span class="g">🏠</span> In-person</span><span class="cc-state verified inhead"><span class="nd"></span>Verified</span></span>
+              </div>
+              <div class="cc-id"><div class="cc-name">Adam Lim</div><div class="cc-sub">Mathematics · Form 4</div></div>
+              <div class="cc-await">Attendance verified</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin:6px 0 4px;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-3);">Rest of the day</div>
+        <div class="dayempty">No more classes today.<span class="de-add">+ Add a class for 23 Jun</span></div>
+
+        <div class="spacer"></div>
+        <div class="wkfoot">This week · 12 classes · <b>RM 216</b></div>
+      </div>
+    </div>
+
+    <!-- EMPTY (no classes at all) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">3</span>Empty · actionable, not a dead end</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="titlerow"><div class="lt">Schedule</div><div class="addbtn">+</div></div>
+        <div class="todaybar"><div class="today-l">Today · <b>Tue, 24 Jun</b></div><div class="today-pill" style="background:var(--fill);color:var(--ink-3);">No classes yet</div></div>
+
+        <div class="weekstrip">
+          <div class="wd"><span class="dn">Mon</span><span class="dd">23</span><span class="dots"></span></div>
+          <div class="wd today"><span class="dn">Tue</span><span class="dd">24</span><span class="dots"></span></div>
+          <div class="wd"><span class="dn">Wed</span><span class="dd">25</span><span class="dots"></span></div>
+          <div class="wd"><span class="dn">Thu</span><span class="dd">26</span><span class="dots"></span></div>
+          <div class="wd"><span class="dn">Fri</span><span class="dd">27</span><span class="dots"></span></div>
+          <div class="wd"><span class="dn">Sat</span><span class="dd">28</span><span class="dots"></span></div>
+          <div class="wd"><span class="dn">Sun</span><span class="dd">29</span><span class="dots"></span></div>
+        </div>
+
+        <div class="empty">
+          <div class="eic">📅</div>
+          <div class="etit">No classes scheduled yet</div>
+          <div class="esub">Add a class once a parent confirms it, and it will show up on your schedule.</div>
+          <div class="eb"><span>+</span> Add a class</div>
+          <div class="ehint">Your scheduled classes show here with <b>their time, student, and mode</b>, so your day and week are clear at a glance.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MONTH VIEW (EXPANDED) — the week strip pulled down to a full month grid -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">4</span>Month view (expanded) · week strip pulled down to the month</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="titlerow"><div class="lt">Schedule</div><div class="addbtn">+</div></div>
+        <div class="todaybar"><div class="today-l">Today · <b>Tue, 24 Jun</b></div><div class="today-pill">4 classes · RM 72</div></div>
+
+        <div class="monthcard">
+          <div class="monthhd"><span class="ml">June 2026</span><span class="mnav"><span>‹</span><span>›</span></span></div>
+          <div class="dowrow"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+          <div class="mgrid">
+            <!-- week 1 (1-7) · 1 Jun = Sun in this sample month -->
+            <div class="mcell noclass"><span class="mnum">1</span><span class="mdots"></span></div>
+            <div class="mcell"><span class="mnum">2</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">3</span><span class="mdots"><i></i><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">4</span><span class="mdots"><i></i></span></div>
+            <div class="mcell"><span class="mnum">5</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">6</span><span class="mdots"><i></i></span></div>
+            <div class="mcell noclass"><span class="mnum">7</span><span class="mdots"></span></div>
+            <!-- week 2 (8-14) -->
+            <div class="mcell"><span class="mnum">8</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">9</span><span class="mdots"><i></i><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">10</span><span class="mdots"><i></i></span></div>
+            <div class="mcell"><span class="mnum">11</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">12</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">13</span><span class="mdots"><i></i></span></div>
+            <div class="mcell noclass"><span class="mnum">14</span><span class="mdots"></span></div>
+            <!-- week 3 (15-21) -->
+            <div class="mcell"><span class="mnum">15</span><span class="mdots"><i></i><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">16</span><span class="mdots"><i></i></span></div>
+            <div class="mcell"><span class="mnum">17</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">18</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">19</span><span class="mdots"><i></i></span></div>
+            <div class="mcell"><span class="mnum">20</span><span class="mdots"><i></i></span></div>
+            <div class="mcell noclass"><span class="mnum">21</span><span class="mdots"></span></div>
+            <!-- week 4 (22-28) · this is the visible week; 24 = today + selected -->
+            <div class="mcell noclass"><span class="mnum">22</span><span class="mdots"></span></div>
+            <div class="mcell"><span class="mnum">23</span><span class="mdots"><i></i></span></div>
+            <div class="mcell today sel"><span class="mnum">24</span><span class="mdots"><i></i><i></i><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">25</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell noclass"><span class="mnum">26</span><span class="mdots"></span></div>
+            <div class="mcell"><span class="mnum">27</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">28</span><span class="mdots"><i></i></span></div>
+            <!-- week 5 (29-30) -->
+            <div class="mcell noclass"><span class="mnum">29</span><span class="mdots"></span></div>
+            <div class="mcell"><span class="mnum">30</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell" style="visibility:hidden"></div>
+            <div class="mcell" style="visibility:hidden"></div>
+            <div class="mcell" style="visibility:hidden"></div>
+            <div class="mcell" style="visibility:hidden"></div>
+            <div class="mcell" style="visibility:hidden"></div>
+          </div>
+          <div class="calexpand" style="margin:10px 0 0;"><span class="cev"><span class="chev">▴</span> Tap to collapse to the week</span><span class="grip"></span></div>
+        </div>
+
+        <div class="selday"><div class="sl">Selected · <b>Tue, 24 Jun</b></div><div class="scount">4 classes</div></div>
+
+        <div class="tl">
+          <!-- selected-day list (compact): the slim Attended row + the Ongoing now-card -->
+          <div class="slotgroup">
+            <div class="grouphd"><span class="gh-node done"></span><span class="gh-time">10:00 AM</span><span class="gh-line"></span></div>
+            <div class="cc-doner">
+              <span class="dr-time">10:00 AM</span>
+              <span class="dr-id"><b>Nur Aisyah</b> <span class="dr-sub">· Science · Form 4</span></span>
+              <span class="dr-state"><span class="nd"></span>Attended</span>
+            </div>
+          </div>
+          <div class="slotgroup">
+            <div class="grouphd"><span class="gh-node live"></span><span class="gh-time">2:00 PM</span><span class="gh-line"></span></div>
+            <div class="ccard now">
+              <div class="cc-head">
+                <span class="cc-time">2:00 – 3:00 PM <span class="sep">·</span><span class="dur">1h</span></span>
+                <span class="cc-end"><span class="cc-mode"><span class="g">🏠</span> In-person</span></span>
+              </div>
+              <div class="cc-id"><div class="cc-name">Adam Lim</div><div class="cc-sub">Mathematics · Form 4</div></div>
+              <span class="cc-state live"><span class="sd"></span>Ongoing · in progress</span>
+              <div class="cc-cta go"><span>📷</span> Clock out</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== DARK MODE ===================== -->
+  <div class="modehd">Dark mode · populated + empty + month view</div>
+  <div class="frames">
+
+    <!-- DARK POPULATED -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">1</span>Populated (dark)</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="titlerow"><div class="lt">Schedule</div><div class="addbtn">+</div></div>
+        <div class="todaybar"><div class="today-l">Today · <b>Tue, 24 Jun</b></div><div class="today-pill">4 classes · RM 72</div></div>
+
+        <div class="weekstrip">
+          <div class="wd"><span class="dn">Mon</span><span class="dd">23</span><span class="dots"><i></i></span></div>
+          <div class="wd today"><span class="dn">Tue</span><span class="dd">24</span><span class="dots"><i></i><i></i><i></i><i></i></span></div>
+          <div class="wd"><span class="dn">Wed</span><span class="dd">25</span><span class="dots"><i></i><i></i></span></div>
+          <div class="wd noclass"><span class="dn">Thu</span><span class="dd">26</span><span class="dots"></span></div>
+          <div class="wd"><span class="dn">Fri</span><span class="dd">27</span><span class="dots"><i></i><i></i></span></div>
+          <div class="wd"><span class="dn">Sat</span><span class="dd">28</span><span class="dots"><i></i></span></div>
+          <div class="wd noclass"><span class="dn">Sun</span><span class="dd">29</span><span class="dots"></span></div>
+        </div>
+        <div class="calexpand"><span class="grip"></span><span class="cev">Tap to see the month <span class="chev">▾</span></span></div>
+
+        <div class="tl">
+          <!-- ATTENDED — earlier today, awaiting verification (slim "for reference" row, DR-002 density) -->
+          <div class="slotgroup">
+            <div class="grouphd"><span class="gh-node done"></span><span class="gh-time">10:00 AM</span><span class="gh-line"></span></div>
+            <div class="cc-doner">
+              <span class="dr-time">10:00 AM</span>
+              <span class="dr-id"><b>Nur Aisyah</b> <span class="dr-sub">· Science · Form 4</span></span>
+              <span class="dr-state"><span class="nd"></span>Attended</span>
+            </div>
+            <div class="cc-await" style="margin-top:5px;margin-left:2px;">Awaiting verification</div>
+          </div>
+          <!-- ONGOING — now-card treatment (locked) -->
+          <div class="slotgroup">
+            <div class="grouphd"><span class="gh-node live"></span><span class="gh-time">2:00 PM</span><span class="gh-line"></span></div>
+            <div class="ccard now">
+              <div class="cc-head">
+                <span class="cc-time">2:00 – 3:00 PM <span class="sep">·</span><span class="dur">1h</span></span>
+                <span class="cc-end"><span class="cc-mode"><span class="g">🏠</span> In-person</span></span>
+              </div>
+              <div class="cc-id"><div class="cc-name">Adam Lim</div><div class="cc-sub">Mathematics · Form 4</div></div>
+              <div class="cc-row"><span class="ic"><span class="g">📍</span> Petaling Jaya</span></div>
+              <span class="cc-state live"><span class="sd"></span>Ongoing · in progress</span>
+              <div class="cc-cta go"><span>📷</span> Clock out</div>
+            </div>
+          </div>
+          <!-- SCHEDULED — with the live-app Postpone + Attend actions -->
+          <div class="slotgroup">
+            <div class="grouphd"><span class="gh-node"></span><span class="gh-time">4:00 PM</span><span class="gh-line"></span></div>
+            <div class="ccard">
+              <div class="cc-head">
+                <span class="cc-time">4:00 – 5:00 PM <span class="sep">·</span><span class="dur">1h</span></span>
+                <span class="cc-end"><span class="cc-mode"><span class="g">💻</span> Online</span><span class="cc-state scheduled inhead"><span class="nd"></span>Scheduled</span></span>
+              </div>
+              <div class="cc-id"><div class="cc-name">Sarah Tan</div><div class="cc-sub">Add Maths · Form 5</div></div>
+              <div class="cc-actions"><span class="cc-btn ghost">Postpone</span><span class="cc-btn primary">Attend</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="spacer"></div>
+        <div class="wkfoot">This week · 12 classes · <b>RM 216</b></div>
+      </div>
+    </div>
+
+    <!-- DARK EMPTY -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">3</span>Empty (dark)</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="titlerow"><div class="lt">Schedule</div><div class="addbtn">+</div></div>
+        <div class="todaybar"><div class="today-l">Today · <b>Tue, 24 Jun</b></div><div class="today-pill" style="background:var(--fill);color:var(--ink-3);">No classes yet</div></div>
+
+        <div class="weekstrip">
+          <div class="wd"><span class="dn">Mon</span><span class="dd">23</span><span class="dots"></span></div>
+          <div class="wd today"><span class="dn">Tue</span><span class="dd">24</span><span class="dots"></span></div>
+          <div class="wd"><span class="dn">Wed</span><span class="dd">25</span><span class="dots"></span></div>
+          <div class="wd"><span class="dn">Thu</span><span class="dd">26</span><span class="dots"></span></div>
+          <div class="wd"><span class="dn">Fri</span><span class="dd">27</span><span class="dots"></span></div>
+          <div class="wd"><span class="dn">Sat</span><span class="dd">28</span><span class="dots"></span></div>
+          <div class="wd"><span class="dn">Sun</span><span class="dd">29</span><span class="dots"></span></div>
+        </div>
+
+        <div class="empty">
+          <div class="eic">📅</div>
+          <div class="etit">No classes scheduled yet</div>
+          <div class="esub">Add a class once a parent confirms it, and it will show up on your schedule.</div>
+          <div class="eb"><span>+</span> Add a class</div>
+          <div class="ehint">Your scheduled classes show here with <b>their time, student, and mode</b>, so your day and week are clear at a glance.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DARK MONTH VIEW (EXPANDED) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">4</span>Month view (expanded, dark)</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="titlerow"><div class="lt">Schedule</div><div class="addbtn">+</div></div>
+        <div class="todaybar"><div class="today-l">Today · <b>Tue, 24 Jun</b></div><div class="today-pill">4 classes · RM 72</div></div>
+
+        <div class="monthcard">
+          <div class="monthhd"><span class="ml">June 2026</span><span class="mnav"><span>‹</span><span>›</span></span></div>
+          <div class="dowrow"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+          <div class="mgrid">
+            <div class="mcell noclass"><span class="mnum">1</span><span class="mdots"></span></div>
+            <div class="mcell"><span class="mnum">2</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">3</span><span class="mdots"><i></i><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">4</span><span class="mdots"><i></i></span></div>
+            <div class="mcell"><span class="mnum">5</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">6</span><span class="mdots"><i></i></span></div>
+            <div class="mcell noclass"><span class="mnum">7</span><span class="mdots"></span></div>
+            <div class="mcell"><span class="mnum">8</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">9</span><span class="mdots"><i></i><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">10</span><span class="mdots"><i></i></span></div>
+            <div class="mcell"><span class="mnum">11</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">12</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">13</span><span class="mdots"><i></i></span></div>
+            <div class="mcell noclass"><span class="mnum">14</span><span class="mdots"></span></div>
+            <div class="mcell"><span class="mnum">15</span><span class="mdots"><i></i><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">16</span><span class="mdots"><i></i></span></div>
+            <div class="mcell"><span class="mnum">17</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">18</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">19</span><span class="mdots"><i></i></span></div>
+            <div class="mcell"><span class="mnum">20</span><span class="mdots"><i></i></span></div>
+            <div class="mcell noclass"><span class="mnum">21</span><span class="mdots"></span></div>
+            <div class="mcell noclass"><span class="mnum">22</span><span class="mdots"></span></div>
+            <div class="mcell"><span class="mnum">23</span><span class="mdots"><i></i></span></div>
+            <div class="mcell today sel"><span class="mnum">24</span><span class="mdots"><i></i><i></i><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">25</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell noclass"><span class="mnum">26</span><span class="mdots"></span></div>
+            <div class="mcell"><span class="mnum">27</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell"><span class="mnum">28</span><span class="mdots"><i></i></span></div>
+            <div class="mcell noclass"><span class="mnum">29</span><span class="mdots"></span></div>
+            <div class="mcell"><span class="mnum">30</span><span class="mdots"><i></i><i></i></span></div>
+            <div class="mcell" style="visibility:hidden"></div>
+            <div class="mcell" style="visibility:hidden"></div>
+            <div class="mcell" style="visibility:hidden"></div>
+            <div class="mcell" style="visibility:hidden"></div>
+            <div class="mcell" style="visibility:hidden"></div>
+          </div>
+          <div class="calexpand" style="margin:10px 0 0;"><span class="cev"><span class="chev">▴</span> Tap to collapse to the week</span><span class="grip"></span></div>
+        </div>
+
+        <div class="selday"><div class="sl">Selected · <b>Tue, 24 Jun</b></div><div class="scount">4 classes</div></div>
+
+        <div class="tl">
+          <div class="slotgroup">
+            <div class="grouphd"><span class="gh-node done"></span><span class="gh-time">10:00 AM</span><span class="gh-line"></span></div>
+            <div class="cc-doner">
+              <span class="dr-time">10:00 AM</span>
+              <span class="dr-id"><b>Nur Aisyah</b> <span class="dr-sub">· Science · Form 4</span></span>
+              <span class="dr-state"><span class="nd"></span>Attended</span>
+            </div>
+          </div>
+          <div class="slotgroup">
+            <div class="grouphd"><span class="gh-node live"></span><span class="gh-time">2:00 PM</span><span class="gh-line"></span></div>
+            <div class="ccard now">
+              <div class="cc-head">
+                <span class="cc-time">2:00 – 3:00 PM <span class="sep">·</span><span class="dur">1h</span></span>
+                <span class="cc-end"><span class="cc-mode"><span class="g">🏠</span> In-person</span></span>
+              </div>
+              <div class="cc-id"><div class="cc-name">Adam Lim</div><div class="cc-sub">Mathematics · Form 4</div></div>
+              <span class="cc-state live"><span class="sd"></span>Ongoing · in progress</span>
+              <div class="cc-cta go"><span>📷</span> Clock out</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

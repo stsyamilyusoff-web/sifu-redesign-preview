@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acquire A4.4 · Splash (boot screen) · two variants side by side</title>
+<style>
+  /* ============== TOKENS (mirrors @sifu/ui semantic layer; no raw hex in app markup) ·
+       VERBATIM sibling set with the LOCKED A4.1 OnBoarding (onboarding-a41.html),
+       A4.2 Login (login-a42.html), A4.3 VerifyCode (verifycode-a43.html). Splash is the
+       BOOT screen shown before all of them, so this root is identical so the whole front
+       door reads as ONE flow. (--brand:#2B2FBE - the synced canonical, NOT #2B2FBE -
+       canvas #F2F2F7, the ink ramp.) NOTE-TO-BUILD: these map to @sifu/ui named tokens. ============== */
+  :root{
+    --brand:#2B2FBE; --brand-weak:rgba(43,47,190,.10); --brand-ink:#2B2FBE;
+    --brand-deep:#1F2390;            /* darker brand stop for the brand-flood gradient */
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45);
+    --hair:rgba(60,60,67,.12); --fill:rgba(120,120,128,.10);
+    --shadow-card:0 1px 3px rgba(0,0,0,.06); --shadow-cta:0 6px 18px rgba(43,47,190,.32);
+    --r-card:12px; --r-lg:16px; --r-pill:999px;
+    /* on-brand / on-photo whites (legible OVER the brand flood or the photo tint) */
+    --on-brand:#FFFFFF; --on-brand-2:rgba(255,255,255,.82); --on-brand-3:rgba(255,255,255,.55);
+  }
+  .dark{
+    --brand:#7C8CF0; --brand-weak:rgba(124,140,240,.18); --brand-ink:#7C8CF0;
+    --brand-deep:#11143A;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45);
+    --hair:rgba(84,84,88,.6); --fill:rgba(120,120,128,.24);
+    --shadow-card:0 1px 3px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(0,0,0,.5);
+  }
+
+  /* ============== PAGE CHROME (doc only) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1500px;margin:0 auto;}
+  .docnote{font-size:13px;line-height:1.62;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+  .docnote h1{font-size:17px;margin:0 0 8px;color:#18181b}
+  .docnote h2{font-size:14px;margin:14px 0 6px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .lockbox{background:#f0f3ff;border:1px solid #c7d2fe;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .lockbox b{color:#1e3a8a;}
+  .pendbox{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .pendbox b{color:#9a3412;}
+  .recbox{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;padding:11px 14px;margin:10px 0;font-size:12.8px;line-height:1.6;}
+  .recbox b{color:#065f46;}
+  .audit{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:12px;}
+  .audit th,.audit td{border:1px solid #e4e4e7;padding:6px 9px;text-align:left;vertical-align:top;}
+  .audit th{background:#f4f4f5;font-weight:700;color:#18181b;}
+  .audit .keep{color:#166534;font-weight:700;} .audit .add{color:#2B2FBE;font-weight:700;} .audit .cut{color:#9f1239;font-weight:700;}
+  .cmp{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:12px;}
+  .cmp th,.cmp td{border:1px solid #e4e4e7;padding:7px 10px;text-align:left;vertical-align:top;}
+  .cmp th{background:#f4f4f5;font-weight:700;color:#18181b;}
+  .cmp td.a{background:#fafaff;} .cmp td.b{background:#fffdf7;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 12px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:8px;text-align:center;max-width:402px;}
+  .framelabel .var{display:inline-block;font-size:10px;font-weight:800;color:#fff;border-radius:999px;padding:2px 8px;margin-right:6px;}
+  .framelabel .var.a{background:#2B2FBE;} .framelabel .var.b{background:#9a3412;}
+
+  /* ============== DEVICE FRAME (402x874, verbatim A4.1-A4.3 sibling chrome) ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column;}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0;position:relative;z-index:5;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+  /* on a brand-flood OR full-bleed photo the status bar reads white */
+  .ph.onbrand .sb-t{color:#fff;} .ph.onbrand .sb-sig,.ph.onbrand .sb-wifi{background:#fff;} .ph.onbrand .sb-bat{border-color:#fff;} .ph.onbrand .sb-bat::after{background:#fff;}
+
+  /* ===== shared centred boot stack (logo + wordmark + loader), used by BOTH variants ===== */
+  .boot{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;}
+  /* the brand mark: the shield glyph (same shield used across the front door brandmarks) */
+  .glyph{width:92px;height:92px;border-radius:24px;display:flex;align-items:center;justify-content:center;}
+  .glyph svg{width:50px;height:50px;stroke-width:2.1;}
+  .wordmark{font-size:30px;font-weight:800;letter-spacing:-.5px;margin-top:20px;}
+  .tagline{font-size:14px;font-weight:500;margin-top:8px;letter-spacing:.1px;}
+
+  /* the loader: a calm 3-dot bounce pinned near the bottom (subtle, standard boot indicator) */
+  .loader{position:absolute;left:0;right:0;bottom:64px;display:flex;align-items:center;justify-content:center;gap:8px;z-index:4;}
+  .loader .ld{width:8px;height:8px;border-radius:999px;animation:bounce 1.2s ease-in-out infinite;}
+  .loader .ld:nth-child(2){animation-delay:.16s;} .loader .ld:nth-child(3){animation-delay:.32s;}
+  @keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.4;}40%{transform:translateY(-6px);opacity:1;}}
+
+  /* ---------- VARIANT A - brand-mark splash (clean brand flood) ---------- */
+  .va .canvas{position:absolute;inset:0;background:linear-gradient(165deg,var(--brand) 0%,var(--brand-deep) 100%);z-index:1;}
+  /* a faint oversized shield watermark behind the mark, for depth (not a second wordmark) */
+  .va .wm-bg{position:absolute;top:-40px;right:-70px;width:360px;height:360px;color:rgba(255,255,255,.05);z-index:2;}
+  .va .wm-bg svg{width:100%;height:100%;stroke-width:1;}
+  .va .glyph{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);}
+  .va .glyph svg{color:#fff;}
+  .va .wordmark{color:var(--on-brand);}
+  .va .tagline{color:var(--on-brand-2);}
+  .va .loader .ld{background:#fff;}
+
+  /* ---------- VARIANT B - photo splash (full-bleed real photography + brand-tint) ---------- */
+  .vb .photo{position:absolute;inset:0;overflow:hidden;z-index:1;}
+  .vb .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;}
+  /* the brand-tint overlay carries the contrast so the mark + tagline are legible OVER the photo */
+  .vb .photo .tint{position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(16,20,72,.55) 0%, rgba(16,20,72,.30) 38%, rgba(13,16,60,.62) 78%, rgba(9,11,44,.88) 100%),
+      linear-gradient(0deg, rgba(43,47,190,.32) 0%, rgba(43,47,190,0) 60%);}
+  .dark .vb .photo .tint{
+    background:
+      linear-gradient(180deg, rgba(2,4,16,.62) 0%, rgba(2,4,16,.40) 38%, rgba(6,8,30,.70) 78%, rgba(2,3,12,.92) 100%),
+      linear-gradient(0deg, rgba(58,79,208,.30) 0%, rgba(58,79,208,0) 60%);}
+  /* on a photo the glyph gets a solid brand chip so the brand reads instantly through the imagery */
+  .vb .glyph{background:var(--brand);box-shadow:0 8px 26px rgba(0,0,0,.4);}
+  .vb .glyph svg{color:#fff;}
+  .vb .wordmark{color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.5);}
+  .vb .tagline{color:rgba(255,255,255,.86);text-shadow:0 1px 10px rgba(0,0,0,.45);}
+  .vb .loader .ld{background:#fff;}
+
+  .home-ind{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:128px;height:5px;border-radius:99px;background:#fff;opacity:.45;z-index:5;}
+
+  .ic{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+  <div class="docnote">
+    <h1>Acquire · A4.4 · Splash (boot screen) · the first thing on app open · TWO VARIANTS (2026-06-30)</h1>
+    <div class="recbox">
+      <b>What this mock is.</b> The redesigned <b>Splash / boot screen</b> - the very first frame on app open, shown for ~300ms while the app decides where to send you. It re-grounds the live <code>Screens/Splash/index.tsx</code> on the locked sibling token set (<code>--brand:#2B2FBE</code>, shared with <a href="onboarding-a41.html">onboarding-a41</a> / <a href="login-a42.html">login-a42</a> / <a href="verifycode-a43.html">verifycode-a43</a>). Built as <b>TWO variants side by side</b> for the founder to pick (a flagged decision): <b>A - clean brand-mark</b> vs <b>B - full-bleed real photography</b>. Audit: <code>08-change-log/acquire-onboarding-audit-2026-06-30.md</code> §3.1.
+    </div>
+
+    <div class="lockbox" style="background:#fef9c3;border-color:#fde047;">
+      <b style="color:#854d0e;">The boot LOGIC is preserved (the splash is only the UI shell over it).</b> The live Splash is mostly logic, not pixels. Untouched by this re-skin:
+      <br>• <b>The boot gate</b> - a 300ms anti-flash delay (<code>Splash:17</code>, <code>:98</code>), then branch on the <code>onBoarding</code> flag + the <code>token</code> + any <code>notiScreenRoute</code> deep-link (<code>:19-93</code>): first-run &rarr; OnBoarding · returning logged-out &rarr; Login · logged-in &rarr; Main / deep-link target · error &rarr; OnBoarding fallback.
+      <br>• <b>The deep-link routing map (~8 targets)</b> - the <code>Linking</code> parser (<code>:101-188</code>) maps share/notification URLs to: <code>RequestDetailById</code> (share + legacy ID forms), <code>TutorRequests</code>, <code>ClassSchedule</code>, <code>Payment</code>, <code>FAQs</code>, <code>TermAndConditions</code>, <code>PrivacyPolicy</code>, <code>ClassRecords</code> / <code>ClassDetailByNotification</code>, <code>Notifications</code>, <code>TutorVerificationProcess</code>, <code>Home</code>. This is load-bearing - <b>do NOT touch it in the re-skin.</b>
+      <br>The ONLY visual changes: re-treat the background per the chosen variant, and <b>fix the stretched logo</b> (live sizes it to <code>height = window.height</code>, <code>width = window.width / 1.7</code> - a distorted full-height logo; <code>Splash:219-222</code>). Here the mark is a fixed, centred, undistorted glyph.
+    </div>
+
+    <h2>Field audit (live Splash &rarr; this mock) · never-drop rule</h2>
+    <table class="audit">
+      <tr><th>Live element (file:line)</th><th>In this mock</th><th>Verdict</th></tr>
+      <tr><td>Brand background image <code>SplashScreen.webp</code> (<code>:197-200</code>)</td><td><b>A:</b> clean brand-flood canvas · <b>B:</b> full-bleed real-human photo + brand-tint</td><td class="add">TRADE &middot; variant choice (photography direction)</td></tr>
+      <tr><td>Logo <code>sifuwhite.webp</code>, stretched to full height (<code>:201-206</code>, <code>:219-222</code>)</td><td>Fixed centred shield glyph + "Sifututor" wordmark, undistorted, token-sized</td><td class="keep">KEEP &middot; FIX sizing (stop stretching)</td></tr>
+      <tr><td>300ms boot delay / anti-flash (<code>:16-17</code>, <code>:98</code>)</td><td>Logic preserved; a calm loader signals the brief wait</td><td class="keep">KEEP &middot; logic</td></tr>
+      <tr><td>Deep-link routing map, ~8 targets (<code>:101-188</code>)</td><td>Logic preserved verbatim (no visual)</td><td class="keep">KEEP &middot; load-bearing logic</td></tr>
+      <tr><td><code>onBoarding</code> / <code>token</code> / <code>notiScreenRoute</code> gate (<code>:19-93</code>)</td><td>Logic preserved verbatim (no visual)</td><td class="keep">KEEP &middot; load-bearing logic</td></tr>
+      <tr><td>No loading indicator today (logo only)</td><td>A calm 3-dot loader (subtle, standard boot signal)</td><td class="add">ADD &middot; clarity (the 300ms wait now has a signal)</td></tr>
+    </table>
+    <div style="font-size:12px;margin-top:6px;"><b>Tally:</b> KEEP 4 (3 logic + logo, sizing fixed) &middot; TRADE 1 (background &rarr; variant choice) &middot; ADD 1 (loader) &middot; CUT 0. No field dropped; the only "removal" is the logo DISTORTION (a bug fix, not a field cut).</div>
+
+    <h2>A vs B - the founder decision</h2>
+    <table class="cmp">
+      <tr><th style="width:18%">Dimension</th><th style="width:41%">A · Brand-mark splash</th><th style="width:41%">B · Photo splash</th></tr>
+      <tr><td><b>Feel</b></td><td class="a">Clean, fast, instantly recognisable. Reads as "an app booting" the way most apps do.</td><td class="b">Warm, human, emotional. Says "real tutors, real students" from frame one.</td></tr>
+      <tr><td><b>Brand reading</b></td><td class="a">Brand IS the screen - the mark + colour are the whole canvas; zero ambiguity.</td><td class="b">Brand reads through a solid chip over the imagery; strong, but the photo is the lead.</td></tr>
+      <tr><td><b>Fit for a 300ms boot</b></td><td class="a">Ideal - a boot frame is on screen for a blink; a calm mark is all the eye needs.</td><td class="b">A rich photo for ~300ms can feel like a flash; better suited to a screen you dwell on.</td></tr>
+      <tr><td><b>Performance</b></td><td class="a">Instant - a gradient + an SVG, nothing to fetch or decode.</td><td class="b">A full-bleed photo must decode at launch; on a cold start that risks a beat of blank.</td></tr>
+      <tr><td><b>Photography direction</b></td><td class="a">Doesn't use it (the direction allows the mark as the one exception for the boot frame).</td><td class="b">Applies it - but the direction's emotional payoff lands harder on the carousel (which already uses photography) than on a sub-second boot.</td></tr>
+      <tr><td><b>Risk</b></td><td class="a">Low. The only "risk" is it being unremarkable - which is correct for a boot screen.</td><td class="b">A stock-feeling photo on the FIRST frame sets a generic tone (the Headspace cautionary tale). Needs a genuinely authentic Malaysian shot.</td></tr>
+    </table>
+
+    <div class="recbox">
+      <b>Recommendation: Variant A (brand-mark) for the splash.</b> A boot screen is on the eye for a blink (the live gate is 300ms), so the job is "show the brand and get out of the way" - exactly what A does, instantly and with no decode cost. The photography direction explicitly allows the clean brand mark as the ONE exception for the boot frame (audit §6, decision 5: <i>"Splash may be the one exception where a clean brand mark is fine"</i>), and the emotional photography payoff is already delivered where it belongs - on the <b>OnBoarding carousel</b> (<a href="onboarding-a41.html">A4.1</a>), which uses full-bleed photo + brand-tint and is the screen a new tutor actually dwells on. Variant B is here for the side-by-side; if the founder prefers it, ship it with a genuinely authentic Malaysian shot (not stock) and a static poster/colour behind it so a slow decode never shows blank.
+    </div>
+
+    <div class="lockbox">
+      <b>Locked lessons obeyed.</b> Clean &middot; no duplicate words (the mark shows "Sifututor" once; no second wordmark) &middot; no em-dashes in copy &middot; "Sifututor" (one capital S) &middot; neutral tagline ("Empowering Learning &amp; Earning" - plain, no hype, no invented numbers) &middot; new tokens only (<code>--brand:#2B2FBE</code>, the synced canonical - <b>NO #2B2FBE</b>, no raw hex in the app layer, no <code>Theme.*</code>).
+    </div>
+
+    <div class="lockbox" style="background:#eef2ff;border-color:#c7d2fe;">
+      <b>Commercial pass (Rule 16).</b> <b>Founder:</b> the splash is the cheapest, highest-frequency brand impression (every single launch); it sets the "is this legit" first read before the funnel even starts. <b>Sales:</b> no upsell belongs on a 300ms boot frame (transparency guard: nothing to decline here). <b>Marketing:</b> a consistent, on-brand boot reinforces recognition every open; variant B leans the human-service story harder. <b>Analyst:</b> instrument cold-start time-to-interactive (the boot frame must not add latency). <b>Guard metric:</b> app cold-start time must not regress - the chief reason A (no photo decode) is the safer boot choice.
+    </div>
+  </div>
+
+  <!-- ===================== LIGHT MODE ===================== -->
+  <div class="modehd">Light mode &middot; A (brand-mark) vs B (photo) - side by side</div>
+  <div class="frames">
+
+    <!-- ===== VARIANT A · LIGHT ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="var a">A</span>Brand-mark splash &middot; clean brand flood (recommended)</div>
+      <div class="ph onbrand va">
+        <div class="canvas"></div>
+        <div class="wm-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3 4 6.5v5.2c0 4.6 3.4 8.1 8 9.3 4.6-1.2 8-4.7 8-9.3V6.5L12 3Z"/></svg></div>
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="boot">
+          <div class="glyph"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 4 6.5v5.2c0 4.6 3.4 8.1 8 9.3 4.6-1.2 8-4.7 8-9.3V6.5L12 3Z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div class="wordmark">Sifututor</div>
+          <div class="tagline">Empowering Learning &amp; Earning</div>
+        </div>
+        <div class="loader"><span class="ld"></span><span class="ld"></span><span class="ld"></span></div>
+        <div class="home-ind"></div>
+      </div>
+    </div>
+
+    <!-- ===== VARIANT B · LIGHT ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="var b">B</span>Photo splash &middot; full-bleed real photography + brand-tint</div>
+      <div class="ph onbrand vb">
+        <div class="photo">
+          <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=900&q=80&auto=format&fit=crop" alt="A tutor helping a student one-to-one during a lesson">
+          <div class="tint"></div>
+        </div>
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="boot">
+          <div class="glyph"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 4 6.5v5.2c0 4.6 3.4 8.1 8 9.3 4.6-1.2 8-4.7 8-9.3V6.5L12 3Z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div class="wordmark">Sifututor</div>
+          <div class="tagline">Empowering Learning &amp; Earning</div>
+        </div>
+        <div class="loader"><span class="ld"></span><span class="ld"></span><span class="ld"></span></div>
+        <div class="home-ind"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== DARK MODE ===================== -->
+  <div class="modehd">Dark mode &middot; the same two variants</div>
+  <div class="frames">
+
+    <!-- ===== VARIANT A · DARK ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="var a">A</span>Brand-mark splash &middot; dark</div>
+      <div class="ph onbrand va dark">
+        <div class="canvas"></div>
+        <div class="wm-bg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3 4 6.5v5.2c0 4.6 3.4 8.1 8 9.3 4.6-1.2 8-4.7 8-9.3V6.5L12 3Z"/></svg></div>
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="boot">
+          <div class="glyph"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 4 6.5v5.2c0 4.6 3.4 8.1 8 9.3 4.6-1.2 8-4.7 8-9.3V6.5L12 3Z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div class="wordmark">Sifututor</div>
+          <div class="tagline">Empowering Learning &amp; Earning</div>
+        </div>
+        <div class="loader"><span class="ld"></span><span class="ld"></span><span class="ld"></span></div>
+        <div class="home-ind"></div>
+      </div>
+    </div>
+
+    <!-- ===== VARIANT B · DARK ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="var b">B</span>Photo splash &middot; dark</div>
+      <div class="ph onbrand vb dark">
+        <div class="photo">
+          <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=900&q=80&auto=format&fit=crop" alt="A tutor helping a student one-to-one during a lesson">
+          <div class="tint"></div>
+        </div>
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="boot">
+          <div class="glyph"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 4 6.5v5.2c0 4.6 3.4 8.1 8 9.3 4.6-1.2 8-4.7 8-9.3V6.5L12 3Z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div class="wordmark">Sifututor</div>
+          <div class="tagline">Empowering Learning &amp; Earning</div>
+        </div>
+        <div class="loader"><span class="ld"></span><span class="ld"></span><span class="ld"></span></div>
+        <div class="home-ind"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

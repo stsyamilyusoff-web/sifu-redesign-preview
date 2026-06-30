@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sifututor · Requests feed, R1 (B hero + D hairline · ALL fields, nothing dropped)</title>
+<style>
+  /* ============== TOKENS (reuse deliver-evaluation-report.html / requests-card-bd semantic set; no raw hex in card markup) ============== */
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --radius:12px; --radius-lg:16px;
+    /* earning-forward band fill: a SUBTLE brand-blue tint (stronger than before) so the card header is DEFINED and does not dissolve into the grey app canvas; still subtle, not loud; no grey box */
+    --earn:rgba(43,47,190,.10); --earn-line:rgba(43,47,190,.18);
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5);
+    --earn:rgba(124,140,240,.20); --earn-line:rgba(124,140,240,.32);
+  }
+
+  /* ============== PAGE CHROME (doc only) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1080px;margin:0 auto;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:nowrap;justify-content:center;}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:20px;}
+  .docnote h1{font-size:18px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .docnote .keepbox{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .docnote .keepbox b{color:#166534;}
+  .docnote .fieldbox{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12px;line-height:1.6;}
+  .docnote .fieldbox b{color:#1e3a8a;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:28px 0 14px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12.5px;font-weight:700;color:#3f3f46;margin-bottom:9px;text-align:center;max-width:402px;}
+
+  /* ============== DEVICE FRAME ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column;}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+
+  .lt{font-size:29px;font-weight:800;color:var(--ink);letter-spacing:-.5px;padding:0 18px;margin-bottom:12px;flex-shrink:0;}
+  .seg{display:flex;background:var(--tint-weak);border-radius:12px;padding:2px;margin:0 18px 11px;flex-shrink:0;}
+  .so{flex:1;text-align:center;padding:11px 0;border-radius:10px;font-size:14px;font-weight:600;color:var(--ink-3);}
+  .so.active{background:var(--card);color:var(--ink);box-shadow:var(--shadow);}
+  /* carried from the locked feed: search + filter controls + float pill */
+  .search{font-size:13.5px;color:var(--ink-4);background:var(--fill);border-radius:10px;padding:9px 12px;margin:0 18px 11px;flex-shrink:0;}
+  .ctrls{display:flex;gap:6px;margin:0 18px 11px;flex-wrap:wrap;flex-shrink:0;}
+  .cc{font-size:12px;font-weight:600;color:var(--ink-2);background:var(--card);border-radius:999px;padding:5px 11px;}
+  .cc.sort{color:var(--tint);background:var(--tint-weak);} .cc.onf{color:#fff;background:var(--tint);}
+  .floatpill{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:5;font-size:12px;font-weight:700;color:#fff;background:var(--tint);border-radius:999px;padding:9px 18px;box-shadow:0 6px 18px rgba(43,47,190,.5);white-space:nowrap;}
+  .scroll{flex:1;overflow:hidden;padding:0 18px;}
+  .stack{display:flex;flex-direction:column;gap:10px;}
+
+  /* shared inline icon-fact vocabulary (DR-007, lean weight) */
+  .sep{color:var(--ink-4);font-size:11px;}
+  .l1{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.2px;}
+  .lvl{font-size:13px;font-weight:400;color:var(--ink-3);}
+  .match{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--green-ink);font-weight:700;}
+  .match .chk{font-weight:800;}
+  .meta{font-size:11.5px;color:var(--ink-3);}
+  .meta .rid{font-weight:700;color:var(--ink-3);} .meta .copy{color:var(--tint);}
+  .besoc{color:var(--green-ink);font-weight:700;font-size:12px;}
+
+  /* ================================================================
+     R1 CARD = Variant B-enhanced (earning-forward) hero + Variant D's
+     hairline separator, REBUILT to present EVERY live request field.
+     Founder rule: a redesign reorganizes, never drops a field. GENDER
+     (tutor_preference) and the place line were wrongly dropped before;
+     they are restored. Body fields are grouped into tidy lines (clean by
+     organization + demotion, not by dropping). TREQ is consolidated INTO
+     the facts (quiet meta line). Footer below the hairline = ONE line.
+     Live fields ground: sifututor_tutor/Screens/TutorRequests/index.tsx
+     renderTicketData (695-1047) + 08-change-log/requests-e2e-audit-2026-06-30.md
+     ================================================================ */
+  .vB{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;}
+  /* HERO BAND (B, unchanged): RM /mo earning hero + mode pill */
+  .vB .earnband{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:13px 16px 12px;background:var(--earn);border-bottom:1px solid var(--earn-line);}
+  .vB .earn{display:flex;align-items:baseline;gap:3px;}
+  .vB .earn .cur{font-size:15px;font-weight:800;color:var(--tint-ink);letter-spacing:0;}
+  .vB .earn .amt{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-1.2px;line-height:.9;font-variant-numeric:tabular-nums;}
+  .vB .earn .per{font-size:13px;font-weight:700;color:var(--ink-2);margin-left:1px;}
+  .vB .modepill{font-size:10.5px;font-weight:800;letter-spacing:.4px;color:var(--ink-2);background:var(--card);border:1px solid var(--hair);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+  /* BODY (above the hairline) */
+  .vB .body{padding:12px 16px 14px;}
+  .vB .titlerow{display:flex;align-items:baseline;gap:6px;}
+  /* tidy fact lines: each line groups related fields; icon-fact vocabulary, lean */
+  .vB .fline{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:8px;}
+  .vB .fline .ic{font-size:12.5px;font-weight:600;color:var(--ink-2);}
+  .vB .fline .glyph{font-size:12px;color:var(--ink-3);}
+  /* gender = neutral glyph + "X tutor" (the viewer's fit filter, never naked gender), demoted colour per DR-007 */
+  .vB .gender{font-size:12.5px;font-weight:700;color:var(--ink);}
+  .vB .gender .gg{color:var(--ink-3);font-weight:800;}
+  /* quiet meta line: TREQ (consolidated here) + posted-ago */
+  .vB .mline{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:8px;}
+  .vB .flagrow{margin-top:9px;}
+  .vB .flag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--amber-ink);background:var(--amber-weak);border:1px solid var(--amber-line);border-radius:999px;padding:3px 9px;}
+  /* ADDED FROM D: subtle hairline separating the footer from the body above */
+  .vB .footsep{margin:12px 0 0;padding-top:11px;border-top:1px solid var(--hair);}
+  /* FOOTER = ONE line only (founder directive 1): fit cue + applicant/action */
+  .vB .botrow{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+
+  /* ===== empty / low-supply state (carried verbatim from the locked feed) ===== */
+  .empty{text-align:center;padding:30px 16px;}
+  .eic{font-size:34px;} .etit{font-size:16px;font-weight:800;color:var(--ink);margin-top:8px;}
+  .esub{font-size:12.5px;color:var(--ink-2);margin:6px 0 16px;line-height:1.45;}
+  .eb{font-size:13px;font-weight:700;background:var(--card);color:var(--ink);border-radius:11px;padding:11px;margin-top:8px;box-shadow:var(--shadow);}
+  .eb.primary{background:var(--tint);color:#fff;height:48px;border-radius:999px;font-size:16px;font-weight:500;padding:0;display:flex;align-items:center;justify-content:center;}
+  .ebrow{display:flex;gap:8px;} .ebrow .eb{flex:1;}
+  .elink{font-size:12.5px;font-weight:700;color:var(--tint);margin-top:14px;}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Sifututor · Requests feed, R1 (ALL fields, nothing dropped)</h1>
+    The card is <b>Variant B-enhanced</b>'s earning-forward hero + <b>Variant D</b>'s hairline separator, rebuilt to present <b>EVERY live request field</b>. Founder rule: a redesign reorganizes, never drops a field. GENDER (<code>tutor_preference</code>) and the place line were wrongly dropped in the density pass and are restored. Clean = organization + demotion, never dropping.
+    <div class="fieldbox"><b>Every field, mapped to a zone</b> (ground: <code>index.tsx</code> renderTicketData 695-1047 + the e2e audit):<br>
+    <b>Hero band:</b> RM /mo (<code>display_commission</code>) · mode (<code>mode</code>). <b>Title:</b> subject (<code>subject_name</code>) · level (<code>level</code>).<br>
+    <b>Body line 1 (schedule):</b> day (<code>class_day</code>) · time (<code>class_time</code>) · duration · sessions/recurring. <b>Body line 2 (logistics):</b> place (<code>area</code>, <code>city</code>) · <b>GENDER (<code>tutor_preference</code>, as "♀/♂ tutor")</b> · type (<code>request_type</code>). <b>Body line 3 (quiet meta):</b> <b>TREQ (<code>request_uid</code>) consolidated here</b> · posted-ago. Amber caution (<code>special_need</code>) when present.<br>
+    <b>Footer (below hairline, ONE line):</b> green "✓ Matches you" + applicant-count/action.</div>
+    <div class="keepbox"><b>Kept:</b> B's RM /mo earning hero band + mode pill exactly (no take-home, no grey box) · D's subtle hairline · colour budget (green = fit, amber = one caution, RM = the size-led hero). <b>sample-until-backend</b> (live object lacks them today, shown as flagged fixtures, not dropped): duration, sessions, <code>special_need</code>, the match cue, applicant-count, posted-ago. Live fields: subject, level, mode, day, time, place, <b>gender</b>, type, RM, TREQ.</div>
+  </div>
+
+  <!-- ===================== LIGHT MODE ===================== -->
+  <div class="modehd">Light mode</div>
+  <div class="frames">
+
+    <!-- OPEN TAB with rows -->
+    <div class="framewrap">
+      <div class="framelabel">Open tab</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="lt">Requests</div>
+        <div class="seg"><span class="so active">Open</span><span class="so">Applied</span></div>
+        <div class="search">Search by Request ID, subject, or area</div>
+        <div class="ctrls"><span class="cc sort">Relevance</span><span class="cc onf">Maths (12)</span><span class="cc">For me</span><span class="cc">Filter</span></div>
+        <div class="floatpill">↑ 3 new matches</div>
+        <div class="scroll"><div class="stack">
+
+          <!-- Maths · online · full fit · low supply -->
+          <div class="vB">
+            <div class="earnband"><div class="earn"><span class="cur">RM</span><span class="amt">94</span><span class="per">/mo</span></div><div class="modepill">ONLINE</div></div>
+            <div class="body">
+              <div class="titlerow"><span class="l1">Mathematics</span><span class="lvl">· Form 4</span></div>
+              <div class="fline"><span class="glyph">📅</span><span class="ic">Tue · 8:00 PM</span><span class="sep">·</span><span class="ic">1.5h</span><span class="sep">·</span><span class="ic">12 sessions</span></div>
+              <div class="fline"><span class="gender"><span class="gg">♀</span> Female tutor</span><span class="sep">·</span><span class="ic">Weekly</span></div>
+              <div class="mline meta"><span class="rid">TREQ-859807 <span class="copy">⧉</span></span><span class="sep">·</span><span>Posted 2h ago</span></div>
+              <div class="footsep">
+                <div class="botrow"><span class="match"><span class="chk">✓</span> Matches you</span><span class="besoc">Be the first to apply</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Physics · in-person (place) · fit · male pref -->
+          <div class="vB">
+            <div class="earnband"><div class="earn"><span class="cur">RM</span><span class="amt">120</span><span class="per">/mo</span></div><div class="modepill">IN-PERSON</div></div>
+            <div class="body">
+              <div class="titlerow"><span class="l1">Physics</span><span class="lvl">· Form 4</span></div>
+              <div class="fline"><span class="glyph">📅</span><span class="ic">Mon · 5:00 PM</span><span class="sep">·</span><span class="ic">2h</span><span class="sep">·</span><span class="ic">8 sessions</span></div>
+              <div class="fline"><span class="glyph">📍</span><span class="ic">Bangsar, KL</span><span class="sep">·</span><span class="gender"><span class="gg">♂</span> Male tutor</span><span class="sep">·</span><span class="ic">Weekly</span></div>
+              <div class="mline meta"><span class="rid">TREQ-655485 <span class="copy">⧉</span></span><span class="sep">·</span><span>Posted 5h ago</span></div>
+              <div class="footsep">
+                <div class="botrow"><span class="match"><span class="chk">✓</span> Matches you</span><span class="meta">6 applied</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BM · online · fit · any tutor -->
+          <div class="vB">
+            <div class="earnband"><div class="earn"><span class="cur">RM</span><span class="amt">70</span><span class="per">/mo</span></div><div class="modepill">ONLINE</div></div>
+            <div class="body">
+              <div class="titlerow"><span class="l1">Bahasa Melayu</span><span class="lvl">· Form 3</span></div>
+              <div class="fline"><span class="glyph">📅</span><span class="ic">Thu · 7:00 PM</span><span class="sep">·</span><span class="ic">1h</span><span class="sep">·</span><span class="ic">12 sessions</span></div>
+              <div class="fline"><span class="gender"><span class="gg">⚥</span> Any tutor</span><span class="sep">·</span><span class="ic">Weekly</span></div>
+              <div class="mline meta"><span class="rid">TREQ-773201 <span class="copy">⧉</span></span><span class="sep">·</span><span>Posted 1d ago</span></div>
+              <div class="footsep">
+                <div class="botrow"><span class="match"><span class="chk">✓</span> Matches you</span><span class="meta">2 applied</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chemistry · in-person · fit + amber caution (special_need) · female pref -->
+          <div class="vB">
+            <div class="earnband"><div class="earn"><span class="cur">RM</span><span class="amt">150</span><span class="per">/mo</span></div><div class="modepill">IN-PERSON</div></div>
+            <div class="body">
+              <div class="titlerow"><span class="l1">Chemistry</span><span class="lvl">· Form 6</span></div>
+              <div class="fline"><span class="glyph">📅</span><span class="ic">Sat · 10:00 AM</span><span class="sep">·</span><span class="ic">2h</span><span class="sep">·</span><span class="ic">10 sessions</span></div>
+              <div class="fline"><span class="glyph">📍</span><span class="ic">Mont Kiara, KL</span><span class="sep">·</span><span class="gender"><span class="gg">♀</span> Female tutor</span><span class="sep">·</span><span class="ic">Weekly</span></div>
+              <div class="mline meta"><span class="rid">TREQ-450088 <span class="copy">⧉</span></span><span class="sep">·</span><span>Posted 1d ago</span></div>
+              <div class="flagrow"><span class="flag">⚑ Special needs</span></div>
+              <div class="footsep">
+                <div class="botrow"><span class="match"><span class="chk">✓</span> Matches you</span><span class="meta">3 applied</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div></div>
+      </div>
+    </div>
+
+    <!-- EMPTY / LOW-SUPPLY STATE -->
+    <div class="framewrap">
+      <div class="framelabel">Empty / low-supply state</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="lt">Requests</div>
+        <div class="seg"><span class="so active">Open</span><span class="so">Applied</span></div>
+        <div class="empty">
+          <div class="eic">🔍</div>
+          <div class="etit">No new requests match you right now</div>
+          <div class="esub">We will alert you the moment a fit request appears.</div>
+          <div class="eb primary">Turn on match alerts</div>
+          <div class="ebrow"><span class="eb">Widen my area</span><span class="eb">Add subjects</span></div>
+          <div class="elink">Browse all requests</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== DARK MODE ===================== -->
+  <div class="modehd">Dark mode</div>
+  <div class="frames">
+
+    <!-- OPEN TAB with rows (dark) -->
+    <div class="framewrap">
+      <div class="framelabel">Open tab</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="lt">Requests</div>
+        <div class="seg"><span class="so active">Open</span><span class="so">Applied</span></div>
+        <div class="search">Search by Request ID, subject, or area</div>
+        <div class="ctrls"><span class="cc sort">Relevance</span><span class="cc onf">Maths (12)</span><span class="cc">For me</span><span class="cc">Filter</span></div>
+        <div class="floatpill">↑ 3 new matches</div>
+        <div class="scroll"><div class="stack">
+
+          <div class="vB">
+            <div class="earnband"><div class="earn"><span class="cur">RM</span><span class="amt">94</span><span class="per">/mo</span></div><div class="modepill">ONLINE</div></div>
+            <div class="body">
+              <div class="titlerow"><span class="l1">Mathematics</span><span class="lvl">· Form 4</span></div>
+              <div class="fline"><span class="glyph">📅</span><span class="ic">Tue · 8:00 PM</span><span class="sep">·</span><span class="ic">1.5h</span><span class="sep">·</span><span class="ic">12 sessions</span></div>
+              <div class="fline"><span class="gender"><span class="gg">♀</span> Female tutor</span><span class="sep">·</span><span class="ic">Weekly</span></div>
+              <div class="mline meta"><span class="rid">TREQ-859807 <span class="copy">⧉</span></span><span class="sep">·</span><span>Posted 2h ago</span></div>
+              <div class="footsep">
+                <div class="botrow"><span class="match"><span class="chk">✓</span> Matches you</span><span class="besoc">Be the first to apply</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vB">
+            <div class="earnband"><div class="earn"><span class="cur">RM</span><span class="amt">120</span><span class="per">/mo</span></div><div class="modepill">IN-PERSON</div></div>
+            <div class="body">
+              <div class="titlerow"><span class="l1">Physics</span><span class="lvl">· Form 4</span></div>
+              <div class="fline"><span class="glyph">📅</span><span class="ic">Mon · 5:00 PM</span><span class="sep">·</span><span class="ic">2h</span><span class="sep">·</span><span class="ic">8 sessions</span></div>
+              <div class="fline"><span class="glyph">📍</span><span class="ic">Bangsar, KL</span><span class="sep">·</span><span class="gender"><span class="gg">♂</span> Male tutor</span><span class="sep">·</span><span class="ic">Weekly</span></div>
+              <div class="mline meta"><span class="rid">TREQ-655485 <span class="copy">⧉</span></span><span class="sep">·</span><span>Posted 5h ago</span></div>
+              <div class="footsep">
+                <div class="botrow"><span class="match"><span class="chk">✓</span> Matches you</span><span class="meta">6 applied</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vB">
+            <div class="earnband"><div class="earn"><span class="cur">RM</span><span class="amt">70</span><span class="per">/mo</span></div><div class="modepill">ONLINE</div></div>
+            <div class="body">
+              <div class="titlerow"><span class="l1">Bahasa Melayu</span><span class="lvl">· Form 3</span></div>
+              <div class="fline"><span class="glyph">📅</span><span class="ic">Thu · 7:00 PM</span><span class="sep">·</span><span class="ic">1h</span><span class="sep">·</span><span class="ic">12 sessions</span></div>
+              <div class="fline"><span class="gender"><span class="gg">⚥</span> Any tutor</span><span class="sep">·</span><span class="ic">Weekly</span></div>
+              <div class="mline meta"><span class="rid">TREQ-773201 <span class="copy">⧉</span></span><span class="sep">·</span><span>Posted 1d ago</span></div>
+              <div class="footsep">
+                <div class="botrow"><span class="match"><span class="chk">✓</span> Matches you</span><span class="meta">2 applied</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vB">
+            <div class="earnband"><div class="earn"><span class="cur">RM</span><span class="amt">150</span><span class="per">/mo</span></div><div class="modepill">IN-PERSON</div></div>
+            <div class="body">
+              <div class="titlerow"><span class="l1">Chemistry</span><span class="lvl">· Form 6</span></div>
+              <div class="fline"><span class="glyph">📅</span><span class="ic">Sat · 10:00 AM</span><span class="sep">·</span><span class="ic">2h</span><span class="sep">·</span><span class="ic">10 sessions</span></div>
+              <div class="fline"><span class="glyph">📍</span><span class="ic">Mont Kiara, KL</span><span class="sep">·</span><span class="gender"><span class="gg">♀</span> Female tutor</span><span class="sep">·</span><span class="ic">Weekly</span></div>
+              <div class="mline meta"><span class="rid">TREQ-450088 <span class="copy">⧉</span></span><span class="sep">·</span><span>Posted 1d ago</span></div>
+              <div class="flagrow"><span class="flag">⚑ Special needs</span></div>
+              <div class="footsep">
+                <div class="botrow"><span class="match"><span class="chk">✓</span> Matches you</span><span class="meta">3 applied</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div></div>
+      </div>
+    </div>
+
+    <!-- EMPTY / LOW-SUPPLY STATE (dark) -->
+    <div class="framewrap">
+      <div class="framelabel">Empty / low-supply state</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="lt">Requests</div>
+        <div class="seg"><span class="so active">Open</span><span class="so">Applied</span></div>
+        <div class="empty">
+          <div class="eic">🔍</div>
+          <div class="etit">No new requests match you right now</div>
+          <div class="esub">We will alert you the moment a fit request appears.</div>
+          <div class="eb primary">Turn on match alerts</div>
+          <div class="ebrow"><span class="eb">Widen my area</span><span class="eb">Add subjects</span></div>
+          <div class="elink">Browse all requests</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deliver · Progress report (every 12 classes) · focus-first stepped mock</title>
+<style>
+  /* ============== TOKENS · identical sibling set to deliver-evaluation-report.html (no raw hex in app markup) ============== */
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --radius:12px; --radius-lg:16px;
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5);
+  }
+
+  /* ============== PAGE CHROME (doc only) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1340px;margin:0 auto;}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+  .docnote h1{font-size:17px;margin:0 0 8px;color:#18181b}
+  .docnote h2{font-size:14px;margin:14px 0 6px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .lockbox{background:#f0f3ff;border:1px solid #c7d2fe;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .lockbox b{color:#1e3a8a;}
+  .qbox{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .qbox b{color:#9a3412;}
+  .audit{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:12px;}
+  .audit th,.audit td{border:1px solid #e4e4e7;padding:6px 9px;text-align:left;vertical-align:top;}
+  .audit th{background:#f4f4f5;font-weight:700;color:#18181b;}
+  .audit .keep{color:#166534;font-weight:700;} .audit .add{color:#2B2FBE;font-weight:700;} .audit .cut{color:#9f1239;font-weight:700;} .audit .gate{color:#92400e;font-weight:700;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 12px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:8px;text-align:center;max-width:402px;}
+  .framelabel .step{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:#2B2FBE;border-radius:999px;padding:2px 8px;margin-right:6px;}
+
+  /* ============== DEVICE FRAME (identical to the eval sibling) ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column;}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+
+  .navbar{display:flex;align-items:center;justify-content:space-between;padding:2px 18px 8px;flex-shrink:0;}
+  .nav-side{font-size:16px;color:var(--tint);font-weight:500;min-width:60px;}
+  .nav-side.r{text-align:right;}
+  .nav-step{font-size:13px;font-weight:700;color:var(--ink-2);}
+
+  .progress{height:4px;border-radius:999px;background:var(--fill-2);margin:0 18px 14px;flex-shrink:0;overflow:hidden;}
+  .progress .pf{height:100%;border-radius:999px;background:var(--tint);}
+
+  .scroll{flex:1;overflow:hidden;padding:0 18px;display:flex;flex-direction:column;}
+
+  .eyebrow{font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--tint-ink);margin:4px 0 6px;}
+  .hero{font-size:25px;font-weight:800;color:var(--ink);letter-spacing:-.4px;line-height:1.12;margin:0 0 8px;}
+  .lede{font-size:14px;color:var(--ink-2);line-height:1.5;margin:0 0 16px;}
+  .lede b{color:var(--ink);font-weight:700;}
+
+  .recap{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px;}
+  .recap-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 15px;}
+  .recap-row + .recap-row{border-top:1px solid var(--hair);}
+  .recap-k{font-size:13px;color:var(--ink-2);}
+  .recap-v{font-size:13px;color:var(--ink);font-weight:600;text-align:right;}
+  .recap-foot{font-size:11.5px;color:var(--ink-3);text-align:center;padding:9px 14px;border-top:1px solid var(--hair);background:var(--fill);}
+
+  /* compact visual rating (shared with eval) */
+  .qcard{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:15px 15px 14px;margin-bottom:13px;}
+  .q-n{font-size:11px;font-weight:800;color:var(--ink-3);letter-spacing:.3px;margin-bottom:6px;}
+  .q-title{font-size:15.5px;font-weight:700;color:var(--ink);line-height:1.32;margin-bottom:13px;}
+  .scale{display:flex;gap:6px;}
+  .seg{flex:1;height:46px;border-radius:11px;background:var(--fill);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1.5px solid transparent;}
+  .seg .dot{width:7px;height:7px;border-radius:999px;background:var(--ink-4);}
+  .seg .sl{font-size:10.5px;font-weight:800;letter-spacing:.2px;color:var(--ink-3);text-transform:uppercase;}
+  .seg .dots{display:flex;gap:2px;}
+  .seg .dots i{width:5px;height:5px;border-radius:999px;background:var(--ink-4);}
+  .seg.sel{background:var(--tint-weak);border-color:var(--tint);}
+  .seg.sel .sl{color:var(--tint-ink);}
+  .seg.sel .dot,.seg.sel .dots i{background:var(--tint);}
+  .reveal{display:flex;gap:8px;align-items:flex-start;margin-top:12px;padding:10px 12px;background:var(--fill);border-radius:10px;}
+  .reveal .rk{flex-shrink:0;color:var(--green);font-size:14px;font-weight:800;margin-top:1px;}
+  .reveal .rt{font-size:13px;color:var(--ink);line-height:1.45;}
+  .reveal.empty .rk{color:var(--ink-4);} .reveal.empty .rt{color:var(--ink-3);}
+  /* yes/no two-tap (Observation OB1) */
+  .yn{display:flex;gap:8px;}
+  .yn .seg{height:44px;flex-direction:row;gap:6px;}
+
+  /* ===== VERTICAL LEVEL LADDER (rating input · EXACT approach from assessment-viz-exploration.html S2-C · IELTS band / Whoop zones) =====
+     Rising rungs, highest at top (column-reverse), each rung names the level + a one-line descriptor from the real option text;
+     the selected rung is highlighted. Kept compact so the focus-first one-category-per-step feel holds. */
+  .ladder{width:100%;display:flex;flex-direction:column-reverse;gap:6px;}
+  .lad-rung{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:11px;background:var(--fill);border:1.5px solid transparent;}
+  .lad-rung.on{background:var(--tint-weak);border-color:var(--tint);}
+  .lad-bars{display:flex;align-items:flex-end;gap:2px;height:18px;width:22px;flex-shrink:0;}
+  .lad-bars b{flex:1;border-radius:2px;background:var(--ink-4);}
+  .lad-rung.on .lad-bars b{background:var(--tint);}
+  .lad-txt{flex:1;min-width:0;}
+  .lad-lv{font-size:12.5px;font-weight:800;color:var(--ink);}
+  .lad-rung.on .lad-lv{color:var(--tint-ink);}
+  .lad-d{font-size:10.5px;color:var(--ink-3);font-weight:600;line-height:1.3;}
+  .lad-chk{width:18px;height:18px;border-radius:999px;border:1.5px solid var(--ink-4);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:transparent;}
+  .lad-rung.on .lad-chk{background:var(--tint);border-color:var(--tint);color:#fff;}
+
+  /* ===== CREDIT-SCORE DIAL (score hero · EXACT approach from assessment-viz-exploration.html S1-A · Credit Karma / Experian) =====
+     A 180-degree arc gauge filling to NOW, the BASELINE marked as a tick on the same arc, the gain caption below.
+     This is the single score + baseline + progress hero (it replaces the old rising-path illustration AND the WAS->NOW bar). */
+  .dialcard{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:16px 15px 16px;margin-bottom:13px;display:flex;flex-direction:column;align-items:center;}
+  .dial-lab{font-size:12px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:var(--ink-3);align-self:flex-start;display:inline-flex;align-items:center;gap:8px;margin-bottom:2px;}
+  .arcwrap{position:relative;width:248px;height:150px;}
+  .arc-read{position:absolute;left:0;right:0;bottom:2px;text-align:center;}
+  .arc-now{font-size:48px;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-1px;font-variant-numeric:tabular-nums;}
+  .arc-now small{font-size:19px;font-weight:700;color:var(--ink-3);}
+  .arc-cap{font-size:11.5px;font-weight:800;color:var(--green-ink);margin-top:4px;letter-spacing:.2px;display:inline-flex;align-items:center;gap:4px;}
+  .arc-cap.flat{color:var(--ink-3);}        /* honesty: a flat / no-gain reading is neutral, never shamed */
+  .arc-base{position:absolute;font-size:10px;font-weight:800;letter-spacing:.2px;color:var(--ink-3);text-transform:uppercase;white-space:nowrap;}
+  .arc-ends{display:flex;justify-content:space-between;width:228px;margin-top:-4px;}
+  .arc-ends span{font-size:10px;font-weight:700;color:var(--ink-4);}
+  .dial-foot{font-size:11px;color:var(--ink-3);margin-top:10px;line-height:1.45;text-align:center;}
+
+  /* compact note field (the live additional-comment text fields) */
+  .ncard{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:15px;margin-bottom:13px;}
+  .n-lab{font-size:14px;color:var(--ink);font-weight:700;margin-bottom:9px;}
+  .n-lab .opt{font-size:11.5px;color:var(--ink-3);font-weight:600;}
+  .n-box{background:var(--fill);border-radius:12px;padding:11px 12px;min-height:62px;font-size:13.5px;color:var(--ink);line-height:1.5;}
+  .n-box.ph{color:var(--ink-3);}
+  .n-count{font-size:11px;color:var(--ink-3);text-align:right;margin-top:6px;font-variant-numeric:tabular-nums;}
+
+  .spacer{flex:1;}
+
+  .dock{flex-shrink:0;padding:11px 18px 22px;background:var(--canvas);border-top:1px solid var(--hair);}
+  .btn{height:50px;border-radius:14px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600;}
+  .btn.ghost{background:var(--fill);color:var(--ink);}
+  .btn.disabled{opacity:.45;}
+  .dock-row{display:flex;gap:10px;}
+  .dock-row .btn{flex:1;}
+  .dock-note{font-size:11px;color:var(--ink-3);text-align:center;margin-top:8px;line-height:1.4;}
+
+  /* ===== OUTCOME-FIRST hero (view 0) · the score hero is the CREDIT-SCORE DIAL above; the old WAS->NOW trend bar was removed ===== */
+  /* the 4 dimensions as compact movement chips (was -> now), the outcome at a glance */
+  .moves{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;margin-bottom:13px;}
+  .mv{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 15px;}
+  .mv + .mv{border-top:1px solid var(--hair);}
+  .mv-name{font-size:14px;font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:9px;}
+  .mv-r{display:inline-flex;align-items:center;gap:10px;flex-shrink:0;}
+  /* baseline -> now transition, read as one tight unit: was (muted) · arrow · now (ink) */
+  .mv-trans{display:inline-flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums;}
+  .mv-was{font-size:12px;color:var(--ink-3);font-weight:600;}
+  .mv-arrow{color:var(--ink-4);font-size:12px;font-weight:700;line-height:1;}
+  .mv-now{font-size:12px;color:var(--ink);font-weight:800;}
+  .mv-tag{font-size:10.5px;font-weight:800;border-radius:999px;padding:2px 8px;}
+  .mv-tag.up{background:var(--green-weak);color:var(--green-ink);}
+  .mv-tag.flat{background:var(--fill);color:var(--ink-2);}
+
+  /* Luna verdict PREVIEW on the outcome view (compact, recedes; full card on the final view) */
+  .lunaprev{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--tint-weak);margin-bottom:13px;}
+  .lp-hd{display:flex;align-items:center;gap:8px;padding:11px 14px 9px;}
+  .lp-spark{width:24px;height:24px;border-radius:7px;background:var(--tint-weak);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+  .lp-t{font-size:13px;font-weight:700;color:var(--ink);flex:1;}
+  .lp-badge{font-size:9px;font-weight:800;letter-spacing:.2px;text-transform:uppercase;color:var(--amber-ink);background:var(--amber-weak);border:1px solid var(--amber-line);border-radius:999px;padding:1px 6px;}
+  .lp-body{padding:0 14px 13px;}
+  .lp-txt{font-size:13px;color:var(--ink-2);line-height:1.5;}
+  .lp-link{font-size:12.5px;color:var(--tint);font-weight:700;margin-top:9px;display:inline-block;}
+
+  /* ===== full Luna parent-verdict card (final view) ===== */
+  .luna{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--tint-weak);margin-bottom:12px;}
+  .luna-hd{display:flex;align-items:center;gap:9px;padding:13px 15px 11px;border-bottom:1px solid var(--hair);}
+  .luna-spark{width:26px;height:26px;border-radius:8px;background:var(--tint-weak);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+  .luna-tt{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1;}
+  .luna-name{font-size:14px;font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:7px;}
+  .luna-badge{font-size:9.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:var(--amber-ink);background:var(--amber-weak);border:1px solid var(--amber-line);border-radius:999px;padding:1px 7px;}
+  .luna-sub{font-size:11.5px;color:var(--ink-3);font-weight:600;}
+  .luna-body{padding:13px 15px;}
+  .luna-draft{background:var(--fill);border-radius:12px;padding:12px 13px;font-size:13.5px;color:var(--ink);line-height:1.55;}
+  .luna-draft .edited{background:var(--tint-weak);border-radius:4px;padding:0 3px;}
+  .luna-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:9px;}
+  .luna-cap{font-size:11px;color:var(--ink-3);font-weight:600;line-height:1.4;}
+  .luna-edit{font-size:13px;font-weight:700;color:var(--tint);display:inline-flex;align-items:center;gap:5px;flex-shrink:0;}
+  .luna-actions{display:flex;gap:8px;margin-top:13px;}
+  .luna-btn{flex:1;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:14px;font-weight:700;}
+  .luna-btn.ghost{background:var(--fill);color:var(--ink);}
+  .luna-btn.primary{background:var(--tint);color:#fff;}
+  .luna-foot{font-size:11px;color:var(--ink-3);line-height:1.5;margin:0 4px;}
+  .seenote{display:flex;align-items:flex-start;gap:8px;font-size:11.5px;color:var(--ink-2);background:var(--fill);border-radius:10px;padding:9px 11px;margin-bottom:14px;line-height:1.45;}
+  .seenote .g{display:inline-flex;flex-shrink:0;}
+
+  /* ============== ICON SYSTEM (one consistent SF-Symbols-style line set; inherits theme via currentColor) ============== */
+  /* All glyphs are 1.6px-stroke line symbols on a 24-grid, drawn with currentColor so they flip with light/dark automatically. */
+  .ic{width:1em;height:1em;display:inline-block;vertical-align:-0.125em;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+  /* tinted rounded chip that hosts a category / milestone glyph (native grouped-list leading symbol) */
+  .icchip{width:30px;height:30px;border-radius:9px;background:var(--tint-weak);color:var(--tint-ink);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .icchip .ic{width:17px;height:17px;}
+  .icchip.sm{width:24px;height:24px;border-radius:7px;} .icchip.sm .ic{width:14px;height:14px;}
+  /* movement arrow lives in a soft circle, coloured by the budget (green=up sparingly, neutral=same) */
+  .mvic{width:22px;height:22px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .mvic .ic{width:13px;height:13px;stroke-width:2;}
+  .mvic.up{background:var(--green-weak);color:var(--green-ink);}
+  .mvic.flat{background:var(--fill);color:var(--ink-2);}
+  /* step-header row: category chip + eyebrow on one baseline */
+  .stephd{display:flex;align-items:center;gap:10px;margin:4px 0 10px;}
+  .stephd .eyebrow{margin:0;}
+  /* (the old rising-path HERO SPOT ILLUSTRATION + its floating milestone badge were removed when the score hero became the credit-score dial above) */
+</style>
+</head>
+<body>
+
+<!-- ============== ICON SPRITE (SF-Symbols-style line set; defined once, referenced via <use>) ==============
+     Chosen SF Symbols (rendered as clean line glyphs):
+       milestone  = flag.checkered        observation = eye
+       performance= chart.line.uptrend.xyaxis   attitude = heart   result = rosette
+       up         = arrow.up.right        same = arrow.right     sparkle = sparkles
+       eye-note   = eye                    pencil = pencil       checkmark = checkmark
+-->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="2.6"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v15a1 1 0 0 0 1 1h15"/><path d="M7 14l3.5-4 3 2.5L20 6"/><path d="M16 6h4v4"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.3-7-9.4A4 4 0 0 1 12 7a4 4 0 0 1 7-2.4c0 5.1-7 9.4-7 9.4Z" transform="translate(0 1)"/></symbol>
+  <symbol id="i-rosette" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M9 13.5 7.5 21 12 18.7 16.5 21 15 13.5"/><path d="M12 6.6l.9 1.6 1.8.2-1.3 1.2.3 1.7-1.7-.9-1.7.9.3-1.7-1.3-1.2 1.8-.2Z"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 5h11l-2 3 2 3H5"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></symbol>
+  <symbol id="i-same" viewBox="0 0 24 24"><path d="M5 12h13"/><path d="M14 7l5 5-5 5"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3.5l1.7 4.8 4.8 1.7-4.8 1.7L12 16.5l-1.7-4.8L5.5 10l4.8-1.7Z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7Z"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M14.5 5.5l4 4"/><path d="M4 20l1-4L16 5a1.5 1.5 0 0 1 2 0l1 1a1.5 1.5 0 0 1 0 2L8 19l-4 1Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5 10 17l9-10"/></symbol>
+</svg>
+
+<div class="doc">
+
+  <div class="docnote">
+    <h1>Deliver · Progress report · dial + ladder integration + conciseness pass (2026-06-30)</h1>
+    <div class="lockbox" style="background:#fef9c3;border-color:#fde047;"><b style="color:#854d0e;">Founder fixes (2026-06-30):</b> <b>(bug 1)</b> the outcome movement rows used the EVAL dimensions (Knowledge / Critical thinking) by mistake; corrected to the real PROGRESS rubric dimensions <b>Observation / Performance / Attitude / Result</b> so they match the steps. <b>(bug 2)</b> the baseline-to-now movement now reads as an explicit transition <b>"Mid &rarr; High"</b> (was/arrow/now), keeping the up=green / same=grey trend chip. <b>(conciseness)</b> de-duplicated the question headers (the eyebrow category no longer repeats the title; each question keeps ONE concise title + the "N of 6" counter) and the ladder rung descriptors (no longer echo the level word; short meaning-adding descriptors instead, e.g. Strong = "Secure, independent", Basic = "Some gaps", Low = "Needs support"). Nothing stated twice across headers / titles / labels.</div>
+    <div class="lockbox" style="background:#ecfdf5;border-color:#a7f3d0;"><b style="color:#065f46;">Integration proof: the two directions the founder picked from the exploration board are now wired into this report (the eval follows after approval).</b> <b>(1) SCORE HERO = the credit-score dial</b> (board S1-A, Credit Karma / Experian): a 180-degree arc gauge that fills to <b>NOW 7 / 10</b>, with <b>BASELINE 5</b> ticked on the same arc and <b>+2 since baseline</b> below. It is the single score + baseline + progress hero and <b>replaces both</b> the old rising-path illustration AND the WAS-to-NOW score bar. <b>(2) RATING INPUT = the vertical level ladder</b> (board S2-C, IELTS band / Whoop zones): every ordinal rubric question now uses rising rungs (highest at top), each rung naming the level + a one-line descriptor from the real option text, the selected rung highlighted with a filled check. Kept compact so the one-category-per-step focus holds; the ladder's selected rung carries the descriptor, so the old separate sentence-reveal is folded in. The 4-option <b>learning-style</b> question stays a categorical tap-select (not ordinal, so no ladder). The per-dimension movement rows + the Luna verdict remain below the dial. Icon chips unchanged. Honesty holds: a flat/zero gain on the dial caption reads neutral grey, never shamed.</div>
+    Re-mocked for <b>focus</b> as the sibling of the evaluation. Same real fields, restructured so the tutor faces <b>one thing at a time</b>, and the <b>outcome leads</b>. Where the eval opens on a baseline framing, the progress report opens on <b>what matters</b>: the trend (how far Adam has come) + the Luna verdict, with the 22-question rubric as the stepped detail behind it. Identical tokens + chrome + compact visual scale as <code>deliver-evaluation-report.html</code>. Grounded in <code>Screens/ProgressReport/index.tsx</code> (22 questions in 4 categories, driven by <code>tutor/report-question/progress</code>, submitted to <code>tutor/submit-report</code> mapped by index) + its success screen.
+
+    <div class="lockbox">
+      <b>Step structure (22 questions across 4 categories + the trend + Luna, nothing cut):</b> <b>Outcome</b> (the score trend + 4-dimension movement + a Luna verdict preview) &rarr; <b>Step 1 Observation</b> (2 scales + 4 notes) &rarr; <b>Step 2 Performance</b> (5 scales + 1 note) &rarr; <b>Step 3 Attitude</b> (5 scales + 1 note) &rarr; <b>Step 4 Result</b> (3 scales + 1 note) &rarr; <b>Parent summary</b> (the full editable Luna card + send). One category per view; the whole rubric is never on screen at once.<br>
+      <b>Locked rules held:</b> this report DOES show the <b>trend</b> (the eval-vs-progress difference): a flat/down move is shown <b>neutrally</b> (grey), never shamed, green only on a genuine rise; recurring <b>every 12 completed classes</b> (auto-bound milestone, not a typed month, flagged below); the <b>Luna AI</b> verdict is editable, "review before sending", badged <b>Draft &middot; Luna AI (planned)</b> with a "Write my own" fallback; Sifututor; no em-dashes; DD-MMM-YYYY; neutral copy; colour budget; English-first.
+    </div>
+
+    <b>What changed vs the first progress mock (UI only, no rubric changes):</b> the outcome (trend + Luna) now <b>leads</b> as its own focused view; the 22 dropdowns became compact ordinal scales split into 4 category steps; the free-text notes are compact per step; the full Luna card is the final focused view before send. Field set + audit are the same as the prior progress mock; the restructure note is added.
+
+    <h2>Field-level audit (unchanged fields; restructured across the outcome + 4 steps)</h2>
+    <table class="audit">
+      <tr><th>Field</th><th>Now on</th><th>Provenance / consumer</th><th>Verdict</th></tr>
+      <tr><td>Report type = "Progress"</td><td>Outcome recap</td><td>Fixed label; routes the submit</td><td class="keep">KEEP</td></tr>
+      <tr><td>Milestone (replaces live Month)</td><td>Outcome recap</td><td>Live <code>progressReportData.month</code>; mocked as auto-bound 12-class window</td><td class="gate">GATE</td></tr>
+      <tr><td>Student</td><td>Outcome recap</td><td><code>student_name</code>; <code>student_id</code> on every row</td><td class="keep">KEEP</td></tr>
+      <tr><td>Subject</td><td>Outcome recap</td><td><code>subject_name</code>; <code>subject_id</code> on every row</td><td class="keep">KEEP</td></tr>
+      <tr><td>A. Observation: held exam/test/quiz? (Yes/No)</td><td>Step 1</td><td><code>progressQuestions[0]</code> + <code>OB1[]</code> &rarr; <code>obQ1</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>A. Observation: learning style (4 opts)</td><td>Step 1</td><td><code>progressQuestions[1]</code> + <code>OB2[]</code> &rarr; <code>obQ2</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>A. obQ3 improvement seen (text) &middot; obQ4 focus next (text) &middot; obQ5 plans (text) &middot; obQ6 comment (text)</td><td>Step 1</td><td><code>progressQuestions[2..5]</code> &rarr; <code>obQ3..obQ6</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>B. Performance: 5 scales (perQ1 understands &middot; perQ2 overall &middot; perQ3 participation &middot; perQ4 answers &middot; perQ5 improvement)</td><td>Step 2</td><td><code>progressQuestions[6..10]</code> + <code>performanceOption1..5[]</code> &rarr; <code>perQ1..perQ5</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>B. perQ6 comment (text)</td><td>Step 2</td><td><code>progressQuestions[11]</code> &rarr; <code>perQ6</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>C. Attitude: 5 scales (attQ1 attendance &middot; attQ2 communication &middot; attQ3 homework &middot; attQ4 willingness &middot; attQ5 engagement)</td><td>Step 3</td><td><code>progressQuestions[12..16]</code> + <code>attitudeOption1..5[]</code> &rarr; <code>attQ1..attQ5</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>C. attQ6 comment (text)</td><td>Step 3</td><td><code>progressQuestions[17]</code> &rarr; <code>attQ6</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>D. Result: 3 scales (rulQ1 quiz/test &middot; rulQ2 prep &middot; rulQ3 school scores)</td><td>Step 4</td><td><code>progressQuestions[18..20]</code> + <code>resultOption1..3[]</code> &rarr; <code>rulQ1..rulQ3</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>D. rulQ4 comment (text)</td><td>Step 4</td><td><code>progressQuestions[21]</code> &rarr; <code>rulQ4</code></td><td class="keep">KEEP</td></tr>
+      <tr><td>Per-dimension was&rarr;now trend (4 dimensions)</td><td>Outcome</td><td>Derived: this report's answers vs the eval baseline + history</td><td class="add">ADD</td></tr>
+      <tr><td>1 to 10 score trend (baseline &rarr; current)</td><td>Outcome</td><td>Eval baseline score + a current score (no score field in live progress form)</td><td class="add">ADD</td></tr>
+      <tr><td>Luna AI parent-verdict draft (editable, review-before-send)</td><td>Outcome preview + final view</td><td>Planned Luna AI; tutor edits; carry-forward + tutor-written fallback</td><td class="add">ADD</td></tr>
+      <tr><td>Stepped progress indicator + compact ordinal scale</td><td>Steps 1-4</td><td>UI only; the focus affordance + far less text</td><td class="add">ADD</td></tr>
+      <tr><td>Per-value provenance ("From class history")</td><td>Outcome recap</td><td>UI only; smart-default trust</td><td class="add">ADD</td></tr>
+    </table>
+    <div style="font-size:12px;margin-top:6px;"><b>Tally (by field, some rows group several):</b> KEEP 25 fields &middot; CUT 0 &middot; GATE 1 &middot; ADD 5. All 22 rubric questions + 3 context facts kept, restructured across an outcome view + 4 category steps. GATE = the Month-vs-12-class-milestone conflict.</div>
+
+    <div class="qbox">
+      <b>Hafiz questions (unchanged, flagged not resolved):</b> <b>Q1 CADENCE</b> live collects a typed <code>Month</code> but the rule is every-12-completed-classes; mocked as an auto-bound class-window milestone; does the backend bind to a 12-class window and retire the month? <b>Q2 TREND DATA</b> the was&rarr;now + score trend need the eval baseline + prior answers joined server-side per dimension, and the <b>current</b> 1 to 10 score has no source in the live progress form (only the eval has one). <b>Q3 LIVE BUGS</b> (build chip, not this mock): <code>attitudeOption4[2]</code> has a wrong pasted sentence; attQ6 renders <code>errors.perQ6</code>; obQ4/5/6 key their border off <code>errors.obQ3</code>. <b>Q4 LUNA AI</b> not yet live: confirm written-led + carry-forward + tutor-written fallback; the draft is illustrative; tutor always reviews before send.
+    </div>
+  </div>
+
+  <!-- ===================== LIGHT MODE ===================== -->
+  <div class="modehd">Light mode &middot; outcome-first, then the stepped rubric</div>
+  <div class="frames">
+
+    <!-- VIEW 0: OUTCOME: leads with the trend + Luna; ONE focal point: "how far has Adam come" -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">A</span>Outcome &middot; the part that matters: trend + Luna verdict</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">Cancel</span><span class="nav-step">Progress report</span><span class="nav-side r"></span></div>
+        <div class="scroll">
+          <div class="eyebrow">12-class review &middot; since the baseline</div>
+          <div class="hero" style="font-size:23px;">Adam's progress<br>so far</div>
+
+          <!-- SCORE HERO = CREDIT-SCORE DIAL (board S1-A): 180deg arc fills to NOW 7, baseline 5 ticked on the same arc, gain below.
+               Replaces the old rising-path illustration AND the WAS->NOW score bar; the single score+baseline+progress hero. -->
+          <div class="dialcard">
+            <div class="dial-lab"><span class="icchip sm"><svg class="ic"><use href="#i-chart"/></svg></span>Assessment score</div>
+            <div class="arcwrap">
+              <svg viewBox="0 0 248 150" width="248" height="150" aria-hidden="true">
+                <!-- full 180 track -->
+                <path d="M 24.00 128.00 A 100 100 0 0 1 224.00 128.00" fill="none" stroke="var(--fill-2)" stroke-width="14" stroke-linecap="round"/>
+                <!-- value arc fills to NOW 7 (0->126deg) -->
+                <path d="M 24.00 128.00 A 100 100 0 0 1 182.78 47.10" fill="none" stroke="var(--tint)" stroke-width="14" stroke-linecap="round"/>
+                <!-- BASELINE 5 tick on the same arc (@90deg, top centre) -->
+                <line x1="124.00" y1="28.00" x2="124.00" y2="43.00" stroke="var(--ink-3)" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- NOW marker dot on the arc (@126deg) -->
+                <circle cx="182.78" cy="47.10" r="8" fill="var(--card)" stroke="var(--tint)" stroke-width="4"/>
+              </svg>
+              <div class="arc-base" style="left:50%;transform:translateX(-50%);top:6px;">Baseline 5</div>
+              <div class="arc-read">
+                <div class="arc-now">7<small>/10</small></div>
+                <div class="arc-cap"><svg class="ic" style="width:12px;height:12px;stroke-width:2.4"><use href="#i-up"/></svg> +2 since baseline</div>
+              </div>
+            </div>
+            <div class="arc-ends"><span>0</span><span>10</span></div>
+            <div class="dial-foot">First-class baseline 5 / 10 (02-Apr-2026) to now 7 / 10, after 12 classes.</div>
+          </div>
+
+          <div class="moves">
+            <div class="mv"><span class="mv-name"><span class="icchip sm"><svg class="ic"><use href="#i-eye"/></svg></span>Observation</span><span class="mv-r"><span class="mv-trans"><span class="mv-was">Mid</span><span class="mv-arrow">&rarr;</span><span class="mv-now">High</span></span><span class="mvic up"><svg class="ic"><use href="#i-up"/></svg></span></span></div>
+            <div class="mv"><span class="mv-name"><span class="icchip sm"><svg class="ic"><use href="#i-chart"/></svg></span>Performance</span><span class="mv-r"><span class="mv-trans"><span class="mv-was">Mid</span><span class="mv-arrow">&rarr;</span><span class="mv-now">High</span></span><span class="mvic up"><svg class="ic"><use href="#i-up"/></svg></span></span></div>
+            <div class="mv"><span class="mv-name"><span class="icchip sm"><svg class="ic"><use href="#i-heart"/></svg></span>Attitude</span><span class="mv-r"><span class="mv-trans"><span class="mv-was">High</span><span class="mv-arrow">&rarr;</span><span class="mv-now">High</span></span><span class="mvic flat"><svg class="ic"><use href="#i-same"/></svg></span></span></div>
+            <div class="mv"><span class="mv-name"><span class="icchip sm"><svg class="ic"><use href="#i-rosette"/></svg></span>Result</span><span class="mv-r"><span class="mv-trans"><span class="mv-was">Mid</span><span class="mv-arrow">&rarr;</span><span class="mv-now">Mid</span></span><span class="mvic flat"><svg class="ic"><use href="#i-same"/></svg></span></span></div>
+          </div>
+
+          <div class="lunaprev">
+            <div class="lp-hd"><div class="lp-spark"><svg class="ic" style="width:13px;height:13px"><use href="#i-sparkle"/></svg></div><span class="lp-t">Parent verdict</span><span class="lp-badge">Draft &middot; Luna (planned)</span></div>
+            <div class="lp-body">
+              <div class="lp-txt">"Over the first 12 classes, Adam has made steady progress in Mathematics. His understanding is now strong, and he solves problems independently that needed close guidance at the start..."</div>
+              <span class="lp-link">Review &amp; edit before sending &rsaquo;</span>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Review the details &middot; 4 steps</div>
+          <div class="dock-note">Check each area, then send the summary to the parent.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 1: STEP 1 Observation: 2 scales + a note (4 notes total live behind this step) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">B</span>Step 1 of 4 &middot; Observation: scales + a compact note</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 1 of 4</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:25%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-eye"/></svg></span><div class="eyebrow">A &middot; Observation</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">What did you notice?</div>
+
+          <div class="qcard">
+            <div class="q-n">1 of 6</div>
+            <div class="q-title">Ran an exam, test or quiz this period?</div>
+            <div class="yn">
+              <div class="seg sel"><span class="sl">Yes</span></div>
+              <div class="seg"><span class="sl">No</span></div>
+            </div>
+          </div>
+
+          <div class="qcard">
+            <div class="q-n">2 of 6</div>
+            <div class="q-title">Learning style</div>
+            <div class="scale">
+              <div class="seg"><span class="sl">Visual</span></div>
+              <div class="seg"><span class="sl">Audio</span></div>
+              <div class="seg"><span class="sl">Read</span></div>
+              <div class="seg sel"><span class="sl">Mixed</span></div>
+            </div>
+            <div class="reveal"><span class="rk">&#10003;</span><span class="rt">Multimodal: learns best with a combination of styles.</span></div>
+          </div>
+
+          <div class="ncard">
+            <div class="n-lab">What improved most vs before?</div>
+            <div class="n-box">Much stronger on algebraic fractions, solves them unaided now where every step needed prompting at the start.</div>
+            <div class="n-count">3 more notes in this step &middot; 118 / 300</div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Next &middot; Performance</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 2: STEP 2 Performance: 5 scales (showing 3) + the improvement scale -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">C</span>Step 2 of 4 &middot; Performance: the 5 scales</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 2 of 4</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:50%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-chart"/></svg></span><div class="eyebrow">B &middot; Performance</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">How is Adam performing?</div>
+
+          <div class="qcard">
+            <div class="q-n">1 of 6</div>
+            <div class="q-title">Understands the subject</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Needs support</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Basic</div><div class="lad-d">Some gaps</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">Strong</div><div class="lad-d">Secure, independent</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+
+          <div class="qcard">
+            <div class="q-n">2 of 6</div>
+            <div class="q-title">Participation</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Does not participate or ask</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Participates, asks sometimes</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Highly engaged, asks often</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+
+          <div class="qcard">
+            <div class="q-n">3 of 6</div>
+            <div class="q-title">Improvement this period</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">None</div><div class="lad-d">No noticeable improvement</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Some</div><div class="lad-d">Improved in specific topics</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">A lot</div><div class="lad-d">Improved in many topics</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Next &middot; Attitude</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 3: STEP 3 Attitude: final view shown is the Luna card; this is one rubric step -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">D</span>Step 3 of 4 &middot; Attitude (Step 4 Result identical pattern)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 3 of 4</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:75%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-heart"/></svg></span><div class="eyebrow">C &middot; Attitude</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">Attitude and habits</div>
+
+          <div class="qcard">
+            <div class="q-n">1 of 6</div>
+            <div class="q-title">Attendance</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Regularly absent or late</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Sometimes late, reasonable</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Rarely absent, on time</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+
+          <div class="qcard">
+            <div class="q-n">2 of 6</div>
+            <div class="q-title">Homework</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Rarely completes on time</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Completes most on time</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Completes ahead of time</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+
+          <div class="qcard">
+            <div class="q-n">3 of 6</div>
+            <div class="q-title">Willingness to learn</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Rarely shows willingness</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Some</div><div class="lad-d">Willing with nudging</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">Strong</div><div class="lad-d">Keen and self-driven</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Next &middot; Result</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 4: PARENT SUMMARY: the full editable Luna card + send -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">E</span>Parent summary &middot; full Luna card, review before send</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Parent summary</span><span class="nav-side r"></span></div>
+        <div class="scroll">
+          <div class="hero" style="font-size:21px;margin:4px 0 8px;">Review before sending</div>
+          <div class="seenote"><span class="g"><svg class="ic" style="width:14px;height:14px"><use href="#i-eye"/></svg></span><span>This is what <b>Adam's parent</b> receives. The rubric stays internal; this is the parent-facing verdict.</span></div>
+
+          <div class="luna">
+            <div class="luna-hd">
+              <div class="luna-spark"><svg class="ic" style="width:14px;height:14px"><use href="#i-sparkle"/></svg></div>
+              <div class="luna-tt">
+                <span class="luna-name">Parent verdict <span class="luna-badge">Draft &middot; Luna AI (planned)</span></span>
+                <span class="luna-sub">Drafted from your reports + class history</span>
+              </div>
+            </div>
+            <div class="luna-body">
+              <div class="luna-draft">Over the first 12 classes, Adam has made steady progress in Mathematics. His understanding of core concepts is now strong, and he solves algebraic problems independently that needed close guidance at the start. <span class="edited">Recall of key formulae is reliable.</span> Attendance and focus have stayed consistent. The next focus is word problems, where turning questions into equations is still developing.</div>
+              <div class="luna-meta">
+                <span class="luna-cap">Edited by you &middot; 1 change. Luna keeps your edits.</span>
+                <span class="luna-edit"><svg class="ic" style="width:13px;height:13px"><use href="#i-pencil"/></svg> Edit text</span>
+              </div>
+              <div class="luna-actions">
+                <span class="luna-btn ghost">Write my own</span>
+                <span class="luna-btn primary">Looks good</span>
+              </div>
+            </div>
+          </div>
+          <div class="luna-foot">Luna AI is planned, not yet live. Until it ships the draft is illustrative and you can write the summary yourself. You review and approve before anything is sent.</div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Send to parent</div>
+          <div class="dock-note">Sends the verdict and saves this 12-class progress report.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== DARK MODE ===================== -->
+  <div class="modehd">Dark mode &middot; the same outcome-first flow</div>
+  <div class="frames">
+
+    <!-- DARK VIEW 0: OUTCOME -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">A</span>Outcome &middot; trend + Luna</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">Cancel</span><span class="nav-step">Progress report</span><span class="nav-side r"></span></div>
+        <div class="scroll">
+          <div class="eyebrow">12-class review &middot; since the baseline</div>
+          <div class="hero" style="font-size:23px;">Adam's progress<br>so far</div>
+
+          <!-- SCORE HERO = CREDIT-SCORE DIAL (board S1-A), dark: same arc, theme-aware via tokens -->
+          <div class="dialcard">
+            <div class="dial-lab"><span class="icchip sm"><svg class="ic"><use href="#i-chart"/></svg></span>Assessment score</div>
+            <div class="arcwrap">
+              <svg viewBox="0 0 248 150" width="248" height="150" aria-hidden="true">
+                <path d="M 24.00 128.00 A 100 100 0 0 1 224.00 128.00" fill="none" stroke="var(--fill-2)" stroke-width="14" stroke-linecap="round"/>
+                <path d="M 24.00 128.00 A 100 100 0 0 1 182.78 47.10" fill="none" stroke="var(--tint)" stroke-width="14" stroke-linecap="round"/>
+                <line x1="124.00" y1="28.00" x2="124.00" y2="43.00" stroke="var(--ink-3)" stroke-width="3.5" stroke-linecap="round"/>
+                <circle cx="182.78" cy="47.10" r="8" fill="var(--card)" stroke="var(--tint)" stroke-width="4"/>
+              </svg>
+              <div class="arc-base" style="left:50%;transform:translateX(-50%);top:6px;">Baseline 5</div>
+              <div class="arc-read">
+                <div class="arc-now">7<small>/10</small></div>
+                <div class="arc-cap"><svg class="ic" style="width:12px;height:12px;stroke-width:2.4"><use href="#i-up"/></svg> +2 since baseline</div>
+              </div>
+            </div>
+            <div class="arc-ends"><span>0</span><span>10</span></div>
+            <div class="dial-foot">First-class baseline 5 / 10 (02-Apr-2026) to now 7 / 10, after 12 classes.</div>
+          </div>
+
+          <div class="moves">
+            <div class="mv"><span class="mv-name"><span class="icchip sm"><svg class="ic"><use href="#i-eye"/></svg></span>Observation</span><span class="mv-r"><span class="mv-trans"><span class="mv-was">Mid</span><span class="mv-arrow">&rarr;</span><span class="mv-now">High</span></span><span class="mvic up"><svg class="ic"><use href="#i-up"/></svg></span></span></div>
+            <div class="mv"><span class="mv-name"><span class="icchip sm"><svg class="ic"><use href="#i-chart"/></svg></span>Performance</span><span class="mv-r"><span class="mv-trans"><span class="mv-was">Mid</span><span class="mv-arrow">&rarr;</span><span class="mv-now">High</span></span><span class="mvic up"><svg class="ic"><use href="#i-up"/></svg></span></span></div>
+            <div class="mv"><span class="mv-name"><span class="icchip sm"><svg class="ic"><use href="#i-heart"/></svg></span>Attitude</span><span class="mv-r"><span class="mv-trans"><span class="mv-was">High</span><span class="mv-arrow">&rarr;</span><span class="mv-now">High</span></span><span class="mvic flat"><svg class="ic"><use href="#i-same"/></svg></span></span></div>
+            <div class="mv"><span class="mv-name"><span class="icchip sm"><svg class="ic"><use href="#i-rosette"/></svg></span>Result</span><span class="mv-r"><span class="mv-trans"><span class="mv-was">Mid</span><span class="mv-arrow">&rarr;</span><span class="mv-now">Mid</span></span><span class="mvic flat"><svg class="ic"><use href="#i-same"/></svg></span></span></div>
+          </div>
+          <div class="lunaprev">
+            <div class="lp-hd"><div class="lp-spark"><svg class="ic" style="width:13px;height:13px"><use href="#i-sparkle"/></svg></div><span class="lp-t">Parent verdict</span><span class="lp-badge">Draft &middot; Luna (planned)</span></div>
+            <div class="lp-body">
+              <div class="lp-txt">"Over the first 12 classes, Adam has made steady progress in Mathematics. His understanding is now strong, and he solves problems independently that needed close guidance at the start..."</div>
+              <span class="lp-link">Review &amp; edit before sending &rsaquo;</span>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Review the details &middot; 4 steps</div>
+          <div class="dock-note">Check each area, then send the summary to the parent.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DARK VIEW 1: STEP 1 Observation -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">B</span>Step 1 &middot; Observation</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 1 of 4</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:25%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-eye"/></svg></span><div class="eyebrow">A &middot; Observation</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">What did you notice?</div>
+          <div class="qcard">
+            <div class="q-n">1 of 6</div>
+            <div class="q-title">Ran an exam, test or quiz this period?</div>
+            <div class="yn"><div class="seg sel"><span class="sl">Yes</span></div><div class="seg"><span class="sl">No</span></div></div>
+          </div>
+          <div class="qcard">
+            <div class="q-n">2 of 6</div>
+            <div class="q-title">Learning style</div>
+            <div class="scale">
+              <div class="seg"><span class="sl">Visual</span></div>
+              <div class="seg"><span class="sl">Audio</span></div>
+              <div class="seg"><span class="sl">Read</span></div>
+              <div class="seg sel"><span class="sl">Mixed</span></div>
+            </div>
+            <div class="reveal"><span class="rk">&#10003;</span><span class="rt">Multimodal: learns best with a combination of styles.</span></div>
+          </div>
+          <div class="ncard">
+            <div class="n-lab">What improved most vs before?</div>
+            <div class="n-box">Much stronger on algebraic fractions, solves them unaided now where every step needed prompting at the start.</div>
+            <div class="n-count">3 more notes in this step &middot; 118 / 300</div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock"><div class="btn">Next &middot; Performance</div></div>
+      </div>
+    </div>
+
+    <!-- DARK VIEW 2: STEP 2 Performance -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">C</span>Step 2 &middot; Performance</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 2 of 4</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:50%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-chart"/></svg></span><div class="eyebrow">B &middot; Performance</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">How is Adam performing?</div>
+          <div class="qcard">
+            <div class="q-n">1 of 6</div>
+            <div class="q-title">Understands the subject</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Needs support</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Basic</div><div class="lad-d">Some gaps</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">Strong</div><div class="lad-d">Secure, independent</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="qcard">
+            <div class="q-n">2 of 6</div>
+            <div class="q-title">Participation</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Does not participate or ask</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Participates, asks sometimes</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Highly engaged, asks often</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="qcard">
+            <div class="q-n">3 of 6</div>
+            <div class="q-title">Improvement this period</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">None</div><div class="lad-d">No noticeable improvement</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Some</div><div class="lad-d">Improved in specific topics</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">A lot</div><div class="lad-d">Improved in many topics</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock"><div class="btn">Next &middot; Attitude</div></div>
+      </div>
+    </div>
+
+    <!-- DARK VIEW 3: STEP 3 Attitude -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">D</span>Step 3 &middot; Attitude</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Step 3 of 4</span><span class="nav-side r"></span></div>
+        <div class="progress"><div class="pf" style="width:75%"></div></div>
+        <div class="scroll">
+          <div class="stephd"><span class="icchip"><svg class="ic"><use href="#i-heart"/></svg></span><div class="eyebrow">C &middot; Attitude</div></div>
+          <div class="hero" style="font-size:21px;margin-bottom:14px;">Attitude and habits</div>
+          <div class="qcard">
+            <div class="q-n">1 of 6</div>
+            <div class="q-title">Attendance</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Regularly absent or late</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Sometimes late, reasonable</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Rarely absent, on time</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="qcard">
+            <div class="q-n">2 of 6</div>
+            <div class="q-title">Homework</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Rarely completes on time</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Mid</div><div class="lad-d">Completes most on time</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">High</div><div class="lad-d">Completes ahead of time</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="qcard">
+            <div class="q-n">3 of 6</div>
+            <div class="q-title">Willingness to learn</div>
+            <div class="ladder">
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:4px;opacity:.5"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Low</div><div class="lad-d">Rarely shows willingness</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:4px;opacity:.5"></b></div><div class="lad-txt"><div class="lad-lv">Some</div><div class="lad-d">Willing with nudging</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            <div class="lad-rung on"><div class="lad-bars"><b style="height:10px;"></b><b style="height:14px;"></b><b style="height:18px;"></b></div><div class="lad-txt"><div class="lad-lv">Strong</div><div class="lad-d">Keen and self-driven</div></div><div class="lad-chk"><svg class="ic" style="width:11px;height:11px"><use href="#i-check"/></svg></div></div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock"><div class="btn">Next &middot; Result</div></div>
+      </div>
+    </div>
+
+    <!-- DARK VIEW 4: PARENT SUMMARY -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">E</span>Parent summary &middot; full Luna card</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side">&#8249; Back</span><span class="nav-step">Parent summary</span><span class="nav-side r"></span></div>
+        <div class="scroll">
+          <div class="hero" style="font-size:21px;margin:4px 0 8px;">Review before sending</div>
+          <div class="seenote"><span class="g">&#128065;</span><span>This is what <b>Adam's parent</b> receives. The rubric stays internal; this is the parent-facing verdict.</span></div>
+          <div class="luna">
+            <div class="luna-hd">
+              <div class="luna-spark">&#10024;</div>
+              <div class="luna-tt">
+                <span class="luna-name">Parent verdict <span class="luna-badge">Draft &middot; Luna AI (planned)</span></span>
+                <span class="luna-sub">Drafted from your reports + class history</span>
+              </div>
+            </div>
+            <div class="luna-body">
+              <div class="luna-draft">Over the first 12 classes, Adam has made steady progress in Mathematics. His understanding of core concepts is now strong, and he solves algebraic problems independently that needed close guidance at the start. <span class="edited">Recall of key formulae is reliable.</span> Attendance and focus have stayed consistent. The next focus is word problems, where turning questions into equations is still developing.</div>
+              <div class="luna-meta">
+                <span class="luna-cap">Edited by you &middot; 1 change. Luna keeps your edits.</span>
+                <span class="luna-edit"><svg class="ic" style="width:13px;height:13px"><use href="#i-pencil"/></svg> Edit text</span>
+              </div>
+              <div class="luna-actions">
+                <span class="luna-btn ghost">Write my own</span>
+                <span class="luna-btn primary">Looks good</span>
+              </div>
+            </div>
+          </div>
+          <div class="luna-foot">Luna AI is planned, not yet live. Until it ships the draft is illustrative and you can write the summary yourself. You review and approve before anything is sent.</div>
+          <div class="spacer"></div>
+        </div>
+        <div class="dock">
+          <div class="btn">Send to parent</div>
+          <div class="dock-note">Sends the verdict and saves this 12-class progress report.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deliver · Student details (tutor's post-match student view) · focus-first mock</title>
+<style>
+  /* ============== TOKENS (mirrors @sifu/ui semantic layer; no raw hex in app markup) · shared sibling set with deliver-evaluation-report.html ============== */
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --radius:12px; --radius-lg:16px;
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5);
+  }
+
+  /* ============== PAGE CHROME (doc only) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1340px;margin:0 auto;}
+  .docnote{font-size:13px;line-height:1.65;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+  .docnote h1{font-size:17px;margin:0 0 8px;color:#18181b}
+  .docnote h2{font-size:14px;margin:14px 0 6px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .lockbox{background:#f0f3ff;border:1px solid #c7d2fe;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .lockbox b{color:#1e3a8a;}
+  .qbox{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .qbox b{color:#9a3412;}
+  .audit{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:12px;}
+  .audit th,.audit td{border:1px solid #e4e4e7;padding:6px 9px;text-align:left;vertical-align:top;}
+  .audit th{background:#f4f4f5;font-weight:700;color:#18181b;}
+  .audit .keep{color:#166534;font-weight:700;} .audit .add{color:#2B2FBE;font-weight:700;} .audit .cut{color:#9f1239;font-weight:700;} .audit .gate{color:#92400e;font-weight:700;} .audit .demote{color:#92400e;font-weight:700;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 12px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:8px;text-align:center;max-width:402px;}
+  .framelabel .step{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:#2B2FBE;border-radius:999px;padding:2px 8px;margin-right:6px;}
+
+  /* ============== DEVICE FRAME ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column;}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+
+  /* nav: Back left · screen title centre · quiet */
+  .navbar{display:flex;align-items:center;justify-content:space-between;padding:2px 18px 8px;flex-shrink:0;}
+  .nav-side{font-size:16px;color:var(--tint);font-weight:500;min-width:62px;display:flex;align-items:center;gap:3px;}
+  .nav-side.r{justify-content:flex-end;}
+  .nav-title{font-size:13px;font-weight:700;color:var(--ink-2);}
+
+  .scroll{flex:1;overflow:hidden;padding:0 18px;display:flex;flex-direction:column;}
+
+  /* ===== FOCAL POINT: student identity header (avatar + name + at-a-glance chips) ===== */
+  .idhero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:6px 0 4px;margin-bottom:14px;}
+  .avatar{width:78px;height:78px;border-radius:999px;background:var(--tint-weak);color:var(--tint-ink);display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800;letter-spacing:.5px;margin-bottom:11px;box-shadow:var(--shadow);position:relative;}
+  .avatar .badge{position:absolute;right:-2px;bottom:-2px;width:26px;height:26px;border-radius:999px;background:var(--card);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;color:var(--tint-ink);}
+  .avatar .badge .ic{width:14px;height:14px;}
+  .id-name{font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-.4px;line-height:1.1;}
+  .id-sub{font-size:13px;color:var(--ink-2);font-weight:600;margin-top:4px;}
+  .id-chips{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:11px;}
+  .chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--ink-2);background:var(--fill);border-radius:999px;padding:5px 11px;}
+  .chip .ic{width:13px;height:13px;color:var(--ink-3);}
+  .chip.status{color:var(--green-ink);background:var(--green-weak);}
+  .chip.status .dot{width:6px;height:6px;border-radius:999px;background:var(--green);}
+
+  /* ===== PRIMARY ACTIONS: contact the parent (the job of this screen) =====
+     COMPACT action GRID, not verbose rows: each tile is icon + label (the tile IS the tap).
+     The raw value (phone / email) sits as a small caption UNDER the label, truncated, never
+     crammed inline. Grid (2 cols) wraps to fit the 402px frame; 4 tiles -> 2x2, 3 tiles -> 2+1. */
+  .sec-h{font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-3);margin:2px 2px 8px;}
+  /* "Coordinate with <parent>" — single line, ellipsis, never overflows */
+  .sec-sub{font-size:13px;color:var(--ink-2);font-weight:600;margin:0 2px 9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .sec-sub b{color:var(--ink);font-weight:700;}
+
+  .actgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px;}
+  .act{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px 12px 11px;min-width:0;display:flex;flex-direction:column;gap:7px;}
+  .act-head{display:flex;align-items:center;gap:9px;min-width:0;}
+  .act-ic{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .act-ic .ic{width:17px;height:17px;}
+  .act-ic.call{background:var(--tint-weak);color:var(--tint-ink);}
+  .act-ic.wa{background:var(--green-weak);color:var(--green-ink);}
+  .act-ic.mail{background:var(--fill);color:var(--ink-2);}
+  .act-ic.dir{background:var(--tint-weak);color:var(--tint-ink);}
+  .act-lab{font-size:15px;font-weight:600;color:var(--ink);line-height:1.15;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  /* raw value caption: small, grey, truncated — copyable, no fake CTA */
+  .act-val{font-size:11.5px;color:var(--ink-3);font-weight:600;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  /* the email tile carries a quiet "Tap to copy" hint instead of a value-less line, since it has no dial/open action */
+  .act-val.copy{color:var(--ink-3);}
+
+  /* ===== ACTIVE TICKETS: the student's live job tickets with this tutor ===== */
+  .tk{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:15px 15px 13px;margin-bottom:13px;}
+  .tk-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+  .tk-uid{font-size:12px;font-weight:800;color:var(--ink-3);letter-spacing:.2px;}
+  .tk-pay{font-size:19px;font-weight:800;color:var(--ink);letter-spacing:-.3px;margin-top:2px;font-variant-numeric:tabular-nums;}
+  .tk-mode{font-size:11px;font-weight:800;letter-spacing:.3px;text-transform:capitalize;border-radius:999px;padding:5px 12px;flex-shrink:0;}
+  .tk-mode.online{color:var(--tint-ink);background:var(--tint-weak);}
+  .tk-mode.inperson{color:var(--green-ink);background:var(--green-weak);}
+  .tk-loc{display:flex;align-items:center;gap:5px;margin-top:8px;font-size:12.5px;font-weight:600;color:var(--tint-ink);}
+  .tk-loc .ic{width:14px;height:14px;flex-shrink:0;}
+  .tk-div{border-top:1px solid var(--hair);margin:11px 0;}
+  .tk-rows{display:flex;flex-direction:column;gap:8px;}
+  .tk-line{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .tk-k{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2);font-weight:600;}
+  .tk-k .ic{width:15px;height:15px;color:var(--ink-3);}
+  .tk-v{font-size:14px;font-weight:800;color:var(--ink);text-align:right;}
+  .tk-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+  .tk-tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--ink-2);background:var(--tint-weak);border-radius:8px;padding:6px 10px;}
+  .tk-tag .ic{width:14px;height:14px;color:var(--tint-ink);}
+
+  /* ===== DEMOTED secondary details (registration date etc.) — collapsed disclosure, recedes ===== */
+  .more{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px;}
+  .more-head{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;}
+  .more-head .mh-l{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--ink);}
+  .more-head .mh-l .ic{width:16px;height:16px;color:var(--ink-3);}
+  .more-head .chev{color:var(--ink-4);}
+  .more-head .chev .ic{width:16px;height:16px;}
+  /* opened state (second frame shows it expanded so the demoted fields are visible/honest) */
+  .more-body{border-top:1px solid var(--hair);}
+  .more-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 15px;}
+  .more-row + .more-row{border-top:1px solid var(--hair);}
+  .more-k{font-size:13px;color:var(--ink-2);}
+  .more-v{font-size:13px;color:var(--ink);font-weight:600;text-align:right;}
+
+  .listlab{font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-3);margin:2px 4px 9px;display:flex;align-items:center;justify-content:space-between;}
+  .listlab .cnt{color:var(--ink-2);font-weight:700;background:var(--fill);border-radius:999px;padding:2px 9px;font-size:11px;}
+
+  .spacer{flex:1;}
+  .botpad{height:14px;flex-shrink:0;}
+
+  /* ============== ICON SYSTEM (one SF-Symbols-style line set, theme-aware via currentColor) ============== */
+  .ic{width:1em;height:1em;display:inline-block;vertical-align:-0.125em;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<!-- ============== ICON SPRITE (SF-Symbols-style line set; sibling-consistent) ============== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-chevd" viewBox="0 0 24 24"><path d="M5 9l7 7 7-7"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l1.5 5-2.5 1.5a12 12 0 0 0 5.5 5.5L15 18l5 1.5V23a1 1 0 0 1-1 1A18 18 0 0 1 3 6a1 1 0 0 1 1-1Z" transform="translate(-1 -2)"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3 21l1.6-4.6A8 8 0 1 1 7.6 19.4Z"/><path d="M8.5 9c0 4 2.5 6.5 6.5 6.5"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 6 8-6"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+  <symbol id="i-nav" viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8-8-2Z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></symbol>
+  <symbol id="i-cake" viewBox="0 0 24 24"><path d="M4 21h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2Z"/><path d="M4 16c2 1.4 2 1.4 4 0s2-1.4 4 0 2 1.4 4 0 2-1.4 4 0"/><path d="M12 8V5"/><circle cx="12" cy="4" r="1"/></symbol>
+  <symbol id="i-id" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2.2"/><path d="M6 16a3 3 0 0 1 6 0"/><path d="M15 10h4M15 13h4"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-rec" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.4"/></symbol>
+  <symbol id="i-level" viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H12v15H5.5A1.5 1.5 0 0 0 4 20.5Z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H12v15h6.5a1.5 1.5 0 0 1 1.5 1.5Z"/></symbol>
+  <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4Z"/><path d="M14 5v14" stroke-dasharray="2 2.5"/></symbol>
+  <symbol id="i-ellipsis" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></symbol>
+</svg>
+
+<div class="doc">
+
+  <div class="docnote">
+    <h1>Deliver · Student details · the tutor's POST-MATCH view of their student (redesign mock · 2026-06-30)</h1>
+
+    <div class="lockbox" style="background:#ecfdf5;border-color:#a7f3d0;">
+      <b style="color:#065f46;">Founder-decided privacy verdicts applied (from <code>08-change-log/students-details-privacy-audit-2026-06-30.md</code>).</b>
+      <b>CUT</b> the admin-only "Customer Experience Incharge" (<code>assigned_staff</code>) field, gone from the tutor app.
+      <b>KEEP</b> the parent <b>email</b> even though it has no tap action, the tutor can copy it (rendered as a copyable row, no fake "open" CTA).
+      <b>DIRECTIONS in-person only</b>, the maps action (<code>parent.latitude/longitude</code> &rarr; <code>GoToStudentDirection</code>) is surfaced as a "Directions" row ONLY on the in-person student. The online student shows no Directions and the precise home geo is never surfaced.
+      <b>DEMOTE</b> the registration date, tucked into a collapsed "Student record" disclosure (shown opened on the second frame so it stays honest, never silently dropped).
+      Everything else KEEP per the audit (student identity, parent phone + WhatsApp, active tickets, class/schedule).
+    </div>
+
+    This is the <b>post-match</b> screen: a student only lands here once they have an active tutor_request tied to this tutor (<code>hasActiveTutorRequest</code>), so parent contact is appropriate and is the screen's job. Re-mocked <b>focus-first</b>: ONE focal point (the student identity + the primary contact/coordinate actions), with the longer record behind progressive disclosure. Native-HIG grouped style, concise non-repetitive labels, the sibling token set from <code>.preview/deliver-evaluation-report.html</code>. Light + dark, "Sifututor", neutral copy, DD-MMM-YYYY, no em-dashes. Grounded in <code>Screens/StudentsDetails/index.tsx</code> (every field real).
+
+    <div class="lockbox">
+      <b>Focus-first structure (one screen, one focal point, the rest disclosed):</b>
+      Student identity hero (avatar + name + at-a-glance: ID &middot; age &middot; gender &middot; status) &rarr;
+      <b>Contact the parent</b> (the primary action card: Call &middot; WhatsApp &middot; Email &middot; Directions[in-person only]) &rarr;
+      Active tickets (the live job tickets with this student) &rarr;
+      a collapsed <b>Student record</b> disclosure holding the demoted registration date.
+      <br><b>Concise labels:</b> nothing said twice. The parent's name sits in the section subhead ("Coordinate with Aishah Rahman", single line, ellipsis), so each contact tile is just the channel + the value as a small caption, no repeated "Parent" / "Contact No" / "Contact Person" stutter from the live screen.
+      <br><b>Compact contact set (fixed after the first mock overflowed at 402px):</b> the verbose label+value+action rows are gone. Contact is now a <b>2-column tile grid</b> (the tile is the tap), each tile = icon + label with the phone/email as a small truncated caption underneath; in-person gets a 4th "Directions" tile (2&times;2), online shows 3 tiles. Nothing exceeds the 402px frame; every value is ellipsis-clamped.
+    </div>
+
+    <h2>Field-level audit (every field grounded in live code; verdicts = founder-decided)</h2>
+    <table class="audit">
+      <tr><th>Field (live code)</th><th>Now on</th><th>Provenance / consumer</th><th>Verdict</th></tr>
+      <tr><td>Student name <code>full_name</code></td><td>Identity hero (title)</td><td><code>tutor/students</code>; the tutor's student</td><td class="keep">KEEP</td></tr>
+      <tr><td>Student ID <code>student_uid</code></td><td>Identity hero (chip) + record</td><td>Opaque ref; support handoff</td><td class="keep">KEEP</td></tr>
+      <tr><td>Gender <code>gender</code></td><td>Identity hero (chip)</td><td>Teaching context; legit match attribute</td><td class="keep">KEEP</td></tr>
+      <tr><td>Age <code>age</code></td><td>Identity hero (chip)</td><td>Pitches level to the child</td><td class="keep">KEEP</td></tr>
+      <tr><td>Status <code>status</code> (fallback "Newly Active")</td><td>Identity hero (status chip)</td><td>Operational state the tutor acts on</td><td class="keep">KEEP</td></tr>
+      <tr><td>Registration date <code>register_date</code></td><td>"Student record" disclosure (collapsed)</td><td>Thin tutor value; low harm low use</td><td class="demote">DEMOTE</td></tr>
+      <tr><td>Customer Experience Incharge <code>assigned_staff</code></td><td>&mdash; removed &mdash;</td><td>Internal SIMS staff routing; admin-only</td><td class="cut">CUT</td></tr>
+      <tr><td>Parent name <code>parent.full_name</code></td><td>Contact section subhead ("Coordinate with &hellip;")</td><td>Address the parent correctly</td><td class="keep">KEEP</td></tr>
+      <tr><td>Parent phone <code>parent.phone</code> &rarr; <code>makeCall()</code></td><td>Contact card · Call row</td><td>Call to coordinate the class</td><td class="keep">KEEP</td></tr>
+      <tr><td>Parent WhatsApp <code>parent.whatsapp_number</code> &rarr; <code>makeWhatappCall()</code></td><td>Contact card · WhatsApp row</td><td>WhatsApp to coordinate</td><td class="keep">KEEP</td></tr>
+      <tr><td>Parent email <code>parent.email</code></td><td>Contact card · Email row (copyable, no mailto)</td><td>No tap action; tutor can copy it</td><td class="keep">KEEP</td></tr>
+      <tr><td>Parent home geo <code>parent.latitude/longitude</code> &rarr; <code>GoToStudentDirection()</code></td><td>Contact card · Directions row <b>(in-person only)</b></td><td>Maps directions for a home visit</td><td class="gate">KEEP, in-person only</td></tr>
+      <tr><td>Ticket: UID / commission / mode / area+city / level / subject / day / time / type</td><td>Active tickets list</td><td><code>tutor/requests</code> (active, applied); the tutor's own jobs</td><td class="keep">KEEP</td></tr>
+    </table>
+    <div style="font-size:12px;margin-top:6px;"><b>Tally:</b> KEEP 11 (incl. Directions gated in-person) &middot; DEMOTE 1 (registration date) &middot; CUT 1 (assigned_staff). No real field cut beyond the agreed CUT/demote.</div>
+
+    <div class="lockbox" style="background:#fff7ed;border-color:#fed7aa;">
+      <b style="color:#9a3412;">Commercial pass (Rule 16):</b> StudentsDetails is a <b>retention</b> surface, it is the tutor's ongoing relationship with each of their students (one-tap Call/WhatsApp keeps the coordination loop frictionless, which keeps classes happening and the student active). <b>Guard metric: no PII over-exposure</b>, the admin field is cut, email carries no action it can't honour, and precise home geo is in-person-only, so the retention gain never comes at the cost of leaking data. (Founder lens: keeps active students delivering &middot; Analyst guard: PII-exposure surface must not regress.)
+    </div>
+
+    <div class="qbox">
+      <b>Hafiz flags (carried, not resolved here):</b>
+      (1) <b>Android WhatsApp bug</b> (separately chipped) &mdash; <code>makeWhatappCall()</code> hard-codes <code>'+601031705750'</code> on Android instead of <code>parent.whatsapp_number</code> (<code>index.tsx:74</code>); the button is designed normally here, fix lives in the build chip.
+      (2) <b>Email channel</b> &mdash; email is KEPT as copyable per founder; if email ever becomes a real coordination channel, the row can gain a mailto action later.
+      (3) <b>Mode source</b> &mdash; "in-person vs online" gating uses the student's class <code>mode</code>; confirm whether the gate should read the student-level mode or the per-ticket <code>mode</code> when a student has mixed tickets (mock gates on the student's class mode).
+    </div>
+  </div>
+
+  <!-- ===================== LIGHT MODE ===================== -->
+  <div class="modehd">Light mode &middot; in-person student (Directions present) &middot; online student (no Directions)</div>
+  <div class="frames">
+
+    <!-- ===== FRAME A · IN-PERSON STUDENT (record collapsed) ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">A</span>In-person student &middot; Directions row present &middot; record collapsed (focal = identity + contact)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side"><svg class="ic" style="width:18px;height:18px"><use href="#i-back"/></svg>Students</span><span class="nav-title">Student details</span><span class="nav-side r"><svg class="ic" style="width:18px;height:18px;color:var(--tint)"><use href="#i-ellipsis"/></svg></span></div>
+        <div class="scroll">
+
+          <!-- FOCAL POINT: who this student is, at a glance -->
+          <div class="idhero">
+            <div class="avatar">AL<span class="badge"><svg class="ic"><use href="#i-pin"/></svg></span></div>
+            <div class="id-name">Adam Lim</div>
+            <div class="id-sub">Mathematics &middot; in-person</div>
+            <div class="id-chips">
+              <span class="chip status"><span class="dot"></span>Active</span>
+              <span class="chip"><svg class="ic"><use href="#i-cake"/></svg>15 y/o</span>
+              <span class="chip"><svg class="ic"><use href="#i-person"/></svg>Male</span>
+              <span class="chip"><svg class="ic"><use href="#i-id"/></svg>STU-10482</span>
+            </div>
+          </div>
+
+          <!-- PRIMARY ACTION: compact 2x2 contact grid. Parent name in the subhead -> tiles stay label-light. -->
+          <div class="sec-h">Contact</div>
+          <div class="sec-sub">Coordinate with <b>Aishah Rahman</b></div>
+          <div class="actgrid">
+            <div class="act">
+              <div class="act-head"><span class="act-ic call"><svg class="ic"><use href="#i-phone"/></svg></span><span class="act-lab">Call</span></div>
+              <span class="act-val">+60 12-345 6789</span>
+            </div>
+            <div class="act">
+              <div class="act-head"><span class="act-ic wa"><svg class="ic"><use href="#i-wa"/></svg></span><span class="act-lab">WhatsApp</span></div>
+              <span class="act-val">+60 12-345 6789</span>
+            </div>
+            <div class="act">
+              <div class="act-head"><span class="act-ic mail"><svg class="ic"><use href="#i-mail"/></svg></span><span class="act-lab">Email</span></div>
+              <span class="act-val copy">aishah.rahman@gmail.com</span>
+            </div>
+            <!-- DIRECTIONS: in-person ONLY. Uses the parent location; precise geo never shown, just the action. -->
+            <div class="act">
+              <div class="act-head"><span class="act-ic dir"><svg class="ic"><use href="#i-nav"/></svg></span><span class="act-lab">Directions</span></div>
+              <span class="act-val">Open in Maps</span>
+            </div>
+          </div>
+
+          <!-- ACTIVE TICKETS: the live jobs with this student -->
+          <div class="listlab">Active tickets <span class="cnt">1</span></div>
+          <div class="tk">
+            <div class="tk-top">
+              <div>
+                <div class="tk-uid">REQ-77310</div>
+                <div class="tk-pay">RM 320</div>
+              </div>
+              <span class="tk-mode inperson">In-person</span>
+            </div>
+            <div class="tk-loc"><svg class="ic"><use href="#i-pin"/></svg>Bandar Utama, Petaling Jaya</div>
+            <div class="tk-div"></div>
+            <div class="tk-rows">
+              <div class="tk-line"><span class="tk-k"><svg class="ic"><use href="#i-level"/></svg>Level</span><span class="tk-v">Form 4</span></div>
+              <div class="tk-line"><span class="tk-k"><svg class="ic"><use href="#i-book"/></svg>Subject</span><span class="tk-v">Mathematics</span></div>
+            </div>
+            <div class="tk-tags">
+              <span class="tk-tag"><svg class="ic"><use href="#i-cal"/></svg>Tuesday</span>
+              <span class="tk-tag"><svg class="ic"><use href="#i-clock"/></svg>17:00</span>
+              <span class="tk-tag"><svg class="ic"><use href="#i-rec"/></svg>Recurring</span>
+            </div>
+          </div>
+
+          <!-- DEMOTED record: collapsed disclosure (registration date lives here, not in the face of the screen) -->
+          <div class="more">
+            <div class="more-head">
+              <span class="mh-l"><svg class="ic"><use href="#i-id"/></svg>Student record</span>
+              <span class="chev"><svg class="ic"><use href="#i-chev"/></svg></span>
+            </div>
+          </div>
+
+          <div class="botpad"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FRAME B · ONLINE STUDENT (no Directions) + record expanded ===== -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">B</span>Online student &middot; NO Directions (no geo) &middot; "Student record" expanded = demoted registration date</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side"><svg class="ic" style="width:18px;height:18px"><use href="#i-back"/></svg>Students</span><span class="nav-title">Student details</span><span class="nav-side r"><svg class="ic" style="width:18px;height:18px;color:var(--tint)"><use href="#i-ellipsis"/></svg></span></div>
+        <div class="scroll">
+
+          <div class="idhero">
+            <div class="avatar">NK<span class="badge"><svg class="ic"><use href="#i-rec"/></svg></span></div>
+            <div class="id-name">Nur Khaleesa</div>
+            <div class="id-sub">Bahasa Melayu &middot; online</div>
+            <div class="id-chips">
+              <span class="chip status"><span class="dot"></span>Active</span>
+              <span class="chip"><svg class="ic"><use href="#i-cake"/></svg>13 y/o</span>
+              <span class="chip"><svg class="ic"><use href="#i-person"/></svg>Female</span>
+              <span class="chip"><svg class="ic"><use href="#i-id"/></svg>STU-10930</span>
+            </div>
+          </div>
+
+          <div class="sec-h">Contact</div>
+          <div class="sec-sub">Coordinate with <b>Faridah Yusof</b></div>
+          <!-- ONLINE: NO Directions tile. Precise home geo is never surfaced for online students. -->
+          <div class="actgrid">
+            <div class="act">
+              <div class="act-head"><span class="act-ic call"><svg class="ic"><use href="#i-phone"/></svg></span><span class="act-lab">Call</span></div>
+              <span class="act-val">+60 19-770 1244</span>
+            </div>
+            <div class="act">
+              <div class="act-head"><span class="act-ic wa"><svg class="ic"><use href="#i-wa"/></svg></span><span class="act-lab">WhatsApp</span></div>
+              <span class="act-val">+60 19-770 1244</span>
+            </div>
+            <div class="act">
+              <div class="act-head"><span class="act-ic mail"><svg class="ic"><use href="#i-mail"/></svg></span><span class="act-lab">Email</span></div>
+              <span class="act-val copy">faridah.yusof@gmail.com</span>
+            </div>
+          </div>
+
+          <div class="listlab">Active tickets <span class="cnt">1</span></div>
+          <div class="tk">
+            <div class="tk-top">
+              <div>
+                <div class="tk-uid">REQ-80155</div>
+                <div class="tk-pay">RM 260</div>
+              </div>
+              <span class="tk-mode online">Online</span>
+            </div>
+            <!-- online ticket: no map-pin / locality line -->
+            <div class="tk-div"></div>
+            <div class="tk-rows">
+              <div class="tk-line"><span class="tk-k"><svg class="ic"><use href="#i-level"/></svg>Level</span><span class="tk-v">Form 1</span></div>
+              <div class="tk-line"><span class="tk-k"><svg class="ic"><use href="#i-book"/></svg>Subject</span><span class="tk-v">Bahasa Melayu</span></div>
+            </div>
+            <div class="tk-tags">
+              <span class="tk-tag"><svg class="ic"><use href="#i-cal"/></svg>Saturday</span>
+              <span class="tk-tag"><svg class="ic"><use href="#i-clock"/></svg>10:30</span>
+              <span class="tk-tag"><svg class="ic"><use href="#i-rec"/></svg>Recurring</span>
+            </div>
+          </div>
+
+          <!-- DEMOTED record EXPANDED: shows the registration date is tucked here, never silently dropped -->
+          <div class="more">
+            <div class="more-head">
+              <span class="mh-l"><svg class="ic"><use href="#i-id"/></svg>Student record</span>
+              <span class="chev"><svg class="ic"><use href="#i-chevd"/></svg></span>
+            </div>
+            <div class="more-body">
+              <div class="more-row"><span class="more-k">Student ID</span><span class="more-v">STU-10930</span></div>
+              <div class="more-row"><span class="more-k">Registered</span><span class="more-v">08-Feb-2026</span></div>
+            </div>
+          </div>
+
+          <div class="botpad"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== DARK MODE ===================== -->
+  <div class="modehd">Dark mode &middot; the same two students</div>
+  <div class="frames">
+
+    <!-- DARK · IN-PERSON -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">A</span>In-person &middot; Directions present</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side"><svg class="ic" style="width:18px;height:18px"><use href="#i-back"/></svg>Students</span><span class="nav-title">Student details</span><span class="nav-side r"><svg class="ic" style="width:18px;height:18px;color:var(--tint)"><use href="#i-ellipsis"/></svg></span></div>
+        <div class="scroll">
+
+          <div class="idhero">
+            <div class="avatar">AL<span class="badge"><svg class="ic"><use href="#i-pin"/></svg></span></div>
+            <div class="id-name">Adam Lim</div>
+            <div class="id-sub">Mathematics &middot; in-person</div>
+            <div class="id-chips">
+              <span class="chip status"><span class="dot"></span>Active</span>
+              <span class="chip"><svg class="ic"><use href="#i-cake"/></svg>15 y/o</span>
+              <span class="chip"><svg class="ic"><use href="#i-person"/></svg>Male</span>
+              <span class="chip"><svg class="ic"><use href="#i-id"/></svg>STU-10482</span>
+            </div>
+          </div>
+
+          <div class="sec-h">Contact</div>
+          <div class="sec-sub">Coordinate with <b>Aishah Rahman</b></div>
+          <div class="actgrid">
+            <div class="act">
+              <div class="act-head"><span class="act-ic call"><svg class="ic"><use href="#i-phone"/></svg></span><span class="act-lab">Call</span></div>
+              <span class="act-val">+60 12-345 6789</span>
+            </div>
+            <div class="act">
+              <div class="act-head"><span class="act-ic wa"><svg class="ic"><use href="#i-wa"/></svg></span><span class="act-lab">WhatsApp</span></div>
+              <span class="act-val">+60 12-345 6789</span>
+            </div>
+            <div class="act">
+              <div class="act-head"><span class="act-ic mail"><svg class="ic"><use href="#i-mail"/></svg></span><span class="act-lab">Email</span></div>
+              <span class="act-val copy">aishah.rahman@gmail.com</span>
+            </div>
+            <div class="act">
+              <div class="act-head"><span class="act-ic dir"><svg class="ic"><use href="#i-nav"/></svg></span><span class="act-lab">Directions</span></div>
+              <span class="act-val">Open in Maps</span>
+            </div>
+          </div>
+
+          <div class="listlab">Active tickets <span class="cnt">1</span></div>
+          <div class="tk">
+            <div class="tk-top">
+              <div>
+                <div class="tk-uid">REQ-77310</div>
+                <div class="tk-pay">RM 320</div>
+              </div>
+              <span class="tk-mode inperson">In-person</span>
+            </div>
+            <div class="tk-loc"><svg class="ic"><use href="#i-pin"/></svg>Bandar Utama, Petaling Jaya</div>
+            <div class="tk-div"></div>
+            <div class="tk-rows">
+              <div class="tk-line"><span class="tk-k"><svg class="ic"><use href="#i-level"/></svg>Level</span><span class="tk-v">Form 4</span></div>
+              <div class="tk-line"><span class="tk-k"><svg class="ic"><use href="#i-book"/></svg>Subject</span><span class="tk-v">Mathematics</span></div>
+            </div>
+            <div class="tk-tags">
+              <span class="tk-tag"><svg class="ic"><use href="#i-cal"/></svg>Tuesday</span>
+              <span class="tk-tag"><svg class="ic"><use href="#i-clock"/></svg>17:00</span>
+              <span class="tk-tag"><svg class="ic"><use href="#i-rec"/></svg>Recurring</span>
+            </div>
+          </div>
+
+          <div class="more">
+            <div class="more-head">
+              <span class="mh-l"><svg class="ic"><use href="#i-id"/></svg>Student record</span>
+              <span class="chev"><svg class="ic"><use href="#i-chev"/></svg></span>
+            </div>
+          </div>
+
+          <div class="botpad"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DARK · ONLINE (record expanded) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">B</span>Online &middot; no Directions &middot; record expanded</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navbar"><span class="nav-side"><svg class="ic" style="width:18px;height:18px"><use href="#i-back"/></svg>Students</span><span class="nav-title">Student details</span><span class="nav-side r"><svg class="ic" style="width:18px;height:18px;color:var(--tint)"><use href="#i-ellipsis"/></svg></span></div>
+        <div class="scroll">
+
+          <div class="idhero">
+            <div class="avatar">NK<span class="badge"><svg class="ic"><use href="#i-rec"/></svg></span></div>
+            <div class="id-name">Nur Khaleesa</div>
+            <div class="id-sub">Bahasa Melayu &middot; online</div>
+            <div class="id-chips">
+              <span class="chip status"><span class="dot"></span>Active</span>
+              <span class="chip"><svg class="ic"><use href="#i-cake"/></svg>13 y/o</span>
+              <span class="chip"><svg class="ic"><use href="#i-person"/></svg>Female</span>
+              <span class="chip"><svg class="ic"><use href="#i-id"/></svg>STU-10930</span>
+            </div>
+          </div>
+
+          <div class="sec-h">Contact</div>
+          <div class="sec-sub">Coordinate with <b>Faridah Yusof</b></div>
+          <div class="actgrid">
+            <div class="act">
+              <div class="act-head"><span class="act-ic call"><svg class="ic"><use href="#i-phone"/></svg></span><span class="act-lab">Call</span></div>
+              <span class="act-val">+60 19-770 1244</span>
+            </div>
+            <div class="act">
+              <div class="act-head"><span class="act-ic wa"><svg class="ic"><use href="#i-wa"/></svg></span><span class="act-lab">WhatsApp</span></div>
+              <span class="act-val">+60 19-770 1244</span>
+            </div>
+            <div class="act">
+              <div class="act-head"><span class="act-ic mail"><svg class="ic"><use href="#i-mail"/></svg></span><span class="act-lab">Email</span></div>
+              <span class="act-val copy">faridah.yusof@gmail.com</span>
+            </div>
+          </div>
+
+          <div class="listlab">Active tickets <span class="cnt">1</span></div>
+          <div class="tk">
+            <div class="tk-top">
+              <div>
+                <div class="tk-uid">REQ-80155</div>
+                <div class="tk-pay">RM 260</div>
+              </div>
+              <span class="tk-mode online">Online</span>
+            </div>
+            <div class="tk-div"></div>
+            <div class="tk-rows">
+              <div class="tk-line"><span class="tk-k"><svg class="ic"><use href="#i-level"/></svg>Level</span><span class="tk-v">Form 1</span></div>
+              <div class="tk-line"><span class="tk-k"><svg class="ic"><use href="#i-book"/></svg>Subject</span><span class="tk-v">Bahasa Melayu</span></div>
+            </div>
+            <div class="tk-tags">
+              <span class="tk-tag"><svg class="ic"><use href="#i-cal"/></svg>Saturday</span>
+              <span class="tk-tag"><svg class="ic"><use href="#i-clock"/></svg>10:30</span>
+              <span class="tk-tag"><svg class="ic"><use href="#i-rec"/></svg>Recurring</span>
+            </div>
+          </div>
+
+          <div class="more">
+            <div class="more-head">
+              <span class="mh-l"><svg class="ic"><use href="#i-id"/></svg>Student record</span>
+              <span class="chev"><svg class="ic"><use href="#i-chevd"/></svg></span>
+            </div>
+            <div class="more-body">
+              <div class="more-row"><span class="more-k">Student ID</span><span class="more-v">STU-10930</span></div>
+              <div class="more-row"><span class="more-k">Registered</span><span class="more-v">08-Feb-2026</span></div>
+            </div>
+          </div>
+
+          <div class="botpad"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

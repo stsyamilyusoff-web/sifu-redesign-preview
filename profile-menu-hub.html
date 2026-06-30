@@ -3,135 +3,382 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sifututor &middot; Profile-menu hub</title>
+<title>Retain &middot; Profile-menu hub (rich mock)</title>
 <style>
-  *{box-sizing:border-box}
-  html,body{background:#f6f7fb;margin:0}
-  body{font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;padding:26px 16px;--tint:#243cb3}
-  .doc{max-width:760px;margin:0 auto}
-  .hd{background:#243cb3;color:#fff;border-radius:18px;padding:26px}
-  .hd .t{font-size:24px;font-weight:800;letter-spacing:-.3px}
-  .hd .s{font-size:13px;opacity:.93;margin-top:8px;line-height:1.6}
-  .band{font-size:12px;color:#3730a3;background:#eef1fb;border:1px solid rgba(36,60,179,.2);border-radius:12px;padding:13px 15px;margin:14px 0 4px;line-height:1.55}
-  .block{margin-top:24px}
-  .sh{font-size:17px;font-weight:800}
-  .sd{font-size:12.5px;color:#52525b;margin:5px 0 14px;line-height:1.55}
-  .frames{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-  .fcol{flex:1;min-width:240px;max-width:262px}
-  .cap{font-size:9.5px;font-weight:800;text-align:center;padding:4px;border-radius:6px;margin-bottom:8px}
-  .cap.b{background:#f1f1f3;color:#71717a}.cap.a{background:#e6eaf9;color:var(--tint)}
-  .notes{margin-top:26px;background:#fff;border:1px solid #e6e6ea;border-radius:14px;padding:20px}
-  .nh{font-size:14px;font-weight:800;margin-bottom:12px}
-  .note{font-size:12px;color:#3f3f46;line-height:1.6;padding:10px 0;border-top:1px solid #f0f0f3}
-  .note:first-of-type{border-top:none}.note b{color:#18181b}
-  .note.dep{background:#fff7e6;border:1px solid #f3d98a;border-radius:10px;padding:12px 14px;color:#7c4a03}.note.dep b{color:#7c4a03}
-  .ft{font-size:11px;color:#9a9aa0;text-align:center;margin:22px 0 4px}
-
-  .ph{border-radius:22px;padding:12px 12px 9px;width:100%;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.1);background:#F5F7FB}
-  .sb{display:flex;justify-content:space-between;font-size:8.5px;font-weight:700;margin-bottom:10px}
-  .hbar{font-size:17px;font-weight:800;margin-bottom:13px}
-  .idthin{display:flex;align-items:center;gap:12px;margin-bottom:13px}
-  .av{width:54px;height:54px;border-radius:99px;background:linear-gradient(135deg,#c9b8a8,#3a3a3a);flex-shrink:0}
-  .av.big{width:58px;height:58px}
-  .idt .vb{font-size:9.5px;font-weight:800;color:#1a5c38}
-  .nm{font-size:17px;font-weight:800}.em{font-size:11px;color:#71717a}
-  .faqban{font-size:12px;font-weight:600;color:#3f3f46;background:#fff;border-radius:10px;padding:11px 12px;margin-bottom:13px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
-  .sec{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#9a9aa0;margin:8px 0 6px}
-  .mr{display:flex;align-items:center;gap:10px;background:#fff;border-radius:10px;padding:11px 12px;margin-bottom:6px;font-size:12.5px;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.03)}
-  .mi{font-size:15px;width:20px;text-align:center}
-  .ch{margin-left:auto;color:#c0c0c8;font-size:16px}
-  .new{font-size:8px;font-weight:800;text-transform:uppercase;color:#fff;background:#1f7a44;border-radius:5px;padding:1px 6px;margin-left:auto}
-  .new + .ch{margin-left:8px}
-  .bnote{font-size:9px;color:#a0a0a8;font-style:italic;line-height:1.5;margin-top:10px}
-  .idcard{background:#fff;border-radius:14px;padding:14px;margin-bottom:13px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-  .idtop{display:flex;align-items:center;gap:12px;margin-bottom:13px}
-  .idt2{flex:1}
-  .nm2{font-size:16px;font-weight:800;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-  .vchip{font-size:8.5px;font-weight:800;color:#1a5c38;background:#eef7f1;border-radius:5px;padding:2px 6px}
-  .vp{font-size:11px;font-weight:700;color:var(--tint);margin-top:3px}
-  .stats{display:flex;gap:8px;border-top:1px solid #f0f0f3;padding-top:12px}
-  .stat{flex:1;text-align:center}
-  .sv{font-size:15px;font-weight:800;color:#18181b}
-  .sv.tier{color:#92400e;font-size:13px}.sv.earn{color:#166534;font-size:13px}
-  .slb{font-size:8.5px;color:#9a9aa0;margin-top:2px}
-  .logout{font-size:12.5px;font-weight:700;color:#e02424;text-align:center;background:#fff;border-radius:10px;padding:11px;margin-top:8px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
-
-  @media (max-width:680px){
-    .frames{gap:20px}
-    .fcol{flex:none;max-width:none;width:100%}
+  :root{
+    --brand:#2B2FBE; --brand-weak:rgba(43,47,190,.10); --brand-weaker:rgba(43,47,190,.06);
+    --canvas:#F2F2F7; --surface:#FFFFFF; --field:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.6); --ink-3:rgba(60,60,67,.45); --ink-placeholder:rgba(60,60,67,.35);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.18);
+    --verify:#166534; --verify-bg:rgba(52,199,89,.14);
+    --tier:#92400e; --tier-bg:rgba(245,158,11,.16); --tier-bd:rgba(245,158,11,.40);
+    --track:rgba(60,60,67,.10);
+    --danger:#B3261E;
+    --onbrand:#FFFFFF;
+    --r-card:14px; --r-field:10px; --r-pill:999px; --r-chip:11px;
+    --shadow-card:0 1px 3px rgba(0,0,0,.06); --shadow-hero:0 6px 20px rgba(43,47,190,.26);
   }
+  [data-mode="dark"]{
+    --brand:#5B73E8; --brand-weak:rgba(91,115,232,.18); --brand-weaker:rgba(91,115,232,.10);
+    --canvas:#000000; --surface:#1C1C1E; --field:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.6); --ink-3:rgba(235,235,245,.4); --ink-placeholder:rgba(235,235,245,.3);
+    --hair:rgba(84,84,88,.55); --hair-strong:rgba(84,84,88,.75);
+    --verify:#4ADE80; --verify-bg:rgba(52,199,89,.18);
+    --tier:#FBBF24; --tier-bg:rgba(245,158,11,.18); --tier-bd:rgba(245,158,11,.45);
+    --track:rgba(235,235,245,.14);
+    --danger:#FF6961;
+    --shadow-card:0 1px 3px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:26px 16px;background:#E4E4EA;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;-webkit-font-smoothing:antialiased}
+  .doc{max-width:1180px;margin:0 auto}
+  .docnote{font-size:13px;line-height:1.62;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:15px 17px;margin-bottom:18px}
+  .docnote h1{font-size:16px;margin:0 0 7px} .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:#52525b}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .modebar{display:flex;gap:7px;margin:0 0 20px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2 button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  [data-mode="dark"] .seg2 button.on{background:#3A3A3C;color:#fff}
+  .grouplabel{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#71717a;margin:22px 0 11px}
+  .frames{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:9px}
+  .framelabel .be{color:#a1a1aa} .framelabel .af{color:#2B2FBE}
+
+  .ph{position:relative;width:380px;height:822px;overflow:hidden;background:var(--canvas);border-radius:42px;border:10px solid #0d0d10;box-shadow:0 10px 34px rgba(0,0,0,.22);display:flex;flex-direction:column}
+  .screen{flex:1;display:flex;flex-direction:column;padding:0 16px;overflow:hidden}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:46px;padding:6px 8px 0 6px;flex-shrink:0}
+  .sb-t{font-size:15px;font-weight:600;color:var(--ink);letter-spacing:.3px}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+  .lt{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-.5px;flex-shrink:0;margin:2px 0 12px}
+  .home-ind{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:124px;height:5px;border-radius:99px;background:var(--ink);opacity:.32}
+  .body{flex:1;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:13px}
+  .body::-webkit-scrollbar{width:0;height:0}
+
+  /* ACHIEVEMENT HEADER */
+  .ach{background:var(--surface);border-radius:18px;padding:16px 16px 14px;box-shadow:var(--shadow-card);flex-shrink:0}
+  .ach-top{display:flex;align-items:center;gap:13px}
+  .ava{width:60px;height:60px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#c9b8a8,#3a3a3a);display:flex;align-items:flex-end;justify-content:center;position:relative;border:2px solid var(--surface);box-shadow:0 0 0 2px var(--brand-weak)}
+  .ava .init{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:24px;letter-spacing:-.5px}
+  .ach-id{flex:1;min-width:0}
+  .ach-nm{font-size:19px;font-weight:800;color:var(--ink);letter-spacing:-.3px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .vchip{font-size:9.5px;font-weight:800;color:var(--verify);background:var(--verify-bg);border-radius:var(--r-pill);padding:2px 8px;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+  .ach-tier{margin-top:5px}
+  .tierbadge{font-size:11px;font-weight:800;color:var(--tier);background:var(--tier-bg);border:1px solid var(--tier-bd);border-radius:var(--r-pill);padding:3px 11px;display:inline-flex;align-items:center;gap:5px}
+  .ach-view{font-size:13px;font-weight:700;color:var(--brand);flex-shrink:0;align-self:flex-start;margin-top:3px}
+  .ach-stats{display:flex;margin-top:14px;padding-top:13px;border-top:1px solid var(--hair)}
+  .ach-st{flex:1;text-align:center;position:relative}
+  .ach-st + .ach-st::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:1px;background:var(--hair)}
+  .st-v{font-size:18px;font-weight:800;color:var(--ink);letter-spacing:-.4px;line-height:1}
+  .st-v .cur{font-size:11px;font-weight:700;color:var(--ink-2);letter-spacing:0}
+  .st-l{font-size:10px;font-weight:600;color:var(--ink-3);margin-top:4px}
+
+  /* TIER PROGRESS BAR (variant A — applied 2026-06-30) */
+  .pbar{margin-top:14px;padding-top:13px;border-top:1px solid var(--hair)}
+  .pbar-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}
+  .pbar-from{font-size:12.5px;font-weight:800;color:var(--ink);display:flex;align-items:center;gap:6px}
+  .pbar-arrow{color:var(--ink-3);font-weight:700}
+  .pbar-to{font-size:12.5px;font-weight:700;color:var(--tier)}
+  .pbar-count{font-size:11px;font-weight:700;color:var(--ink-2)}
+  .pbar-track{height:9px;border-radius:var(--r-pill);background:var(--track);overflow:hidden;position:relative}
+  .pbar-fill{position:absolute;left:0;top:0;bottom:0;border-radius:var(--r-pill);background:linear-gradient(90deg,var(--brand),#3a55d8)}
+  .pbar-sub{font-size:11px;color:var(--ink-2);margin-top:8px;line-height:1.4}
+  .pbar-sub b{color:var(--ink)}
+  .pbar-done{display:flex;align-items:center;gap:8px;margin-top:13px;padding-top:13px;border-top:1px solid var(--hair)}
+  .pbar-done-ic{width:26px;height:26px;border-radius:8px;background:var(--verify-bg);color:var(--verify);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+  .pbar-done-tx{font-size:12px;font-weight:700;color:var(--ink)}
+  .pbar-done-tx span{display:block;font-size:11px;font-weight:600;color:var(--ink-2);margin-top:1px}
+
+  /* PROGRESS NUDGE (tier next-step) */
+  .nudge{background:var(--brand-weaker);border:1px solid var(--brand-weak);border-radius:var(--r-card);padding:11px 13px;display:flex;align-items:center;gap:11px;flex-shrink:0}
+  .nudge-ic{width:32px;height:32px;border-radius:10px;background:var(--brand-weak);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+  .nudge-tx{flex:1;min-width:0}
+  .nudge-t{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.3}
+  .nudge-s{font-size:11px;color:var(--ink-2);margin-top:2px}
+  .nudge-cta{font-size:12px;font-weight:700;color:var(--brand);flex-shrink:0}
+
+  /* GROUPED NAV */
+  .seclabel{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin:5px 4px -3px;flex-shrink:0}
+  .grp{background:var(--surface);border-radius:var(--r-card);box-shadow:var(--shadow-card);overflow:hidden;flex-shrink:0}
+  .row{display:flex;align-items:center;gap:13px;padding:13px 15px;border-top:1px solid var(--hair)}
+  .row:first-child{border-top:none}
+  .r-ic{width:30px;height:30px;border-radius:8px;background:var(--brand-weak);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+  .r-ic.support{background:rgba(120,120,128,.12);color:var(--ink-2)}
+  .r-tx{flex:1;min-width:0}
+  .r-t{font-size:14.5px;font-weight:600;color:var(--ink)}
+  .r-s{display:none}
+  .r-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+  .badge-new{font-size:8.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--brand);background:var(--brand-weak);border-radius:5px;padding:2px 6px}
+  .badge-count{font-size:10px;font-weight:800;color:#fff;background:var(--danger);border-radius:var(--r-pill);min-width:18px;height:18px;padding:0 5px;display:flex;align-items:center;justify-content:center}
+  .chev{font-size:16px;color:var(--ink-3);font-weight:600}
+  .r-val{display:none}
+
+  /* LOG OUT */
+  .logout{background:var(--surface);border-radius:var(--r-card);box-shadow:var(--shadow-card);padding:14px;text-align:center;font-size:14.5px;font-weight:700;color:var(--danger);flex-shrink:0}
+  .vstamp{font-size:10.5px;color:var(--ink-3);text-align:center;padding:2px 0 6px;flex-shrink:0}
+
+  /* BEFORE (live) */
+  .b-hbar{font-size:22px;font-weight:800;color:var(--ink);margin:2px 0 14px;flex-shrink:0}
+  .b-id{display:flex;align-items:center;gap:13px;margin-bottom:14px;flex-shrink:0}
+  .b-av{width:56px;height:56px;border-radius:50%;background:#c4c4c8;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600}
+  .b-nm{font-size:18px;font-weight:800;color:var(--ink)}
+  .b-em{font-size:12px;color:var(--ink-3);margin-top:2px}
+  .b-faq{background:var(--brand);color:#fff;border-radius:14px;padding:16px;display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-shrink:0}
+  .b-faq-tx{flex:1}
+  .b-faq-t{font-size:15px;font-weight:800}
+  .b-faq-s{font-size:11px;opacity:.9;margin-top:3px;line-height:1.4}
+  .b-faq-ar{width:30px;height:30px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px}
+  .b-sec{font-size:13px;font-weight:600;color:var(--ink-3);margin:6px 2px 8px;flex-shrink:0}
+  .b-row{display:flex;align-items:center;gap:13px;padding:11px 2px;flex-shrink:0}
+  .b-row-ic{font-size:18px;width:24px;text-align:center;color:var(--ink-2)}
+  .b-row-t{font-size:15px;font-weight:500;color:var(--ink)}
+  .b-hr{height:1px;background:var(--hair);margin:6px 0;flex-shrink:0}
+
+  /* annotations */
+  .annos{max-width:1180px;margin:18px auto 0}
+  .audit{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid #e7e7ea;border-radius:10px;overflow:hidden;margin-bottom:14px}
+  .audit th,.audit td{text-align:left;padding:8px 11px;border-top:1px solid #eee;vertical-align:top}
+  .audit th{background:#f6f6f8;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#71717a;border-top:none}
+  .audit td b{color:#18181b}
+  .vd{font-weight:800;font-size:11px;border-radius:5px;padding:1px 7px;white-space:nowrap}
+  .vd.keep{background:#e9f5ee;color:#166534} .vd.cut{background:#fbeaea;color:#b3261e} .vd.gate{background:#eef1fb;color:#2B2FBE} .vd.add{background:#fdf6e7;color:#92400e}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .cm{font-size:12px;line-height:1.6;color:#3f3f46;background:#fbfbfc;border:1px solid #e7e7ea;border-radius:10px;padding:12px 14px;margin-top:4px}
+  .cm b{color:#18181b}
+  @media (max-width:820px){ .ph{width:340px;height:736px} }
 </style>
 </head>
 <body>
 <div class="doc">
-  <div class="hd">
-    <div class="t">Profile-menu hub</div>
-    <div class="s">The 5th-tab nav spine, the last main-screen gap. The thin identity becomes an achievement header (rating, tier, total earned), the good grouped nav stays, with Refer &amp; earn back, FAQs deduped, and a Settings entry. For Hafiz.</div>
-  </div>
-
-  <div class="band"><b>The angle:</b> the hub is where the tutor sees themselves, so it leads with recognition by ACHIEVEMENT (good rating + tier badge + total earned, founder's definition), not a "complete your profile" bar. The wayfinding stays grouped and fast. No items cut.</div>
-
-  <div class="block">
-    <div class="sh">Thin identity &#8594; achievement header</div>
-    <div class="sd">Same grouped nav, a stronger top. "View profile" folds in the old "Tutor Profile" link. Refer &amp; earn returns, FAQs is deduped to one, a Settings entry is added.</div>
-    <div class="frames">
-      <div class="fcol">
-        <div class="cap b">Before &middot; live</div>
-        <div class="ph">
-          <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
-          <div class="hbar">Profile</div>
-          <div class="idthin">
-            <div class="av"></div>
-            <div class="idt"><div class="vb">&#10003; Verified Tutor</div><div class="nm">Aisha Rahman</div><div class="em">aisha.rahman@email.com</div></div>
-          </div>
-          <div class="faqban">&#10067; FAQs</div>
-          <div class="sec">Dashboard</div>
-          <div class="mr"><span class="mi">&#128100;</span> Tutor Profile <span class="ch">&#8250;</span></div>
-          <div class="mr"><span class="mi">&#128276;</span> Notification <span class="ch">&#8250;</span></div>
-          <div class="mr"><span class="mi">&#128181;</span> Payment <span class="ch">&#8250;</span></div>
-          <div class="sec">Support</div>
-          <div class="mr"><span class="mi">&#10067;</span> FAQs <span class="ch">&#8250;</span></div>
-          <div class="mr"><span class="mi">&#128737;</span> Help Centre <span class="ch">&#8250;</span></div>
-          <div class="bnote">Thin identity (name + email only). FAQs twice (banner + Support). No earnings, tier, settings, or referral.</div>
-        </div>
-      </div>
-      <div class="fcol">
-        <div class="cap a">After &middot; achievement header</div>
-        <div class="ph">
-          <div class="sb"><span>9:41</span><span>&#9646;&#9646;&#9646;</span></div>
-          <div class="hbar">Profile</div>
-          <div class="idcard">
-            <div class="idtop"><div class="av big"></div><div class="idt2"><div class="nm2">Aisha Rahman <span class="vchip">&#10003; Verified</span></div><div class="vp">View profile &#8250;</div></div></div>
-            <div class="stats">
-              <div class="stat"><div class="sv">&#9733; 4.9</div><div class="slb">rating</div></div>
-              <div class="stat"><div class="sv tier">All-star</div><div class="slb">tier</div></div>
-              <div class="stat"><div class="sv earn">RM 4,200</div><div class="slb">total earned</div></div>
-            </div>
-          </div>
-          <div class="sec">Earnings</div>
-          <div class="mr"><span class="mi">&#128181;</span> Payment <span class="ch">&#8250;</span></div>
-          <div class="mr"><span class="mi">&#127873;</span> Refer &amp; earn <span class="new">new</span><span class="ch">&#8250;</span></div>
-          <div class="sec">Support</div>
-          <div class="mr"><span class="mi">&#128737;</span> Help Centre <span class="ch">&#8250;</span></div>
-          <div class="mr"><span class="mi">&#10067;</span> FAQs <span class="ch">&#8250;</span></div>
-          <div class="sec">Settings &amp; about</div>
-          <div class="mr"><span class="mi">&#9881;</span> Preferences <span class="new">new</span><span class="ch">&#8250;</span></div>
-          <div class="mr"><span class="mi">&#128196;</span> Terms &amp; Privacy <span class="ch">&#8250;</span></div>
-          <div class="logout">Log out</div>
-        </div>
-      </div>
+  <div class="docnote">
+    <h1>Retain and grow &middot; Profile-menu hub (the 5th tab)</h1>
+    The nav spine and the screen where a tutor sees themselves. Live today: a thin name + email, a duplicated FAQs banner, and a flat grouped list with no sense of standing. The redesign leads with an <b>achievement header</b> (verified badge, profile-strength tier, and the objective volume the tutor has built: classes taught + lifetime earned), folds the old "Tutor Profile" link into a "View profile", de-duplicates FAQs to one entry, restores <b>Refer &amp; earn</b>, and adds a <b>Settings</b> entry. Recognition by what they have earned and become, no "complete your profile" pressure. Tokens only, no em-dashes, light + dark.
+    <div class="legend">
+      <span><i style="background:#2B2FBE"></i>Brand / actions + nav icons</span>
+      <span><i style="background:#166534"></i>Green = verified</span>
+      <span><i style="background:#d9a528"></i>Amber = tier badge</span>
+      <span><i style="background:#B3261E"></i>Red = notification count + log out</span>
+      <span><i style="background:#F2F2F7;border:1px solid #ccc"></i>Grouped-grey canvas</span>
     </div>
   </div>
-
-  <div class="notes">
-    <div class="nh">Notes for Hafiz</div>
-    <div class="note"><b>The header is the change.</b> Recognition by achievement: rating, tier badge, and total earned. "View profile" folds in the old "Tutor Profile" menu link. This is the hub where a tutor sees themselves, so it leads with what they have earned and become, honest, no "complete your profile" pressure.</div>
-    <div class="note"><b>Wayfinding kept.</b> The 5 grouped sections stay (good as-is). Refer &amp; earn is re-added (routable in code already), FAQs is deduped to ONE entry, and a Settings (Preferences) entry is added.</div>
-    <div class="note dep"><b>Backend deps.</b> rating + tier (`profile_strength_tier`, exists) on the menu's identity fetch, and a LIFETIME total-earned field (the Home only computes monthly `cumulative_commission`). The Settings/Preferences screen itself is a follow-up; this wave adds the entry.</div>
-    <div class="note"><b>No items cut.</b> All 12 destinations stay; the only removal is the duplicate FAQs banner.</div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
   </div>
 
-  <div class="ft">Sifututor redesign &middot; Profile-menu hub &middot; 25 June 2026 &middot; design mockup, not the live app</div>
+  <div class="grouplabel">After &middot; the profile hub (achievement header + grouped nav)</div>
+  <div class="frames">
+
+    <!-- AFTER: the hub -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Profile hub</div>
+      <div class="ph" data-mode="light">
+       <div class="screen">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="lt">Profile</div>
+        <div class="body">
+
+          <div class="ach">
+            <div class="ach-top">
+              <div class="ava"><span class="init">A</span></div>
+              <div class="ach-id">
+                <div class="ach-nm">Ahmad <span class="vchip">&#10003; Verified</span></div>
+                <div class="ach-tier"><span class="tierbadge">&#127941; All-Star tutor</span></div>
+              </div>
+              <div class="ach-view">View &#8250;</div>
+            </div>
+            <div class="ach-stats">
+              <div class="ach-st"><div class="st-v">120</div><div class="st-l">classes taught</div></div>
+              <div class="ach-st"><div class="st-v">180h</div><div class="st-l">hours taught</div></div>
+              <div class="ach-st"><div class="st-v"><span class="cur">RM </span>4,420</div><div class="st-l">earned to date</div></div>
+            </div>
+            <div class="pbar">
+              <div class="pbar-head">
+                <div class="pbar-from">All-Star <span class="pbar-arrow">&middot;</span> <span class="pbar-to" style="color:var(--verify)">Top tier</span></div>
+                <div class="pbar-count" style="color:var(--verify)">Max</div>
+              </div>
+              <div class="pbar-track"><div class="pbar-fill" style="width:100%;background:linear-gradient(90deg,var(--verify),#2fae5a)"></div></div>
+              <div class="pbar-done">
+                <div class="pbar-done-ic">&#10003;</div>
+                <div class="pbar-done-tx">You are at the highest tier<span>All-Star is the highest standing. Keep teaching to hold it.</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="seclabel">Account</div>
+          <div class="grp">
+            <div class="row"><div class="r-ic">&#128100;</div><div class="r-tx"><div class="r-t">My profile</div><div class="r-s">Subjects, education, intro video, about</div></div><div class="r-right"><span class="chev">&#8250;</span></div></div>
+            <div class="row"><div class="r-ic">&#9881;&#65039;</div><div class="r-tx"><div class="r-t">Teaching preferences</div><div class="r-s">Subjects, levels, mode, area, rate</div></div><div class="r-right"><span class="chev">&#8250;</span></div></div>
+            <div class="row"><div class="r-ic">&#128276;</div><div class="r-tx"><div class="r-t">Notifications</div></div><div class="r-right"><span class="badge-count">3</span><span class="chev">&#8250;</span></div></div>
+          </div>
+
+          <div class="seclabel">Earnings</div>
+          <div class="grp">
+            <div class="row"><div class="r-ic">&#128181;</div><div class="r-tx"><div class="r-t">Payment</div><div class="r-s">Earnings + payout history</div></div><div class="r-right"><span class="r-val">RM 1,660 pending</span><span class="chev">&#8250;</span></div></div>
+            <div class="row"><div class="r-ic">&#127873;</div><div class="r-tx"><div class="r-t">Refer &amp; earn</div><div class="r-s">Invite a tutor, you both earn RM 50</div></div><div class="r-right"><span class="badge-new">New</span><span class="chev">&#8250;</span></div></div>
+          </div>
+
+          <div class="seclabel">Support</div>
+          <div class="grp">
+            <div class="row"><div class="r-ic support">&#128172;</div><div class="r-tx"><div class="r-t">Help centre</div><div class="r-s">FAQs and contact support</div></div><div class="r-right"><span class="chev">&#8250;</span></div></div>
+            <div class="row"><div class="r-ic support">&#128240;</div><div class="r-tx"><div class="r-t">News</div></div><div class="r-right"><span class="chev">&#8250;</span></div></div>
+          </div>
+
+          <div class="seclabel">Settings &amp; about</div>
+          <div class="grp">
+            <div class="row"><div class="r-ic support">&#9881;&#65039;</div><div class="r-tx"><div class="r-t">App settings</div><div class="r-s">Language, appearance, alerts</div></div><div class="r-right"><span class="badge-new">New</span><span class="chev">&#8250;</span></div></div>
+            <div class="row"><div class="r-ic support">&#128196;</div><div class="r-tx"><div class="r-t">Terms &amp; privacy</div></div><div class="r-right"><span class="chev">&#8250;</span></div></div>
+          </div>
+
+          <div class="logout">Log out</div>
+          <div class="vstamp">Sifututor &middot; version 2.4.0</div>
+
+        </div>
+       </div>
+       <div class="home-ind"></div>
+      </div>
+    </div>
+
+    <!-- AFTER: new tutor (low tier, empty volume) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; New tutor (no track record yet)</div>
+      <div class="ph" data-mode="light">
+       <div class="screen">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="lt">Profile</div>
+        <div class="body">
+
+          <div class="ach">
+            <div class="ach-top">
+              <div class="ava"><span class="init">N</span></div>
+              <div class="ach-id">
+                <div class="ach-nm">Nurul <span class="vchip">&#10003; Verified</span></div>
+                <div class="ach-tier"><span class="tierbadge" style="color:var(--brand);background:var(--brand-weak);border-color:var(--brand-weak)">&#127793; Beginner tutor</span></div>
+              </div>
+              <div class="ach-view">View &#8250;</div>
+            </div>
+            <div class="ach-stats">
+              <div class="ach-st"><div class="st-v">0</div><div class="st-l">classes taught</div></div>
+              <div class="ach-st"><div class="st-v">0h</div><div class="st-l">hours taught</div></div>
+              <div class="ach-st"><div class="st-v"><span class="cur">RM </span>0</div><div class="st-l">earned to date</div></div>
+            </div>
+            <div class="pbar">
+              <div class="pbar-head">
+                <div class="pbar-from">Beginner <span class="pbar-arrow">&rarr;</span> <span class="pbar-to">&#127919; Pro</span></div>
+                <div class="pbar-count">0 / 20</div>
+              </div>
+              <div class="pbar-track"><div class="pbar-fill" style="width:2%"></div></div>
+              <div class="pbar-sub"><b>20 more classes</b> to reach Pro tutor. Teach your first class to start the climb.</div>
+            </div>
+          </div>
+
+          <div class="seclabel">Account</div>
+          <div class="grp">
+            <div class="row"><div class="r-ic">&#128100;</div><div class="r-tx"><div class="r-t">My profile</div><div class="r-s">Subjects, education, intro video, about</div></div><div class="r-right"><span class="badge-count" style="background:var(--tier);color:#fff">2</span><span class="chev">&#8250;</span></div></div>
+            <div class="row"><div class="r-ic">&#9881;&#65039;</div><div class="r-tx"><div class="r-t">Teaching preferences</div><div class="r-s">Subjects, levels, mode, area, rate</div></div><div class="r-right"><span class="chev">&#8250;</span></div></div>
+            <div class="row"><div class="r-ic">&#128276;</div><div class="r-tx"><div class="r-t">Notifications</div></div><div class="r-right"><span class="chev">&#8250;</span></div></div>
+          </div>
+
+          <div class="seclabel">Earnings</div>
+          <div class="grp">
+            <div class="row"><div class="r-ic">&#128181;</div><div class="r-tx"><div class="r-t">Payment</div><div class="r-s">Earnings + payout history</div></div><div class="r-right"><span class="r-val" style="color:var(--ink-3)">No earnings yet</span><span class="chev">&#8250;</span></div></div>
+            <div class="row"><div class="r-ic">&#127873;</div><div class="r-tx"><div class="r-t">Refer &amp; earn</div><div class="r-s">Invite a tutor, you both earn RM 50</div></div><div class="r-right"><span class="badge-new">New</span><span class="chev">&#8250;</span></div></div>
+          </div>
+
+          <div class="seclabel">Support</div>
+          <div class="grp">
+            <div class="row"><div class="r-ic support">&#128172;</div><div class="r-tx"><div class="r-t">Help centre</div><div class="r-s">FAQs and contact support</div></div><div class="r-right"><span class="chev">&#8250;</span></div></div>
+            <div class="row"><div class="r-ic support">&#128240;</div><div class="r-tx"><div class="r-t">News</div></div><div class="r-right"><span class="chev">&#8250;</span></div></div>
+          </div>
+
+          <div class="logout">Log out</div>
+
+        </div>
+       </div>
+       <div class="home-ind"></div>
+      </div>
+    </div>
+
+    <!-- BEFORE: live ProfileMenu -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live Profile menu</div>
+      <div class="ph" data-mode="light">
+       <div class="screen">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="b-hbar">Profile</div>
+        <div class="body" style="gap:0">
+          <div class="b-id">
+            <div class="b-av">700&times;700</div>
+            <div><div class="b-nm">Ahmad</div><div class="b-em">e2e.tutor1@test.sifututor.my</div></div>
+          </div>
+          <div class="b-faq">
+            <div class="b-faq-tx"><div class="b-faq-t">What do you want to Know?</div><div class="b-faq-s">Some of the most frequently asked questions.</div></div>
+            <div class="b-faq-ar">&#8250;</div>
+          </div>
+          <div class="b-sec">Dashboard</div>
+          <div class="b-row"><span class="b-row-ic">&#128100;</span><span class="b-row-t">Tutor Profile</span></div>
+          <div class="b-row"><span class="b-row-ic">&#128276;</span><span class="b-row-t">Notification</span></div>
+          <div class="b-row"><span class="b-row-ic">&#128179;</span><span class="b-row-t">Payment</span></div>
+          <div class="b-row"><span class="b-row-ic">&#9881;&#65039;</span><span class="b-row-t">Service preference</span></div>
+          <div class="b-hr"></div>
+          <div class="b-sec">Student</div>
+          <div class="b-row"><span class="b-row-ic">&#128203;</span><span class="b-row-t">Student List</span></div>
+          <div class="b-row" style="opacity:.5"><span class="b-row-ic">&#10067;</span><span class="b-row-t">FAQs (again)</span></div>
+          <div class="b-row" style="opacity:.5"><span class="b-row-ic">&#128737;&#65039;</span><span class="b-row-t">Help Centre</span></div>
+        </div>
+       </div>
+       <div class="home-ind"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="annos">
+    <h2>Field-level audit (challenge, don't trace &middot; KEEP / CUT / GATE / ADD)</h2>
+    <table class="audit">
+      <tr><th>Element (live)</th><th>Verdict</th><th>Provenance + reasoning</th></tr>
+      <tr><td><b>Name + email + avatar</b> (thin identity)</td><td><span class="vd keep">KEEP</span></td><td>Real (`tutor.name`, `tutor.email`, profile photo). Kept, but promoted into the achievement header so the tutor sees standing, not just a label. Email moves into "My profile" / the View detail to de-clutter the hero.</td></tr>
+      <tr><td><b>"Tutor Profile" nav link</b></td><td><span class="vd keep">KEEP</span></td><td>The route stays; reworded to <b>My profile</b> and also reachable from the header "View". One destination, two honest entry points (the self-view showcase).</td></tr>
+      <tr><td><b>Notification</b> nav row</td><td><span class="vd keep">KEEP</span></td><td>Real route. Kept; gains an unread count badge (red) so the tutor sees pending items without opening it.</td></tr>
+      <tr><td><b>Payment</b> nav row</td><td><span class="vd keep">KEEP</span></td><td>Real route to the EARN hub. Kept; gains a "RM 1,660 pending" value preview (the EARN cluster owns the screen itself).</td></tr>
+      <tr><td><b>Service preference</b> nav row</td><td><span class="vd keep">KEEP</span></td><td>Real route. Reworded to <b>Teaching preferences</b> (clearer to a tutor) with a subtitle naming what it holds.</td></tr>
+      <tr><td><b>Student List</b> nav row</td><td><span class="vd gate">GATE</span></td><td>Real route, but it belongs to the Win-and-deliver teaching flow, not the profile hub. Recommend it moves to the class/teaching surface; shown greyed here pending the Planner's cross-cluster placement call (do not silently drop).</td></tr>
+      <tr><td><b>"What do you want to Know?" FAQ banner</b></td><td><span class="vd cut">CUT</span></td><td>A duplicate of the Support FAQs row directly below it. The banner eats the prime hero slot that should carry the tutor's standing. Folded into one <b>Help centre</b> entry.</td></tr>
+      <tr><td><b>Profile-strength tier</b> (badge)</td><td><span class="vd add">ADD</span></td><td>Real and unused on this screen: `profile_strength_tier` enum (beginner / intermediate / advanced / all_star) already on the tutors table. Surfaced as the header trust badge, the one-glance "what I have become".</td></tr>
+      <tr><td><b>Classes taught + hours</b> (volume stats)</td><td><span class="vd add">ADD</span></td><td>The objective track record. Class count + taught-hours are computed from completed classes today; surfaced as recognition (the same numbers the parent showcase uses).</td></tr>
+      <tr><td><b>Earned-to-date</b> (header stat)</td><td><span class="vd add">KEEP</span></td><td><b>Third header stat</b> (RM 320 / RM 4,420), part of variant A (founder's pick). It was briefly removed and mis-recorded as a "founder call to CUT" (a Planner error; there was no such call). Now restored. (The RM amounts in the nav rows, Payment / Refer, stay removed because the founder asked for one-liner rows.)</td></tr>
+      <tr><td><b>Refer &amp; earn</b></td><td><span class="vd add">ADD</span></td><td>Route exists in code, missing from the live menu. Restored as the one honest growth nudge ("invite a tutor, you both earn RM 50").</td></tr>
+      <tr><td><b>App settings</b></td><td><span class="vd add">ADD</span></td><td>No settings home today (language / appearance / alerts are scattered). Adds the entry; the screen itself is a follow-up.</td></tr>
+      <tr><td><b>Terms &amp; privacy</b></td><td><span class="vd add">ADD</span></td><td>Compliance entry, expected in every account hub; absent live.</td></tr>
+      <tr><td><b>Star rating</b> (e.g. "4.9")</td><td><span class="vd cut">CUT</span></td><td>Deliberately NOT shown. No rating/review table exists in the backend (code-verified). An empty or invented star destroys trust; the header leans on verified + tier + volume instead, exactly the source-of-truth "no empty stars" rule.</td></tr>
+    </table>
+
+    <div class="anno g"><span class="n">1</span><div><b>Achievement header (the change).</b> Recognition by what the tutor has earned and become: the verified badge, the profile-strength tier, and the objective volume (classes, hours, earned to date). This is the hub where a tutor sees themselves, so it leads with standing, not a "complete your profile" bar. "View" folds in the old Tutor Profile link.</div></div>
+    <div class="anno g"><span class="n">2</span><div><b>Honest empty state (frame 2).</b> A brand-new tutor sees the same header with a Beginner tier, zero volume, and a forward-looking nudge ("Grow to Intermediate") plus a profile-completion count on My profile, never a fake stat. Standing grows with real work.</div></div>
+    <div class="anno"><span class="n">3</span><div><b>Wayfinding kept and tidied.</b> The grouped sections stay (good as-is). FAQs is de-duplicated to one Help centre entry, Refer &amp; earn returns, App settings + Terms &amp; privacy are added, Payment + Notifications gain inline value/count previews. Student List is flagged to move to the teaching surface.</div></div>
+    <div class="anno"><span class="n">4</span><div><b>Colour budget.</b> Green = verified (the trust signal), amber = the tier badge (the standing signal), red = notification count + log out, brand = nav icons + actions. No rainbow; every signal rides on an icon + word, never colour alone.</div></div>
+    <div class="cm"><b>Commercial pass (Retain and grow).</b> <b>Founder:</b> the hub is a retention surface, seeing accumulated standing (tier + classes + earned) is what keeps a gig worker coming back; it ladders to the North Star by keeping verified tutors active and applying. <b>Sales:</b> the one honest attach is Refer &amp; earn at the moment of pride (a tutor who just saw "All-Star + RM 4,420" is the likeliest referrer); surfaced once, easily ignored, never a dark pattern. <b>Marketing:</b> the tier + lifetime total is shareable social proof that feeds the referral loop. <b>Analyst:</b> instrument "profile hub opened per active tutor per week" and referral-entry tap-through; guard metric = the header must not become a vanity wall that distracts from applying (watch that hub opens do not cannibalise feed opens). Primary tap-count: My profile in <b>1 tap</b> (header View or the Account row), Refer in 1, Payment in 1, all from the hub.</div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz dependencies:</b> (a) <b>Lifetime teaching earned</b> for the header stat. The tutor app exposes monthly `cumulative_commission` and per-month `total_commission` (TutorPaymentJournalSummary), but no single lifetime teaching total; confirm whether to sum the monthly rows or add a field. (NB: `total_earned` in `/api/tutor/referral/earnings` is referral-only, not teaching.) (b) <b>classes-taught + hours-taught</b> need to be serialized to the profile/menu fetch (they exist as computed values; confirm they are returned here, not admin-only). (c) <b>profile_strength_tier</b> is on the tutors table but nullable until `edc:recompute-profile-strength` runs; confirm it is populated + returned on the menu identity fetch, and the empty/null-tier rendering (frame 2 assumes Beginner). (d) <b>Student List</b> placement, confirm the Planner's call to move it to the teaching cluster. (e) <b>App settings</b> screen is a separate follow-up build (this wave only adds the entry).</div></div>
+  </div>
 </div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ p.setAttribute('data-mode', m); });
+    document.querySelectorAll('.modebar .seg2 button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
 </body>
 </html>

@@ -153,9 +153,9 @@ a{color:inherit;text-decoration:none}
     tutor:{
       name:"Tutor app", cats:window.TUTOR_CATS, stages:window.TUTOR_STAGES,
       label:window.TUTOR_LABEL,
-      statusOrder:["briefed","floored","baseline","deprecated"],
-      statusColor:{briefed:"#1a5c38",floored:"#243cb3",baseline:"#a1a1aa",deprecated:"#d8923f"},
-      statusLabel:{briefed:"Redesigned (briefed)",floored:"Consistency floor",baseline:"Baseline",deprecated:"Retiring"},
+      statusOrder:["pass","briefed","floored","baseline","deprecated"],
+      statusColor:{pass:"#15803d",briefed:"#1a5c38",floored:"#243cb3",baseline:"#a1a1aa",deprecated:"#d8923f"},
+      statusLabel:{pass:"Locked · build-ready",briefed:"Redesigned (briefed)",floored:"Consistency floor",baseline:"Baseline",deprecated:"Retiring"},
       thumbs:window.TUTOR_THUMBS||{}, hasThumbs:true, briefBase:"",
       ns:'North Star: <b>increase intelligent request applications</b> — fit tutors applying to fit requests, with less friction and smarter surfacing. Every screen earns its place by moving a funnel number.',
       where:'<div class="big">Phase 2 · Activate</div><div class="phaserow"><span class="ph done">✓ P1 Participate</span><span class="ph now">→ P2 Activate</span><span class="ph next">P3 Deliver</span><span class="ph next">P4 Grow</span><span class="ph next">Tail</span></div><div style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5">Phases run in <b>funnel-impact</b> order (the North Star first), not screen order.</div>',
@@ -246,7 +246,7 @@ a{color:inherit;text-decoration:none}
           var thumb=t?'<img src="'+t+'" alt="'+s.n+'" loading="lazy">':'<div class="holder">'+(s.n.indexOf(" / ")>=0?s.n.split(" / ")[1]:s.n)+'<span class="sm">'+(app.hasThumbs?'in-flow screen':'open before / after →')+'</span></div>';
           var disp=s.n.indexOf(" / ")>=0?s.n.split(" / ")[1]:s.n;
           return '<div class="node" data-name="'+(s.n+" "+s.d).toLowerCase().replace(/"/g,'')+'" data-status="'+s.s+'" data-tab="'+c.tab+'" data-stage="'+st.key+'" '+
-                 'data-full="'+s.n.replace(/"/g,'')+'" data-desc="'+s.d.replace(/"/g,'')+'" data-cat="'+c.t.replace(/"/g,'')+'" data-thumb="'+(t||"")+'" data-p0="'+(s.p0?1:0)+'" data-brief="'+briefUrl+'">'+
+                 'data-full="'+s.n.replace(/"/g,'')+'" data-desc="'+s.d.replace(/"/g,'')+'" data-cat="'+c.t.replace(/"/g,'')+'" data-thumb="'+(t||"")+'" data-p0="'+(s.p0?1:0)+'" data-brief="'+briefUrl+'" data-mock="'+(s.m||"")+'">'+
                  '<div class="thumb">'+(s.p0?'<span class="p0">P0 fix</span>':'')+thumb+'</div>'+
                  '<div class="cn">'+disp+'</div><div class="meta"><span class="pill" style="background:'+statusBg(app,s.s)+';color:'+app.statusColor[s.s]+'">'+app.label[s.s]+'</span><span class="tab">'+c.tab+'</span></div></div>';
         }).join("");
@@ -261,7 +261,7 @@ a{color:inherit;text-decoration:none}
     apply();
   }
   function statusBg(app,s){ // light bg for the pill from the status color
-    var m={"#1a5c38":"var(--greenbg)","#243cb3":"var(--bluebg)","#a1a1aa":"var(--greybg)","#d8923f":"var(--amberbg)"};
+    var m={"#15803d":"var(--greenbg)","#1a5c38":"var(--greenbg)","#243cb3":"var(--bluebg)","#a1a1aa":"var(--greybg)","#d8923f":"var(--amberbg)"};
     return m[app.statusColor[s]]||"var(--greybg)";
   }
   function apply(){
@@ -288,13 +288,14 @@ a{color:inherit;text-decoration:none}
   var lb=document.getElementById("lb"),lbc=document.getElementById("lbcard");
   elStages.addEventListener("click",function(e){
     var nd=e.target.closest(".node"); if(!nd)return;
-    var app=APPS[ACTIVE], t=nd.dataset.thumb, brief=nd.dataset.brief;
+    var app=APPS[ACTIVE], t=nd.dataset.thumb, brief=nd.dataset.brief, mock=nd.dataset.mock;
     var img=t?'<img src="'+t+'">':'<div class="lbholder">'+nd.dataset.full+'<br>'+(app.hasThumbs?'(in-flow screen — opens only mid-action)':'(parent app — see the before/after on the customer hub)')+'</div>';
     lbc.innerHTML=img+'<div class="lbinfo"><span class="x" onclick="document.getElementById(\'lb\').classList.remove(\'on\')">✕</span>'+
       '<h4>'+nd.dataset.full+(nd.dataset.p0==="1"?' <span style="font-size:11px;color:#b91c1c;font-weight:800">P0 fix</span>':'')+'</h4>'+
       '<div class="sub">'+nd.dataset.cat+' · '+nd.dataset.tab+' tab</div>'+
       '<div class="row"><b>Status</b><span class="pill" style="background:'+statusBg(app,nd.dataset.status)+';color:'+app.statusColor[nd.dataset.status]+'">'+app.label[nd.dataset.status]+'</span></div>'+
       '<div class="d">'+nd.dataset.desc+'</div>'+
+      (mock?'<a class="open" style="background:#15803d" href="'+app.briefBase+mock+'" target="_blank">View redesign →</a> ':'')+
       (brief?'<a class="open" href="'+brief+'" target="_blank">Open before / after →</a>':'')+'</div>';
     lb.classList.add("on");
   });

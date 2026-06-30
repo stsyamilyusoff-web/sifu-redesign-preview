@@ -1,308 +1,383 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sifututor · Redesign system (tutor + customer)</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sifututor · Approved redesigns</title>
 <style>
-:root{
-  --brand:#243cb3;--brand2:#2b2fbe;--ink:#15161c;--muted:#5b6472;--line:#e4e8ef;
-  --bg:#f4f6fb;--card:#fff;
-  --green:#1a5c38;--greenbg:#e8f5ee;--blue:#243cb3;--bluebg:#e7ecfb;
-  --grey:#71717a;--greybg:#f0f0f3;--amber:#9a3412;--amberbg:#fdf2e3;--red:#b91c1c;--redbg:#fdeaea;
-  --star:#b45309;--starbg:#fef6e7;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
-a{color:inherit;text-decoration:none}
-.wrap{max-width:1180px;margin:0 auto;padding:20px 18px 80px}
-.head{background:linear-gradient(135deg,var(--brand) 0%,var(--brand2) 100%);color:#fff;border-radius:20px;padding:26px 28px}
-.head .kick{font-size:11.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;opacity:.82}
-.head h1{font-size:25px;font-weight:850;margin:6px 0 5px;letter-spacing:-.4px}
-.head .ns{font-size:13.5px;opacity:.95;max-width:710px;line-height:1.55;min-height:40px}
-.head .ns b{font-weight:800}
-.apptabs{display:flex;gap:8px;margin-top:18px}
-.apptab{font-size:13px;font-weight:700;padding:8px 15px;border-radius:99px;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.25);cursor:pointer}
-.apptab.on{background:#fff;color:var(--brand)}
-.dash{display:grid;grid-template-columns:1.35fr 1fr;gap:14px;margin-top:16px}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
-.panel h3{margin:0 0 12px;font-size:11.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted)}
-.bar{height:18px;border-radius:7px;overflow:hidden;display:flex;border:1px solid var(--line)}
-.bar i{display:block;height:100%}
-.legend{display:flex;flex-wrap:wrap;gap:13px;margin-top:11px;font-size:12px;color:var(--muted)}
-.legend span{display:inline-flex;align-items:center;gap:5px}
-.dot{width:9px;height:9px;border-radius:3px;display:inline-block}
-.big{font-size:26px;font-weight:850;letter-spacing:-.6px}
-.phaserow{display:flex;align-items:center;gap:6px;font-size:12px;margin-top:9px;flex-wrap:wrap}
-.ph{padding:3px 9px;border-radius:7px;font-weight:700;font-size:11px}
-.ph.done{background:var(--greenbg);color:var(--green)}.ph.now{background:var(--bluebg);color:var(--blue)}.ph.next{background:var(--greybg);color:var(--grey)}
-.tools{display:flex;gap:9px;margin:18px 0 6px;flex-wrap:wrap;position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 0}
-.search{flex:1;min-width:230px;display:flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:0 14px}
-.search input{border:0;outline:0;font-size:14px;padding:12px 0;width:100%;background:transparent;color:var(--ink)}
-.sel{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:0 10px;font-size:13px;font-weight:600;color:var(--ink)}
-.sel select{border:0;outline:0;background:transparent;font-size:13px;font-weight:600;padding:12px 4px;color:var(--ink)}
-.rescount{font-size:12px;color:var(--muted);align-self:center;padding-left:4px}
-.spinewrap{margin:16px 0 6px}
-.spinelbl{font-size:11.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
-.spine{display:grid;gap:7px}
-.schip{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 9px;text-align:center;cursor:pointer;position:relative;transition:.12s}
-.schip:hover{box-shadow:0 4px 14px rgba(36,60,179,.12);transform:translateY(-1px)}
-.schip.star{border-color:#e7b75e;box-shadow:0 0 0 2px var(--starbg)}
-.schip .n{font-size:10.5px;color:var(--muted);font-weight:700}
-.schip .nm{font-size:13px;font-weight:800;margin:2px 0 1px;line-height:1.2}
-.schip .cnt{font-size:10.5px;color:var(--muted)}
-.schip .tag{position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;white-space:nowrap;text-transform:uppercase;letter-spacing:.3px}
-.tag.done{background:var(--green);color:#fff}.tag.now{background:var(--blue);color:#fff}.tag.next{background:#a1a1aa;color:#fff}
-.schip .sbar{height:5px;border-radius:3px;overflow:hidden;display:flex;margin-top:8px;border:1px solid var(--line)}
-.schip .sbar i{height:100%}
-.stage{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:14px;scroll-margin-top:70px}
-.stage.star{border-color:#e7b75e}
-.stagehd{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;cursor:pointer}
-.stagehd .l{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.stagehd .num{font-size:13px;font-weight:800;color:var(--muted)}
-.stagehd .t{font-size:18px;font-weight:850}
-.stagehd .t .star{color:var(--star)}
-.stagehd .tag{font-size:10px;font-weight:800;padding:2px 9px;border-radius:99px;text-transform:uppercase;letter-spacing:.3px}
-.stagehd .role{font-size:12px;color:var(--muted);font-weight:600}
-.stagehd .toggle{font-size:12px;color:var(--muted);font-weight:700}
-.cluster{margin-top:16px}
-.cluster .ch{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:7px;margin-bottom:12px}
-.cluster .ct{font-size:13.5px;font-weight:800}
-.cluster .cd{font-size:12px;color:var(--muted);font-weight:500}
-.cluster .briefs{display:flex;gap:6px;flex-wrap:wrap}
-.briefbtn{font-size:11.5px;font-weight:700;color:var(--brand);background:var(--bluebg);border-radius:8px;padding:6px 11px;white-space:nowrap}
-.briefbtn:hover{background:#dbe3fb}
-.flow{display:flex;flex-wrap:wrap;gap:13px}
-.node{width:128px;cursor:pointer}
-.thumb{height:184px;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:linear-gradient(160deg,#fbfcfe,#eef1f7);display:flex;align-items:center;justify-content:center;position:relative}
-.thumb img{width:100%;height:100%;object-fit:cover;object-position:top}
-.thumb .holder{font-size:11px;color:#8a93a5;text-align:center;padding:10px;line-height:1.35;font-weight:600}
-.thumb .holder .sm{font-size:9.5px;opacity:.7;font-weight:500;display:block;margin-top:6px}
-.thumb .p0{position:absolute;top:6px;left:6px;background:var(--red);color:#fff;font-size:8.5px;font-weight:800;border-radius:5px;padding:1px 5px;letter-spacing:.3px}
-.node .cn{font-weight:700;font-size:12px;margin:7px 1px 2px;line-height:1.25}
-.node .meta{display:flex;gap:4px;flex-wrap:wrap;margin:2px 1px}
-.pill{font-size:9px;font-weight:800;border-radius:99px;padding:2px 6px;text-transform:uppercase;letter-spacing:.2px}
-.tab{font-size:9px;font-weight:700;color:var(--muted);background:#f4f4f6;border-radius:99px;padding:2px 6px}
-.collapsed .flow,.collapsed .cluster{display:none}
-.note{margin-top:20px;font-size:12.5px;color:var(--muted);background:#eef1ff;border:1px solid #d6ddff;border-radius:11px;padding:13px 15px;line-height:1.6}
-.note b{color:var(--brand)}
-.foot{font-size:11px;color:#9aa2b1;text-align:center;margin-top:24px;line-height:1.6}
-.lb{position:fixed;inset:0;background:rgba(10,14,30,.72);display:none;align-items:center;justify-content:center;z-index:50;padding:24px}
-.lb.on{display:flex}
-.lbcard{background:var(--card);border-radius:16px;max-width:760px;width:100%;max-height:92vh;overflow:auto;display:grid;grid-template-columns:300px 1fr;gap:0}
-.lbcard img{width:100%;display:block;border-right:1px solid var(--line)}
-.lbholder{display:flex;align-items:center;justify-content:center;background:#eef1f7;color:#9aa2b1;font-size:12px;padding:30px;text-align:center;border-right:1px solid var(--line)}
-.lbinfo{padding:22px 24px}
-.lbinfo .x{float:right;font-size:20px;color:var(--muted);cursor:pointer;line-height:1}
-.lbinfo h4{margin:0 0 4px;font-size:19px;font-weight:850}
-.lbinfo .sub{font-size:12px;color:var(--muted);margin-bottom:14px}
-.lbinfo .row{font-size:13px;margin:9px 0;display:flex;gap:8px;align-items:center}
-.lbinfo .row b{min-width:74px;color:var(--muted);font-weight:700}
-.lbinfo .d{font-size:13.5px;color:var(--ink);margin:14px 0;line-height:1.5}
-.lbinfo .open{display:inline-block;margin-top:6px;font-size:13px;font-weight:700;color:#fff;background:var(--brand);border-radius:9px;padding:9px 15px}
-@media(max-width:560px){.dash{grid-template-columns:1fr}.lbcard{grid-template-columns:1fr}.lbcard img,.lbholder{border-right:0;border-bottom:1px solid var(--line)}}
-</style></head><body><div class="wrap">
+  :root{
+    /* Locked brand token - single source of truth */
+    --brand:#2B2FBE;
+    --brand-soft:#EEF0FE;
+    --brand-line:#D7DAFB;
+    --ink:#15161C;
+    --ink-2:#3D414C;
+    --muted:#6B7280;
+    --faint:#9AA0AC;
+    --line:#E5E8EF;
+    --line-2:#EEF1F6;
+    --bg:#F5F7FB;
+    --card:#FFFFFF;
+    --shadow:0 1px 2px rgba(21,22,28,.04), 0 8px 24px rgba(21,22,28,.06);
+    --shadow-hover:0 2px 6px rgba(43,47,190,.10), 0 18px 44px rgba(43,47,190,.16);
+    --ok:#1A5C38; --ok-bg:#E8F5EE;
+    --new:#7A3DBE; --new-bg:#F3ECFB;
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1240px;margin:0 auto;padding:28px 24px 80px}
 
-<div class="head">
-  <div class="kick">Redesign system · whole product</div>
-  <h1>Sifututor · Redesign</h1>
-  <div class="ns" id="ns"></div>
-  <div class="apptabs">
-    <div class="apptab on" data-app="tutor">Tutor app · <span class="ac" data-app="tutor"></span></div>
-    <div class="apptab" data-app="customer">Customer app · <span class="ac" data-app="customer"></span></div>
+  /* ---------- Header ---------- */
+  .head{
+    background:linear-gradient(140deg,var(--brand) 0%,#3A3FE0 58%,#4F54F2 100%);
+    color:#fff;border-radius:24px;padding:34px 36px;position:relative;overflow:hidden;
+    box-shadow:0 18px 50px rgba(43,47,190,.28);
+  }
+  .head::after{
+    content:"";position:absolute;right:-70px;top:-90px;width:320px;height:320px;border-radius:50%;
+    background:radial-gradient(circle at center, rgba(255,255,255,.16), rgba(255,255,255,0) 70%);
+  }
+  .head .kicker{font-size:12.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;opacity:.82;margin:0 0 10px}
+  .head h1{margin:0;font-size:32px;font-weight:800;letter-spacing:-.4px}
+  .head p.sub{margin:10px 0 0;font-size:15.5px;max-width:680px;opacity:.92;font-weight:400}
+  .head .meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:22px;position:relative;z-index:2}
+  .pill{
+    display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:#fff;
+    border-radius:999px;padding:8px 15px;backdrop-filter:saturate(140%) blur(2px);
+  }
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:#9FE6BE;box-shadow:0 0 0 3px rgba(159,230,190,.25)}
+  a.maplink{
+    margin-left:auto;display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+    background:#fff;color:var(--brand);font-weight:800;font-size:13.5px;border-radius:999px;
+    padding:11px 18px;box-shadow:0 6px 18px rgba(0,0,0,.14);transition:transform .12s ease, box-shadow .12s ease;
+  }
+  a.maplink:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(0,0,0,.20)}
+  a.maplink .arr{transition:transform .14s ease}
+  a.maplink:hover .arr{transform:translateX(3px)}
+
+  /* ---------- Global toggle ---------- */
+  .controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:26px 2px 4px}
+  .controls .lede{font-size:13px;color:var(--muted);font-weight:500;margin-right:auto}
+  .seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px;box-shadow:var(--shadow)}
+  .seg button{
+    border:0;background:transparent;font:inherit;font-size:13px;font-weight:700;color:var(--muted);
+    padding:8px 16px;border-radius:9px;cursor:pointer;transition:.12s;
+  }
+  .seg button.on{background:var(--brand);color:#fff;box-shadow:0 2px 6px rgba(43,47,190,.30)}
+
+  /* ---------- Stage section ---------- */
+  .stage{margin-top:34px}
+  .stage-hd{display:flex;align-items:baseline;gap:12px;margin:0 4px 16px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+  .stage-hd .idx{
+    font-size:12px;font-weight:800;color:var(--brand);background:var(--brand-soft);
+    border:1px solid var(--brand-line);border-radius:8px;padding:3px 9px;letter-spacing:.4px;
+  }
+  .stage-hd h2{margin:0;font-size:19px;font-weight:800;letter-spacing:-.2px}
+  .stage-hd .role{font-size:13px;color:var(--muted);font-weight:500}
+  .stage-hd .cnt{margin-left:auto;font-size:12.5px;color:var(--faint);font-weight:600}
+
+  /* ---------- Grid + cards ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(232px, 1fr));gap:22px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    text-decoration:none;color:inherit;display:flex;flex-direction:column;
+    box-shadow:var(--shadow);transition:transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);border-color:var(--brand-line)}
+
+  .framewrap{
+    position:relative;background:linear-gradient(170deg,#FBFCFF 0%,#EEF1F8 100%);
+    padding:20px 20px 0;display:flex;justify-content:center;align-items:flex-end;height:300px;overflow:hidden;
+  }
+  /* phone shell - gives the bare screenshot a device edge */
+  .phone{
+    width:148px;border-radius:24px 24px 0 0;overflow:hidden;
+    box-shadow:0 -1px 0 rgba(21,22,28,.04), 0 14px 30px rgba(21,22,28,.20), 0 2px 8px rgba(21,22,28,.10);
+    border:5px solid #11131A;border-bottom:0;background:#11131A;
+    transform:translateY(2px);
+  }
+  .phone img{display:block;width:100%;height:auto}
+  /* before/after stacking inside the same shell */
+  .phone .shot{display:block;width:100%}
+  .phone .shot.before{display:none}
+  .card[data-show="before"] .phone .shot.after{display:none}
+  .card[data-show="before"] .phone .shot.before{display:block}
+
+  /* corner state badge */
+  .badge{
+    position:absolute;top:14px;left:14px;font-size:10px;font-weight:800;letter-spacing:.4px;
+    border-radius:6px;padding:3px 8px;text-transform:uppercase;z-index:3;
+  }
+  .badge.now{color:#fff;background:var(--brand);box-shadow:0 2px 6px rgba(43,47,190,.4)}
+  .badge.before{color:var(--ink-2);background:#fff;border:1px solid var(--line)}
+  /* per-card view switch (sits on the frame) */
+  .switch{
+    position:absolute;top:12px;right:12px;display:inline-flex;background:rgba(255,255,255,.92);
+    border:1px solid var(--line);border-radius:9px;padding:3px;z-index:4;backdrop-filter:blur(3px);
+    box-shadow:0 2px 8px rgba(21,22,28,.10);
+  }
+  .switch button{
+    border:0;background:transparent;font:inherit;font-size:10.5px;font-weight:800;color:var(--muted);
+    padding:4px 9px;border-radius:6px;cursor:pointer;transition:.1s;letter-spacing:.2px;
+  }
+  .switch button.on{background:var(--brand);color:#fff}
+  .switch button:disabled{color:var(--faint);cursor:not-allowed;opacity:.55}
+
+  /* P0 tag */
+  .p0{
+    position:absolute;bottom:14px;right:14px;z-index:3;font-size:9.5px;font-weight:800;letter-spacing:.3px;
+    color:#B45309;background:#FEF6E7;border:1px solid #F4D99A;border-radius:6px;padding:2px 7px;
+  }
+
+  .body{padding:15px 16px 17px;border-top:1px solid var(--line-2);display:flex;flex-direction:column;gap:7px;flex:1}
+  .body .nm{font-size:15px;font-weight:800;letter-spacing:-.1px;display:flex;align-items:center;gap:8px}
+  .body .nm .open{margin-left:auto;color:var(--faint);font-size:13px;transition:.12s}
+  .card:hover .body .nm .open{color:var(--brand);transform:translateX(2px)}
+  .body .chg{font-size:12.5px;color:var(--muted);line-height:1.45}
+  .body .meta-row{display:flex;align-items:center;gap:7px;margin-top:2px}
+  .tag-new{font-size:9.5px;font-weight:800;color:var(--new);background:var(--new-bg);border-radius:5px;padding:2px 7px;letter-spacing:.3px}
+  .tag-base{font-size:9.5px;font-weight:700;color:var(--muted);background:#F1F2F5;border-radius:5px;padding:2px 7px;letter-spacing:.3px}
+
+  /* footer note */
+  .foot{margin-top:46px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);text-align:center;line-height:1.7}
+  .foot a{color:var(--brand);font-weight:700;text-decoration:none}
+  .foot a:hover{text-decoration:underline}
+
+  @media (max-width:560px){
+    .wrap{padding:18px 14px 60px}
+    .head{padding:26px 22px}
+    .head h1{font-size:25px}
+    a.maplink{margin-left:0;margin-top:14px;width:100%;justify-content:center}
+    .grid{grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));gap:16px}
+    .controls .lede{width:100%}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="head">
+    <p class="kicker">Sifututor · Tutor app redesign</p>
+    <h1>Approved redesigns</h1>
+    <p class="sub">The build-ready screens, leading with the new design. Each card opens the full mock; flip any card to see the live screen it replaces.</p>
+    <div class="meta">
+      <span class="pill"><span class="dot"></span>13 build-ready screens</span>
+      <span class="pill">4 journey stages</span>
+      <span class="pill">All locked 2026-06-30</span>
+      <a class="maplink" href="full-map.html">See the full 95-screen map <span class="arr">&rarr;</span></a>
+    </div>
+  </header>
+
+  <div class="controls">
+    <span class="lede">Cards show the <strong>new design</strong>. Use the toggle to flip every card at once, or flip cards one by one.</span>
+    <div class="seg" id="globalseg">
+      <button data-all="after" class="on">New design</button>
+      <button data-all="before">Live (before)</button>
+    </div>
   </div>
+
+  <!-- ============ STAGE 1 ============ -->
+  <section class="stage">
+    <div class="stage-hd">
+      <span class="idx">01</span>
+      <h2>Acquire</h2>
+      <span class="role">Front door &middot; boot, value, sign-up</span>
+      <span class="cnt">4 screens</span>
+    </div>
+    <div class="grid" id="grid-acquire"></div>
+  </section>
+
+  <!-- ============ STAGE 2 ============ -->
+  <section class="stage">
+    <div class="stage-hd">
+      <span class="idx">02</span>
+      <h2>Participate</h2>
+      <span class="role">Find &amp; apply to requests</span>
+      <span class="cnt">1 screen</span>
+    </div>
+    <div class="grid" id="grid-participate"></div>
+  </section>
+
+  <!-- ============ STAGE 3 ============ -->
+  <section class="stage">
+    <div class="stage-hd">
+      <span class="idx">03</span>
+      <h2>Win &amp; Deliver</h2>
+      <span class="role">Teach, schedule, report</span>
+      <span class="cnt">5 screens</span>
+    </div>
+    <div class="grid" id="grid-deliver"></div>
+  </section>
+
+  <!-- ============ STAGE 4 ============ -->
+  <section class="stage">
+    <div class="stage-hd">
+      <span class="idx">04</span>
+      <h2>Profile &amp; consent</h2>
+      <span class="role">Identity, hub, agreements</span>
+      <span class="cnt">3 screens</span>
+    </div>
+    <div class="grid" id="grid-profile"></div>
+  </section>
+
+  <p class="foot">
+    Build handoff for the founder + Hafiz. Thumbnails are the actual rendered new mocks (light hero state, 1:1 device geometry).<br>
+    Looking for everything else? <a href="full-map.html">Open the full 95-screen status map &rarr;</a>
+  </p>
+
 </div>
 
-<div class="dash">
-  <div class="panel">
-    <h3>Redesign progress · <span id="totscr"></span> screens</h3>
-    <div class="bar" id="progbar"></div>
-    <div class="legend" id="legend"></div>
-  </div>
-  <div class="panel">
-    <h3>Where we are</h3>
-    <div id="whereami"></div>
-  </div>
-</div>
-
-<div class="tools">
-  <div class="search">🔍<input id="q" placeholder="Find any screen, flow, or status…" autocomplete="off"></div>
-  <div class="sel"><select id="fstage"><option value="">All stages</option></select></div>
-  <div class="sel"><select id="fstatus"><option value="">All status</option></select></div>
-  <div class="sel"><select id="ftab"><option value="">All tabs</option></select></div>
-  <div class="rescount" id="rescount"></div>
-</div>
-
-<div class="spinewrap">
-  <div class="spinelbl" id="spinelbl"></div>
-  <div class="spine" id="spine"></div>
-</div>
-
-<div id="stages"></div>
-
-<div class="note" id="note"></div>
-<div style="text-align:center;margin-top:18px" id="detaillink"></div>
-<div class="foot">Sifututor · redesign system · tutor screens are real baseline captures (personal data redacted); customer screens link to their before/after mockups. Previews are design mockups, not the live app.</div>
-
-</div>
-
-<div class="lb" id="lb"><div class="lbcard" id="lbcard"></div></div>
-
-<script src="tutor-screens-data.js"></script>
-<script src="tutor-thumbs.js"></script>
-<script src="customer-screens-data.js"></script>
 <script>
-(function(){
-  var APPS={
-    tutor:{
-      name:"Tutor app", cats:window.TUTOR_CATS, stages:window.TUTOR_STAGES,
-      label:window.TUTOR_LABEL,
-      statusOrder:["pass","briefed","floored","baseline","deprecated"],
-      statusColor:{pass:"#15803d",briefed:"#1a5c38",floored:"#243cb3",baseline:"#a1a1aa",deprecated:"#d8923f"},
-      statusLabel:{pass:"Locked · build-ready",briefed:"Redesigned (briefed)",floored:"Consistency floor",baseline:"Baseline",deprecated:"Retiring"},
-      thumbs:window.TUTOR_THUMBS||{}, hasThumbs:true, briefBase:"",
-      ns:'North Star: <b>increase intelligent request applications</b> — fit tutors applying to fit requests, with less friction and smarter surfacing. Every screen earns its place by moving a funnel number.',
-      where:'<div class="big">Phase 2 · Activate</div><div class="phaserow"><span class="ph done">✓ P1 Participate</span><span class="ph now">→ P2 Activate</span><span class="ph next">P3 Deliver</span><span class="ph next">P4 Grow</span><span class="ph next">Tail</span></div><div style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5">Phases run in <b>funnel-impact</b> order (the North Star first), not screen order.</div>',
-      spinelbl:"The tutor's journey — the spine of the whole app (click to jump)",
-      note:'<b>How the briefs fit in:</b> every redesign brief is attached to the stage + cluster it covers (the buttons beside each cluster). Screens are the atomic unit; the briefs go deeper. Click any tile to see it bigger.',
-      detail:'<a href="tutor-current-screens.html" target="_blank" class="briefbtn" style="font-size:13px;padding:10px 18px">See all 91 current tutor screens as one compilation →</a>'
-    },
-    customer:{
-      name:"Customer app", cats:window.CUSTOMER_CATS, stages:window.CUSTOMER_STAGES,
-      label:window.CUSTOMER_LABEL,
-      statusOrder:["briefed","pass","shared","demoted"],
-      statusColor:window.CUSTOMER_STATUS_COLOR,
-      statusLabel:window.CUSTOMER_STATUS_LABEL,
-      thumbs:{}, hasThumbs:false, briefBase:window.CUSTOMER_BRIEF_BASE,
-      ns:'North Star: <b>retained paying parents past month 1</b> — a trustworthy match, classes that actually happen, and proof their child is improving, so they keep paying with confidence.',
-      where:'<div class="big">Design complete</div><div class="phaserow"><span class="ph done">✓ All 44 mocked</span><span class="ph now">→ Hafiz review</span><span class="ph next">Build (team)</span></div><div style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5">Every screen has a before/after + a comment box on the <b>customer hub</b> (tiles link out).</div>',
-      spinelbl:"The parent's journey — the spine of the whole app (click to jump)",
-      note:'<b>Customer detail lives on the customer hub.</b> Each tile links to its before/after page (with Hafiz\'s per-screen comment box). The parent app has no baseline screenshots yet, so tiles show the screen name and route out to the mockup.',
-      detail:'<a href="https://stsyamilyusoff-web.github.io/sifu-customer-preview/" target="_blank" class="briefbtn" style="font-size:13px;padding:10px 18px">Open the full customer hub (per-screen before/after + comments) →</a>'
-    }
-  };
-  function san(x){return (x||"").replace(/[^A-Za-z0-9]/g,"");}
-  function lastSeg(x){var p=(x||"").split(" / ");return p[p.length-1];}
-  var TNAMEIDX={}; Object.keys(APPS.tutor.thumbs).forEach(function(k){var nm=k.substring(k.indexOf("-")+1);TNAMEIDX[san(nm)]=k;TNAMEIDX[san(nm).toLowerCase()]=k;});
-  function thumbFor(app,catKey,s){
-    if(!app.hasThumbs)return null;
-    if(s.cap&&app.thumbs[s.cap])return app.thumbs[s.cap];
-    var T=app.thumbs,n=s.n,t;
-    t=T[catKey+"-"+san(n)]; if(t)return t;
-    t=T[catKey+"-"+san(lastSeg(n))]; if(t)return t;
-    var k=TNAMEIDX[san(n)]||TNAMEIDX[san(lastSeg(n))]||TNAMEIDX[san(n).toLowerCase()]||TNAMEIDX[san(lastSeg(n)).toLowerCase()];
-    return k?T[k]:null;
-  }
-  var elNs=document.getElementById("ns"),elTot=document.getElementById("totscr"),elBar=document.getElementById("progbar"),
-      elLeg=document.getElementById("legend"),elWhere=document.getElementById("whereami"),elSpine=document.getElementById("spine"),
-      elSpineLbl=document.getElementById("spinelbl"),elStages=document.getElementById("stages"),elNote=document.getElementById("note"),
-      elDetail=document.getElementById("detaillink"),fstage=document.getElementById("fstage"),fstatus=document.getElementById("fstatus"),
-      ftab=document.getElementById("ftab"),q=document.getElementById("q"),rc=document.getElementById("rescount");
-  var ACTIVE="tutor";
+  // ---- data: the 13 approved redesigns ----
+  // after  = new hero PNG (gallery-thumbs/<after>.png)
+  // before = baseline PNG basename (gallery-thumbs/before-<before>.png) or null
+  // mock   = full mock file to open in a new tab
+  const SCREENS = [
+    // ---- Acquire ----
+    { stage:'acquire', name:'Splash', mock:'splash-a44.html',
+      after:'splash-a44', before:null,
+      chg:'Clean brand-mark flood: shield, Sifututor wordmark, tagline and loader. Boot logic + deep-link routing preserved.' },
+    { stage:'acquire', name:'OnBoarding', mock:'onboarding-a41.html',
+      after:'onboarding-a41', before:'OnBoarding',
+      chg:'Three value slides re-grounded to real tutor jobs (matched students, billing handled, earn per class), with real-photography direction.' },
+    { stage:'acquire', name:'Login', mock:'login-a42.html',
+      after:'login-a42', before:'Login',
+      chg:'Focus-first phone capture: brand mark, the international phone field as the hero, a pinned Continue. All 13 live fields kept.' },
+    { stage:'acquire', name:'VerifyCode', mock:'verifycode-a43.html',
+      after:'verifycode-a43', before:'VerifyCode',
+      chg:'Focus-first OTP with the resend copy fixed to "Resend code in 0:59" (was the broken "Resend End in 59 Seconds"), plus Edit-number recovery.' },
 
-  function render(appKey){
-    ACTIVE=appKey; var app=APPS[appKey];
-    document.querySelectorAll(".apptab").forEach(function(t){t.classList.toggle("on",t.dataset.app===appKey);});
-    elNs.innerHTML=app.ns; elWhere.innerHTML=app.where; elSpineLbl.textContent=app.spinelbl;
-    elNote.innerHTML=app.note; elDetail.innerHTML=app.detail;
-    elSpine.style.gridTemplateColumns="repeat("+app.stages.length+",1fr)";
-    // counts
-    var all=[]; app.cats.forEach(function(c){c.screens.forEach(function(s){all.push({c:c,s:s});});});
-    var total=all.length; elTot.textContent=total;
-    var counts={}; app.statusOrder.forEach(function(k){counts[k]=0;}); all.forEach(function(x){counts[x.s.s]=(counts[x.s.s]||0)+1;});
-    elBar.innerHTML=""; elLeg.innerHTML="";
-    app.statusOrder.forEach(function(k){ if(!counts[k])return;
-      var i=document.createElement("i"); i.style.width=(counts[k]/total*100)+"%"; i.style.background=app.statusColor[k]; elBar.appendChild(i);
-      var sp=document.createElement("span"); sp.innerHTML='<i class="dot" style="background:'+app.statusColor[k]+'"></i>'+counts[k]+' '+app.statusLabel[k]; elLeg.appendChild(sp);
-    });
-    // filters
-    fstage.innerHTML='<option value="">All stages</option>'; app.stages.forEach(function(st){var o=document.createElement("option");o.value=st.key;o.textContent=st.t;fstage.appendChild(o);});
-    fstatus.innerHTML='<option value="">All status</option>'; app.statusOrder.forEach(function(k){var o=document.createElement("option");o.value=k;o.textContent=app.statusLabel[k];fstatus.appendChild(o);});
-    var tabs=[]; app.cats.forEach(function(c){if(tabs.indexOf(c.tab)<0)tabs.push(c.tab);});
-    ftab.innerHTML='<option value="">All tabs</option>'; tabs.forEach(function(t){var o=document.createElement("option");o.value=t;o.textContent=t+" tab";ftab.appendChild(o);});
-    q.value="";
-    // spine
-    elSpine.innerHTML="";
-    app.stages.forEach(function(st){
-      var cats=app.cats.filter(function(c){return c.stage===st.key;});
-      var scr=[]; cats.forEach(function(c){scr=scr.concat(c.screens);});
-      var cc={}; app.statusOrder.forEach(function(k){cc[k]=0;}); scr.forEach(function(s){cc[s.s]=(cc[s.s]||0)+1;});
-      var sb=""; app.statusOrder.forEach(function(k){if(cc[k])sb+='<i style="width:'+(cc[k]/scr.length*100)+'%;background:'+app.statusColor[k]+'"></i>';});
-      var el=document.createElement("div"); el.className="schip"+(st.star?" star":"");
-      el.innerHTML='<span class="tag '+st.phaseClass+'">'+st.phase+'</span><div class="n">'+st.num+'</div><div class="nm">'+st.t+(st.star?' ★':'')+'</div><div class="cnt">'+scr.length+' screens</div><div class="sbar">'+sb+'</div>';
-      el.onclick=function(){var tgt=document.getElementById("stage-"+st.key); if(tgt){tgt.classList.remove("collapsed"); tgt.scrollIntoView({behavior:"smooth",block:"start"});}};
-      elSpine.appendChild(el);
-    });
-    // stages
-    elStages.innerHTML="";
-    var openKey = appKey==="tutor"?"participate":"match";
-    app.stages.forEach(function(st){
-      var cats=app.cats.filter(function(c){return c.stage===st.key;}); if(!cats.length)return;
-      var scrN=0; cats.forEach(function(c){scrN+=c.screens.length;});
-      var sec=document.createElement("section"); sec.className="stage"+(st.star?" star":""); sec.id="stage-"+st.key;
-      if(st.key!==openKey) sec.className+=" collapsed";
-      var clustersHtml="";
-      cats.forEach(function(c){
-        var briefs=(c.briefs||[]).map(function(b){return '<a class="briefbtn" href="'+app.briefBase+b.href+'" target="_blank">'+b.label+' · before → after →</a>';}).join("");
-        var briefUrl=(c.briefs&&c.briefs[0])?(app.briefBase+c.briefs[0].href):"";
-        var nodes=c.screens.map(function(s){
-          var t=thumbFor(app,c.key,s);
-          var thumb=t?'<img src="'+t+'" alt="'+s.n+'" loading="lazy">':'<div class="holder">'+(s.n.indexOf(" / ")>=0?s.n.split(" / ")[1]:s.n)+'<span class="sm">'+(app.hasThumbs?'in-flow screen':'open before / after →')+'</span></div>';
-          var disp=s.n.indexOf(" / ")>=0?s.n.split(" / ")[1]:s.n;
-          return '<div class="node" data-name="'+(s.n+" "+s.d).toLowerCase().replace(/"/g,'')+'" data-status="'+s.s+'" data-tab="'+c.tab+'" data-stage="'+st.key+'" '+
-                 'data-full="'+s.n.replace(/"/g,'')+'" data-desc="'+s.d.replace(/"/g,'')+'" data-cat="'+c.t.replace(/"/g,'')+'" data-thumb="'+(t||"")+'" data-p0="'+(s.p0?1:0)+'" data-brief="'+briefUrl+'" data-mock="'+(s.m||"")+'">'+
-                 '<div class="thumb">'+(s.p0?'<span class="p0">P0 fix</span>':'')+thumb+'</div>'+
-                 '<div class="cn">'+disp+'</div><div class="meta"><span class="pill" style="background:'+statusBg(app,s.s)+';color:'+app.statusColor[s.s]+'">'+app.label[s.s]+'</span><span class="tab">'+c.tab+'</span></div></div>';
-        }).join("");
-        clustersHtml+='<div class="cluster" data-cluster="'+c.key+'"><div class="ch"><div><span class="ct">'+c.t+'</span> &nbsp;<span class="cd">'+c.desc+'</span></div><div class="briefs">'+(briefs||'<span class="cd" style="opacity:.6">no brief yet</span>')+'</div></div><div class="flow">'+nodes+'</div></div>';
+    // ---- Participate ----
+    { stage:'participate', name:'TutorRequests', mock:'requests-feed-r1.html',
+      after:'requests-feed-r1', before:'TutorRequests',
+      chg:'Earning-forward feed card (RM / month as motivation) with every fit fact in fixed scan zones and a single-line footer.' },
+
+    // ---- Win & Deliver ----
+    { stage:'deliver', name:'ClassSchedule', mock:'deliver-class-schedule.html',
+      after:'deliver-class-schedule', before:'ClassSchedule',
+      chg:'Schedule cockpit on the real class lifecycle, with an earnings summary and a week-to-month expandable calendar.' },
+    { stage:'deliver', name:'AddClassSchedule', mock:'deliver-add-class.html',
+      after:'deliver-add-class', before:'AddClassSchedule',
+      chg:'Focus-first stepped create-class form for the new auto-invoice model. Keeps the backdate cliff, proof, and repeat-weekly.' },
+    { stage:'deliver', name:'EvaluationReport', mock:'deliver-evaluation-report.html', p0:true,
+      after:'deliver-evaluation-report', before:'EvaluationReport',
+      chg:'First-class baseline form: full-bleed photo intro + baseline-score dial (no trend) + vertical-ladder rating. Absorbs two old screens.' },
+    { stage:'deliver', name:'ProgressReport', mock:'deliver-progress-report.html',
+      after:'deliver-progress-report', before:'ProgressReport',
+      chg:'Recurring 12-class report: credit-score dial (baseline to now trend), per-dimension movement, and a Luna parent verdict.' },
+    { stage:'deliver', name:'StudentsDetails', mock:'deliver-student-details.html', p0:true,
+      after:'deliver-student-details', before:'StudentsDetails',
+      chg:'Identity hero + a compact 2x2 contact grid (Call / WhatsApp / Email / Directions). Admin field cut, registration demoted.' },
+
+    // ---- Profile & consent ----
+    { stage:'profile', name:'ProfileMenu', mock:'profile-menu-hub.html',
+      after:'profile-menu-hub', before:'ProfileMenu',
+      chg:'A clean one-liner navigation hub with a milestone progress card up top.' },
+    { stage:'profile', name:'UpdateProfile', mock:'updateprofile-a45.html',
+      after:'updateprofile-a45', before:'UpdateProfile',
+      chg:'Re-skinned as the real name + email screen (verified phone locked, optional referral). Dead date-of-birth field cut.' },
+    { stage:'profile', name:'ConsentGate', mock:'updateprofile-a45.html',
+      after:'consentgate-a45', before:'ConsentGate',
+      chg:'Terms + a Privacy summary + a consent checkbox + "Agree & continue" where the save happens. Casing bug fixed.' },
+  ];
+
+  const T = 'gallery-thumbs/';
+  function cardHTML(s){
+    const hasBefore = !!s.before;
+    const beforeImg = hasBefore
+      ? `<img class="shot before" src="${T}before-${s.before}.png" alt="${s.name}, live (before)" loading="lazy">`
+      : '';
+    const switchHTML = `
+      <div class="switch">
+        <button data-view="after" class="on">New</button>
+        <button data-view="before" ${hasBefore ? '' : 'disabled title="No live baseline captured"'}>Before</button>
+      </div>`;
+    const p0 = s.p0 ? `<span class="p0">P0</span>` : '';
+    const metaTag = hasBefore
+      ? `<span class="tag-new">NEW</span><span class="tag-base">vs live</span>`
+      : `<span class="tag-new">NEW</span><span class="tag-base">no baseline</span>`;
+    return `
+      <a class="card" data-show="after" href="${s.mock}" target="_blank" rel="noopener">
+        <div class="framewrap">
+          <span class="badge now">New</span>
+          ${switchHTML}
+          ${p0}
+          <div class="phone">
+            <img class="shot after" src="${T}${s.after}.png" alt="${s.name}, new design" loading="lazy">
+            ${beforeImg}
+          </div>
+        </div>
+        <div class="body">
+          <div class="nm">${s.name}<span class="open">Open mock &rarr;</span></div>
+          <div class="chg">${s.chg}</div>
+          <div class="meta-row">${metaTag}</div>
+        </div>
+      </a>`;
+  }
+
+  // render into stage grids
+  const grids = {
+    acquire: document.getElementById('grid-acquire'),
+    participate: document.getElementById('grid-participate'),
+    deliver: document.getElementById('grid-deliver'),
+    profile: document.getElementById('grid-profile'),
+  };
+  SCREENS.forEach(s => { grids[s.stage].insertAdjacentHTML('beforeend', cardHTML(s)); });
+
+  // per-card switch (does not navigate)
+  document.querySelectorAll('.card').forEach(card => {
+    const badge = card.querySelector('.badge');
+    card.querySelectorAll('.switch button').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        if (btn.disabled) return;
+        const view = btn.dataset.view;
+        card.dataset.show = view;
+        card.querySelectorAll('.switch button').forEach(b => b.classList.toggle('on', b === btn));
+        badge.textContent = view === 'before' ? 'Before' : 'New';
+        badge.className = 'badge ' + (view === 'before' ? 'before' : 'now');
+        syncGlobal();
       });
-      var stTagBg=st.phaseClass==="done"?"var(--greenbg)":st.phaseClass==="now"?"var(--bluebg)":"var(--greybg)";
-      var stTagFg=st.phaseClass==="done"?"var(--green)":st.phaseClass==="now"?"var(--blue)":"var(--grey)";
-      sec.innerHTML='<div class="stagehd"><div class="l"><span class="num">Stage '+st.num+'</span><span class="t">'+st.t+(st.star?' <span class="star">★ North Star</span>':'')+'</span><span class="tag" style="background:'+stTagBg+';color:'+stTagFg+'">'+st.phase+'</span><span class="role">'+st.role+' · '+scrN+' screens</span></div><div class="toggle">▾ toggle</div></div>'+clustersHtml;
-      sec.querySelector(".stagehd").onclick=function(){sec.classList.toggle("collapsed");};
-      elStages.appendChild(sec);
     });
-    apply();
-  }
-  function statusBg(app,s){ // light bg for the pill from the status color
-    var m={"#15803d":"var(--greenbg)","#1a5c38":"var(--greenbg)","#243cb3":"var(--bluebg)","#a1a1aa":"var(--greybg)","#d8923f":"var(--amberbg)"};
-    return m[app.statusColor[s]]||"var(--greybg)";
-  }
-  function apply(){
-    var qq=q.value.trim().toLowerCase(),vs=fstage.value,vst=fstatus.value,vt=ftab.value,shown=0,total=0,filtering=qq||vs||vst||vt;
-    document.querySelectorAll(".stage").forEach(function(sec){
-      var anyStage=false;
-      sec.querySelectorAll(".cluster").forEach(function(cl){
-        var anyCl=false;
-        cl.querySelectorAll(".node").forEach(function(nd){
-          total++;
-          var ok=(!qq||nd.dataset.name.indexOf(qq)>=0||nd.dataset.full.toLowerCase().indexOf(qq)>=0)&&(!vs||nd.dataset.stage===vs)&&(!vst||nd.dataset.status===vst)&&(!vt||nd.dataset.tab===vt);
-          nd.style.display=ok?"":"none"; if(ok){anyCl=true;anyStage=true;shown++;}
-        });
-        cl.style.display=anyCl?"":"none";
-      });
-      if(filtering){sec.classList.remove("collapsed");sec.style.display=anyStage?"":"none";}
-      else{sec.style.display="";}
-    });
-    rc.textContent=filtering?(shown+" of "+total+" screens"):"";
-  }
-  [q,fstage,fstatus,ftab].forEach(function(e){e.addEventListener("input",apply);e.addEventListener("change",apply);});
-  document.querySelectorAll(".apptab").forEach(function(t){t.addEventListener("click",function(){if(t.dataset.app!==ACTIVE)render(t.dataset.app);window.scrollTo({top:0,behavior:"smooth"});});});
-  // lightbox
-  var lb=document.getElementById("lb"),lbc=document.getElementById("lbcard");
-  elStages.addEventListener("click",function(e){
-    var nd=e.target.closest(".node"); if(!nd)return;
-    var app=APPS[ACTIVE], t=nd.dataset.thumb, brief=nd.dataset.brief, mock=nd.dataset.mock;
-    var img=t?'<img src="'+t+'">':'<div class="lbholder">'+nd.dataset.full+'<br>'+(app.hasThumbs?'(in-flow screen — opens only mid-action)':'(parent app — see the before/after on the customer hub)')+'</div>';
-    lbc.innerHTML=img+'<div class="lbinfo"><span class="x" onclick="document.getElementById(\'lb\').classList.remove(\'on\')">✕</span>'+
-      '<h4>'+nd.dataset.full+(nd.dataset.p0==="1"?' <span style="font-size:11px;color:#b91c1c;font-weight:800">P0 fix</span>':'')+'</h4>'+
-      '<div class="sub">'+nd.dataset.cat+' · '+nd.dataset.tab+' tab</div>'+
-      '<div class="row"><b>Status</b><span class="pill" style="background:'+statusBg(app,nd.dataset.status)+';color:'+app.statusColor[nd.dataset.status]+'">'+app.label[nd.dataset.status]+'</span></div>'+
-      '<div class="d">'+nd.dataset.desc+'</div>'+
-      (mock?'<a class="open" style="background:#15803d" href="'+app.briefBase+mock+'" target="_blank">View redesign →</a> ':'')+
-      (brief?'<a class="open" href="'+brief+'" target="_blank">Open before / after →</a>':'')+'</div>';
-    lb.classList.add("on");
   });
-  lb.addEventListener("click",function(e){if(e.target===lb)lb.classList.remove("on");});
-  // app counts in the toggle
-  document.querySelectorAll(".ac").forEach(function(sp){var a=APPS[sp.dataset.app],n=0;a.cats.forEach(function(c){n+=c.screens.length;});sp.textContent=n+" screens";});
-  render("tutor");
-})();
+
+  // global toggle flips every card
+  const gseg = document.getElementById('globalseg');
+  gseg.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const view = btn.dataset.all;
+      gseg.querySelectorAll('button').forEach(b => b.classList.toggle('on', b === btn));
+      document.querySelectorAll('.card').forEach(card => {
+        // a card with no baseline always stays on "after"
+        const beforeBtn = card.querySelector('.switch button[data-view="before"]');
+        const canBefore = beforeBtn && !beforeBtn.disabled;
+        const target = (view === 'before' && canBefore) ? 'before' : 'after';
+        card.dataset.show = target;
+        card.querySelectorAll('.switch button').forEach(b => b.classList.toggle('on', b.dataset.view === target));
+        const badge = card.querySelector('.badge');
+        badge.textContent = target === 'before' ? 'Before' : 'New';
+        badge.className = 'badge ' + (target === 'before' ? 'before' : 'now');
+      });
+    });
+  });
+
+  // keep the global control honest if a single card is flipped away from the set
+  function syncGlobal(){
+    const cards = [...document.querySelectorAll('.card')];
+    const allBefore = cards.filter(c => c.querySelector('.switch button[data-view="before"]:not([disabled])'))
+                           .every(c => c.dataset.show === 'before');
+    const allAfter = cards.every(c => c.dataset.show === 'after');
+    gseg.querySelectorAll('button').forEach(b => {
+      b.classList.toggle('on', (b.dataset.all === 'before' && allBefore) || (b.dataset.all === 'after' && allAfter));
+    });
+  }
 </script>
-</body></html>
+</body>
+</html>

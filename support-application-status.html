@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Account &middot; Application status &middot; canonical (StatusBanner + timeline)</title>
+<style>
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12); --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px; --radius-lg:16px;
+    --earn:rgba(43,47,190,.10); --earn-line:rgba(43,47,190,.18);
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18); --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --earn:rgba(124,140,240,.20); --earn-line:rgba(124,140,240,.32);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b}
+  .doc{max-width:1180px;margin:0 auto}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:20px}
+  .docnote h1{font-size:18px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:#52525b}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .modebar{display:flex;gap:7px;margin:0 0 18px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2 button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 14px;border-bottom:1px solid #d4d4d8;padding-bottom:6px}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12.5px;font-weight:700;color:#3f3f46;margin-bottom:9px;text-align:center;max-width:402px}
+  .framelabel .be{color:#a1a1aa} .framelabel .af{color:#2B2FBE}
+
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:2px 16px 4px;flex-shrink:0}
+  .nav .back{display:flex;align-items:center;gap:3px;font-size:17px;font-weight:600;color:var(--tint)}
+  /* centered nav-title + labeled back (pushed-screen pattern, principled split) */
+  .navc{display:flex;align-items:center;height:44px;position:relative;flex-shrink:0;padding:2px 12px 4px}
+  .navc .back{display:inline-flex;align-items:center;gap:2px;color:var(--tint);font-size:16px;font-weight:600;z-index:2}
+  .navc .back .bx{font-size:23px;font-weight:400;line-height:1;margin-top:-1px}
+  .navc .ntitle{position:absolute;left:58px;right:58px;text-align:center;font-size:17px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .scroll{flex:1;overflow:hidden;padding:0 16px}
+  .lt{font-size:27px;font-weight:800;color:var(--ink);letter-spacing:-.5px;margin:4px 0 13px}
+
+  /* state summary (the hero; StatusBanner-family colour carrier) */
+  .summary{display:flex;gap:12px;padding:15px;border-radius:var(--radius-lg);border:1px solid;align-items:flex-start}
+  .summary.neutral{background:var(--fill);border-color:var(--hair)}
+  .summary.amber{background:var(--amber-weak);border-color:var(--amber-line)}
+  .summary .smic{font-size:22px;flex-shrink:0;line-height:1.1}
+  .summary.amber .smic{color:var(--amber-ink)}
+  .summary .smtx{flex:1;min-width:0}
+  .summary .smt{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.2px}
+  .summary .smh{font-size:13px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+
+  .sec{margin-top:18px}
+  .sech{font-size:12px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;margin:0 4px 9px}
+  .card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden}
+
+  /* vertical timeline stepper */
+  .steps{padding:16px 16px 6px}
+  .step{display:flex;gap:13px}
+  .step .dotcol{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+  .step .dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+  .dot.done{background:var(--tint);color:#fff}
+  .dot.active{background:var(--tint-weak);border:2px solid var(--tint);color:var(--tint-ink)}
+  .dot.pending{background:var(--fill);color:var(--ink-3)}
+  .dot.muted{background:var(--fill);border:2px solid var(--ink-4);color:var(--ink-3)}
+  .step .line{flex:1;width:2px;background:var(--hair);margin:3px 0;min-height:18px}
+  .step.done .line{background:var(--tint)}
+  .step.mutedline .line{background:var(--hair)}
+  .step .stx{padding-bottom:16px}
+  .step:last-child .stx{padding-bottom:8px}
+  .step .stt{font-size:14.5px;font-weight:700;color:var(--ink)}
+  .step.pending .stt{color:var(--ink-3)}
+  .step .sts{font-size:12px;color:var(--ink-2);margin-top:2px}
+
+  /* info / notice card (what happens next, suspended, terminated) */
+  .infocard{display:flex;gap:11px;padding:14px 15px}
+  .infocard .iic{width:30px;height:30px;border-radius:9px;background:var(--fill);color:var(--ink-3);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+  .infocard.warn .iic{background:var(--amber-weak);color:var(--amber-ink)}
+  .infocard .itt{font-size:14px;font-weight:700;color:var(--ink)}
+  .infocard .ibd{font-size:12.5px;color:var(--ink-2);line-height:1.45;margin-top:3px}
+
+  .cta{margin-top:18px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;background:var(--tint);border-radius:12px;padding:14px;box-shadow:var(--shadow-cta)}
+  .helpfoot{margin-top:16px;text-align:center;font-size:13px;color:var(--ink-2)}
+  .helpfoot a{color:var(--tint);font-weight:700}
+
+  /* BEFORE (live) */
+  .b-title{font-size:21px;font-weight:800;color:var(--ink);margin:4px 0 12px}
+  .b-card{background:var(--card);border:1px solid var(--hair);border-radius:14px;padding:14px;margin-bottom:13px}
+  .b-sumrow{display:flex;gap:11px;align-items:flex-start}
+  .b-sic{font-size:20px}
+  .b-st{font-size:15px;font-weight:700;color:var(--ink)}
+  .b-sh{font-size:12.5px;color:var(--ink-3);margin-top:3px}
+  .b-step{display:flex;gap:11px;margin-bottom:11px}
+  .b-dot{width:18px;height:18px;border-radius:50%;background:#d8d8dd;flex-shrink:0;margin-top:1px}
+  .b-stt{font-size:14px;font-weight:600;color:var(--ink)}
+  .b-sts{font-size:11.5px;color:var(--ink-3)}
+  .b-foot{font-size:13px;color:var(--ink-3);text-align:center;margin-top:8px} .b-foot a{color:var(--tint);font-weight:700}
+
+  .annos{max-width:1180px;margin:22px auto 0}
+  .audit{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid #e7e7ea;border-radius:10px;overflow:hidden;margin-bottom:14px}
+  .audit th,.audit td{text-align:left;padding:8px 11px;border-top:1px solid #eee;vertical-align:top}
+  .audit th{background:#f6f6f8;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#71717a;border-top:none}
+  .audit td b{color:#18181b}
+  .vd{font-weight:800;font-size:11px;border-radius:5px;padding:1px 7px;white-space:nowrap}
+  .vd.keep{background:#e9f5ee;color:#166534} .vd.cut{background:#fbeaea;color:#b3261e} .vd.gate{background:#eef1fb;color:#2B2FBE} .vd.add{background:#fdf6e7;color:#92400e}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .cm{font-size:12px;line-height:1.6;color:#3f3f46;background:#fbfbfc;border:1px solid #e7e7ea;border-radius:10px;padding:12px 14px;margin-top:4px}
+  .cm b{color:#18181b}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Account &middot; Application status</h1>
+    The account/application review screen, reached from the profile status banner. <b>Not a support ticket</b>, so it keeps account vocabulary (no ticket/request rename). <b>Canonical</b>: a StatusBanner-family <b>state summary</b> (the colour carrier, one per state), a vertical <b>timeline stepper</b> (Application sent &middot; In review &middot; Account ready, fixed at In review), and per-state notice cards + CTAs. Four live states preserved: <b>incomplete</b> (Continue your application), <b>un-verified</b> (in review, shown), <b>suspended</b> (shown), <b>terminated</b> (appeal). Colour rationed: neutral for in-review, amber for the suspended caution; the stepper uses brand tint for structure. Dates one format DD-MMM-YYYY. No field dropped. True 402&times;874, light + dark.
+    <div class="legend">
+      <span><i style="background:#2B2FBE"></i>Tint = timeline progress + CTA</span>
+      <span><i style="background:#92400e"></i>Amber = suspended caution</span>
+      <span><i style="background:#8a8a8e"></i>Neutral = in-review summary + pending steps</span>
+    </div>
+  </div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
+  </div>
+
+  <div class="modehd">After &middot; un-verified (in review) + suspended &middot; and the live before</div>
+  <div class="frames">
+
+    <!-- AFTER: un-verified -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Un-verified (in review)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Profile</span><span class="ntitle">Application status</span></div>
+        <div class="scroll">
+
+          <div class="summary neutral">
+            <span class="smic">&#9203;</span>
+            <div class="smtx"><div class="smt">Your application is in review</div><div class="smh">Usually 2 to 4 days. We will let you know as soon as it is decided.</div></div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Progress</div>
+            <div class="card">
+              <div class="steps">
+                <div class="step done">
+                  <div class="dotcol"><div class="dot done">&#10003;</div><div class="line"></div></div>
+                  <div class="stx"><div class="stt">Application sent</div><div class="sts">23-Jun-2025</div></div>
+                </div>
+                <div class="step">
+                  <div class="dotcol"><div class="dot active"></div><div class="line"></div></div>
+                  <div class="stx"><div class="stt">In review</div></div>
+                </div>
+                <div class="step pending">
+                  <div class="dotcol"><div class="dot pending"></div></div>
+                  <div class="stx"><div class="stt">Account ready</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">What happens next</div>
+            <div class="card">
+              <div class="infocard">
+                <span class="iic">&#9432;</span>
+                <div><div class="itt">Checking your documents</div><div class="ibd">Our team is going through the details and documents you submitted.</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="helpfoot">Need help? <a>Contact us</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AFTER: suspended -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Suspended (action needed)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Profile</span><span class="ntitle">Application status</span></div>
+        <div class="scroll">
+
+          <div class="summary amber">
+            <span class="smic">&#9888;&#65039;</span>
+            <div class="smtx"><div class="smt">Account suspended</div><div class="smh">Your account is paused for review. We need to speak with you before it can continue.</div></div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Progress</div>
+            <div class="card">
+              <div class="steps">
+                <div class="step done">
+                  <div class="dotcol"><div class="dot done">&#10003;</div><div class="line"></div></div>
+                  <div class="stx"><div class="stt">Application sent</div><div class="sts">23-Jun-2025</div></div>
+                </div>
+                <div class="step mutedline">
+                  <div class="dotcol"><div class="dot muted"></div><div class="line"></div></div>
+                  <div class="stx"><div class="stt">In review</div><div class="sts">Paused</div></div>
+                </div>
+                <div class="step pending">
+                  <div class="dotcol"><div class="dot pending"></div></div>
+                  <div class="stx"><div class="stt">Account ready</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cta">Contact our team</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BEFORE: live -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live Application status</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back" style="color:var(--ink-2)">&#8249;</span></div>
+        <div class="scroll">
+          <div class="b-title">Application status</div>
+          <div class="b-card">
+            <div class="b-sumrow"><span class="b-sic">&#128338;</span><div><div class="b-st">Your application is in review</div><div class="b-sh">Usually 2-4 days</div><div class="b-sh">Submitted 23 Jun 2025</div></div></div>
+          </div>
+          <div class="b-card">
+            <div class="b-step"><span class="b-dot" style="background:#2B2FBE"></span><div><div class="b-stt">Application sent</div><div class="b-sts">23 Jun 2025</div></div></div>
+            <div class="b-step"><span class="b-dot" style="background:#2B2FBE"></span><div><div class="b-stt">In review</div><div class="b-sts">Approximately 2-4 days</div></div></div>
+            <div class="b-step"><span class="b-dot"></span><div><div class="b-stt" style="color:#9a9a9f">Account ready</div></div></div>
+          </div>
+          <div class="b-card">
+            <div class="b-stt">We are reviewing your application</div>
+            <div class="b-sts" style="margin-top:4px;line-height:1.4">Our team is checking your details and documents. This usually takes 2 to 4 days.</div>
+          </div>
+          <div class="b-foot">Need help? <a>Contact us</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="annos">
+    <h2>Field-level audit (challenge, don't trace &middot; KEEP / CUT / GATE / ADD)</h2>
+    <table class="audit">
+      <tr><th>Element (live)</th><th>Verdict</th><th>Provenance + reasoning</th></tr>
+      <tr><td><b>Header "Application status"</b></td><td><span class="vd keep">KEEP</span></td><td>Real, all states. The large title. No ticket/request rename (this is account vocabulary, not support).</td></tr>
+      <tr><td><b>State summary</b> (4 states)</td><td><span class="vd keep">KEEP</span></td><td>Real (<code>useApplicationStatus()</code> &rarr; incomplete / un-verified / suspended / terminated). Promoted to a StatusBanner-family summary: neutral for in-review, amber for suspended/incomplete (action), per-state icon + title + helper verbatim.</td></tr>
+      <tr><td><b>Submitted [date]</b></td><td><span class="vd keep">KEEP</span></td><td>Real (<code>tutor.created_at</code>, only when present). Moved into the timeline "Application sent" step; format normalised to DD-MMM-YYYY ("23-Jun-2025").</td></tr>
+      <tr><td><b>Timeline stepper</b> (3 steps)</td><td><span class="vd keep">KEEP</span></td><td>Real, fixed at In review (<code>activeIndex=1</code>). Rebuilt as a vertical timeline: Application sent (done) &middot; In review (active, "Approximately 2 to 4 days") &middot; Account ready (pending). Tone muted on suspended/terminated (<code>stepperTone='muted'</code>).</td></tr>
+      <tr><td><b>"What happens next" hint</b></td><td><span class="vd keep">KEEP</span></td><td>Real (un-verified only). Verbatim "We are reviewing your application" / "Our team is checking your details and documents. This usually takes 2 to 4 days."</td></tr>
+      <tr><td><b>Suspended notice + CTA</b></td><td><span class="vd gate">DEDUPE</span></td><td>Real (suspended only). The live screen shows the contact prompt <b>four times</b> (summary helper + notice title + CTA + footer). Consolidated: the notice <b>body folds into the summary</b>, and contact is a single affordance, the "Contact our team" CTA &rarr; ContactCentre. Amber (the one caution). Nothing dropped, the explanation is preserved in the summary.</td></tr>
+      <tr><td><b>Terminated notice + appeal</b></td><td><span class="vd keep">KEEP</span></td><td>Real (terminated only, not drawn): "Appeal info" / "If you think this was a mistake, contact our team and share your tutor UID..." + "Contact our team" CTA.</td></tr>
+      <tr><td><b>"Continue your application" CTA</b></td><td><span class="vd keep">KEEP</span></td><td>Real (incomplete only, not drawn): no stepper, summary + the Continue CTA &rarr; TutorVerificationProcess.</td></tr>
+      <tr><td><b>Footer "Need help? / Contact us"</b></td><td><span class="vd gate">DEDUPE</span></td><td>Real, but the live shows it on EVERY state. <b>Suppressed when a contact CTA is already present</b> (suspended / terminated), so contact never appears twice on one screen. Kept on states with no contact CTA (un-verified, incomplete) &rarr; ContactCentre.</td></tr>
+      <tr><td><b>Error state</b></td><td><span class="vd keep">KEEP</span></td><td>Real (not drawn): "Application status unavailable" / "Please go back and try again." / "Go back".</td></tr>
+    </table>
+
+    <div class="anno g"><span class="n">1</span><div><b>Reuses the detail gold standard.</b> The StatusBanner-family summary and the same neutral/amber budget as TicketDetail, so the two status surfaces feel like one system.</div></div>
+    <div class="anno g"><span class="n">2</span><div><b>The timeline is the clarity win.</b> A vertical stepper makes "where am I in the queue" legible at a glance, the live screen's flat stepper is rebuilt with done/active/pending states.</div></div>
+    <div class="anno g"><span class="n">3</span><div><b>No duplication (founder rule).</b> The live screen repeats itself, on suspended the contact prompt appears 4x, on un-verified "2 to 4 days" appears 3x. Deduped: each fact has exactly one home. The timeframe lives in the summary only; the timeline step reads "In progress"; the "what happens next" card now carries only the new fact (documents being checked); contact is one affordance per screen.</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz dependencies:</b> (a) <code>tutor.created_at</code> must be exposed for the "Application sent" date (the live screen hides it when absent). (b) confirm the state enum values map to incomplete / un-verified / suspended / terminated. (c) terminated copy references the tutor UID, confirm it is available to show.</div></div>
+    <div class="cm"><b>Commercial pass (Activate &middot; the verification wait).</b> <b>Founder:</b> the review wait is the riskiest drop-off in onboarding, a clear timeline + honest "2 to 4 days" reduces anxious churn and support pings while the tutor cannot yet earn. <b>Sales:</b> no upsell (a gated pre-active state). <b>Marketing:</b> the felt message is "we are on it, here is exactly where you are". <b>Analyst:</b> instrument time-in-review vs drop-off, and the "Contact us" tap rate during review (high = the wait copy is not reassuring); guard = activation rate post-approval. Tap-count: reach support in <b>1 tap</b>; resume an incomplete application in 1.</div>
+  </div>
+</div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ if(m==='dark') p.classList.add('dark'); else p.classList.remove('dark'); });
+    document.querySelectorAll('.modebar .seg2 button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

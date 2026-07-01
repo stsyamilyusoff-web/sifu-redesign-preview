@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sifututor · Apply-detail, R2 (Direction-C hero · the shared body · ALL fields, nothing dropped)</title>
+<style>
+  /* ============== TOKENS (IDENTICAL semantic set to the LOCKED requests-feed-r1.html; no raw hex in device-frame markup, no Theme.*) ============== */
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12); --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px; --radius-lg:16px;
+    /* HERO band fill: the SAME subtle brand-blue tint the locked feed uses (--earn), so the hero is DEFINED and does not dissolve into the grey app canvas; still subtle, never loud; no grey box, no take-home label. */
+    --earn:rgba(43,47,190,.10); --earn-line:rgba(43,47,190,.18);
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18); --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --earn:rgba(124,140,240,.20); --earn-line:rgba(124,140,240,.32);
+  }
+
+  /* ============== PAGE CHROME (doc only; hex allowed here, never inside the device frame) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1180px;margin:0 auto;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:nowrap;justify-content:center;}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:20px;}
+  .docnote h1{font-size:18px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .docnote .keepbox{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .docnote .keepbox b{color:#166534;}
+  .docnote .fieldbox{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12px;line-height:1.6;}
+  .docnote .fieldbox b{color:#1e3a8a;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:28px 0 14px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12.5px;font-weight:700;color:#3f3f46;margin-bottom:9px;text-align:center;max-width:402px;}
+
+  /* ============== DEVICE FRAME (true 402x874 viewport) ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column;}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+
+  /* nav bar (back + tap-to-copy TREQ chip top-right, mirrors TicketDetail gold-standard) */
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:2px 16px 8px;flex-shrink:0;}
+  .nav .back{display:flex;align-items:center;gap:3px;font-size:17px;font-weight:600;color:var(--tint);}
+  .nav .back .lbl{font-size:16px;}
+
+  /* scroll region */
+  .scroll{flex:1;overflow:hidden;padding:0 16px;}
+  .scrollpad{padding-bottom:14px;}
+
+  /* ===== STATUS BANNER (above the hero on status-bearing details; the colour carrier) ===== */
+  .statusbanner{display:flex;align-items:center;gap:8px;border-radius:var(--radius);padding:10px 13px;margin-bottom:10px;font-size:13px;font-weight:700;}
+  .statusbanner.pending{color:var(--amber-ink);background:var(--amber-weak);border:1px solid var(--amber-line);}
+  .statusbanner .sb-ic{font-size:14px;}
+  .statusbanner .sb-sub{font-weight:500;color:var(--ink-2);font-size:11.5px;display:block;margin-top:1px;}
+
+  /* ===== DIRECTION-C HERO ===== */
+  /* subject·level + ≤4 icon-fact chips + RM /mo earning hero; subtle brand-tint band so it never dissolves into the canvas; no take-home, no grey box. */
+  .hero{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);overflow:hidden;}
+  .hero .htint{background:var(--earn);border-bottom:1px solid var(--earn-line);padding:15px 17px 14px;}
+  .hero .htop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+  .hero .entity{display:flex;flex-direction:column;gap:2px;}
+  .hero .subj{font-size:21px;font-weight:800;color:var(--ink);letter-spacing:-.4px;line-height:1.05;}
+  .hero .lvl{font-size:14px;font-weight:500;color:var(--ink-3);}
+  .hero .modepill{font-size:10.5px;font-weight:800;letter-spacing:.4px;color:var(--ink-2);background:var(--card);border:1px solid var(--hair);border-radius:999px;padding:5px 11px;white-space:nowrap;flex-shrink:0;}
+  /* the RM earning hero (motivation): size-led, whole-RM, "/mo"; "RM" tinted, amount neutral & large; NO "take-home" word, NO grey box */
+  .hero .earn{display:flex;align-items:baseline;gap:4px;margin-top:13px;}
+  .hero .earn .cur{font-size:16px;font-weight:800;color:var(--tint-ink);}
+  .hero .earn .amt{font-size:33px;font-weight:800;color:var(--ink);letter-spacing:-1.4px;line-height:.9;font-variant-numeric:tabular-nums;}
+  .hero .earn .per{font-size:14px;font-weight:700;color:var(--ink-2);margin-left:1px;}
+  .hero .earn .split{font-size:12px;font-weight:600;color:var(--ink-3);margin-left:7px;}
+  .hero .earn .info{font-size:12px;color:var(--tint);margin-left:3px;}
+  /* ≤4 icon-fact CHIPS (the Direction-C vocabulary; pill weight on the hero) */
+  .hero .chips{display:flex;flex-wrap:wrap;gap:6px;padding:13px 17px 4px;}
+  .hero .chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--ink-2);background:var(--fill);border:1px solid var(--hair);border-radius:999px;padding:6px 11px;}
+  .hero .chip .cg{font-size:12px;}
+  /* quiet sub-caption under the chips: request_type, printed ONCE (low-value on a detail, demoted not dropped) */
+  .hero .subcap{font-size:11.5px;font-weight:600;color:var(--ink-3);padding:9px 17px 0;text-transform:capitalize;}
+  /* fit line (green, lives in the hero footer) + amber caution stack just under it */
+  .hero .hbot{padding:11px 17px 14px;}
+  .hero .fitline{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--green-ink);}
+  .hero .fitline .chk{font-weight:800;}
+  .hero .flag{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--amber-ink);background:var(--amber-weak);border:1px solid var(--amber-line);border-radius:999px;padding:4px 10px;margin-top:9px;}
+
+  /* ===== SECTION CARDS (grouped-list language: header + inset card) ===== */
+  .sec{margin-top:18px;}
+  .sech{font-size:12px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;margin:0 4px 8px;}
+  .card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;}
+  .row + .row{border-top:1px solid var(--hair);}
+  .row .k{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--ink-2);min-width:0;}
+  .row .k .kic{font-size:14px;color:var(--ink-3);width:17px;text-align:center;flex-shrink:0;}
+  .row .v{font-size:14.5px;font-weight:600;color:var(--ink);text-align:right;}
+  .row .v.cap{text-transform:capitalize;}
+  /* gated value: privacy lock, amber so it reads as "withheld for now", never naked blank */
+  .row .v.gated{color:var(--amber-ink);font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:5px;justify-content:flex-end;}
+  /* sessions count chip (carries the live blue count pill, demoted to neutral fill) */
+  .row .vcount{min-width:26px;height:26px;border-radius:999px;background:var(--tint-weak);color:var(--tint-ink);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 7px;}
+  /* gender row value = neutral glyph + "X tutor" (the viewer's fit filter, never naked gender) */
+  .row .gender{display:inline-flex;align-items:center;gap:6px;font-size:14.5px;font-weight:700;color:var(--ink);}
+  .row .gender .gg{color:var(--ink-3);font-weight:800;font-size:14px;}
+
+  /* prose card (parent's ask / special request) */
+  .prose{padding:14px 16px;font-size:13.5px;line-height:1.5;color:var(--ink);}
+  .prose.quote{font-style:italic;color:var(--ink-2);}
+
+  /* extra-student mini card */
+  .estud{padding:13px 16px;}
+  .estud + .estud{border-top:1px solid var(--hair);}
+  .estud .en{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .estud .enl{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2);}
+  .estud .env{font-size:14px;font-weight:700;color:var(--ink);}
+  .estud .emeta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .estud .ec{font-size:11.5px;font-weight:600;color:var(--ink-2);background:var(--fill);border-radius:999px;padding:4px 9px;}
+
+  /* comment / pitch field (apply note) */
+  .commentbox{background:var(--card);border:1px solid var(--hair);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:13px 15px;min-height:74px;}
+  .commentbox .ph-ph{font-size:13px;color:var(--ink-4);line-height:1.45;}
+  .commentbox .cc{font-size:10.5px;color:var(--ink-4);text-align:right;margin-top:8px;}
+
+  /* recommended carousel hint (kept; "More requests like this") */
+  .reclink{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:14px 16px;font-size:13.5px;font-weight:600;color:var(--ink);margin-top:18px;}
+  .reclink .rc{color:var(--ink-4);font-size:18px;}
+
+  /* ===== STICKY APPLY DOCK (the conversion CTA) ===== */
+  .dock{position:absolute;left:0;right:0;bottom:0;display:flex;gap:8px;align-items:center;padding:12px 16px 20px;background:linear-gradient(to top,var(--canvas) 72%,transparent);}
+  .dock .apply{flex:1;height:48px;border-radius:999px;background:var(--tint);color:#fff;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-cta);}
+  .dock .apply.applied{background:var(--green-weak);color:var(--green-ink);box-shadow:none;}
+  .dock .share{width:48px;height:48px;border-radius:999px;background:var(--tint-weak);color:var(--tint);font-size:19px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .dock .applednote{flex:1;font-size:13px;font-weight:600;color:var(--green-ink);display:flex;align-items:center;gap:7px;justify-content:center;}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Sifututor · Apply-detail, R2 · the conversion screen (Direction-C hero · the SHARED body)</h1>
+    Wave R2 of the Requests E2E redesign: <b>RequestDetails.tsx</b> rebuilt as the Direction-C detail, AND the <b>SharedRequestDetail.tsx</b> body it rebuilds (props-driven: <code>showApply</code> / <code>showShare</code> / <code>showComment</code> / <code>showAddress</code> / <code>status</code> / <code>genderField</code> / <code>nameGated</code> / <code>recommendReason</code>). <b>R3 reuses this exact body</b> for Recommended / ById / Applied. Consistent with the locked <a>requests-feed-r1.html</a>: same token set, the subtle brand-tint hero band (<code>--earn</code>), the RM-as-motivation treatment (no take-home, no grey box), the green-fit / one-amber colour budget.
+    <div class="fieldbox"><b>Every LIVE field, mapped to a zone</b> (ground: <code>RequestDetails.tsx</code> 162-916 + <code>SharedRequestDetail.tsx</code> 88-843):<br>
+    <b>Nav:</b> <code>request_uid</code> tap-to-copy CopyIdChip (top-right). <b>Status banner</b> (status-bearing only): applied state.<br>
+    <b>Hero (carries every schedule + logistics fact ONCE):</b> <code>subject_name</code> · <code>level</code> (entity) + mode pill (<code>mode</code>) + RM (<code>display_commission</code>) /mo + rate-breakdown affordance (the live <code>PaymentBreakdownModal</code>) + 4 icon-fact chips [📅 <code>class_day</code>+<code>class_time</code> · ⏱ <code>class_duration</code> &times; sessions(<code>number_of_classes</code>) · 📍 place(<code>area</code>,<code>city</code>) or 💻 Online · <b>♀ GENDER (<code>tutor_preference</code>)</b>] + quiet sub-caption (<code>request_type</code>) + green fit + one amber (<code>special_need</code>).<br>
+    <b>Student card</b> (the only card list): <b>name (GATED until approved)</b> · gender+age (<code>student_gender</code>,<code>student_age</code>) · <code>special_need</code> · address (<code>address</code>, GATED). <b>Parent's ask:</b> <code>special_request</code>. <b>Other students:</b> <code>job_ticket_extra_students[]</code>. <b>Apply note:</b> comment box. <b>More requests:</b> recommended carousel hint. <b>Dock:</b> Apply + Share. <b>No Schedule/Logistics repeat section</b> (matches the locked wave1-apply-detail precedent) so no value is printed twice.</div>
+    <div class="keepbox"><b>Locked lessons applied:</b> NO field dropped (every live field above has exactly one zone) · NO duplicated word/value (mode = the pill ONLY; day/time/duration/sessions/place/gender = the hero chips ONLY; request_type = the sub-caption ONLY; the body has NO repeating schedule/logistics rows) · RM = motivation, no "take-home", no grey box · GENDER present (hard fit filter) · subtle brand-tint hero · clean by ORGANIZE/DEMOTE + progressive disclosure (the long tail = parent's ask / other students live below the fold) · green=fit, one amber=caution · DD-MMM-YYYY for any date · "Sifututor", neutral copy, no em-dashes.<br>
+    <b>sample-until-backend</b> (not on the live request object yet, shown as flagged fixtures, NEVER dropped): the green fit cue + reason, the amber <code>special_need</code> treatment, posted-ago, applicant-count, duration + sessions (audit gaps 2/3/5). <b>Live:</b> uid, RM, mode, subject, level, day, time, place, gender, type, student gender+age, special_need (value), special_request, extra students, address.</div>
+  </div>
+
+  <!-- ===================== LIGHT MODE ===================== -->
+  <div class="modehd">Light mode</div>
+  <div class="frames">
+
+    <!-- FRAME 1: OPEN apply-detail (pre-match, full fit, name GATED) -->
+    <div class="framewrap">
+      <div class="framelabel">Open request &middot; pre-match &middot; full fit &middot; name gated</div>
+      <div class="ph" id="L1">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back"><span>&lsaquo;</span><span class="lbl">Requests</span></span><span class="ridchip" style="font-family:ui-monospace,monospace;font-size:11px;font-weight:700;color:var(--tint);background:var(--tint-weak);border-radius:8px;padding:5px 10px;">TREQ-859807 <span style="font-family:-apple-system,sans-serif">&#10696;</span></span></div>
+        <div class="scroll"><div class="scrollpad">
+
+          <!-- DIRECTION-C HERO (carries EVERY schedule + logistics fact ONCE; no repeat section below = founder no-duplication rule) -->
+          <div class="hero">
+            <div class="htint">
+              <div class="htop">
+                <div class="entity"><span class="subj">Physics</span><span class="lvl">Form 4 &middot; SPM</span></div>
+                <span class="modepill">IN-PERSON</span>
+              </div>
+              <div class="earn"><span class="cur">RM</span><span class="amt">450</span><span class="per">/mo</span><span class="split">RM 37.50 / session</span><span class="info">&#9432;</span></div>
+            </div>
+            <!-- 4 icon-fact chips = the whole schedule + logistics glance, each value printed ONCE -->
+            <div class="chips">
+              <span class="chip"><span class="cg">&#128197;</span> Mon &middot; 5:00 PM</span>
+              <span class="chip"><span class="cg">&#9201;&#65039;</span> 2h &times; 12</span>
+              <span class="chip"><span class="cg">&#128205;</span> Bangsar, KL</span>
+              <span class="chip"><span class="cg">&#9792;</span> Female tutor</span>
+            </div>
+            <div class="subcap">Weekly &middot; recurring</div>
+            <div class="hbot">
+              <span class="fitline"><span class="chk">&#10003;</span> Matches your subject, level &amp; area</span>
+            </div>
+          </div>
+
+          <!-- STUDENT SECTION (the only "card list"; name + address GATED until approved; no schedule/logistics repeat) -->
+          <div class="sec">
+            <div class="sech">Student</div>
+            <div class="card">
+              <div class="row"><span class="k"><span class="kic">&#128100;</span> Name</span><span class="v gated">&#128274; Shown once approved</span></div>
+              <div class="row"><span class="k"><span class="kic">&#9794;&#9792;</span> Gender &amp; age</span><span class="v cap">Female &middot; 15 y/o</span></div>
+              <div class="row"><span class="k"><span class="kic">&#9855;</span> Special need</span><span class="v cap">Slow learner</span></div>
+              <div class="row"><span class="k"><span class="kic">&#128205;</span> Address</span><span class="v gated">&#128274; Shown once approved</span></div>
+            </div>
+          </div>
+
+          <!-- AMBER CAUTION (one max; special need; lives just under the gated student card as the apply-relevant warning) -->
+          <div class="sec">
+            <div class="hero" style="box-shadow:var(--shadow);">
+              <div style="padding:12px 16px;display:flex;align-items:center;gap:9px;">
+                <span class="flag" style="margin-top:0;">&#9888; Needs a tutor experienced with slow learners</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PARENT'S ASK (special_request) -->
+          <div class="sec">
+            <div class="sech">What the parent asked for</div>
+            <div class="card"><div class="prose quote">"Looking for a patient, experienced tutor who can build my son's confidence in Physics before SPM. Friendly and encouraging, please."</div></div>
+          </div>
+
+          <!-- APPLY NOTE (comment box) -->
+          <div class="sec">
+            <div class="sech">Add a note to the parent <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink-4)">(optional)</span></div>
+            <div class="commentbox"><div class="ph-ph">First time applying? Tell the parent about your teaching experience.</div><div class="cc">0 / 300</div></div>
+          </div>
+
+          <!-- MORE REQUESTS LIKE THIS (recommended carousel entry) -->
+          <div class="reclink">More requests like this <span class="rc">&rsaquo;</span></div>
+
+        </div></div>
+        <!-- STICKY APPLY DOCK -->
+        <div class="dock"><span class="apply">Apply</span><span class="share">&#10138;</span></div>
+      </div>
+    </div>
+
+    <!-- FRAME 2: ONLINE apply-detail (any-gender pref, no place, extra students, no amber) -->
+    <div class="framewrap">
+      <div class="framelabel">Online &middot; any-tutor &middot; multiple students &middot; no caution</div>
+      <div class="ph" id="L2">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back"><span>&lsaquo;</span><span class="lbl">Requests</span></span><span class="ridchip" style="font-family:ui-monospace,monospace;font-size:11px;font-weight:700;color:var(--tint);background:var(--tint-weak);border-radius:8px;padding:5px 10px;">TREQ-773201 <span style="font-family:-apple-system,sans-serif">&#10696;</span></span></div>
+        <div class="scroll"><div class="scrollpad">
+
+          <div class="hero">
+            <div class="htint">
+              <div class="htop">
+                <div class="entity"><span class="subj">Bahasa Melayu</span><span class="lvl">Form 3 &middot; PT3</span></div>
+                <span class="modepill">ONLINE</span>
+              </div>
+              <div class="earn"><span class="cur">RM</span><span class="amt">280</span><span class="per">/mo</span><span class="split">RM 23.33 / session</span><span class="info">&#9432;</span></div>
+            </div>
+            <!-- online: no place chip; the mode pill already says ONLINE, so chip 3 carries the location-context word once -->
+            <div class="chips">
+              <span class="chip"><span class="cg">&#128197;</span> Thu &middot; 7:00 PM</span>
+              <span class="chip"><span class="cg">&#9201;&#65039;</span> 1h &times; 12</span>
+              <span class="chip"><span class="cg">&#128187;</span> Online class</span>
+              <span class="chip"><span class="cg">&#9906;</span> Any tutor</span>
+            </div>
+            <div class="subcap">Weekly &middot; recurring</div>
+            <div class="hbot">
+              <span class="fitline"><span class="chk">&#10003;</span> Matches your subject &amp; level</span>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Student</div>
+            <div class="card">
+              <div class="row"><span class="k"><span class="kic">&#128100;</span> Name</span><span class="v gated">&#128274; Shown once approved</span></div>
+              <div class="row"><span class="k"><span class="kic">&#9794;&#9792;</span> Gender &amp; age</span><span class="v cap">Male &middot; 14 y/o</span></div>
+              <div class="row"><span class="k"><span class="kic">&#9855;</span> Special need</span><span class="v">None</span></div>
+            </div>
+          </div>
+
+          <!-- OTHER STUDENTS (job_ticket_extra_students) -->
+          <div class="sec">
+            <div class="sech">Other students in this request</div>
+            <div class="card">
+              <div class="estud">
+                <div class="en"><span class="enl"><span style="font-size:14px;color:var(--ink-3)">&#128100;</span> Student 2</span><span class="env gated" style="color:var(--amber-ink);font-size:12px;font-weight:700">&#128274; Shown once approved</span></div>
+                <div class="emeta"><span class="ec">&#9794; Male &middot; 13 y/o</span><span class="ec">Special need: None</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">What the parent asked for</div>
+            <div class="card"><div class="prose quote">"Two brothers, same class time. Need help with karangan and tatabahasa for PT3."</div></div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Add a note to the parent <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink-4)">(optional)</span></div>
+            <div class="commentbox"><div class="ph-ph">First time applying? Tell the parent about your teaching experience.</div><div class="cc">0 / 300</div></div>
+          </div>
+
+          <div class="reclink">More requests like this <span class="rc">&rsaquo;</span></div>
+
+        </div></div>
+        <div class="dock"><span class="apply">Apply</span><span class="share">&#10138;</span></div>
+      </div>
+    </div>
+
+    <!-- FRAME 3: APPLIED detail (status banner above hero, name UNGATED post-approve, no apply CTA) -->
+    <div class="framewrap">
+      <div class="framelabel">Applied detail (R3 reuse) &middot; status banner &middot; approved &rarr; name shown</div>
+      <div class="ph" id="L3">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back"><span>&lsaquo;</span><span class="lbl">Applied</span></span><span class="ridchip" style="font-family:ui-monospace,monospace;font-size:11px;font-weight:700;color:var(--tint);background:var(--tint-weak);border-radius:8px;padding:5px 10px;">TREQ-655485 <span style="font-family:-apple-system,sans-serif">&#10696;</span></span></div>
+        <div class="scroll"><div class="scrollpad">
+
+          <!-- STATUS BANNER above the hero (the colour carrier; hero chips stay neutral) -->
+          <div class="statusbanner pending"><span class="sb-ic">&#9203;</span><span>Application under review<span class="sb-sub">Sent 18-Jun-2025 &middot; the parent will pick from applicants</span></span></div>
+
+          <div class="hero">
+            <div class="htint">
+              <div class="htop">
+                <div class="entity"><span class="subj">Chemistry</span><span class="lvl">Form 6 &middot; STPM</span></div>
+                <span class="modepill">IN-PERSON</span>
+              </div>
+              <div class="earn"><span class="cur">RM</span><span class="amt">600</span><span class="per">/mo</span><span class="split">RM 60.00 / session</span><span class="info">&#9432;</span></div>
+            </div>
+            <div class="chips">
+              <span class="chip"><span class="cg">&#128197;</span> Sat &middot; 10:00 AM</span>
+              <span class="chip"><span class="cg">&#9201;&#65039;</span> 2h &times; 10</span>
+              <span class="chip"><span class="cg">&#128205;</span> Mont Kiara, KL</span>
+              <span class="chip"><span class="cg">&#9792;</span> Female tutor</span>
+            </div>
+            <div class="subcap">Weekly &middot; recurring</div>
+          </div>
+
+          <!-- Student: name + address UNGATED because approved + active + in-person (the live gate); no schedule/logistics repeat -->
+          <div class="sec">
+            <div class="sech">Student</div>
+            <div class="card">
+              <div class="row"><span class="k"><span class="kic">&#128100;</span> Name</span><span class="v cap">Nurul Aisyah</span></div>
+              <div class="row"><span class="k"><span class="kic">&#9794;&#9792;</span> Gender &amp; age</span><span class="v cap">Female &middot; 18 y/o</span></div>
+              <div class="row"><span class="k"><span class="kic">&#9855;</span> Special need</span><span class="v">None</span></div>
+              <div class="row"><span class="k"><span class="kic">&#128205;</span> Address</span><span class="v" style="font-size:12.5px;font-weight:500;color:var(--ink-2);text-align:right;max-width:62%">12, Jalan Kiara 3, Mont Kiara, 50480 KL</span></div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">What the parent asked for</div>
+            <div class="card"><div class="prose quote">"Daughter sitting STPM this year. Needs rigorous Chemistry coaching, especially organic. Past-year paper drilling preferred."</div></div>
+          </div>
+
+        </div></div>
+        <!-- applied = NO apply CTA; status note in the dock instead -->
+        <div class="dock"><span class="applednote"><span>&#9203;</span> Waiting for the parent to choose</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== DARK MODE ===================== -->
+  <div class="modehd">Dark mode</div>
+  <div class="frames">
+
+    <!-- FRAME 1 DARK -->
+    <div class="framewrap">
+      <div class="framelabel">Open request &middot; pre-match &middot; full fit &middot; name gated</div>
+      <div class="ph dark" id="D1">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back"><span>&lsaquo;</span><span class="lbl">Requests</span></span><span class="ridchip" style="font-family:ui-monospace,monospace;font-size:11px;font-weight:700;color:var(--tint);background:var(--tint-weak);border-radius:8px;padding:5px 10px;">TREQ-859807 <span style="font-family:-apple-system,sans-serif">&#10696;</span></span></div>
+        <div class="scroll"><div class="scrollpad">
+
+          <div class="hero">
+            <div class="htint">
+              <div class="htop">
+                <div class="entity"><span class="subj">Physics</span><span class="lvl">Form 4 &middot; SPM</span></div>
+                <span class="modepill">IN-PERSON</span>
+              </div>
+              <div class="earn"><span class="cur">RM</span><span class="amt">450</span><span class="per">/mo</span><span class="split">RM 37.50 / session</span><span class="info">&#9432;</span></div>
+            </div>
+            <div class="chips">
+              <span class="chip"><span class="cg">&#128197;</span> Mon &middot; 5:00 PM</span>
+              <span class="chip"><span class="cg">&#9201;&#65039;</span> 2h &times; 12</span>
+              <span class="chip"><span class="cg">&#128205;</span> Bangsar, KL</span>
+              <span class="chip"><span class="cg">&#9792;</span> Female tutor</span>
+            </div>
+            <div class="subcap">Weekly &middot; recurring</div>
+            <div class="hbot">
+              <span class="fitline"><span class="chk">&#10003;</span> Matches your subject, level &amp; area</span>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Student</div>
+            <div class="card">
+              <div class="row"><span class="k"><span class="kic">&#128100;</span> Name</span><span class="v gated">&#128274; Shown once approved</span></div>
+              <div class="row"><span class="k"><span class="kic">&#9794;&#9792;</span> Gender &amp; age</span><span class="v cap">Female &middot; 15 y/o</span></div>
+              <div class="row"><span class="k"><span class="kic">&#9855;</span> Special need</span><span class="v cap">Slow learner</span></div>
+              <div class="row"><span class="k"><span class="kic">&#128205;</span> Address</span><span class="v gated">&#128274; Shown once approved</span></div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="hero" style="box-shadow:var(--shadow);">
+              <div style="padding:12px 16px;display:flex;align-items:center;gap:9px;">
+                <span class="flag" style="margin-top:0;">&#9888; Needs a tutor experienced with slow learners</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">What the parent asked for</div>
+            <div class="card"><div class="prose quote">"Looking for a patient, experienced tutor who can build my son's confidence in Physics before SPM. Friendly and encouraging, please."</div></div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Add a note to the parent <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink-4)">(optional)</span></div>
+            <div class="commentbox"><div class="ph-ph">First time applying? Tell the parent about your teaching experience.</div><div class="cc">0 / 300</div></div>
+          </div>
+
+          <div class="reclink">More requests like this <span class="rc">&rsaquo;</span></div>
+
+        </div></div>
+        <div class="dock"><span class="apply">Apply</span><span class="share">&#10138;</span></div>
+      </div>
+    </div>
+
+    <!-- FRAME 2 DARK -->
+    <div class="framewrap">
+      <div class="framelabel">Online &middot; any-tutor &middot; multiple students &middot; no caution</div>
+      <div class="ph dark" id="D2">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back"><span>&lsaquo;</span><span class="lbl">Requests</span></span><span class="ridchip" style="font-family:ui-monospace,monospace;font-size:11px;font-weight:700;color:var(--tint);background:var(--tint-weak);border-radius:8px;padding:5px 10px;">TREQ-773201 <span style="font-family:-apple-system,sans-serif">&#10696;</span></span></div>
+        <div class="scroll"><div class="scrollpad">
+
+          <div class="hero">
+            <div class="htint">
+              <div class="htop">
+                <div class="entity"><span class="subj">Bahasa Melayu</span><span class="lvl">Form 3 &middot; PT3</span></div>
+                <span class="modepill">ONLINE</span>
+              </div>
+              <div class="earn"><span class="cur">RM</span><span class="amt">280</span><span class="per">/mo</span><span class="split">RM 23.33 / session</span><span class="info">&#9432;</span></div>
+            </div>
+            <!-- online: no place chip; the mode pill already says ONLINE, so chip 3 carries the location-context word once -->
+            <div class="chips">
+              <span class="chip"><span class="cg">&#128197;</span> Thu &middot; 7:00 PM</span>
+              <span class="chip"><span class="cg">&#9201;&#65039;</span> 1h &times; 12</span>
+              <span class="chip"><span class="cg">&#128187;</span> Online class</span>
+              <span class="chip"><span class="cg">&#9906;</span> Any tutor</span>
+            </div>
+            <div class="subcap">Weekly &middot; recurring</div>
+            <div class="hbot">
+              <span class="fitline"><span class="chk">&#10003;</span> Matches your subject &amp; level</span>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Student</div>
+            <div class="card">
+              <div class="row"><span class="k"><span class="kic">&#128100;</span> Name</span><span class="v gated">&#128274; Shown once approved</span></div>
+              <div class="row"><span class="k"><span class="kic">&#9794;&#9792;</span> Gender &amp; age</span><span class="v cap">Male &middot; 14 y/o</span></div>
+              <div class="row"><span class="k"><span class="kic">&#9855;</span> Special need</span><span class="v">None</span></div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Other students in this request</div>
+            <div class="card">
+              <div class="estud">
+                <div class="en"><span class="enl"><span style="font-size:14px;color:var(--ink-3)">&#128100;</span> Student 2</span><span class="env gated" style="color:var(--amber-ink);font-size:12px;font-weight:700">&#128274; Shown once approved</span></div>
+                <div class="emeta"><span class="ec">&#9794; Male &middot; 13 y/o</span><span class="ec">Special need: None</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">What the parent asked for</div>
+            <div class="card"><div class="prose quote">"Two brothers, same class time. Need help with karangan and tatabahasa for PT3."</div></div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Add a note to the parent <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink-4)">(optional)</span></div>
+            <div class="commentbox"><div class="ph-ph">First time applying? Tell the parent about your teaching experience.</div><div class="cc">0 / 300</div></div>
+          </div>
+
+          <div class="reclink">More requests like this <span class="rc">&rsaquo;</span></div>
+
+        </div></div>
+        <div class="dock"><span class="apply">Apply</span><span class="share">&#10138;</span></div>
+      </div>
+    </div>
+
+    <!-- FRAME 3 DARK -->
+    <div class="framewrap">
+      <div class="framelabel">Applied detail (R3 reuse) &middot; status banner &middot; approved &rarr; name shown</div>
+      <div class="ph dark" id="D3">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back"><span>&lsaquo;</span><span class="lbl">Applied</span></span><span class="ridchip" style="font-family:ui-monospace,monospace;font-size:11px;font-weight:700;color:var(--tint);background:var(--tint-weak);border-radius:8px;padding:5px 10px;">TREQ-655485 <span style="font-family:-apple-system,sans-serif">&#10696;</span></span></div>
+        <div class="scroll"><div class="scrollpad">
+
+          <div class="statusbanner pending"><span class="sb-ic">&#9203;</span><span>Application under review<span class="sb-sub">Sent 18-Jun-2025 &middot; the parent will pick from applicants</span></span></div>
+
+          <div class="hero">
+            <div class="htint">
+              <div class="htop">
+                <div class="entity"><span class="subj">Chemistry</span><span class="lvl">Form 6 &middot; STPM</span></div>
+                <span class="modepill">IN-PERSON</span>
+              </div>
+              <div class="earn"><span class="cur">RM</span><span class="amt">600</span><span class="per">/mo</span><span class="split">RM 60.00 / session</span><span class="info">&#9432;</span></div>
+            </div>
+            <div class="chips">
+              <span class="chip"><span class="cg">&#128197;</span> Sat &middot; 10:00 AM</span>
+              <span class="chip"><span class="cg">&#9201;&#65039;</span> 2h &times; 10</span>
+              <span class="chip"><span class="cg">&#128205;</span> Mont Kiara, KL</span>
+              <span class="chip"><span class="cg">&#9792;</span> Female tutor</span>
+            </div>
+            <div class="subcap">Weekly &middot; recurring</div>
+          </div>
+
+          <!-- Student: name + address UNGATED because approved + active + in-person (the live gate); no schedule/logistics repeat -->
+          <div class="sec">
+            <div class="sech">Student</div>
+            <div class="card">
+              <div class="row"><span class="k"><span class="kic">&#128100;</span> Name</span><span class="v cap">Nurul Aisyah</span></div>
+              <div class="row"><span class="k"><span class="kic">&#9794;&#9792;</span> Gender &amp; age</span><span class="v cap">Female &middot; 18 y/o</span></div>
+              <div class="row"><span class="k"><span class="kic">&#9855;</span> Special need</span><span class="v">None</span></div>
+              <div class="row"><span class="k"><span class="kic">&#128205;</span> Address</span><span class="v" style="font-size:12.5px;font-weight:500;color:var(--ink-2);text-align:right;max-width:62%">12, Jalan Kiara 3, Mont Kiara, 50480 KL</span></div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">What the parent asked for</div>
+            <div class="card"><div class="prose quote">"Daughter sitting STPM this year. Needs rigorous Chemistry coaching, especially organic. Past-year paper drilling preferred."</div></div>
+          </div>
+
+        </div></div>
+        <div class="dock"><span class="applednote"><span>&#9203;</span> Waiting for the parent to choose</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

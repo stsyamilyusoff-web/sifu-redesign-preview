@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support &middot; Submit a ticket (picker) &middot; canonical rebuild</title>
+<style>
+  /* ===== TOKENS (IDENTICAL semantic set to the LOCKED requests-feed-r1 / request-apply-detail-r2; no raw hex in device markup) ===== */
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12); --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px; --radius-lg:16px;
+    --earn:rgba(43,47,190,.10); --earn-line:rgba(43,47,190,.18);
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18); --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --earn:rgba(124,140,240,.20); --earn-line:rgba(124,140,240,.32);
+  }
+
+  /* ===== PAGE CHROME (doc only; hex allowed here, never inside the device frame) ===== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b}
+  .doc{max-width:1180px;margin:0 auto}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:20px}
+  .docnote h1{font-size:18px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:#52525b}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .modebar{display:flex;gap:7px;margin:0 0 18px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2 button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 14px;border-bottom:1px solid #d4d4d8;padding-bottom:6px}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12.5px;font-weight:700;color:#3f3f46;margin-bottom:9px;text-align:center;max-width:402px}
+  .framelabel .be{color:#a1a1aa} .framelabel .af{color:#2B2FBE}
+
+  /* ===== DEVICE FRAME (true 402x874 viewport) ===== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:2px 16px 4px;flex-shrink:0}
+  .nav .back{display:flex;align-items:center;gap:3px;font-size:17px;font-weight:600;color:var(--tint)}
+  /* centered nav-title + labeled back (pushed-screen pattern, principled split) */
+  .navc{display:flex;align-items:center;height:44px;position:relative;flex-shrink:0;padding:2px 12px 4px}
+  .navc .back{display:inline-flex;align-items:center;gap:2px;color:var(--tint);font-size:16px;font-weight:600;z-index:2}
+  .navc .back .bx{font-size:23px;font-weight:400;line-height:1;margin-top:-1px}
+  .navc .ntitle{position:absolute;left:58px;right:58px;text-align:center;font-size:17px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .scroll{flex:1;overflow:hidden;padding:0 16px}
+  .lt{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-.6px;margin:4px 0 5px}
+  .ltsub{font-size:14px;color:var(--ink-2);line-height:1.45;margin-bottom:18px}
+
+  /* neutral info note (verification gate) - within the colour budget: neutral, not amber, not brand */
+  .note{display:flex;align-items:flex-start;gap:10px;background:var(--fill);border:1px solid var(--hair);border-radius:var(--radius);padding:12px 14px;margin-bottom:16px}
+  .note .nic{font-size:15px;color:var(--ink-3);line-height:1.2;flex-shrink:0}
+  .note .ntx{font-size:12.5px;color:var(--ink-2);line-height:1.45}
+  .note .ntx b{color:var(--ink)}
+
+  /* grouped-list (sec/sech/card/row) - the canonical HIG language */
+  .sec{margin-bottom:18px}
+  .sech{font-size:12px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;margin:0 4px 8px}
+  .card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden}
+  .row{display:flex;align-items:center;gap:13px;padding:14px 15px}
+  .row + .row{border-top:1px solid var(--hair)}
+  .ric{width:36px;height:36px;border-radius:10px;background:var(--fill);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;filter:grayscale(.25)}
+  .rtx{flex:1;min-width:0}
+  .rt{font-size:15.5px;font-weight:600;color:var(--ink);letter-spacing:-.1px}
+  .rs{font-size:12.5px;color:var(--ink-2);margin-top:2px;line-height:1.35}
+  .rchev{font-size:17px;color:var(--ink-3);font-weight:600;flex-shrink:0}
+  .rt-link{font-size:14px;font-weight:700;color:var(--tint);flex-shrink:0}
+
+  /* BEFORE (live) - representing the current screen */
+  .b-title{font-size:24px;font-weight:800;color:var(--ink);margin:6px 0 5px}
+  .b-sub{font-size:13px;color:var(--ink-3);line-height:1.4;margin-bottom:16px}
+  .b-card{background:var(--card);border:1px solid var(--hair);border-radius:14px;padding:15px;margin-bottom:12px}
+  .b-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .b-badge{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px}
+  .b-t{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:3px}
+  .b-s{font-size:12.5px;color:var(--ink-3)}
+
+  /* annotations / audit */
+  .annos{max-width:1180px;margin:22px auto 0}
+  .audit{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid #e7e7ea;border-radius:10px;overflow:hidden;margin-bottom:14px}
+  .audit th,.audit td{text-align:left;padding:8px 11px;border-top:1px solid #eee;vertical-align:top}
+  .audit th{background:#f6f6f8;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#71717a;border-top:none}
+  .audit td b{color:#18181b}
+  .vd{font-weight:800;font-size:11px;border-radius:5px;padding:1px 7px;white-space:nowrap}
+  .vd.keep{background:#e9f5ee;color:#166534} .vd.cut{background:#fbeaea;color:#b3261e} .vd.gate{background:#eef1fb;color:#2B2FBE} .vd.add{background:#fdf6e7;color:#92400e}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .cm{font-size:12px;line-height:1.6;color:#3f3f46;background:#fbfbfc;border:1px solid #e7e7ea;border-radius:10px;padding:12px 14px;margin-top:4px}
+  .cm b{color:#18181b}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Support &middot; Submit a ticket (the request-type picker)</h1>
+    Entry to the structured support path (Help centre deflects to FAQs first; this is the next step; WhatsApp is the last resort). <b>Canonical rebuild</b> against <code>design-system-source-of-truth.md</code> + the locked Requests-cluster mocks: the <code>--tint</code>/<code>--canvas</code>/<code>--card</code> token set, the HIG grouped-list (<code>sec</code>/<code>card</code>/<code>row</code>) language, and the <b>rationed colour budget</b> (neutral icon chips; colour only on the back affordance + the "My tickets" link). Applies the founder's naming call, <b>support items are "tickets"</b> (the job feed keeps "request"). Four ticket types unchanged; a "My tickets" row added so a tutor can reach existing tickets. The extra-class type retires under the new auto-invoicing model, documented in the audit, <b>not shown as a UI flag</b>. No field dropped. Tokens only, no em-dashes, true 402&times;874, light + dark.
+    <div class="legend">
+      <span><i style="background:#2B2FBE"></i>Tint = back affordance + "My tickets" link only</span>
+      <span><i style="background:#8a8a8e"></i>Neutral = everything else (icon chips, rows, note)</span>
+      <span><i style="background:#F2F2F7;border:1px solid #ccc"></i>Grouped-grey canvas</span>
+    </div>
+  </div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
+  </div>
+
+  <div class="modehd">After &middot; submit-a-ticket (verified + unverified) &middot; and the live before</div>
+  <div class="frames">
+
+    <!-- AFTER: verified -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Verified tutor (all ticket types)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Help</span><span class="ntitle">Submit a ticket</span></div>
+        <div class="scroll">
+          <div class="ltsub">Pick the option that fits, we&rsquo;ll route it to the right team.</div>
+
+          <div class="sec">
+            <div class="card">
+              <div class="row">
+                <div class="ric">&#128197;</div>
+                <div class="rtx"><div class="rt">Schedule an extra class</div><div class="rs">A one-off class with a student you already teach.</div></div>
+                <span class="rchev">&#8250;</span>
+              </div>
+              <div class="row">
+                <div class="ric">&#9201;&#65039;</div>
+                <div class="rtx"><div class="rt">Reschedule a class</div><div class="rs">Move a session to another time.</div></div>
+                <span class="rchev">&#8250;</span>
+              </div>
+              <div class="row">
+                <div class="ric">&#128682;</div>
+                <div class="rtx"><div class="rt">End my engagement</div><div class="rs">Stop teaching a student or leave the platform.</div></div>
+                <span class="rchev">&#8250;</span>
+              </div>
+              <div class="row">
+                <div class="ric">&#128172;</div>
+                <div class="rtx"><div class="rt">Something else</div><div class="rs">Attendance, payment, app bug, anything else.</div></div>
+                <span class="rchev">&#8250;</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">My tickets</div>
+            <div class="card">
+              <div class="row">
+                <div class="ric">&#128203;</div>
+                <div class="rtx"><div class="rt">Track your tickets</div><div class="rs">See the status of tickets you have opened.</div></div>
+                <span class="rt-link">View</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AFTER: unverified -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Unverified tutor (class types gated)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Help</span><span class="ntitle">Submit a ticket</span></div>
+        <div class="scroll">
+          <div class="ltsub">Pick the option that fits, we&rsquo;ll route it to the right team.</div>
+
+          <div class="note">
+            <span class="nic">&#9432;</span>
+            <div class="ntx"><b>Complete verification</b> to schedule or change classes. You can still open a support ticket.</div>
+          </div>
+
+          <div class="sec">
+            <div class="card">
+              <div class="row">
+                <div class="ric">&#128682;</div>
+                <div class="rtx"><div class="rt">End my engagement</div><div class="rs">Stop teaching a student or leave the platform.</div></div>
+                <span class="rchev">&#8250;</span>
+              </div>
+              <div class="row">
+                <div class="ric">&#128172;</div>
+                <div class="rtx"><div class="rt">Something else</div><div class="rs">Attendance, payment, app bug, anything else.</div></div>
+                <span class="rchev">&#8250;</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">My tickets</div>
+            <div class="card">
+              <div class="row">
+                <div class="ric">&#128203;</div>
+                <div class="rtx"><div class="rt">Track your tickets</div><div class="rs">See the status of tickets you have opened.</div></div>
+                <span class="rt-link">View</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BEFORE: live -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live Submit a request</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back" style="color:var(--ink-2)">&#8249;</span></div>
+        <div class="scroll">
+          <div class="b-title">Submit a request</div>
+          <div class="b-sub">Pick the option that fits, we'll route it to the right team.</div>
+          <div class="b-card">
+            <div class="b-top"><div class="b-badge" style="background:#E7F8EF;color:#16a34a">&#128214;</div><span style="color:#8a8a8e;font-size:19px">&#8250;</span></div>
+            <div class="b-t">Schedule an extra class</div><div class="b-s">A one-off class with a student you already teach</div>
+          </div>
+          <div class="b-card">
+            <div class="b-top"><div class="b-badge" style="background:#FFF3DF;color:#E0A23D">&#9201;</div><span style="color:#8a8a8e;font-size:19px">&#8250;</span></div>
+            <div class="b-t">Reschedule a class</div><div class="b-s">Move a session to another time</div>
+          </div>
+          <div class="b-card">
+            <div class="b-top"><div class="b-badge" style="background:#EDEDED;color:#6b6b6b">&#128100;</div><span style="color:#8a8a8e;font-size:19px">&#8250;</span></div>
+            <div class="b-t">End my engagement</div><div class="b-s">Stop teaching a student or leave the platform</div>
+          </div>
+          <div class="b-card" style="margin-bottom:0">
+            <div class="b-top"><div class="b-badge" style="background:#E8EEFB;color:#5b6b8a">&#10067;</div><span style="color:#8a8a8e;font-size:19px">&#8250;</span></div>
+            <div class="b-t">Something else</div><div class="b-s">Attendance, payment, app bug, anything else</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="annos">
+    <h2>Field-level audit (challenge, don't trace &middot; KEEP / CUT / GATE / ADD)</h2>
+    <table class="audit">
+      <tr><th>Element (live)</th><th>Verdict</th><th>Provenance + reasoning</th></tr>
+      <tr><td><b>Title "Submit a request"</b></td><td><span class="vd keep">KEEP</span></td><td>Real screen title; reworded to <b>"Submit a ticket"</b> (support = ticket; the job feed keeps "request").</td></tr>
+      <tr><td><b>Subtitle</b></td><td><span class="vd keep">KEEP</span></td><td>Verbatim "Pick the option that fits, we'll route it to the right team." Reinforces the structured path before WhatsApp.</td></tr>
+      <tr><td><b>Tile: Schedule an extra class</b></td><td><span class="vd gate">GATE</span></td><td>Real, but <code>SubmitRequestExtraClass</code> is <code>deprecated</code> (auto-invoicing quota model). Kept as a normal row; <b>remove the row</b> when <code>allocator_write_enabled</code> flips on (Hafiz). NOT shown as a user-facing flag, retirement is a build decision.</td></tr>
+      <tr><td><b>Tile: Reschedule a class</b></td><td><span class="vd keep">KEEP</span></td><td>Real route. Neutral row (colour budget). Hidden for unverified tutors (live conditional).</td></tr>
+      <tr><td><b>Tile: End my engagement</b></td><td><span class="vd keep">KEEP</span></td><td>Real; routes through the Discouragement deterrent first (by design).</td></tr>
+      <tr><td><b>Tile: Something else</b></td><td><span class="vd keep">KEEP</span></td><td>Real catch-all. Always visible (the path an unverified tutor keeps).</td></tr>
+      <tr><td><b>Per-tile coloured icon badges</b> (green / amber / grey / blue)</td><td><span class="vd cut">CUT</span></td><td>Live decoration with no meaning. Cut to <b>neutral icon chips</b> per the rationed colour budget (green=fit, amber=one caution, else neutral). Colour now only on the back affordance + the "My tickets" link.</td></tr>
+      <tr><td><b>Unverified notice</b></td><td><span class="vd keep">KEEP</span></td><td>Real conditional (<code>status==='un-verified'</code> hides the two class rows + shows the note). Rendered <b>neutral</b> (info), not amber, so the colour budget stays clean. Copy tail aligned to "open a support ticket".</td></tr>
+      <tr><td><b>"My tickets" row</b></td><td><span class="vd add">ADD</span></td><td>The live picker has no way back to existing tickets. Adds a one-tap jump (the trackable half of the loop). Honest, low, easily ignored.</td></tr>
+    </table>
+
+    <div class="anno g"><span class="n">1</span><div><b>Canonical rebuild (the correction).</b> First pass was skinned off <code>profile-menu-hub</code> and used the wrong token set + decorative tile colours. This rebuild uses the source-of-truth tokens + HIG grouped-list and rations colour: neutral icon chips, tint only where it carries an action.</div></div>
+    <div class="anno g"><span class="n">2</span><div><b>Two real states.</b> Verified (four rows) and unverified (two class rows gated out + the note), mirroring the live <code>isUnverified</code> branch.</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz dependencies:</b> (a) is <code>allocator_write_enabled</code> on in prod? if yes, the extra-class row drops and this is a 3-type picker. (b) Confirm the unverified status string is exactly <code>'un-verified'</code>. (c) "Track your tickets" routes to MyRequestsList, confirm route stability.</div></div>
+    <div class="cm"><b>Commercial pass (Retain &middot; support loop).</b> <b>Founder:</b> a clean structured intake deflects ad-hoc WhatsApp pings into trackable tickets, protecting support time + tutor trust. <b>Sales:</b> no upsell by design (a trust surface); the only attach is the My-tickets row keeping the tutor inside the loop. <b>Marketing:</b> the felt promise is "we route it to the right team", reliability is the message. <b>Analyst:</b> instrument ticket-type selection + share of contacts starting here vs WhatsApp; guard = resolution time must not rise as volume shifts into structured tickets. Tap-count: any ticket type or existing tickets in <b>1 tap</b>.</div>
+  </div>
+</div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ if(m==='dark') p.classList.add('dark'); else p.classList.remove('dark'); });
+    document.querySelectorAll('.modebar .seg2 button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

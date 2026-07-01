@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support &middot; End my engagement (resignation flow) &middot; canonical</title>
+<style>
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12); --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px; --radius-lg:16px;
+    --earn:rgba(43,47,190,.10); --earn-line:rgba(43,47,190,.18);
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18); --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --earn:rgba(124,140,240,.20); --earn-line:rgba(124,140,240,.32);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b}
+  .doc{max-width:1180px;margin:0 auto}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:20px}
+  .docnote h1{font-size:18px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:#52525b}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .modebar{display:flex;gap:7px;margin:0 0 18px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2 button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 14px;border-bottom:1px solid #d4d4d8;padding-bottom:6px}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12.5px;font-weight:700;color:#3f3f46;margin-bottom:9px;text-align:center;max-width:402px}
+  .framelabel .be{color:#a1a1aa} .framelabel .af{color:#2B2FBE}
+
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+  .navc{display:flex;align-items:center;height:44px;position:relative;flex-shrink:0;padding:2px 12px 4px}
+  .navc .back{display:inline-flex;align-items:center;gap:2px;color:var(--tint);font-size:16px;font-weight:600;z-index:2}
+  .navc .back .bx{font-size:23px;font-weight:400;line-height:1;margin-top:-1px}
+  .navc .ntitle{position:absolute;left:64px;right:64px;text-align:center;font-size:17px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav{display:flex;align-items:center;padding:2px 16px 4px;flex-shrink:0}
+  .nav .back{color:var(--ink-2);font-size:17px}
+
+  .scroll{flex:1;overflow:hidden;padding:0 16px 110px}
+
+  /* progress stepper (bars + caption, no word labels = no duplication with step titles) */
+  .stepper{margin:2px 0 20px}
+  .stepbars{display:flex;gap:6px}
+  .stepbars .sb{flex:1;height:4px;border-radius:99px;background:var(--fill-2)}
+  .stepbars .sb.on{background:var(--tint)}
+  .stepcap{font-size:11.5px;font-weight:600;color:var(--ink-3);margin-top:8px}
+
+  .steptitle{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.3px;margin-bottom:16px;line-height:1.2}
+
+  /* single-select reason chips */
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{font-size:14px;font-weight:600;color:var(--ink);background:var(--card);border:1px solid var(--hair);border-radius:999px;padding:10px 15px;box-shadow:var(--shadow)}
+  .chip.sel{color:#fff;background:var(--tint);border-color:var(--tint);box-shadow:var(--shadow-cta)}
+
+  /* sticky dock + skip */
+  .dock{position:absolute;left:0;right:0;bottom:0;padding:12px 16px 24px;background:linear-gradient(to top,var(--canvas) 60%,rgba(242,242,247,0))}
+  .dark .dock{background:linear-gradient(to top,#000 60%,rgba(0,0,0,0))}
+  .primary{display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;background:var(--tint);border-radius:14px;padding:15px;box-shadow:var(--shadow-cta)}
+  .skip{text-align:center;font-size:14px;font-weight:600;color:var(--ink-3);margin-top:12px}
+
+  /* confirm alert */
+  .dim{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+  .alert{position:absolute;left:34px;right:34px;top:50%;transform:translateY(-50%);background:var(--card);border-radius:18px;padding:22px 20px;box-shadow:0 20px 50px rgba(0,0,0,.35);text-align:center}
+  .alert .at{font-size:18px;font-weight:800;color:var(--ink);margin-bottom:9px}
+  .alert .ab{font-size:13.5px;color:var(--ink-2);line-height:1.5;margin-bottom:18px}
+  .alert .arow{display:flex;gap:10px}
+  .alert .abtn{flex:1;padding:13px;border-radius:12px;font-size:15px;font-weight:700}
+  .alert .abtn.cancel{background:var(--fill);color:var(--ink)}
+  .alert .abtn.go{background:var(--tint);color:#fff}
+
+  /* guard state */
+  .guard{display:flex;flex-direction:column;align-items:center;text-align:center;padding:62px 26px 0}
+  .guard-ic{width:62px;height:62px;border-radius:18px;background:var(--amber-weak);color:var(--amber-ink);display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:18px}
+  .guard-t{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.2px}
+  .guard-b{font-size:13.5px;color:var(--ink-2);line-height:1.5;margin-top:8px;max-width:280px}
+  .guard-actions{align-self:stretch;margin-top:26px;display:flex;flex-direction:column;gap:10px}
+  .guard-actions .primary{width:100%}
+  .guard-actions .ghost{text-align:center;font-size:15px;font-weight:700;color:var(--tint);padding:6px}
+
+  /* BEFORE (live) */
+  .b-h{font-size:20px;font-weight:800;color:var(--ink);margin:2px 0 12px}
+  .b-steps{display:flex;gap:6px;margin-bottom:16px}
+  .b-st{flex:1;text-align:center;font-size:10.5px;font-weight:700;color:var(--ink-4)}
+  .b-st.on{color:var(--tint)}
+  .b-st .bd{height:4px;border-radius:99px;background:var(--fill-2);margin-bottom:5px}
+  .b-st.on .bd{background:var(--tint)}
+  .b-qt{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:13px}
+  .b-chip{display:inline-block;font-size:13px;color:var(--ink);border:1px solid var(--hair);border-radius:999px;padding:9px 13px;margin:0 7px 8px 0}
+  .b-chip.sel{background:var(--tint);color:#fff;border-color:var(--tint)}
+  .b-btn{background:var(--tint);color:#fff;border-radius:12px;padding:14px;text-align:center;font-size:15px;font-weight:700;margin-top:14px}
+
+  .annos{max-width:1180px;margin:22px auto 0}
+  .audit{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid #e7e7ea;border-radius:10px;overflow:hidden;margin-bottom:14px}
+  .audit th,.audit td{text-align:left;padding:8px 11px;border-top:1px solid #eee;vertical-align:top}
+  .audit th{background:#f6f6f8;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#71717a;border-top:none}
+  .audit td b{color:#18181b}
+  .vd{font-weight:800;font-size:11px;border-radius:5px;padding:1px 7px;white-space:nowrap}
+  .vd.keep{background:#e9f5ee;color:#166534} .vd.cut{background:#fbeaea;color:#b3261e} .vd.gate{background:#eef1fb;color:#2B2FBE} .vd.add{background:#fdf6e7;color:#92400e}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .cm{font-size:12px;line-height:1.6;color:#3f3f46;background:#fbfbfc;border:1px solid #e7e7ea;border-radius:10px;padding:12px 14px;margin-top:4px}
+  .cm b{color:#18181b}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Support &middot; End my engagement (the 4-step resignation)</h1>
+    Reached only after the <b>Discouragement</b> deterrent. A guided 4-step flow, <b>Why &middot; When &middot; Notes &middot; Survey</b>, so a leaving tutor is heard and admin gets a clean record. <b>Canonical</b>: centered nav, a bar progress stepper (no word labels, so it never repeats the step title), single-select chips, a sticky Next/Submit, and a <b>confirm alert</b> ("you can't undo this"). Three real guard states (suspended / not eligible / already in review) render instead of the form when the backend blocks it. Steps 3 and 4 are skippable. Dates one format DD-MMM-YYYY. No em-dashes, no duplication. True 402&times;874, light + dark.
+    <div class="legend">
+      <span><i style="background:#2B2FBE"></i>Tint = progress + selected chip + primary action</span>
+      <span><i style="background:#92400e"></i>Amber = the guard-state caution</span>
+      <span><i style="background:#8a8a8e"></i>Neutral = unselected chips, skip, helpers</span>
+    </div>
+  </div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
+  </div>
+
+  <div class="modehd">After &middot; step 1 (Why) + the confirm alert + a guard state &middot; and the live before</div>
+  <div class="frames">
+
+    <!-- AFTER: step 1 Why -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Step 1 &middot; Why</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">End my engagement</span></div>
+        <div class="scroll">
+          <div class="stepper">
+            <div class="stepbars"><span class="sb on"></span><span class="sb"></span><span class="sb"></span><span class="sb"></span></div>
+            <div class="stepcap">Step 1 of 4</div>
+          </div>
+          <div class="steptitle">Why are you leaving?</div>
+          <div class="chips">
+            <span class="chip">Personal reasons</span>
+            <span class="chip">Health reasons</span>
+            <span class="chip">Relocation</span>
+            <span class="chip sel">New job / opportunity</span>
+            <span class="chip">Schedule conflict</span>
+            <span class="chip">Other</span>
+          </div>
+        </div>
+        <div class="dock"><div class="primary">Next</div></div>
+      </div>
+    </div>
+
+    <!-- AFTER: confirm alert -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Confirm (you can't undo)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">End my engagement</span></div>
+        <div class="scroll">
+          <div class="stepper">
+            <div class="stepbars"><span class="sb on"></span><span class="sb on"></span><span class="sb on"></span><span class="sb on"></span></div>
+            <div class="stepcap">Step 4 of 4</div>
+          </div>
+          <div class="steptitle">Are you joining another platform?</div>
+          <div class="chips">
+            <span class="chip">Yes</span>
+            <span class="chip sel">No</span>
+            <span class="chip">Prefer not to say</span>
+          </div>
+        </div>
+        <div class="dim"></div>
+        <div class="alert">
+          <div class="at">Confirm resignation</div>
+          <div class="ab">Your resignation will be reviewed within 24 hours. You can&rsquo;t undo this once it&rsquo;s submitted. Continue?</div>
+          <div class="arow"><div class="abtn cancel">Cancel</div><div class="abtn go">Yes, submit</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AFTER: guard already-in-review -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Guard &middot; already in review</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">End my engagement</span></div>
+        <div class="scroll">
+          <div class="guard">
+            <div class="guard-ic">&#9203;</div>
+            <div class="guard-t">Already in review</div>
+            <div class="guard-b">You already have a resignation in review. We will be in touch within 24 hours.</div>
+            <div class="guard-actions">
+              <div class="primary">View my tickets</div>
+              <div class="ghost">Back to Help centre</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BEFORE: live -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live resignation step</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back">&#8249;</span></div>
+        <div class="scroll" style="padding-bottom:16px">
+          <div class="b-h">End my engagement</div>
+          <div class="b-steps">
+            <div class="b-st on"><div class="bd"></div>Why</div>
+            <div class="b-st"><div class="bd"></div>When</div>
+            <div class="b-st"><div class="bd"></div>Notes</div>
+            <div class="b-st"><div class="bd"></div>Survey</div>
+          </div>
+          <div class="b-qt">Why are you leaving?</div>
+          <div>
+            <span class="b-chip">Personal reasons</span>
+            <span class="b-chip">Health reasons</span>
+            <span class="b-chip">Relocation</span>
+            <span class="b-chip sel">New job / opportunity</span>
+            <span class="b-chip">Schedule conflict</span>
+            <span class="b-chip">Other</span>
+          </div>
+          <div class="b-btn">Next</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="annos">
+    <h2>Field-level audit (challenge, don't trace &middot; KEEP / CUT / GATE / ADD)</h2>
+    <table class="audit">
+      <tr><th>Element (live)</th><th>Verdict</th><th>Provenance + reasoning</th></tr>
+      <tr><td><b>Header "End my engagement"</b></td><td><span class="vd keep">KEEP</span></td><td>Verbatim; the centered nav title across all steps + guards.</td></tr>
+      <tr><td><b>4-step stepper</b> (Why/When/Notes/Survey)</td><td><span class="vd keep">KEEP</span></td><td>Real. Rebuilt as a <b>bar progress</b> + "Step N of 4" caption (word labels dropped so the stepper never repeats the step title). Back steps backward.</td></tr>
+      <tr><td><b>Step 1 Why: reason chips</b> (6, single-select)</td><td><span class="vd keep">KEEP</span></td><td>Real (required): Personal reasons / Health reasons / Relocation / New job / opportunity / Schedule conflict / Other. Selecting "Other" reveals a "Tell us more" field (max 200).</td></tr>
+      <tr><td><b>Step 2 When: effective date</b></td><td><span class="vd keep">KEEP</span></td><td>Real (required, min 24h from now). Helper "Your last day of teaching."</td></tr>
+      <tr><td><b>Step 3 Notes: improvement feedback</b></td><td><span class="vd keep">KEEP</span></td><td>Real (optional, max 500). <b>Skippable.</b></td></tr>
+      <tr><td><b>Step 4 Survey: other platform</b></td><td><span class="vd keep">KEEP</span></td><td>Real (optional): Yes / No / Prefer not to say; "Yes" reveals a platform-name field (max 50). <b>Skippable.</b></td></tr>
+      <tr><td><b>Confirm modal</b></td><td><span class="vd keep">KEEP</span></td><td>Verbatim "Confirm resignation" / "Your resignation will be reviewed within 24 hours. You can't undo this once it's submitted. Continue?" + Cancel / "Yes, submit". The safety gate on an irreversible action.</td></tr>
+      <tr><td><b>Guard states</b> (suspended / ineligible / duplicate)</td><td><span class="vd keep">KEEP</span></td><td>Real backend guards. <b>suspended</b> (403) "Account under review" &rarr; Contact support. <b>ineligible</b> (422) "Not eligible". <b>duplicate</b> (409) "Already in review" &rarr; "View my tickets" (was "View my requests", naming). One shown here.</td></tr>
+      <tr><td><b>Success "Resignation submitted"</b></td><td><span class="vd keep">KEEP</span></td><td>Real; resets the stack to Help centre (drops the flow from history).</td></tr>
+    </table>
+
+    <div class="anno g"><span class="n">1</span><div><b>Heard, not just processed.</b> The flow asks why + when + what could improve before it lets a tutor go, matching the retention intent, while still producing a clean admin record.</div></div>
+    <div class="anno g"><span class="n">2</span><div><b>The irreversible action is gated.</b> The confirm alert is the one hard stop ("you can't undo this"). Calm, neutral copy, no red-alarm, the weight is in the words + the two-tap confirm.</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz dependencies:</b> (a) the three guard triggers (403 suspended / 422 ineligible / 409 duplicate), confirm the codes + copy. (b) effective-date min = 24h; confirm. (c) success resets to Help centre; confirm the post-submit route.</div></div>
+    <div class="cm"><b>Commercial pass (Offboarding &middot; the last retention chance).</b> <b>Founder:</b> a graceful, listening exit is both a final save opportunity (the Why + feedback can trigger a human follow-up) and reputation protection (tutors talk); a clean record also protects operations. <b>Sales:</b> no upsell (offboarding). <b>Marketing:</b> a respectful exit is a referral + re-join asset, not a dead end. <b>Analyst:</b> instrument step-drop-off + reason mix + the save-rate after a resignation is filed; guard = the flow must not feel like a trap (the Discouragement precedes it once, not a loop). Tap-count: reason + date + confirm = the minimum path (skips allowed on 3 + 4).</div>
+  </div>
+</div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ if(m==='dark') p.classList.add('dark'); else p.classList.remove('dark'); });
+    document.querySelectorAll('.modebar .seg2 button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

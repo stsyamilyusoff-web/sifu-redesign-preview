@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deliver · Active class cockpit — rich mock (light + dark)</title>
+<style>
+  /* ============== TOKENS (mirrors @sifu/ui semantic layer; no raw hex in markup) ============== */
+  :root{
+    --tint:#2B2FBE;            /* brand */
+    --tint-weak:rgba(43,47,190,.10);
+    --canvas:#F2F2F7;          /* grouped canvas */
+    --card:#FFFFFF;
+    --ink:#000000;
+    --ink-2:rgba(60,60,67,.62);
+    --ink-3:rgba(60,60,67,.45);
+    --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12);
+    --fill:rgba(120,120,128,.10);
+    --fill-2:#EAEAEF;          /* neutral money anchor */
+    --green:#16A34A;           /* fit / success — colour budget */
+    --green-ink:#166534;
+    --green-weak:rgba(22,163,74,.12);
+    --amber-ink:#92400e;       /* one-flag caution — colour budget */
+    --amber-weak:rgba(245,158,11,.18);
+    --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05);
+    --radius:12px;
+    --radius-lg:16px;
+  }
+  .dark{
+    --tint:#7C8CF0;
+    --tint-weak:rgba(124,140,240,.18);
+    --canvas:#000000;
+    --card:#1C1C1E;
+    --ink:#FFFFFF;
+    --ink-2:rgba(235,235,245,.62);
+    --ink-3:rgba(235,235,245,.45);
+    --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6);
+    --fill:rgba(120,120,128,.24);
+    --fill-2:#2C2C2E;
+    --green:#30D158;
+    --green-ink:#30D158;
+    --green-weak:rgba(48,209,88,.18);
+    --amber-ink:#FFD60A;
+    --amber-weak:rgba(255,214,10,.16);
+    --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5);
+  }
+
+  /* ============== PAGE CHROME (doc only — not part of the app) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1320px;margin:0 auto;}
+  .docnote{font-size:13px;line-height:1.65;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+  .docnote h1{font-size:17px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 12px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:8px;text-align:center;max-width:402px;}
+  .framelabel .step{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:#2B2FBE;border-radius:999px;padding:2px 8px;margin-right:6px;}
+
+  /* ============== DEVICE FRAME (matches wave1-requests-feed.html) ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;padding:0 16px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 6px 0 4px;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+
+  /* nav */
+  .nav{display:flex;align-items:center;height:44px;position:relative;}
+  .nav .back{font-size:16px;color:var(--tint);font-weight:600;line-height:1;z-index:1;}
+  .nav .ntitle{position:absolute;left:0;right:0;text-align:center;font-size:17px;font-weight:700;color:var(--ink);pointer-events:none;}
+  .nav .nspace{flex:1;}
+  .nav .help{font-size:13px;font-weight:600;color:var(--tint);z-index:1;}
+
+  /* status banner (state colour carrier — sits above the hero, per DR-007) */
+  .banner{display:flex;align-items:center;gap:9px;border-radius:var(--radius);padding:11px 13px;font-size:13px;font-weight:700;margin:6px 0 12px;}
+  .banner .bdot{width:9px;height:9px;border-radius:999px;flex-shrink:0;}
+  .banner.upcoming{background:var(--tint-weak);color:var(--tint);} .banner.upcoming .bdot{background:var(--tint);}
+  .banner.live{background:var(--green-weak);color:var(--green-ink);} .banner.live .bdot{background:var(--green);animation:pulse 1.4s infinite;}
+  .banner.done{background:var(--green-weak);color:var(--green-ink);} .banner.done .bdot{background:var(--green);}
+  .banner .bspace{flex:1;}
+  .banner .bsmall{font-size:12px;font-weight:600;opacity:.9;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+
+  /* class context card (who / what / where — the missing context) */
+  .ctx{background:var(--card);border-radius:var(--radius-lg);padding:15px;box-shadow:var(--shadow);margin-bottom:11px;}
+  .ctx-top{display:flex;align-items:center;gap:12px;}
+  .ava{width:46px;height:46px;border-radius:999px;background:var(--tint-weak);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:var(--tint);flex-shrink:0;}
+  .ctx-id{flex:1;min-width:0;}
+  .ctx-name{font-size:17px;font-weight:700;color:var(--ink);}
+  .ctx-sub{font-size:13px;color:var(--ink-2);margin-top:1px;}
+  .ctx-anchor{flex-shrink:0;text-align:right;}
+  .ctx-mode{font-size:10px;font-weight:800;letter-spacing:.3px;color:var(--ink-2);}
+  .ctx-rm{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.3px;}
+  .ctx-rm span{font-size:10px;font-weight:700;color:var(--ink-3);}
+  .ctx-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:11px;padding-top:11px;border-top:1px solid var(--hair);}
+  .ic{font-size:12.5px;font-weight:600;color:var(--ink-2);display:inline-flex;align-items:center;gap:4px;}
+  .ic .g{font-size:13px;opacity:.85;}
+  .sep{color:var(--ink-4);font-size:11px;}
+
+  /* timer focal */
+  .timerwrap{text-align:center;padding:18px 0 6px;}
+  .timer-eyebrow{font-size:12px;font-weight:700;letter-spacing:.4px;color:var(--ink-3);text-transform:uppercase;}
+  .timer-big{font-variant-numeric:tabular-nums;font-feature-settings:"tnum";font-size:62px;font-weight:800;letter-spacing:-2px;color:var(--ink);line-height:1.05;margin-top:4px;}
+  .timer-big.live{color:var(--green-ink);}
+  .timer-big .s{font-size:26px;font-weight:700;color:var(--ink-3);letter-spacing:0;}
+  .timer-meta{font-size:13px;color:var(--ink-2);margin-top:6px;}
+  .timer-prog{height:6px;border-radius:999px;background:var(--fill);margin:14px 26px 0;position:relative;overflow:hidden;}
+  .timer-prog i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:var(--green);}
+  .timer-prog.idle i{background:var(--tint);}
+
+  /* proof block */
+  .proofcard{background:var(--card);border-radius:var(--radius-lg);padding:15px;box-shadow:var(--shadow);margin-bottom:11px;}
+  .proof-lab{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--tint);margin-bottom:9px;}
+  .proof-shot{height:150px;border-radius:var(--radius);background:linear-gradient(135deg,var(--fill-2),var(--fill));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1.5px dashed var(--ink-4);}
+  .proof-shot.filled{border:none;background:linear-gradient(160deg,#c7d2fe,#a5b4fc);position:relative;}
+  .dark .proof-shot.filled{background:linear-gradient(160deg,#3730a3,#1e1b4b);}
+  .proof-cam{font-size:30px;opacity:.7;}
+  .proof-hint{font-size:12.5px;color:var(--ink-3);font-weight:600;}
+  .proof-chk{position:absolute;top:9px;right:9px;background:var(--green);color:#fff;border-radius:999px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;}
+  .proof-stamp{position:absolute;left:9px;bottom:9px;background:rgba(0,0,0,.55);color:#fff;border-radius:6px;padding:3px 8px;font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;}
+  .proof-loc{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:12px;color:var(--ink-2);font-weight:600;}
+  .proof-loc .ok{color:var(--green-ink);font-weight:800;}
+
+  /* amber caution (one flag, colour budget) */
+  .caution{display:flex;gap:8px;align-items:flex-start;background:var(--amber-weak);border:1px solid var(--amber-line);border-radius:var(--radius);padding:10px 12px;font-size:12.5px;font-weight:600;color:var(--amber-ink);margin-bottom:11px;line-height:1.4;}
+  .caution .cg{font-size:14px;flex-shrink:0;}
+
+  /* primary / secondary actions */
+  .actions{position:absolute;left:16px;right:16px;bottom:18px;}
+  .cta{height:52px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:17px;font-weight:600;color:#fff;background:var(--tint);box-shadow:0 6px 16px var(--tint-weak);}
+  .cta.go{background:var(--green);box-shadow:0 6px 16px var(--green-weak);}
+  .cta.disabled{background:var(--fill-2);color:var(--ink-4);box-shadow:none;}
+  .cta .cg{font-size:18px;}
+  .subrow{display:flex;gap:10px;margin-top:10px;}
+  .sbtn{flex:1;height:44px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:14px;font-weight:600;color:var(--tint);background:var(--card);box-shadow:var(--shadow);}
+  .ctahint{text-align:center;font-size:12px;color:var(--ink-3);margin-top:9px;font-weight:600;}
+
+  /* done summary rows */
+  .sumcard{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);margin-bottom:11px;overflow:hidden;}
+  .sumrow{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;border-top:1px solid var(--hair);font-size:14px;}
+  .sumrow:first-child{border-top:none;}
+  .sumrow .k{color:var(--ink-2);}
+  .sumrow .v{color:var(--ink);font-weight:700;}
+  .sumrow .v.earn{color:var(--green-ink);}
+  .nextcard{background:var(--tint-weak);border-radius:var(--radius-lg);padding:14px 15px;display:flex;align-items:center;gap:11px;}
+  .nextcard .nx{flex:1;}
+  .nextcard .nxl{font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--tint);}
+  .nextcard .nxt{font-size:14px;font-weight:700;color:var(--ink);margin-top:2px;}
+  .nextcard .nxchev{font-size:22px;color:var(--tint);font-weight:300;}
+
+  .spacer{flex:1;}
+
+  /* ============== TIMER TREATMENTS (alternatives to the big-numeral hero) ============== */
+  /* Variant A — circular ring (elapsed fills, remaining is the open arc) */
+  .ringwrap{display:flex;flex-direction:column;align-items:center;padding:14px 0 6px;}
+  .ring{position:relative;width:212px;height:212px;border-radius:999px;
+    background:conic-gradient(var(--green) 0 var(--pct,54%), var(--fill) var(--pct,54%) 100%);
+    display:flex;align-items:center;justify-content:center;}
+  .ring.idle{background:var(--fill);}                 /* not started: neutral track only */
+  .ring::before{content:"";position:absolute;inset:14px;border-radius:999px;background:var(--card);}
+  .ring-left.idle{color:var(--ink-3);}                /* not-started caption is neutral, not green */
+  .ring-core{position:relative;text-align:center;z-index:1;}
+  .ring-elapsed{font-variant-numeric:tabular-nums;font-size:40px;font-weight:800;color:var(--ink);letter-spacing:-1px;line-height:1.05;}
+  .ring-of{font-size:12px;color:var(--ink-3);font-weight:600;margin-top:3px;}
+  .ring-left{font-size:13px;font-weight:700;color:var(--green-ink);margin-top:9px;}
+  .ring-eyebrow{font-size:12px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px;}
+  /* compact ring + side labels — used on content-heavy states (clock-out) */
+  .ringrow{display:flex;align-items:center;gap:16px;background:var(--card);border-radius:var(--radius-lg);padding:15px;box-shadow:var(--shadow);margin-bottom:11px;}
+  .ring.sm{width:92px;height:92px;flex-shrink:0;}
+  .ring.sm::before{inset:9px;}
+  .ring.sm .ring-elapsed{font-size:22px;}
+  .ring.sm .ring-of{font-size:10px;margin-top:1px;}
+  .ringrow-txt{flex:1;min-width:0;}
+  .ringrow-lab{font-size:12px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-3);}
+  .ringrow-big{font-size:20px;font-weight:800;color:var(--ink);margin-top:3px;}
+  .ringrow-sub{font-size:13px;color:var(--ink-2);margin-top:3px;font-weight:600;}
+
+  /* Variant B — contextual time-range (range leads, raw count de-emphasized) */
+  .rangecard{background:var(--card);border-radius:var(--radius-lg);padding:16px;box-shadow:var(--shadow);}
+  .range-eyebrow{font-size:12px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;}
+  .range-line{display:flex;align-items:baseline;gap:10px;}
+  .range-time{font-size:26px;font-weight:800;color:var(--ink);letter-spacing:-.4px;}
+  .range-arrow{font-size:18px;color:var(--ink-4);font-weight:600;}
+  .range-now{display:flex;align-items:center;gap:7px;margin:12px 0 6px;}
+  .range-track{flex:1;height:8px;border-radius:999px;background:var(--fill);position:relative;overflow:hidden;}
+  .range-track i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:var(--green);}
+  .range-dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:999px;background:var(--green);border:2.5px solid var(--card);box-shadow:0 0 0 1px var(--green);}
+  .range-foot{display:flex;justify-content:space-between;align-items:center;font-size:13px;}
+  .range-left{font-weight:700;color:var(--green-ink);}
+  .range-elapsed{font-variant-numeric:tabular-nums;color:var(--ink-3);font-weight:600;}
+
+  /* Variant C — minimal elapsed chip (context leads, timer secondary) */
+  .minrow{display:flex;align-items:center;gap:7px;margin:2px 0 4px;}
+  .min-live{display:inline-flex;align-items:center;gap:6px;background:var(--green-weak);color:var(--green-ink);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;}
+  .min-livedot{width:8px;height:8px;border-radius:999px;background:var(--green);animation:pulse 1.4s infinite;}
+  .min-left{font-size:13px;color:var(--ink-2);font-weight:600;}
+  .min-track{height:5px;border-radius:999px;background:var(--fill);margin-top:12px;position:relative;overflow:hidden;}
+  .min-track i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:var(--green);}
+
+  /* side-by-side variant column */
+  .vcol{display:flex;flex-direction:column;align-items:center;}
+  .vlabel{font-size:13px;font-weight:800;color:#18181b;margin-bottom:4px;text-align:center;}
+  .vdesc{font-size:11.5px;color:#52525b;line-height:1.5;max-width:402px;text-align:center;margin-bottom:10px;}
+  .vref{font-size:10.5px;color:#71717a;font-style:italic;margin-bottom:10px;text-align:center;}
+
+  @media (max-width:900px){ .frames{gap:30px} }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="docnote">
+    <h1>Deliver · Active class cockpit — rich mock (2026-06-29)</h1>
+    The single most-used Win &amp; Deliver screen: <b>every class passes through it</b>, and it gates two funnel metrics (on-time clock-in, classes delivered). The live screen is a context-free timer blob ("Click on the Timer to Clock Out") with no who / what / where, no earning, no progress, and an undiscoverable tap-the-timer affordance.
+    <br><br>
+    <b>What the redesign keeps (the solid parts the brief protects):</b> photo proof at clock-in <i>and</i> clock-out, the running timer, and crash-recovery (the timer reads from the server start-time, so a reopened app resumes — shown in the In-progress frame's "resumed" note). <b>What it adds:</b> (1) a <b>class-context card</b> (student · subject · level · location · scheduled time · this-class earning) so the tutor always knows the class they are in; (2) a <b>scheduled vs elapsed</b> progress bar; (3) an explicit, labelled <b>primary button</b> replacing the hidden tap-the-timer gesture; (4) a state <b>banner</b> carrying the one state colour; (5) a <b>done summary</b> with the earning and a one-tap path to the post-class report (closing the Deliver → Report loop). <b>Retired:</b> legacy <code>ClockIn</code> / <code>ClockOut</code> / <code>ClassTimerCount</code> standalone screens fold into these states.
+    <br><br>
+    Grounded in the gig-worker in-job cockpit (Grab / Uber driver: who + where + one big action + completion proof) and timer apps (Apple Clock / Toggl: large tabular-numeral time as the focal element). Colour budget respected: <b>green = live / done / GPS-confirmed</b>, <b>amber = one caution</b> (early / GPS-off), everything else neutral. Tokens only, no raw hex in markup. Sample data is labelled; backend dependencies are listed at the foot of the page.
+    <br><br>
+    <b style="color:#2B2FBE">Founder review (2026-06-29):</b> cockpit APPROVED. Timer: <b>Variant A (circular ring) CHOSEN</b> and now wired into states 1, 3 and 4 below (state 1 idle ring = "class length"; state 3 live ring = elapsed/remaining; state 4 compact ring = taught vs scheduled, with the early-end caution). The 3-variant comparison is kept directly below as the decision record.
+    <br><br>
+    <b style="color:#2B2FBE">Update (2026-07-01):</b> CTA convention locked to <b>brand-blue primary</b> (green reserved for status only: live / done / GPS-confirmed). In-progress restored the live <b>Extend class</b> + <b>Class notes</b> secondary actions (the J2 extend journey + QuickNotes), which an earlier draft had dropped.
+  </div>
+
+  <!-- ===================== TIMER TREATMENTS (founder pick 1 of 3) ===================== -->
+  <div class="modehd">Timer treatment · decision record (Variant A chosen, now wired into the flow below)</div>
+  <div class="frames">
+
+    <!-- VARIANT A · RING -->
+    <div class="vcol">
+      <div class="vlabel">A · Circular ring ✓ chosen</div>
+      <div class="vdesc">Elapsed fills the ring, remaining is the open arc. The shape itself shows progress at a glance; the count sits inside, calm.</div>
+      <div class="vref">Ref: Apple Fitness rings · Apple Clock timer</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back">‹ Schedule</span><span class="ntitle">Class in progress</span></div>
+        <div class="banner live"><span class="bdot"></span>Class is live<span class="bspace"></span><span class="bsmall">Started 2:01 PM</span></div>
+        <div class="ctx">
+          <div class="ctx-top">
+            <div class="ava">AL</div>
+            <div class="ctx-id"><div class="ctx-name">Adam Lim</div><div class="ctx-sub">Mathematics · Form 4 · Petaling Jaya</div></div>
+            <div class="ctx-anchor"><div class="ctx-mode">IN-PERSON</div><div class="ctx-rm"><span>RM</span> 18</div></div>
+          </div>
+        </div>
+        <div class="ringwrap">
+          <div class="ring-eyebrow">Elapsed</div>
+          <div class="ring">
+            <div class="ring-core">
+              <div class="ring-elapsed">0:32</div>
+              <div class="ring-of">of 1h 00m</div>
+              <div class="ring-left">28 min left</div>
+            </div>
+          </div>
+        </div>
+        <div style="height:12px"></div>
+        <div class="caution" style="background:var(--tint-weak);border-color:transparent;color:var(--tint);"><span class="cg">↻</span>Timer resumed from the server, so it keeps counting even if the app closes.</div>
+        <div class="actions">
+          <div class="cta"><span class="cg">📷</span> Clock out with photo</div>
+          <div class="ctahint">Sample data.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VARIANT B · CONTEXTUAL TIME-RANGE -->
+    <div class="vcol">
+      <div class="vlabel">B · Contextual time-range</div>
+      <div class="vdesc">The scheduled range leads (2:00 → 3:00), a "now" dot moves along the bar, and "28 min left" carries the meaning. The raw elapsed count is demoted to a quiet footnote.</div>
+      <div class="vref">Ref: Apple / Google Calendar event-in-progress</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back">‹ Schedule</span><span class="ntitle">Class in progress</span></div>
+        <div class="banner live"><span class="bdot"></span>Class is live<span class="bspace"></span><span class="bsmall">Started 2:01 PM</span></div>
+        <div class="ctx">
+          <div class="ctx-top">
+            <div class="ava">AL</div>
+            <div class="ctx-id"><div class="ctx-name">Adam Lim</div><div class="ctx-sub">Mathematics · Form 4 · Petaling Jaya</div></div>
+            <div class="ctx-anchor"><div class="ctx-mode">IN-PERSON</div><div class="ctx-rm"><span>RM</span> 18</div></div>
+          </div>
+        </div>
+        <div style="height:14px"></div>
+        <div class="rangecard">
+          <div class="range-eyebrow">Scheduled</div>
+          <div class="range-line"><span class="range-time">2:00 PM</span><span class="range-arrow">→</span><span class="range-time">3:00 PM</span></div>
+          <div class="range-now">
+            <div class="range-track"><i style="width:54%"></i><span class="range-dot" style="left:54%"></span></div>
+          </div>
+          <div class="range-foot"><span class="range-left">28 min left</span><span class="range-elapsed">0:32:14 elapsed</span></div>
+        </div>
+        <div style="height:14px"></div>
+        <div class="caution" style="background:var(--tint-weak);border-color:transparent;color:var(--tint);"><span class="cg">↻</span>Timer resumed from the server, so it keeps counting even if the app closes.</div>
+        <div class="actions">
+          <div class="cta"><span class="cg">📷</span> Clock out with photo</div>
+          <div class="ctahint">Sample data.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VARIANT C · MINIMAL ELAPSED CHIP -->
+    <div class="vcol">
+      <div class="vlabel">C · Minimal chip (context-led)</div>
+      <div class="vdesc">The class context is the hero; the timer is a small live chip beside it with a thin progress line. Most understated — the screen is about the class, not the clock.</div>
+      <div class="vref">Ref: Toggl / Clockify running-entry row</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back">‹ Schedule</span><span class="ntitle">Class in progress</span></div>
+        <div class="banner live"><span class="bdot"></span>Class is live<span class="bspace"></span><span class="bsmall">Started 2:01 PM</span></div>
+        <div class="ctx">
+          <div class="ctx-top">
+            <div class="ava">AL</div>
+            <div class="ctx-id"><div class="ctx-name">Adam Lim</div><div class="ctx-sub">Mathematics · Form 4 · Petaling Jaya</div></div>
+            <div class="ctx-anchor"><div class="ctx-mode">IN-PERSON</div><div class="ctx-rm"><span>RM</span> 18</div></div>
+          </div>
+          <div class="ctx-row" style="border-top:none;padding-top:13px;margin-top:13px;border-top:1px solid var(--hair);">
+            <span class="ic"><span class="g">📍</span> Petaling Jaya</span><span class="sep">·</span>
+            <span class="ic"><span class="g">⏱️</span> 1h class</span><span class="sep">·</span>
+            <span class="ic"><span class="g">🔁</span> Class 4 of 12</span>
+          </div>
+        </div>
+        <div class="proofcard">
+          <div class="minrow">
+            <span class="min-live"><span class="min-livedot"></span>0:32:14</span>
+            <span class="min-left">28 min left of the scheduled hour</span>
+          </div>
+          <div class="min-track"><i style="width:54%"></i></div>
+        </div>
+        <div class="caution" style="background:var(--tint-weak);border-color:transparent;color:var(--tint);"><span class="cg">↻</span>Timer resumed from the server, so it keeps counting even if the app closes.</div>
+        <div class="spacer"></div>
+        <div class="actions">
+          <div class="cta"><span class="cg">📷</span> Clock out with photo</div>
+          <div class="ctahint">Sample data.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== LIGHT MODE ===================== -->
+  <div class="modehd">Light mode · the five class-loop states</div>
+  <div class="frames">
+
+    <!-- STATE 1 · PRE-CLASS (ready to clock in) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">1</span>Pre-class · ready to clock in</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back">‹ Schedule</span><span class="ntitle">Today's class</span></div>
+
+        <div class="banner upcoming"><span class="bdot"></span>Starts in 8 min<span class="bspace"></span><span class="bsmall">2:00 – 3:00 PM</span></div>
+
+        <div class="ctx">
+          <div class="ctx-top">
+            <div class="ava">AL</div>
+            <div class="ctx-id"><div class="ctx-name">Adam Lim</div><div class="ctx-sub">Mathematics · Form 4</div></div>
+            <div class="ctx-anchor"><div class="ctx-mode">IN-PERSON</div><div class="ctx-rm"><span>RM</span> 18</div></div>
+          </div>
+          <div class="ctx-row">
+            <span class="ic"><span class="g">📍</span> Petaling Jaya</span><span class="sep">·</span>
+            <span class="ic"><span class="g">📅</span> Tue, 24 Jun</span><span class="sep">·</span>
+            <span class="ic"><span class="g">⏱️</span> 1h</span><span class="sep">·</span>
+            <span class="ic"><span class="g">🔁</span> Class 4 of 12</span>
+          </div>
+        </div>
+
+        <div class="caution"><span class="cg">⚠️</span>You are 8 minutes early. You can clock in once you are with the student.</div>
+
+        <div class="ringwrap">
+          <div class="ring-eyebrow">Class length</div>
+          <div class="ring idle">
+            <div class="ring-core">
+              <div class="ring-elapsed">1:00</div>
+              <div class="ring-of">to teach</div>
+              <div class="ring-left idle">Starts when you clock in</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <div class="cta"><span class="cg">📷</span> Clock in with photo</div>
+          <div class="ctahint">A class photo confirms you started. Sample data.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATE 2 · CLOCK-IN PROOF -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">2</span>Clock-in · photo proof</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back">‹ Class</span><span class="ntitle">Clock in</span></div>
+
+        <div class="banner upcoming"><span class="bdot"></span>Adam Lim · Form 4 Maths<span class="bspace"></span><span class="bsmall">2:00 PM</span></div>
+
+        <div class="proofcard">
+          <div class="proof-lab">Start-of-class photo</div>
+          <div class="proof-shot filled">
+            <div class="proof-chk">✓</div>
+            <div class="proof-stamp">2:01 PM · 24 Jun</div>
+          </div>
+          <div class="proof-loc"><span class="g">📍</span> <span class="ok">Location confirmed</span> · Petaling Jaya</div>
+        </div>
+
+        <div class="proofcard">
+          <div class="proof-lab">A quick note (optional)</div>
+          <div style="font-size:13px;color:var(--ink-3);line-height:1.5;">e.g. "Started a few minutes late, student was finishing dinner."</div>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="actions">
+          <div class="cta"><span class="cg">▶</span> Start class &amp; timer</div>
+          <div class="subrow"><span class="sbtn">Retake photo</span></div>
+          <div class="ctahint">The timer begins the moment you start. Sample data.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATE 3 · IN PROGRESS -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">3</span>In progress · timer running</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back">‹ Schedule</span><span class="ntitle">Class in progress</span></div>
+
+        <div class="banner live"><span class="bdot"></span>Class is live<span class="bspace"></span><span class="bsmall">Started 2:01 PM</span></div>
+
+        <div class="ctx">
+          <div class="ctx-top">
+            <div class="ava">AL</div>
+            <div class="ctx-id"><div class="ctx-name">Adam Lim</div><div class="ctx-sub">Mathematics · Form 4 · Petaling Jaya</div></div>
+            <div class="ctx-anchor"><div class="ctx-mode">IN-PERSON</div><div class="ctx-rm"><span>RM</span> 18</div></div>
+          </div>
+        </div>
+
+        <div class="ringwrap">
+          <div class="ring-eyebrow">Elapsed</div>
+          <div class="ring" style="--pct:54%">
+            <div class="ring-core">
+              <div class="ring-elapsed">0:32</div>
+              <div class="ring-of">of 1h 00m</div>
+              <div class="ring-left">28 min left</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+        <div class="caution" style="background:var(--tint-weak);border-color:transparent;color:var(--tint);"><span class="cg">↻</span>Timer resumed from the server, so it keeps counting even if the app closes or restarts.</div>
+
+        <div class="actions">
+          <div class="cta"><span class="cg">📷</span> Clock out with photo</div>
+          <div class="subrow"><span class="sbtn">Extend class</span><span class="sbtn">Class notes</span></div>
+          <div class="ctahint">Clock out when the class ends. Sample data.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATE 4 · CLOCK-OUT PROOF -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">4</span>Clock-out · end photo + early caution</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back">‹ Class</span><span class="ntitle">Clock out</span></div>
+
+        <div class="ringrow">
+          <div class="ring sm" style="--pct:81%">
+            <div class="ring-core"><div class="ring-elapsed">0:48</div><div class="ring-of">of 1h</div></div>
+          </div>
+          <div class="ringrow-txt">
+            <div class="ringrow-lab">Taught</div>
+            <div class="ringrow-big">48 min 30 sec</div>
+            <div class="ringrow-sub">Ending 11 min before the scheduled hour</div>
+          </div>
+        </div>
+
+        <div class="caution"><span class="cg">⚠️</span>You are clocking out 11 min before the scheduled end. Add a reason so the parent and admin have context.</div>
+
+        <div class="proofcard">
+          <div class="proof-lab">End-of-class photo</div>
+          <div class="proof-shot filled">
+            <div class="proof-chk">✓</div>
+            <div class="proof-stamp">2:49 PM · 24 Jun</div>
+          </div>
+          <div class="proof-loc"><span class="g">📍</span> <span class="ok">Location confirmed</span> · Petaling Jaya</div>
+        </div>
+
+        <div class="proofcard">
+          <div class="proof-lab">Reason for early end</div>
+          <div style="font-size:13px;color:var(--ink);line-height:1.5;">Covered the full lesson plan early; Adam was confident, so we ended on a high note.</div>
+        </div>
+
+        <div class="actions">
+          <div class="cta"><span class="cg">✓</span> Confirm clock out</div>
+          <div class="ctahint">This ends the class and logs your time. Sample data.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATE 5 · DONE -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">5</span>Done · summary + next step</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="nspace"></span><span class="help">Done</span></div>
+
+        <div style="text-align:center;padding:6px 0 4px;">
+          <div style="width:64px;height:64px;border-radius:999px;background:var(--green-weak);color:var(--green-ink);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;margin:6px auto 10px;">✓</div>
+          <div style="font-size:22px;font-weight:800;color:var(--ink);">Class completed</div>
+          <div style="font-size:14px;color:var(--ink-2);margin-top:4px;">Adam Lim · Form 4 Maths · 24 Jun</div>
+        </div>
+
+        <div style="height:8px"></div>
+        <div class="sumcard">
+          <div class="sumrow"><span class="k">Time taught</span><span class="v">48 min</span></div>
+          <div class="sumrow"><span class="k">Clock in → out</span><span class="v">2:01 – 2:49 PM</span></div>
+          <div class="sumrow"><span class="k">This class earned</span><span class="v earn">+ RM 18.00</span></div>
+          <div class="sumrow"><span class="k">Class</span><span class="v">4 of 12</span></div>
+        </div>
+
+        <div class="nextcard">
+          <div class="nx"><div class="nxl">Next step</div><div class="nxt">Write Adam's class report</div></div>
+          <span class="nxchev">›</span>
+        </div>
+
+        <div class="actions">
+          <div class="cta">Write class report</div>
+          <div class="subrow"><span class="sbtn">Back to schedule</span></div>
+          <div class="ctahint">Reports keep the parent informed. Sample data.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== DARK MODE ===================== -->
+  <div class="modehd">Dark mode · the two pivotal states (in-progress + done)</div>
+  <div class="frames">
+
+    <!-- DARK · IN PROGRESS -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">3</span>In progress · timer running (dark)</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back">‹ Schedule</span><span class="ntitle">Class in progress</span></div>
+
+        <div class="banner live"><span class="bdot"></span>Class is live<span class="bspace"></span><span class="bsmall">Started 2:01 PM</span></div>
+
+        <div class="ctx">
+          <div class="ctx-top">
+            <div class="ava">AL</div>
+            <div class="ctx-id"><div class="ctx-name">Adam Lim</div><div class="ctx-sub">Mathematics · Form 4 · Petaling Jaya</div></div>
+            <div class="ctx-anchor"><div class="ctx-mode">IN-PERSON</div><div class="ctx-rm"><span>RM</span> 18</div></div>
+          </div>
+        </div>
+
+        <div class="ringwrap">
+          <div class="ring-eyebrow">Elapsed</div>
+          <div class="ring" style="--pct:54%">
+            <div class="ring-core">
+              <div class="ring-elapsed">0:32</div>
+              <div class="ring-of">of 1h 00m</div>
+              <div class="ring-left">28 min left</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+        <div class="caution" style="background:var(--tint-weak);border-color:transparent;color:var(--tint);"><span class="cg">↻</span>Timer resumed from the server, so it keeps counting even if the app closes or restarts.</div>
+
+        <div class="actions">
+          <div class="cta"><span class="cg">📷</span> Clock out with photo</div>
+          <div class="subrow"><span class="sbtn">Extend class</span><span class="sbtn">Class notes</span></div>
+          <div class="ctahint">Clock out when the class ends. Sample data.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DARK · DONE -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">5</span>Done · summary + next step (dark)</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="nspace"></span><span class="help">Done</span></div>
+
+        <div style="text-align:center;padding:6px 0 4px;">
+          <div style="width:64px;height:64px;border-radius:999px;background:var(--green-weak);color:var(--green-ink);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;margin:6px auto 10px;">✓</div>
+          <div style="font-size:22px;font-weight:800;color:var(--ink);">Class completed</div>
+          <div style="font-size:14px;color:var(--ink-2);margin-top:4px;">Adam Lim · Form 4 Maths · 24 Jun</div>
+        </div>
+
+        <div style="height:8px"></div>
+        <div class="sumcard">
+          <div class="sumrow"><span class="k">Time taught</span><span class="v">48 min</span></div>
+          <div class="sumrow"><span class="k">Clock in → out</span><span class="v">2:01 – 2:49 PM</span></div>
+          <div class="sumrow"><span class="k">This class earned</span><span class="v earn">+ RM 18.00</span></div>
+          <div class="sumrow"><span class="k">Class</span><span class="v">4 of 12</span></div>
+        </div>
+
+        <div class="nextcard">
+          <div class="nx"><div class="nxl">Next step</div><div class="nxt">Write Adam's class report</div></div>
+          <span class="nxchev">›</span>
+        </div>
+
+        <div class="actions">
+          <div class="cta">Write class report</div>
+          <div class="subrow"><span class="sbtn">Back to schedule</span></div>
+          <div class="ctahint">Reports keep the parent informed. Sample data.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

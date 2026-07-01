@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deliver · Class Records — list · filter · detail (light + dark)</title>
+<style>
+  /* ============== TOKENS (verbatim from deliver-active-class.html + request-apply-detail-r2.html) ============== */
+  :root{
+    --tint:#2B2FBE;            /* brand — every primary CTA, never green */
+    --tint-weak:rgba(43,47,190,.10);
+    --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7;          /* grouped canvas */
+    --card:#FFFFFF;
+    --ink:#000000;
+    --ink-2:rgba(60,60,67,.62);
+    --ink-3:rgba(60,60,67,.45);
+    --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12);
+    --hair-strong:rgba(60,60,67,.16);
+    --fill:rgba(120,120,128,.10);
+    --fill-2:#EAEAEF;
+    --green:#16A34A;           /* Attended / Verified — colour budget */
+    --green-ink:#166534;
+    --green-weak:rgba(22,163,74,.12);
+    --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e;       /* one "check this" flag — colour budget */
+    --amber-weak:rgba(245,158,11,.18);
+    --amber-line:rgba(245,158,11,.40);
+    --red-ink:#991b1b;
+    --red-weak:rgba(239,68,68,.12);
+    --red-line:rgba(239,68,68,.28);
+    --shadow:0 1px 3px rgba(0,0,0,.05);
+    --shadow-soft:0 4px 16px rgba(0,0,0,.07);
+    --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px;
+    --radius-lg:16px;
+    --earn:rgba(43,47,190,.10);
+    --earn-line:rgba(43,47,190,.18);
+  }
+  .dark{
+    --tint:#7C8CF0;
+    --tint-weak:rgba(124,140,240,.18);
+    --tint-ink:#7C8CF0;
+    --canvas:#000000;
+    --card:#1C1C1E;
+    --ink:#FFFFFF;
+    --ink-2:rgba(235,235,245,.62);
+    --ink-3:rgba(235,235,245,.45);
+    --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6);
+    --hair-strong:rgba(84,84,88,.8);
+    --fill:rgba(120,120,128,.24);
+    --fill-2:#2C2C2E;
+    --green:#30D158;
+    --green-ink:#30D158;
+    --green-weak:rgba(48,209,88,.18);
+    --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A;
+    --amber-weak:rgba(255,214,10,.16);
+    --amber-line:rgba(255,214,10,.4);
+    --red-ink:#FF453A;
+    --red-weak:rgba(255,69,58,.16);
+    --red-line:rgba(255,69,58,.32);
+    --shadow:0 1px 3px rgba(0,0,0,.5);
+    --shadow-soft:0 6px 20px rgba(0,0,0,.5);
+    --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --earn:rgba(124,140,240,.20);
+    --earn-line:rgba(124,140,240,.32);
+  }
+
+  /* ============== PAGE CHROME (doc layer only — no raw hex inside .ph) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1600px;margin:0 auto;}
+  .docnote{font-size:13px;line-height:1.65;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:20px;}
+  .docnote h1{font-size:18px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .docnote .notebox{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .docnote .notebox b{color:#1e3a8a;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:28px 0 14px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12.5px;font-weight:700;color:#3f3f46;margin-bottom:9px;text-align:center;max-width:402px;}
+  .framelabel .step{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:#2B2FBE;border-radius:999px;padding:2px 8px;margin-right:6px;}
+  .heightnote{font-size:11px;color:#71717a;margin-top:6px;text-align:center;font-style:italic;}
+
+  /* ============== DEVICE FRAME (402x874, overflow:hidden — content that fits; scroll is virtual) ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column;}
+
+  /* status bar */
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+
+  /* nav bar */
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:2px 16px 8px;flex-shrink:0;}
+  .nav .back{display:flex;align-items:center;gap:3px;font-size:17px;font-weight:600;color:var(--tint);}
+  .nav .back .lbl{font-size:16px;}
+  .nav .ntitle{font-size:17px;font-weight:600;color:var(--ink);}
+  .nav .naction{font-size:17px;font-weight:600;color:var(--tint);}
+
+  /* large-title nav (list screen) */
+  .navlarge{padding:0 16px 6px;flex-shrink:0;}
+  .navlarge .ltitle{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-.5px;}
+  .navlarge .ltrow{display:flex;align-items:center;justify-content:space-between;}
+  .navlarge .filtericon{width:32px;height:32px;border-radius:999px;background:var(--fill);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--tint);}
+
+  /* search bar */
+  .searchbar{margin:0 16px 10px;background:var(--fill);border-radius:10px;height:36px;display:flex;align-items:center;gap:7px;padding:0 11px;flex-shrink:0;}
+  .searchbar .sg{font-size:14px;color:var(--ink-3);}
+  .searchbar .sph{font-size:15px;color:var(--ink-3);}
+
+  /* sort row */
+  .sortrow{display:flex;align-items:center;gap:8px;padding:0 16px 10px;flex-shrink:0;}
+  .sortrow .sl{font-size:13px;color:var(--ink-2);font-weight:500;}
+  .sortrow .spill{font-size:12px;font-weight:700;color:var(--tint);background:var(--tint-weak);border-radius:999px;padding:4px 11px;display:flex;align-items:center;gap:4px;}
+
+  /* scroll region */
+  .scroll{flex:1;overflow:hidden;padding:0 16px;}
+  .scrollpad{padding-bottom:14px;}
+
+  /* ===== SHARED CLASS CARD (the single visual used by list rows AND the detail hero) ===== */
+  /* LIST variant: compact row card */
+  .ccard{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden;}
+
+  .sbadge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;letter-spacing:.2px;border-radius:999px;padding:4px 10px;}
+  .sbadge .bdot{width:7px;height:7px;border-radius:999px;flex-shrink:0;}
+  /* status colours — green=Attended/Verified, neutral=Scheduled, amber=Cancelled/Dispute (the one check-this); no red (off-budget) */
+  .sbadge.verified{background:var(--green-weak);color:var(--green-ink);} .sbadge.verified .bdot{background:var(--green);}
+  .sbadge.attended{background:var(--green-weak);color:var(--green-ink);} .sbadge.attended .bdot{background:var(--green);}
+  .sbadge.scheduled{background:var(--fill);color:var(--ink-2);} .sbadge.scheduled .bdot{background:var(--ink-3);}
+  .sbadge.cancelled{background:var(--amber-weak);color:var(--amber-ink);border:1px solid var(--amber-line);} .sbadge.cancelled .bdot{background:var(--amber-ink);}
+  .sbadge.dispute{background:var(--amber-weak);color:var(--amber-ink);border:1px solid var(--amber-line);} .sbadge.dispute .bdot{background:var(--amber-ink);}
+
+  /* tap-to-copy UID chip */
+  .uidchip{font-family:ui-monospace,monospace;font-size:11px;font-weight:700;color:var(--tint);background:var(--tint-weak);border-radius:8px;padding:4px 9px;display:inline-flex;align-items:center;gap:4px;}
+  .uidchip .copyg{font-family:-apple-system,sans-serif;font-size:11px;}
+
+  /* card primary row: student + subject/level + RM */
+  .ccard-main{display:flex;align-items:flex-start;justify-content:space-between;padding:11px 14px 0;gap:10px;}
+  .ccard-student{font-size:16px;font-weight:700;color:var(--ink);}
+  .ccard-sub{font-size:13px;color:var(--ink-2);margin-top:2px;}
+  .ccard-rm{text-align:right;flex-shrink:0;}
+  .ccard-rmamt{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.3px;}
+  .ccard-rmamt .cur{font-size:12px;font-weight:700;color:var(--tint-ink);}
+
+  /* card icon-row: compact inline facts (no bottom pad — footer handles it) */
+  .ccard-irow{display:flex;flex-wrap:wrap;align-items:center;gap:5px;padding:2px 14px 9px;}
+  .ic{font-size:12px;font-weight:600;color:var(--ink-2);display:inline-flex;align-items:center;gap:3px;}
+  .ic .g{font-size:12px;opacity:.85;}
+  .sep{color:var(--ink-4);font-size:11px;margin:0 1px;}
+
+  /* ===== CARD FOOTER ROW (ID chip left · status badge right, below separator) ===== */
+  .ccard-foot{display:flex;align-items:center;justify-content:space-between;padding:9px 14px 11px;border-top:1px solid var(--hair);}
+
+  /* ===== DIRECTION-C HERO (detail variant of the shared card) ===== */
+  .hero{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);overflow:hidden;margin-bottom:0;}
+  .hero .htint{background:var(--earn);padding:15px 17px 14px;}
+  .hero .htop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+  .hero .entity{display:flex;flex-direction:column;gap:2px;}
+  .hero .subj{font-size:21px;font-weight:800;color:var(--ink);letter-spacing:-.4px;line-height:1.05;}
+  .hero .lvl{font-size:14px;font-weight:500;color:var(--ink-3);}
+  .hero .modepill{font-size:10.5px;font-weight:800;letter-spacing:.4px;color:var(--ink-2);background:var(--card);border:1px solid var(--hair);border-radius:999px;padding:5px 11px;white-space:nowrap;flex-shrink:0;}
+  .hero .earn-hero{display:flex;align-items:baseline;gap:4px;margin-top:13px;}
+  .hero .earn-hero .cur{font-size:16px;font-weight:800;color:var(--tint-ink);}
+  .hero .earn-hero .amt{font-size:33px;font-weight:800;color:var(--ink);letter-spacing:-1.4px;line-height:.9;font-variant-numeric:tabular-nums;}
+  .hero .earn-hero .per{font-size:14px;font-weight:700;color:var(--ink-2);margin-left:1px;}
+  .hero .chips{display:flex;flex-wrap:wrap;gap:6px;padding:13px 17px 4px;}
+  .hero .chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--ink-2);background:var(--fill);border:1px solid var(--hair);border-radius:999px;padding:6px 11px;}
+  .hero .chip .cg{font-size:12px;}
+  /* hero footer: ID chip left · status badge right */
+  .hero .hfoot{display:flex;align-items:center;justify-content:space-between;padding:9px 17px 13px;border-top:1px solid var(--hair);margin-top:4px;}
+  /* verified caption under the status badge in the hero footer */
+  .hero .hfoot-status{display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
+  .hero .hfoot-caption{font-size:11px;font-weight:500;color:var(--ink-3);}
+
+  /* ===== SECTION CARDS (grouped-list: header + inset card) ===== */
+  .sec{margin-top:16px;}
+  .sech{font-size:12px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;margin:0 4px 8px;}
+  .card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;}
+  .row + .row{border-top:1px solid var(--hair);}
+  .row .k{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--ink-2);min-width:0;}
+  .row .k .kic{font-size:14px;color:var(--ink-3);width:17px;text-align:center;flex-shrink:0;}
+  .row .v{font-size:14.5px;font-weight:600;color:var(--ink);text-align:right;}
+
+  /* ===== ATTENDANCE SECTION ===== */
+  .attrow{display:flex;align-items:center;gap:8px;padding:12px 16px;}
+  .attrow + .attrow{border-top:1px solid var(--hair);}
+  .attrow .attic{font-size:13px;color:var(--ink-3);width:17px;text-align:center;flex-shrink:0;}
+  .attrow .attlabel{font-size:13px;color:var(--ink-2);flex:1;}
+  .attrow .attval{font-size:14.5px;font-weight:700;color:var(--ink);}
+  .arrowbadge{font-size:12px;color:var(--ink-3);padding:0 4px;}
+
+  /* ===== FILTER SCREEN COMPONENTS ===== */
+  .frmrow{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:var(--card);}
+  .frmrow + .frmrow{border-top:1px solid var(--hair);}
+  .frmrow .fk{font-size:15px;color:var(--ink);}
+  .frmrow .fv{display:flex;align-items:center;gap:6px;font-size:15px;color:var(--ink-3);}
+  .frmrow .fv.sel{color:var(--tint);}
+  .frmrow .chevron{font-size:14px;color:var(--ink-4);}
+  .frmsec{margin:20px 0 0;}
+  .frmsechead{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2);margin:0 4px 8px;padding:0 16px;}
+  .frmcard{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;}
+  .daterow{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:var(--card);}
+  .daterow + .daterow{border-top:1px solid var(--hair);}
+  .daterow .dk{font-size:15px;color:var(--ink);}
+  .daterow .dv{font-size:15px;color:var(--tint);font-weight:600;}
+
+  /* sticky CTA dock */
+  .dock{position:absolute;left:0;right:0;bottom:0;display:flex;gap:8px;align-items:center;padding:12px 16px 20px;background:linear-gradient(to top,var(--canvas) 72%,transparent);flex-shrink:0;}
+  .dock .cta{flex:1;height:48px;border-radius:999px;background:var(--tint);color:#fff;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-cta);}
+  .dock .resetbtn{font-size:15px;font-weight:600;color:var(--tint);background:none;padding:0 4px;}
+
+  /* primary button (detail) */
+  .cta-full{height:52px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:17px;font-weight:600;color:#fff;background:var(--tint);box-shadow:var(--shadow-cta);margin:0 16px 6px;}
+  .cta-full .cg{font-size:18px;}
+
+  /* empty state frame */
+  .emptystate{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:40px 24px;text-align:center;}
+  .emptystate .eg{font-size:44px;opacity:.35;}
+  .emptystate .et{font-size:17px;font-weight:700;color:var(--ink);margin-top:6px;}
+  .emptystate .es{font-size:14px;color:var(--ink-2);line-height:1.5;margin-top:2px;}
+
+  /* not-found note */
+  .notfound{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:48px 28px;text-align:center;}
+  .notfound .nfg{font-size:40px;opacity:.3;}
+  .notfound .nft{font-size:17px;font-weight:700;color:var(--ink);margin-top:8px;}
+  .notfound .nfs{font-size:14px;color:var(--ink-2);line-height:1.5;margin-top:4px;}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="docnote">
+    <h1>Deliver · Class Records — list · filter · detail (2026-07-01)</h1>
+    <b>Three screens, one shared "class card" visual.</b> The class card is the single source of truth for identity: it carries student + subject/level + RM + icon-row ABOVE the separator, and a footer row (ID chip left · status badge right) BELOW it — in both the list and the detail hero.
+    In the <b>list</b>, each card reads top-to-bottom: [student · RM] / [subject · level] / [date · duration · location · mode] / separator / [CLS-XXXXXX · status].
+    In the <b>detail</b>, the hero footer carries ID chip + status badge (with an admin-date caption for Verified). Sections below show only non-duplicated facts: Student = name only; Schedule = time-range only; Attendance = clock in / out / time taught.
+    The <b>filter</b> stays its own screen: a grouped-list form (iOS Settings grammar) that overlays the list on demand, keeping the list surface uncluttered.
+    <div class="notebox">
+      <b>Colour budget (locked this session):</b> primary CTA = brand-blue (<code>--tint</code>), never green. Green = Attended / Verified status. Amber = the one check-this flag (Dispute / Cancelled). Scheduled = neutral. No red (not in the budget). Colour always rides on icon + word, never colour-alone.<br>
+      <b>Conventions:</b> date format DD-MMM-YYYY throughout. Money = "RM 94" on list scan cards, real cents on the detail ("RM 94.00"). No em-dashes. No invented backend claims. Gender not shown (not relevant here). No raw hex in frame markup. No fact appears twice on any screen.
+    </div>
+    <b>Sample data:</b> all names, amounts, UIDs, dates are labelled fixtures. Backend field names are noted in comments.<br>
+    <b>Status vocabulary:</b> the authoritative <code>ClassStatus.php</code> enum = Scheduled · Ongoing · Attended · Verified · Cancelled · Postponed · Refunded (no "pending"). <b>Dispute</b> is a frontend display value (the live ClassRecords list renders it) but is NOT in that enum — flagged to Hafiz.
+  </div>
+
+  <!-- ===================== LIGHT MODE ===================== -->
+  <div class="modehd">Light mode · all three screens</div>
+  <div class="frames">
+
+    <!-- SCREEN 1 · CLASS RECORDS LIST (light) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">1</span>ClassRecords · list (light) — 4 sample cards</div>
+      <div class="ph" id="L-list">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+
+        <!-- large-title nav with filter icon -->
+        <div class="navlarge">
+          <div class="ltrow">
+            <div class="ltitle">Class Records</div>
+            <div class="filtericon">&#9870;</div>
+          </div>
+        </div>
+
+        <!-- search + sort -->
+        <div class="searchbar"><span class="sg">&#128269;</span><span class="sph">Search student, subject…</span></div>
+        <div class="sortrow">
+          <span class="sl">Sort:</span>
+          <span class="spill">&#128197; Date (newest) &#8964;</span>
+        </div>
+
+        <!-- scrollable list of class cards -->
+        <div class="scroll">
+          <div class="scrollpad">
+
+            <!-- CARD A · Verified -->
+            <div class="ccard">
+              <div class="ccard-main">
+                <div>
+                  <div class="ccard-student">Adam Lim</div>
+                  <div class="ccard-sub">Mathematics · Form 4 · SPM</div>
+                </div>
+                <div class="ccard-rm"><div class="ccard-rmamt"><span class="cur">RM</span> 94</div></div>
+              </div>
+              <div class="ccard-irow">
+                <span class="ic"><span class="g">&#128197;</span> 20-Jun-2026</span>
+              </div>
+              <div class="ccard-foot">
+                <span class="uidchip">CLS-441820 <span class="copyg">&#10696;</span></span>
+                <span class="sbadge verified"><span class="bdot"></span>Verified</span>
+              </div>
+            </div>
+
+            <!-- CARD B · Attended -->
+            <div class="ccard">
+              <div class="ccard-main">
+                <div>
+                  <div class="ccard-student">Nurul Aisyah</div>
+                  <div class="ccard-sub">Chemistry · Form 6 · STPM</div>
+                </div>
+                <div class="ccard-rm"><div class="ccard-rmamt"><span class="cur">RM</span> 112</div></div>
+              </div>
+              <div class="ccard-irow">
+                <span class="ic"><span class="g">&#128197;</span> 18-Jun-2026</span>
+              </div>
+              <div class="ccard-foot">
+                <span class="uidchip">CLS-440913 <span class="copyg">&#10696;</span></span>
+                <span class="sbadge attended"><span class="bdot"></span>Attended</span>
+              </div>
+            </div>
+
+            <!-- CARD C · Scheduled -->
+            <div class="ccard">
+              <div class="ccard-main">
+                <div>
+                  <div class="ccard-student">Daniel Wong</div>
+                  <div class="ccard-sub">Physics · Form 5 · SPM</div>
+                </div>
+                <div class="ccard-rm"><div class="ccard-rmamt"><span class="cur">RM</span> 78</div></div>
+              </div>
+              <div class="ccard-irow">
+                <span class="ic"><span class="g">&#128197;</span> 25-Jun-2026</span>
+              </div>
+              <div class="ccard-foot">
+                <span class="uidchip">CLS-442501 <span class="copyg">&#10696;</span></span>
+                <span class="sbadge scheduled"><span class="bdot"></span>Scheduled</span>
+              </div>
+            </div>
+
+            <!-- CARD D · Dispute (amber flag) -->
+            <div class="ccard">
+              <div class="ccard-main">
+                <div>
+                  <div class="ccard-student">Siti Rahmah</div>
+                  <div class="ccard-sub">Bahasa Melayu · Form 3 · PT3</div>
+                </div>
+                <div class="ccard-rm"><div class="ccard-rmamt"><span class="cur">RM</span> 55</div></div>
+              </div>
+              <div class="ccard-irow">
+                <span class="ic"><span class="g">&#128197;</span> 14-Jun-2026</span>
+              </div>
+              <div class="ccard-foot">
+                <span class="uidchip">CLS-439204 <span class="copyg">&#10696;</span></span>
+                <span class="sbadge dispute"><span class="bdot"></span>Dispute</span>
+              </div>
+            </div>
+
+            <!-- EMPTY STATE (shown when filtered to zero results) -->
+            <div class="emptystate" style="margin-top:12px;">
+              <div class="eg">&#128193;</div>
+              <div class="et">No records yet</div>
+              <div class="es">Your completed and upcoming classes will appear here once a class is scheduled.</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~820px of 874px frame. ~54px headroom.</div>
+    </div>
+
+    <!-- SCREEN 2 · FILTER (light) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">2</span>ClassRecordFilter · filter form (light)</div>
+      <div class="ph" id="L-filter">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+
+        <!-- nav: Cancel + title + Apply -->
+        <div class="nav">
+          <span class="naction">Cancel</span>
+          <span class="ntitle">Filter</span>
+          <span></span>
+        </div>
+
+        <div class="scroll">
+          <div class="scrollpad">
+
+            <!-- Student -->
+            <div class="frmsec">
+              <div class="frmsechead">Student</div>
+              <div class="frmcard">
+                <div class="frmrow">
+                  <span class="fk">Student</span>
+                  <span class="fv">Any <span class="chevron">&#8250;</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Academic -->
+            <div class="frmsec">
+              <div class="frmsechead">Academic</div>
+              <div class="frmcard">
+                <div class="frmrow">
+                  <span class="fk">Level</span>
+                  <span class="fv">Any <span class="chevron">&#8250;</span></span>
+                </div>
+                <div class="frmrow">
+                  <span class="fk">Subject</span>
+                  <span class="fv sel">Mathematics <span class="chevron">&#8250;</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mode -->
+            <div class="frmsec">
+              <div class="frmsechead">Mode</div>
+              <div class="frmcard">
+                <div class="frmrow">
+                  <span class="fk">Class mode</span>
+                  <span class="fv">Any <span class="chevron">&#8250;</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Status -->
+            <div class="frmsec">
+              <div class="frmsechead">Status</div>
+              <div class="frmcard">
+                <div class="frmrow">
+                  <span class="fk">Class status</span>
+                  <span class="fv sel">Verified <span class="chevron">&#8250;</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Date range -->
+            <div class="frmsec">
+              <div class="frmsechead">Date range</div>
+              <div class="frmcard">
+                <div class="daterow">
+                  <span class="dk">Start date</span>
+                  <span class="dv">01-Jun-2026</span>
+                </div>
+                <div class="daterow">
+                  <span class="dk">End date</span>
+                  <span class="dv">30-Jun-2026</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- spacer for CTA dock -->
+            <div style="height:88px;"></div>
+
+          </div>
+        </div>
+
+        <!-- sticky Apply dock -->
+        <div class="dock">
+          <span class="resetbtn">Reset</span>
+          <span class="cta">Apply filters</span>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~648px of 874px frame. 226px headroom.</div>
+    </div>
+
+    <!-- SCREEN 3 · CLASS DETAIL (light, Verified state) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">3</span>ClassDetailByNotification · single class, Verified (light)</div>
+      <div class="ph" id="L-detail">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+
+        <!-- nav: back only; UID moves to hero footer -->
+        <div class="nav">
+          <span class="back"><span>&#8249;</span><span class="lbl">Records</span></span>
+          <span></span>
+        </div>
+
+        <div class="scroll">
+          <div class="scrollpad">
+
+            <!-- DIRECTION-C HERO (rich version of the shared card) -->
+            <div class="hero">
+              <div class="htint">
+                <div class="htop">
+                  <div class="entity">
+                    <span class="subj">Mathematics</span>
+                    <span class="lvl">Form 4 · SPM</span>
+                  </div>
+                  <span class="modepill">IN-PERSON</span>
+                </div>
+                <div class="earn-hero">
+                  <span class="cur">RM</span>
+                  <span class="amt">94.00</span>
+                </div>
+              </div>
+              <!-- icon-fact chips: date / duration / location -->
+              <div class="chips">
+                <span class="chip"><span class="cg">&#128197;</span> 20-Jun-2026</span>
+                <span class="chip"><span class="cg">&#9201;&#65039;</span> 2 hours</span>
+                <span class="chip"><span class="cg">&#128205;</span> Petaling Jaya</span>
+              </div>
+              <!-- hero footer: ID chip left · status + caption right -->
+              <div class="hfoot">
+                <span class="uidchip">CLS-441820 <span class="copyg">&#10696;</span></span>
+                <div class="hfoot-status">
+                  <span class="sbadge verified"><span class="bdot"></span>Verified</span>
+                  <span class="hfoot-caption">Admin · 21-Jun-2026</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Student section: name only (level already in hero title) -->
+            <div class="sec">
+              <div class="sech">Student</div>
+              <div class="card">
+                <div class="row"><span class="k"><span class="kic">&#128100;</span> Name</span><span class="v">Adam Lim</span></div>
+              </div>
+            </div>
+
+            <!-- Schedule section: time-range only (date already in hero chip) -->
+            <div class="sec">
+              <div class="sech">Schedule</div>
+              <div class="card">
+                <div class="row"><span class="k"><span class="kic">&#9201;&#65039;</span> Scheduled</span><span class="v">2:00 - 4:00 PM</span></div>
+              </div>
+            </div>
+
+            <!-- Attendance section: clock in / clock out / time taught (unique, not in hero) -->
+            <div class="sec">
+              <div class="sech">Attendance</div>
+              <div class="card">
+                <div class="attrow">
+                  <span class="attic">&#9989;</span>
+                  <span class="attlabel">Clock in</span>
+                  <span class="attval">2:03 PM</span>
+                </div>
+                <div class="attrow">
+                  <span class="attic">&#9989;</span>
+                  <span class="attlabel">Clock out</span>
+                  <span class="attval">4:01 PM</span>
+                </div>
+                <div class="attrow" style="border-top:1px solid var(--hair);">
+                  <span class="attic">&#128338;</span>
+                  <span class="attlabel">Time taught</span>
+                  <span class="attval">1h 58m</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- spacer for CTA dock -->
+            <div style="height:80px;"></div>
+
+          </div>
+        </div>
+
+        <!-- primary CTA -->
+        <div class="dock">
+          <span class="cta">View all classes</span>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~770px of 874px frame. ~104px headroom.</div>
+    </div>
+
+  </div>
+
+  <!-- ===================== DARK MODE ===================== -->
+  <div class="modehd">Dark mode · list + detail (the two surfaces used most)</div>
+  <div class="frames">
+
+    <!-- SCREEN 1 · LIST (dark) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">1</span>ClassRecords · list (dark)</div>
+      <div class="ph dark" id="D-list">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+
+        <div class="navlarge">
+          <div class="ltrow">
+            <div class="ltitle">Class Records</div>
+            <div class="filtericon">&#9870;</div>
+          </div>
+        </div>
+
+        <div class="searchbar"><span class="sg">&#128269;</span><span class="sph">Search student, subject…</span></div>
+        <div class="sortrow">
+          <span class="sl">Sort:</span>
+          <span class="spill">&#128197; Date (newest) &#8964;</span>
+        </div>
+
+        <div class="scroll">
+          <div class="scrollpad">
+
+            <div class="ccard">
+              <div class="ccard-main">
+                <div>
+                  <div class="ccard-student">Adam Lim</div>
+                  <div class="ccard-sub">Mathematics · Form 4 · SPM</div>
+                </div>
+                <div class="ccard-rm"><div class="ccard-rmamt"><span class="cur">RM</span> 94</div></div>
+              </div>
+              <div class="ccard-irow">
+                <span class="ic"><span class="g">&#128197;</span> 20-Jun-2026</span>
+              </div>
+              <div class="ccard-foot">
+                <span class="uidchip">CLS-441820 <span class="copyg">&#10696;</span></span>
+                <span class="sbadge verified"><span class="bdot"></span>Verified</span>
+              </div>
+            </div>
+
+            <div class="ccard">
+              <div class="ccard-main">
+                <div>
+                  <div class="ccard-student">Nurul Aisyah</div>
+                  <div class="ccard-sub">Chemistry · Form 6 · STPM</div>
+                </div>
+                <div class="ccard-rm"><div class="ccard-rmamt"><span class="cur">RM</span> 112</div></div>
+              </div>
+              <div class="ccard-irow">
+                <span class="ic"><span class="g">&#128197;</span> 18-Jun-2026</span>
+              </div>
+              <div class="ccard-foot">
+                <span class="uidchip">CLS-440913 <span class="copyg">&#10696;</span></span>
+                <span class="sbadge attended"><span class="bdot"></span>Attended</span>
+              </div>
+            </div>
+
+            <div class="ccard">
+              <div class="ccard-main">
+                <div>
+                  <div class="ccard-student">Daniel Wong</div>
+                  <div class="ccard-sub">Physics · Form 5 · SPM</div>
+                </div>
+                <div class="ccard-rm"><div class="ccard-rmamt"><span class="cur">RM</span> 78</div></div>
+              </div>
+              <div class="ccard-irow">
+                <span class="ic"><span class="g">&#128197;</span> 16-Jun-2026</span>
+              </div>
+              <div class="ccard-foot">
+                <span class="uidchip">CLS-438776 <span class="copyg">&#10696;</span></span>
+                <span class="sbadge cancelled"><span class="bdot"></span>Cancelled</span>
+              </div>
+            </div>
+
+            <div class="ccard">
+              <div class="ccard-main">
+                <div>
+                  <div class="ccard-student">Siti Rahmah</div>
+                  <div class="ccard-sub">Bahasa Melayu · Form 3 · PT3</div>
+                </div>
+                <div class="ccard-rm"><div class="ccard-rmamt"><span class="cur">RM</span> 55</div></div>
+              </div>
+              <div class="ccard-irow">
+                <span class="ic"><span class="g">&#128197;</span> 14-Jun-2026</span>
+              </div>
+              <div class="ccard-foot">
+                <span class="uidchip">CLS-439204 <span class="copyg">&#10696;</span></span>
+                <span class="sbadge dispute"><span class="bdot"></span>Dispute</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~692px of 874px frame. ~182px headroom.</div>
+    </div>
+
+    <!-- SCREEN 3 · DETAIL (dark, Attended state — no Verified banner yet) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">3</span>ClassDetailByNotification · single class, Attended (dark)</div>
+      <div class="ph dark" id="D-detail">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+
+        <!-- nav: back only; UID moves to hero footer -->
+        <div class="nav">
+          <span class="back"><span>&#8249;</span><span class="lbl">Records</span></span>
+          <span></span>
+        </div>
+
+        <div class="scroll">
+          <div class="scrollpad">
+
+            <div class="hero">
+              <div class="htint">
+                <div class="htop">
+                  <div class="entity">
+                    <span class="subj">Chemistry</span>
+                    <span class="lvl">Form 6 · STPM</span>
+                  </div>
+                  <span class="modepill">ONLINE</span>
+                </div>
+                <div class="earn-hero">
+                  <span class="cur">RM</span>
+                  <span class="amt">112.00</span>
+                </div>
+              </div>
+              <div class="chips">
+                <span class="chip"><span class="cg">&#128197;</span> 18-Jun-2026</span>
+                <span class="chip"><span class="cg">&#9201;&#65039;</span> 2 hours</span>
+                <span class="chip"><span class="cg">&#128187;</span> Online</span>
+              </div>
+              <!-- hero footer: ID chip left · status right (no admin caption for Attended — not yet verified) -->
+              <div class="hfoot">
+                <span class="uidchip">CLS-440913 <span class="copyg">&#10696;</span></span>
+                <span class="sbadge attended"><span class="bdot"></span>Attended</span>
+              </div>
+            </div>
+
+            <!-- Student: name only (level already in hero) -->
+            <div class="sec">
+              <div class="sech">Student</div>
+              <div class="card">
+                <div class="row"><span class="k"><span class="kic">&#128100;</span> Name</span><span class="v">Nurul Aisyah</span></div>
+              </div>
+            </div>
+
+            <!-- Schedule: time-range only (date already in hero chip) -->
+            <div class="sec">
+              <div class="sech">Schedule</div>
+              <div class="card">
+                <div class="row"><span class="k"><span class="kic">&#9201;&#65039;</span> Scheduled</span><span class="v">3:00 - 5:00 PM</span></div>
+              </div>
+            </div>
+
+            <!-- Attendance: clock in / clock out / time taught (unique facts) -->
+            <div class="sec">
+              <div class="sech">Attendance</div>
+              <div class="card">
+                <div class="attrow">
+                  <span class="attic">&#9989;</span>
+                  <span class="attlabel">Clock in</span>
+                  <span class="attval">3:05 PM</span>
+                </div>
+                <div class="attrow">
+                  <span class="attic">&#9989;</span>
+                  <span class="attlabel">Clock out</span>
+                  <span class="attval">5:02 PM</span>
+                </div>
+                <div class="attrow" style="border-top:1px solid var(--hair);">
+                  <span class="attic">&#128338;</span>
+                  <span class="attlabel">Time taught</span>
+                  <span class="attval">1h 57m</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- spacer for CTA dock -->
+            <div style="height:80px;"></div>
+
+          </div>
+        </div>
+
+        <div class="dock">
+          <span class="cta">View all classes</span>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~760px of 874px frame. ~114px headroom.</div>
+    </div>
+
+  </div>
+
+  <!-- ===================== EDGE STATES ===================== -->
+  <div class="modehd">Edge states · not-found detail + empty list</div>
+  <div class="frames">
+
+    <!-- NOT-FOUND DETAIL (via notification deep-link to a deleted/unavailable class) -->
+    <div class="framewrap">
+      <div class="framelabel">ClassDetailByNotification · not-found state</div>
+      <div class="ph" id="L-notfound">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav">
+          <span class="back"><span>&#8249;</span><span class="lbl">Records</span></span>
+          <span></span>
+        </div>
+        <div class="notfound">
+          <div class="nfg">&#128196;</div>
+          <div class="nft">Class no longer available</div>
+          <div class="nfs">This class record may have been removed or you may not have permission to view it. Check your class list for your current records.</div>
+        </div>
+        <!-- CTA docked at bottom -->
+        <div style="position:absolute;left:16px;right:16px;bottom:24px;">
+          <div class="cta-full"><span class="cg">&#8592;</span> View all classes</div>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~360px of 874px frame. 514px headroom.</div>
+    </div>
+
+    <!-- EMPTY LIST (filtered to zero) -->
+    <div class="framewrap">
+      <div class="framelabel">ClassRecords · filtered empty state</div>
+      <div class="ph" id="L-empty">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navlarge">
+          <div class="ltrow">
+            <div class="ltitle">Class Records</div>
+            <div class="filtericon" style="position:relative;">&#9870;<span style="position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:999px;background:var(--tint);border:1.5px solid var(--canvas);"></span></div>
+          </div>
+        </div>
+        <div class="searchbar"><span class="sg">&#128269;</span><span class="sph">Search student, subject…</span></div>
+        <div class="sortrow">
+          <span class="sl">Sort:</span>
+          <span class="spill">&#128197; Date (newest) &#8964;</span>
+        </div>
+        <div style="display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;padding:24px;">
+          <div style="font-size:40px;opacity:.3;">&#128193;</div>
+          <div style="font-size:17px;font-weight:700;color:var(--ink);margin-top:14px;">No records yet</div>
+          <div style="font-size:14px;color:var(--ink-2);line-height:1.5;text-align:center;margin-top:6px;">Try adjusting your filters, or check back once a class is scheduled.</div>
+          <div style="margin-top:18px;font-size:15px;font-weight:600;color:var(--tint);">Clear filters</div>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~480px of 874px frame. 394px headroom.</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

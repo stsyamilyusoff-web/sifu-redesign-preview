@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support &middot; Submit a ticket form (general) &middot; canonical</title>
+<style>
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12); --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px; --radius-lg:16px;
+    --earn:rgba(43,47,190,.10); --earn-line:rgba(43,47,190,.18);
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18); --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --earn:rgba(124,140,240,.20); --earn-line:rgba(124,140,240,.32);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b}
+  .doc{max-width:1180px;margin:0 auto}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:20px}
+  .docnote h1{font-size:18px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:#52525b}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .modebar{display:flex;gap:7px;margin:0 0 18px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2 button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 14px;border-bottom:1px solid #d4d4d8;padding-bottom:6px}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12.5px;font-weight:700;color:#3f3f46;margin-bottom:9px;text-align:center;max-width:402px}
+  .framelabel .be{color:#a1a1aa} .framelabel .af{color:#2B2FBE}
+
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:2px 16px 4px;flex-shrink:0}
+  .nav .back{display:flex;align-items:center;gap:3px;font-size:17px;font-weight:600;color:var(--tint)}
+  /* centered nav-title + labeled back (pushed-screen pattern, principled split) */
+  .navc{display:flex;align-items:center;height:44px;position:relative;flex-shrink:0;padding:2px 12px 4px}
+  .navc .back{display:inline-flex;align-items:center;gap:2px;color:var(--tint);font-size:16px;font-weight:600;z-index:2}
+  .navc .back .bx{font-size:23px;font-weight:400;line-height:1;margin-top:-1px}
+  .navc .ntitle{position:absolute;left:58px;right:58px;text-align:center;font-size:17px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .scroll{flex:1;overflow:hidden;padding:0 16px 110px}
+  .lt{font-size:26px;font-weight:800;color:var(--ink);letter-spacing:-.5px;margin:4px 0 5px;line-height:1.15}
+  .ltsub{font-size:13.5px;color:var(--ink-2);line-height:1.45;margin-bottom:16px}
+
+  .sec{margin-bottom:16px}
+  .sech{font-size:12px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;margin:0 4px 8px}
+  .card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden}
+  /* picker row (label/value + chevron) */
+  .frow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px}
+  .fk{font-size:15.5px;color:var(--ink);min-width:0}
+  .fk.pl{color:var(--ink-3)}
+  .fmeta{display:flex;align-items:center;gap:9px;flex-shrink:0}
+  .fchev{font-size:17px;color:var(--ink-3)}
+  .fclear{font-size:13px;font-weight:700;color:var(--tint)}
+  .fglyph{font-size:17px;color:var(--ink-3)}
+  /* textarea */
+  .tarea{padding:14px 15px 0;font-size:14.5px;color:var(--ink);line-height:1.5}
+  .tarea.pl{color:var(--ink-3)}
+  .charcount{font-size:11px;color:var(--ink-3);text-align:right;padding:8px 15px 12px}
+  /* helper / tip */
+  .ftip{font-size:12px;color:var(--ink-2);margin:8px 6px 0;line-height:1.45}
+  .ftip .tlabel{font-weight:700;color:var(--ink-2)}
+
+  /* sticky submit dock */
+  .dock{position:absolute;left:0;right:0;bottom:0;padding:14px 16px 26px;background:linear-gradient(to top,var(--canvas) 62%,rgba(242,242,247,0))}
+  .dark .dock{background:linear-gradient(to top,#000 62%,rgba(0,0,0,0))}
+  .submit{display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;background:var(--tint);border-radius:14px;padding:15px;box-shadow:var(--shadow-cta)}
+  .submit.disabled{opacity:.4;box-shadow:none}
+
+  /* bottom sheet (category picker) */
+  .dim{position:absolute;inset:0;background:rgba(0,0,0,.38)}
+  .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--card);border-radius:20px 20px 0 0;padding:8px 0 22px;box-shadow:0 -8px 30px rgba(0,0,0,.18)}
+  .handle{width:38px;height:5px;border-radius:99px;background:var(--ink-4);margin:6px auto 8px}
+  .sheettitle{font-size:17px;font-weight:800;color:var(--ink);padding:6px 18px 4px}
+  .sheetsub{font-size:12px;color:var(--ink-3);padding:0 18px 8px}
+  .opt{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-top:1px solid var(--hair);font-size:15px;color:var(--ink)}
+  .opt.sel{color:var(--tint);font-weight:700}
+  .opt .ck{color:var(--tint);font-weight:800}
+  .opt .lock{font-size:12px;color:var(--ink-4)}
+
+  /* BEFORE (live) */
+  .b-title{font-size:22px;font-weight:800;color:var(--ink);margin:4px 0 5px;line-height:1.2}
+  .b-sub{font-size:12.5px;color:var(--ink-3);line-height:1.4;margin-bottom:15px}
+  .b-lab{font-size:13px;font-weight:700;color:var(--ink-2);margin:0 0 6px}
+  .b-field{background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:13px 14px;margin-bottom:14px;font-size:14px;color:var(--ink-3);display:flex;align-items:center;justify-content:space-between}
+  .b-ta{background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:13px 14px;margin-bottom:14px;font-size:14px;color:var(--ink-3);min-height:70px}
+  .b-btn{background:var(--tint);color:#fff;border-radius:12px;padding:14px;text-align:center;font-size:15px;font-weight:700;margin-top:4px}
+
+  .annos{max-width:1180px;margin:22px auto 0}
+  .audit{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid #e7e7ea;border-radius:10px;overflow:hidden;margin-bottom:14px}
+  .audit th,.audit td{text-align:left;padding:8px 11px;border-top:1px solid #eee;vertical-align:top}
+  .audit th{background:#f6f6f8;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#71717a;border-top:none}
+  .audit td b{color:#18181b}
+  .vd{font-weight:800;font-size:11px;border-radius:5px;padding:1px 7px;white-space:nowrap}
+  .vd.keep{background:#e9f5ee;color:#166534} .vd.cut{background:#fbeaea;color:#b3261e} .vd.gate{background:#eef1fb;color:#2B2FBE} .vd.add{background:#fdf6e7;color:#92400e}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .cm{font-size:12px;line-height:1.6;color:#3f3f46;background:#fbfbfc;border:1px solid #e7e7ea;border-radius:10px;padding:12px 14px;margin-top:4px}
+  .cm b{color:#18181b}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Support &middot; Submit a ticket (general complaint form)</h1>
+    The free-form ticket type ("Something else"). <b>Canonical form pattern</b> for the cluster: grouped sections, picker rows that open a bottom sheet, a character-counted textarea, optional record + attachment links, and a sticky <b>Submit ticket</b> dock. Naming: the button "Submit request" becomes <b>"Submit ticket"</b>. Every live field kept; the optional context-attachment + extra categories are hidden for unverified tutors (the real <code>isUnverified</code> branch). Dates one format DD-MMM-YYYY. No duplication, no em-dashes. True 402&times;874, light + dark.
+    <div class="legend">
+      <span><i style="background:#2B2FBE"></i>Tint = submit + selected option + clear link</span>
+      <span><i style="background:#8a8a8e"></i>Neutral = fields, placeholders, helpers</span>
+    </div>
+  </div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
+  </div>
+
+  <div class="modehd">After &middot; the form (filled) + the category picker sheet &middot; and the live before</div>
+  <div class="frames">
+
+    <!-- AFTER: filled form -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; The form</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Report an issue</span></div>
+        <div class="scroll">
+          <div class="ltsub">Tell us what happened. We&rsquo;ll route it to the right team.</div>
+
+          <div class="sec">
+            <div class="sech">Category</div>
+            <div class="card"><div class="frow"><span class="fk">Payment</span><span class="fmeta"><span class="fchev">&#8250;</span></span></div></div>
+            <div class="ftip">Choose the best match for what happened.</div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Description</div>
+            <div class="card">
+              <div class="tarea">I taught 8 classes in May but was only paid for 6. The two missing sessions were on the 14th and 21st.</div>
+              <div class="charcount">102 / 500</div>
+            </div>
+            <div class="ftip"><span class="tlabel">Tip:</span> include dates, names, and any screenshots so admin can look into it without going back and forth.</div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Link a record (optional)</div>
+            <div class="card"><div class="frow"><span class="fk">Class on 14-May-2025</span><span class="fmeta"><span class="fclear">Clear</span></span></div></div>
+            <div class="ftip">Link a class or payment record if it helps staff review.</div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Attachment (optional)</div>
+            <div class="card"><div class="frow"><span class="fk pl">Add a photo or screenshot</span><span class="fmeta"><span class="fglyph">&#128247;</span></span></div></div>
+          </div>
+        </div>
+        <div class="dock"><div class="submit">Submit ticket</div></div>
+      </div>
+    </div>
+
+    <!-- AFTER: category sheet -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Category picker (bottom sheet)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Report an issue</span></div>
+        <div class="scroll">
+          <div class="ltsub">Tell us what happened. We&rsquo;ll route it to the right team.</div>
+          <div class="sec">
+            <div class="sech">Category</div>
+            <div class="card"><div class="frow"><span class="fk pl">Choose a category</span><span class="fmeta"><span class="fchev">&#8250;</span></span></div></div>
+          </div>
+        </div>
+        <div class="dim"></div>
+        <div class="sheet">
+          <div class="handle"></div>
+          <div class="sheettitle">What is it about?</div>
+          <div class="sheetsub">Tap the best match for what happened.</div>
+          <div class="opt">Attendance</div>
+          <div class="opt sel">Payment <span class="ck">&#10003;</span></div>
+          <div class="opt">App bug</div>
+          <div class="opt">Parent issue</div>
+          <div class="opt">Class issue</div>
+          <div class="opt">Delete my account</div>
+          <div class="opt">Other</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BEFORE: live -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live general complaint</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back" style="color:var(--ink-2)">&#8249;</span></div>
+        <div class="scroll" style="padding-bottom:16px">
+          <div class="b-title">Tell us what happened</div>
+          <div class="b-sub">Anything else - attendance, payment, app bug. We'll route it to the right team.</div>
+          <div class="b-lab">Sub-category</div>
+          <div class="b-field"><span>Choose a sub-category</span><span>&#8250;</span></div>
+          <div class="b-lab">Description</div>
+          <div class="b-ta">Describe what happened</div>
+          <div class="b-lab">Context attachment</div>
+          <div class="b-field"><span>Link a record</span><span>&#8250;</span></div>
+          <div class="b-lab">Attachment</div>
+          <div class="b-field"><span>Add attachment</span><span>+</span></div>
+          <div class="b-btn">Submit request</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="annos">
+    <h2>Field-level audit (challenge, don't trace &middot; KEEP / CUT / GATE / ADD)</h2>
+    <table class="audit">
+      <tr><th>Element (live)</th><th>Verdict</th><th>Provenance + reasoning</th></tr>
+      <tr><td><b>Title "Tell us what happened"</b></td><td><span class="vd keep">KEEP</span></td><td>Verbatim. The large title.</td></tr>
+      <tr><td><b>Subtitle</b></td><td><span class="vd keep">KEEP</span></td><td>Live used a hyphen-dash list; reworded to "Attendance, payment, an app bug or anything else. We'll route it to the right team." (no dash, same meaning).</td></tr>
+      <tr><td><b>"Sub-category" picker</b> (7 / 3 options)</td><td><span class="vd keep">KEEP</span></td><td>Real (required). Relabelled <b>"Category"</b> (clearer; there is no parent category). Opens a bottom sheet: Attendance / Payment / App bug / Parent issue / Class issue / Delete my account / Other. Unverified tutors see only App bug, Delete my account, Other.</td></tr>
+      <tr><td><b>Account-deletion lock</b></td><td><span class="vd keep">KEEP</span></td><td>Real: when entered from the deletion flow the category is locked to "Delete my account" (subtitle "Locked because you started the account deletion flow"); on success routes to ProfileMenu, not HelpCentre.</td></tr>
+      <tr><td><b>Description</b> (max 500 + counter)</td><td><span class="vd keep">KEEP</span></td><td>Real (required). Textarea with the live CharacterCounter ("N / 500").</td></tr>
+      <tr><td><b>Tip</b> (inline)</td><td><span class="vd keep">KEEP</span></td><td>Verbatim "Tip: include dates, names, and any screenshots so admin can investigate without going back and forth." (lightly trimmed).</td></tr>
+      <tr><td><b>Context attachment</b> (verified only)</td><td><span class="vd keep">KEEP</span></td><td>Real, optional. Relabelled <b>"Link a record"</b>. Opens a Class / Payment sheet (Payment tab is an empty state until its endpoint exists). Hidden for unverified tutors.</td></tr>
+      <tr><td><b>Image attachment</b></td><td><span class="vd keep">KEEP</span></td><td>Real, optional (camera or gallery, single image).</td></tr>
+      <tr><td><b>Submit button "Submit request"</b></td><td><span class="vd keep">KEEP</span></td><td>Real. Reworded <b>"Submit ticket"</b> (naming). Promoted to a sticky dock; disabled until category + description are filled (the live validation). Success toast "Submitted".</td></tr>
+    </table>
+
+    <div class="anno g"><span class="n">1</span><div><b>Sets the form pattern.</b> Grouped sections + picker rows that open a bottom sheet + a counted textarea + a sticky submit dock. The reschedule + resignation forms reuse this exact pattern.</div></div>
+    <div class="anno g"><span class="n">2</span><div><b>Optional vs required is legible.</b> "(optional)" in the section header, required fields gate the submit. No duplication: each label appears once; the tip and helper carry distinct guidance.</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz dependencies:</b> (a) the Payment context tab has no endpoint yet (live shows an empty state); confirm timeline. (b) confirm the unverified category subset (App bug / Delete my account / Other). (c) the deletion-flow lock + ProfileMenu redirect path.</div></div>
+    <div class="cm"><b>Commercial pass (Retain &middot; support intake).</b> <b>Founder:</b> a structured free-form intake captures the long tail of issues as trackable tickets instead of WhatsApp, protecting support cost + trust. <b>Sales:</b> no upsell (trust surface). <b>Marketing:</b> "we route it to the right team" is the reliability promise. <b>Analyst:</b> instrument category mix + completion rate (drop-off by field = a friction signal); guard = ticket quality (enough detail to action without a back-and-forth). Tap-count: a complete ticket in <b>category + type + submit</b> (3 taps + typing).</div>
+  </div>
+</div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ if(m==='dark') p.classList.add('dark'); else p.classList.remove('dark'); });
+    document.querySelectorAll('.modebar .seg2 button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

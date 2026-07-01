@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deliver · Class Edit — extend · postpone · parent-approval gate (light + dark)</title>
+<style>
+  /* ============== TOKENS (verbatim from deliver-class-records.html + deliver-active-class.html) ============== */
+  :root{
+    --tint:#2B2FBE;            /* brand — every primary CTA, never green */
+    --tint-weak:rgba(43,47,190,.10);
+    --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7;          /* grouped canvas */
+    --card:#FFFFFF;
+    --ink:#000000;
+    --ink-2:rgba(60,60,67,.62);
+    --ink-3:rgba(60,60,67,.45);
+    --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12);
+    --hair-strong:rgba(60,60,67,.16);
+    --fill:rgba(120,120,128,.10);
+    --fill-2:#EAEAEF;
+    --green:#16A34A;           /* Attended / Verified — colour budget */
+    --green-ink:#166534;
+    --green-weak:rgba(22,163,74,.12);
+    --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e;       /* one "check this" flag — colour budget */
+    --amber-weak:rgba(245,158,11,.18);
+    --amber-line:rgba(245,158,11,.40);
+    --red-ink:#991b1b;
+    --red-weak:rgba(239,68,68,.12);
+    --red-line:rgba(239,68,68,.28);
+    --shadow:0 1px 3px rgba(0,0,0,.05);
+    --shadow-soft:0 4px 16px rgba(0,0,0,.07);
+    --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px;
+    --radius-lg:16px;
+    --earn:rgba(43,47,190,.10);
+    --earn-line:rgba(43,47,190,.18);
+  }
+  .dark{
+    --tint:#7C8CF0;
+    --tint-weak:rgba(124,140,240,.18);
+    --tint-ink:#7C8CF0;
+    --canvas:#000000;
+    --card:#1C1C1E;
+    --ink:#FFFFFF;
+    --ink-2:rgba(235,235,245,.62);
+    --ink-3:rgba(235,235,245,.45);
+    --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6);
+    --hair-strong:rgba(84,84,88,.8);
+    --fill:rgba(120,120,128,.24);
+    --fill-2:#2C2C2E;
+    --green:#30D158;
+    --green-ink:#30D158;
+    --green-weak:rgba(48,209,88,.18);
+    --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A;
+    --amber-weak:rgba(255,214,10,.16);
+    --amber-line:rgba(255,214,10,.4);
+    --red-ink:#FF453A;
+    --red-weak:rgba(255,69,58,.16);
+    --red-line:rgba(255,69,58,.32);
+    --shadow:0 1px 3px rgba(0,0,0,.5);
+    --shadow-soft:0 6px 20px rgba(0,0,0,.5);
+    --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --earn:rgba(124,140,240,.20);
+    --earn-line:rgba(124,140,240,.32);
+  }
+
+  /* ============== PAGE CHROME (doc layer only — no raw hex inside .ph) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1600px;margin:0 auto;}
+  .docnote{font-size:13px;line-height:1.65;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:20px;}
+  .docnote h1{font-size:18px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .docnote .notebox{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .docnote .notebox b{color:#1e3a8a;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:28px 0 14px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12.5px;font-weight:700;color:#3f3f46;margin-bottom:9px;text-align:center;max-width:402px;}
+  .framelabel .step{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:#2B2FBE;border-radius:999px;padding:2px 8px;margin-right:6px;}
+  .heightnote{font-size:11px;color:#71717a;margin-top:6px;text-align:center;font-style:italic;}
+
+  /* ============== DEVICE FRAME (402x874, overflow:hidden) ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column;}
+
+  /* status bar */
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+
+  /* nav bar */
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:2px 16px 10px;flex-shrink:0;}
+  .nav .back{display:flex;align-items:center;gap:3px;font-size:17px;font-weight:600;color:var(--tint);}
+  .nav .back .lbl{font-size:16px;}
+  .nav .ntitle{font-size:17px;font-weight:600;color:var(--ink);}
+  .nav .naction{font-size:17px;font-weight:600;color:var(--tint);}
+
+  /* ===== CLASS CONTEXT CARD (verbatim .ctx from deliver-active-class.html) ===== */
+  .ctx{background:var(--card);border-radius:var(--radius-lg);padding:15px;box-shadow:var(--shadow);margin:0 16px 12px;}
+  .ctx-top{display:flex;align-items:center;gap:12px;}
+  .ava{width:42px;height:42px;border-radius:999px;background:var(--tint-weak);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--tint);flex-shrink:0;}
+  .ctx-id{flex:1;min-width:0;}
+  .ctx-name{font-size:16px;font-weight:700;color:var(--ink);}
+  .ctx-sub{font-size:12.5px;color:var(--ink-2);margin-top:1px;}
+  .ctx-row{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:10px;padding-top:10px;border-top:1px solid var(--hair);}
+  .ic{font-size:12px;font-weight:600;color:var(--ink-2);display:inline-flex;align-items:center;gap:3px;}
+  .ic .g{font-size:12px;opacity:.85;}
+  .sep{color:var(--ink-4);font-size:11px;margin:0 1px;}
+
+  /* ===== SECTION CARDS (grouped-list: header + inset card — from deliver-class-records.html) ===== */
+  .sec{margin:0 16px 12px;}
+  .sech{font-size:12px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;margin:0 4px 7px;}
+  .card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;}
+  .row + .row{border-top:1px solid var(--hair);}
+  .row .k{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--ink-2);}
+  .row .k .kic{font-size:14px;color:var(--ink-3);width:18px;text-align:center;flex-shrink:0;}
+  .row .v{font-size:15px;font-weight:600;color:var(--ink);text-align:right;}
+  .row .v.tint{color:var(--tint);}
+  .row .v.muted{color:var(--ink-3);}
+
+  /* filter/form rows (from deliver-class-records.html .frmrow) */
+  .frmrow{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:var(--card);}
+  .frmrow + .frmrow{border-top:1px solid var(--hair);}
+  .frmrow .fk{font-size:15px;color:var(--ink);}
+  .frmrow .fv{display:flex;align-items:center;gap:6px;font-size:15px;color:var(--ink-3);}
+  .frmrow .fv.sel{color:var(--tint);font-weight:600;}
+  .frmrow .chevron{font-size:13px;color:var(--ink-4);}
+
+  /* multiline text field row */
+  .textarearow{padding:13px 16px;background:var(--card);}
+  .textarearow .talab{font-size:13px;font-weight:600;color:var(--ink-2);margin-bottom:7px;}
+  .textarearow .taval{font-size:15px;color:var(--ink);line-height:1.5;}
+  .textarearow .tacursor{display:inline-block;width:1.5px;height:16px;background:var(--tint);vertical-align:text-bottom;margin-left:1px;animation:blink 1s step-end infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+  /* ===== FROM-TO COMPARISON CARD ===== */
+  .fromto{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;}
+  .fromto-row{padding:13px 16px;}
+  .fromto-label{font-size:10.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;}
+  .fromto-label.from{color:var(--ink-3);}
+  .fromto-label.to{color:var(--tint);}
+  .fromto-date{font-size:16px;font-weight:700;color:var(--ink);}
+  .fromto-time{font-size:13.5px;color:var(--ink-2);margin-top:2px;}
+  .fromto-divider{display:flex;align-items:center;gap:10px;padding:0 16px;}
+  .fromto-line{flex:1;height:1px;background:var(--hair);}
+  .fromto-arrow{font-size:16px;color:var(--ink-4);}
+
+  /* ===== QUICK-PICK CHIP STRIP ===== */
+  .chipstrip{padding:0 16px 4px;display:flex;flex-direction:column;gap:6px;}
+  .chiprow{display:flex;gap:7px;flex-wrap:wrap;}
+  .qchip{height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;background:var(--fill);color:var(--ink-2);border:1.5px solid transparent;}
+  .qchip.sel{background:var(--tint-weak);color:var(--tint);border-color:rgba(43,47,190,.25);font-weight:700;}
+
+  /* ===== RESULT PREVIEW CARD ===== */
+  .resultcard{background:var(--tint-weak);border:1px solid rgba(43,47,190,.18);border-radius:var(--radius-lg);padding:14px 16px;margin:0 16px;}
+  .result-label{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--tint);margin-bottom:6px;}
+  .result-main{font-size:17px;font-weight:700;color:var(--ink);}
+  .result-sub{font-size:13px;color:var(--ink-2);margin-top:3px;}
+
+  /* ===== ONE-TIME NOTICE CHIP ===== */
+  .noticechip{display:flex;align-items:flex-start;gap:7px;background:var(--amber-weak);border:1px solid var(--amber-line);border-radius:var(--radius);padding:10px 13px;margin:0 16px;font-size:12.5px;color:var(--amber-ink);font-weight:600;line-height:1.4;}
+  .noticechip .ng{font-size:13px;flex-shrink:0;}
+
+  /* ===== CTA DOCK (from deliver-active-class.html .actions/.cta/.sbtn/.ctahint) ===== */
+  .dock{position:absolute;left:0;right:0;bottom:0;padding:12px 16px 22px;background:linear-gradient(to top,var(--canvas) 72%,transparent);}
+  .cta{height:52px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:17px;font-weight:600;color:#fff;background:var(--tint);box-shadow:var(--shadow-cta);}
+  .cta .cg{font-size:18px;}
+  .subrow{display:flex;gap:10px;margin-top:10px;}
+  .sbtn{flex:1;height:46px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:15px;font-weight:600;color:var(--tint);background:var(--card);box-shadow:var(--shadow);}
+  .ctahint{text-align:center;font-size:12px;color:var(--ink-3);margin-top:8px;font-weight:600;}
+
+  /* ===== PARENT-APPROVAL GATE ELEMENTS ===== */
+  .gate-hero{display:flex;flex-direction:column;align-items:center;padding:24px 24px 16px;text-align:center;}
+  .gate-icon{font-size:52px;margin-bottom:12px;}
+  .gate-title{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.4px;line-height:1.2;}
+  .gate-body{font-size:14px;color:var(--ink-2);margin-top:6px;line-height:1.55;}
+  .checklist{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;margin:0 16px 12px;}
+  .checkitem{display:flex;align-items:center;gap:12px;padding:14px 16px;}
+  .checkitem + .checkitem{border-top:1px solid var(--hair);}
+  .checkitem .chk{width:22px;height:22px;border-radius:999px;background:var(--fill);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:var(--ink-3);}
+  .checkitem .chklabel{font-size:15px;color:var(--ink);font-weight:500;line-height:1.35;}
+  .gatehint{font-size:13px;color:var(--ink-3);line-height:1.55;padding:0 24px;text-align:center;margin-bottom:4px;}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="docnote">
+    <h1>Deliver · Class Edit — extend · postpone · parent-approval gate (2026-07-01)</h1>
+    <b>Three screens on the class-management J2 journey.</b> All three live downstream of the Class Records detail or the Active Class cockpit.
+    <div class="notebox">
+      <b>Design decisions per audit brief:</b>
+      <br>· <b>ExtendClass</b> — quick-pick chips are the focal control (30–120 min, 8 options in 2 rows); one-time-only notice in amber; result preview card updates with the new end time + duration. One tap = done.
+      <br>· <b>EditPostponedClass</b> — FROM &rarr; TO comparison card leads the screen so the tutor sees exactly what is changing before editing anything. Reason field is a multiline text area (real sample text). Max +30 days note under the date row.
+      <br>· <b>ParentApprovalConfirmation</b> — a neutral friction gate (not a success screen, not a dark pattern). Two equally-prominent buttons: the confirm CTA and a full-width secondary "Wait, let me check" so declining is just as easy as confirming.
+    </div>
+    <div class="notebox">
+      <b>Colour budget (locked):</b> primary CTA = brand-blue (<code>--tint</code>), never green. Green = positive status only. Amber = one "check this" flag. Neutral copy, no em-dashes, no invented backend values. Date format DD-MMM-YYYY. Money whole-RM on context cards. Icons are emoji placeholders. No raw hex in frame markup.
+    </div>
+    <b>Sample data:</b> student "Adam Lim" · Mathematics Form 4 · Tue 24-Jun-2026 · 2:00–3:00 PM · 1h. All values are labelled fixtures.
+  </div>
+
+  <!-- ===================== LIGHT MODE ===================== -->
+  <div class="modehd">Light mode · three screens</div>
+  <div class="frames">
+
+    <!-- SCREEN 1 · EXTEND CLASS (light) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">1</span>ExtendClass · light — quick-pick chips lead</div>
+      <div class="ph" id="L-extend">
+
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+
+        <div class="nav">
+          <div class="back"><span>‹</span><span class="lbl">Class</span></div>
+          <div class="ntitle">Extend class</div>
+          <div class="naction"></div>
+        </div>
+
+        <!-- Read-only class context card -->
+        <div class="ctx">
+          <div class="ctx-top">
+            <div class="ava">AL</div>
+            <div class="ctx-id">
+              <div class="ctx-name">Adam Lim</div>
+              <div class="ctx-sub">Mathematics · Form 4 · SPM</div>
+            </div>
+          </div>
+          <div class="ctx-row">
+            <span class="ic"><span class="g">📅</span> Tue, 24-Jun-2026</span><span class="sep">·</span>
+            <span class="ic"><span class="g">🕐</span> 2:00 – 3:00 PM</span><span class="sep">·</span>
+            <span class="ic"><span class="g">⏱️</span> 1h 00m</span>
+          </div>
+        </div>
+
+        <!-- One-time notice -->
+        <div class="noticechip">
+          <span class="ng">⚠️</span>
+          You can extend this class once. This adds time to today's session only.
+        </div>
+
+        <div style="height:14px"></div>
+
+        <!-- Add time section -->
+        <div class="sec">
+          <div class="sech">Add time</div>
+          <!-- Quick-pick chips — 2 rows -->
+          <div class="chipstrip">
+            <div class="chiprow">
+              <span class="qchip sel">30 min</span>
+              <span class="qchip">45 min</span>
+              <span class="qchip">60 min</span>
+              <span class="qchip">75 min</span>
+            </div>
+            <div class="chiprow">
+              <span class="qchip">90 min</span>
+              <span class="qchip">105 min</span>
+              <span class="qchip">120 min</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live result preview -->
+        <div class="resultcard">
+          <div class="result-label">After extension</div>
+          <div class="result-main">New end: 3:30 PM</div>
+          <div class="result-sub">New duration: 1h 30m &nbsp;(+30 min)</div>
+        </div>
+
+        <!-- CTA dock -->
+        <div class="dock">
+          <div class="cta">Confirm extension</div>
+          <div class="ctahint">Sample data · 30 min selected</div>
+        </div>
+
+      </div>
+      <div class="heightnote">Content ends ~790px · 84px headroom vs 874px</div>
+    </div>
+
+    <!-- SCREEN 2 · POSTPONE CLASS (light) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">2</span>EditPostponedClass · light — FROM &rarr; TO comparison leads</div>
+      <div class="ph" id="L-postpone">
+
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+
+        <div class="nav">
+          <div class="back"><span>‹</span><span class="lbl">Class</span></div>
+          <div class="ntitle">Postpone class</div>
+          <div class="naction"></div>
+        </div>
+
+        <!-- FROM -> TO comparison card -->
+        <div class="sec">
+          <div class="sech">Rescheduling</div>
+          <div class="fromto">
+            <!-- FROM -->
+            <div class="fromto-row">
+              <div class="fromto-label from">Original</div>
+              <div class="fromto-date">Tue, 24-Jun-2026</div>
+              <div class="fromto-time">2:00 – 3:00 PM &nbsp;·&nbsp; 1h 00m</div>
+            </div>
+            <div class="fromto-divider">
+              <div class="fromto-line"></div>
+              <div class="fromto-arrow">↓</div>
+              <div class="fromto-line"></div>
+            </div>
+            <!-- TO -->
+            <div class="fromto-row">
+              <div class="fromto-label to">New slot</div>
+              <div class="fromto-date" style="color:var(--tint)">Thu, 26-Jun-2026</div>
+              <div class="fromto-time">2:00 – 3:00 PM &nbsp;·&nbsp; 1h 00m</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reason -->
+        <div class="sec">
+          <div class="sech">Details</div>
+          <div class="card">
+            <div class="textarearow">
+              <div class="talab">Reason for postponing</div>
+              <div class="taval">Student has a school sports day on Tuesday. Both sides agreed to move to Thursday.<span class="tacursor"></span></div>
+            </div>
+            <div class="frmrow" style="border-top:1px solid var(--hair)">
+              <span class="fk">New date</span>
+              <span class="fv sel">Thu, 26-Jun-2026 <span class="chevron">›</span></span>
+            </div>
+            <div class="frmrow">
+              <span class="fk">New start time</span>
+              <span class="fv sel">2:00 PM <span class="chevron">›</span></span>
+            </div>
+            <div class="frmrow">
+              <span class="fk">New end time</span>
+              <span class="fv" style="color:var(--ink-3)">3:00 PM &nbsp;<span style="font-size:11px;color:var(--ink-4)">(auto)</span></span>
+            </div>
+          </div>
+          <div style="font-size:12px;color:var(--ink-3);padding:6px 4px 0;font-weight:600;">Max +30 days from the original date.</div>
+        </div>
+
+        <!-- CTA dock -->
+        <div class="dock">
+          <div class="cta">Postpone class</div>
+          <div class="ctahint">Sample data.</div>
+        </div>
+
+      </div>
+      <div class="heightnote">Content ends ~820px · 54px headroom vs 874px</div>
+    </div>
+
+    <!-- SCREEN 3 · PARENT APPROVAL GATE (light) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">3</span>ParentApprovalConfirmation · light — neutral friction gate</div>
+      <div class="ph" id="L-gate">
+
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+
+        <div class="nav">
+          <div class="back"><span>‹</span><span class="lbl">Postpone</span></div>
+          <div class="ntitle">One moment</div>
+          <div class="naction"></div>
+        </div>
+
+        <!-- Hero: handshake + title + intro -->
+        <div class="gate-hero">
+          <div class="gate-icon">🤝</div>
+          <div class="gate-title">Confirm with the parent first</div>
+          <div class="gate-body">Before we submit, please make sure the parent has agreed to:</div>
+        </div>
+
+        <!-- Checklist -->
+        <div class="checklist">
+          <div class="checkitem">
+            <div class="chk">○</div>
+            <div class="chklabel">The new date and time (Thu, 26-Jun-2026 at 2:00 PM)</div>
+          </div>
+          <div class="checkitem">
+            <div class="chk">○</div>
+            <div class="chklabel">The added class on their next invoice</div>
+          </div>
+        </div>
+
+        <!-- Neutral body hint -->
+        <div class="gatehint">
+          The parent will see this charge on their next bill. Please do not submit until they have said yes.
+        </div>
+
+        <!-- CTA dock — both buttons equally prominent -->
+        <div class="dock">
+          <div class="cta">I have confirmed with the parent</div>
+          <div class="subrow">
+            <div class="sbtn">Wait, let me check</div>
+          </div>
+          <div class="ctahint">Sample data.</div>
+        </div>
+
+      </div>
+      <div class="heightnote">Content ends ~810px · 64px headroom vs 874px</div>
+    </div>
+
+  </div><!-- /frames light -->
+
+
+  <!-- ===================== DARK MODE — ParentApprovalConfirmation only ===================== -->
+  <div class="modehd">Dark mode · ParentApprovalConfirmation (Screen 3)</div>
+  <div class="frames">
+
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">3D</span>ParentApprovalConfirmation · dark</div>
+      <div class="ph dark" id="D-gate">
+
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+
+        <div class="nav">
+          <div class="back"><span>‹</span><span class="lbl">Postpone</span></div>
+          <div class="ntitle">One moment</div>
+          <div class="naction"></div>
+        </div>
+
+        <!-- Hero: handshake + title + intro -->
+        <div class="gate-hero">
+          <div class="gate-icon">🤝</div>
+          <div class="gate-title">Confirm with the parent first</div>
+          <div class="gate-body">Before we submit, please make sure the parent has agreed to:</div>
+        </div>
+
+        <!-- Checklist -->
+        <div class="checklist">
+          <div class="checkitem">
+            <div class="chk">○</div>
+            <div class="chklabel">The new date and time (Thu, 26-Jun-2026 at 2:00 PM)</div>
+          </div>
+          <div class="checkitem">
+            <div class="chk">○</div>
+            <div class="chklabel">The added class on their next invoice</div>
+          </div>
+        </div>
+
+        <!-- Neutral body hint -->
+        <div class="gatehint">
+          The parent will see this charge on their next bill. Please do not submit until they have said yes.
+        </div>
+
+        <!-- CTA dock — both buttons equally prominent -->
+        <div class="dock">
+          <div class="cta">I have confirmed with the parent</div>
+          <div class="subrow">
+            <div class="sbtn">Wait, let me check</div>
+          </div>
+          <div class="ctahint">Sample data.</div>
+        </div>
+
+      </div>
+      <div class="heightnote">Content ends ~810px · 64px headroom vs 874px</div>
+    </div>
+
+  </div><!-- /frames dark -->
+
+</div><!-- /doc -->
+</body>
+</html>

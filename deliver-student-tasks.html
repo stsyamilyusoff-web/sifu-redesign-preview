@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deliver · Student Tasks — StudentList · StudentReport · TutorTaskList (light + dark)</title>
+<style>
+  /* ============== TOKENS (verbatim from deliver-class-records.html) ============== */
+  :root{
+    --tint:#2B2FBE;
+    --tint-weak:rgba(43,47,190,.10);
+    --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7;
+    --card:#FFFFFF;
+    --ink:#000000;
+    --ink-2:rgba(60,60,67,.62);
+    --ink-3:rgba(60,60,67,.45);
+    --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12);
+    --hair-strong:rgba(60,60,67,.16);
+    --fill:rgba(120,120,128,.10);
+    --fill-2:#EAEAEF;
+    --green:#16A34A;
+    --green-ink:#166534;
+    --green-weak:rgba(22,163,74,.12);
+    --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e;
+    --amber-weak:rgba(245,158,11,.18);
+    --amber-line:rgba(245,158,11,.40);
+    --red-ink:#991b1b;
+    --red-weak:rgba(239,68,68,.12);
+    --red-line:rgba(239,68,68,.28);
+    --shadow:0 1px 3px rgba(0,0,0,.05);
+    --shadow-soft:0 4px 16px rgba(0,0,0,.07);
+    --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px;
+    --radius-lg:16px;
+    --earn:rgba(43,47,190,.10);
+    --earn-line:rgba(43,47,190,.18);
+  }
+  .dark{
+    --tint:#7C8CF0;
+    --tint-weak:rgba(124,140,240,.18);
+    --tint-ink:#7C8CF0;
+    --canvas:#000000;
+    --card:#1C1C1E;
+    --ink:#FFFFFF;
+    --ink-2:rgba(235,235,245,.62);
+    --ink-3:rgba(235,235,245,.45);
+    --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6);
+    --hair-strong:rgba(84,84,88,.8);
+    --fill:rgba(120,120,128,.24);
+    --fill-2:#2C2C2E;
+    --green:#30D158;
+    --green-ink:#30D158;
+    --green-weak:rgba(48,209,88,.18);
+    --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A;
+    --amber-weak:rgba(255,214,10,.16);
+    --amber-line:rgba(255,214,10,.4);
+    --red-ink:#FF453A;
+    --red-weak:rgba(255,69,58,.16);
+    --red-line:rgba(255,69,58,.32);
+    --shadow:0 1px 3px rgba(0,0,0,.5);
+    --shadow-soft:0 6px 20px rgba(0,0,0,.5);
+    --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --earn:rgba(124,140,240,.20);
+    --earn-line:rgba(124,140,240,.32);
+  }
+
+  /* ============== PAGE CHROME ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1900px;margin:0 auto;}
+  .docnote{font-size:13px;line-height:1.65;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:20px;}
+  .docnote h1{font-size:18px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .docnote .notebox{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 13px;margin:10px 0;font-size:12.5px;line-height:1.55;}
+  .docnote .notebox b{color:#1e3a8a;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:28px 0 14px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12.5px;font-weight:700;color:#3f3f46;margin-bottom:9px;text-align:center;max-width:402px;}
+  .framelabel .step{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:#2B2FBE;border-radius:999px;padding:2px 8px;margin-right:6px;}
+  .heightnote{font-size:11px;color:#71717a;margin-top:6px;text-align:center;font-style:italic;}
+
+  /* ============== DEVICE FRAME (verbatim from deliver-class-records.html) ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column;}
+
+  /* status bar */
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+
+  /* large-title nav */
+  .navlarge{padding:0 16px 6px;flex-shrink:0;}
+  .navlarge .ltitle{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-.5px;}
+  .navlarge .ltrow{display:flex;align-items:center;justify-content:space-between;}
+  .navlarge .filtericon{width:32px;height:32px;border-radius:999px;background:var(--fill);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--tint);}
+
+  /* standard nav bar */
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:2px 16px 8px;flex-shrink:0;}
+  .nav .back{display:flex;align-items:center;gap:3px;font-size:17px;font-weight:600;color:var(--tint);}
+  .nav .back .lbl{font-size:16px;}
+  .nav .ntitle{font-size:17px;font-weight:600;color:var(--ink);}
+  .nav .naction{font-size:17px;font-weight:600;color:var(--tint);}
+
+  /* search bar */
+  .searchbar{margin:0 16px 10px;background:var(--fill);border-radius:10px;height:36px;display:flex;align-items:center;gap:7px;padding:0 11px;flex-shrink:0;}
+  .searchbar .sg{font-size:14px;color:var(--ink-3);}
+  .searchbar .sph{font-size:15px;color:var(--ink-3);}
+
+  /* sort row — verbatim from deliver-class-records.html */
+  .sortrow{display:flex;align-items:center;gap:8px;padding:0 16px 10px;flex-shrink:0;}
+  .sortrow .sl{font-size:13px;color:var(--ink-2);font-weight:500;}
+  .sortrow .spill{font-size:12px;font-weight:700;color:var(--tint);background:var(--tint-weak);border-radius:999px;padding:4px 11px;display:flex;align-items:center;gap:4px;}
+
+  /* scroll region */
+  .scroll{flex:1;overflow:hidden;padding:0 16px;}
+  .scrollpad{padding-bottom:14px;}
+
+  /* tap-to-copy UID chip */
+  .uidchip{font-family:ui-monospace,monospace;font-size:11px;font-weight:700;color:var(--tint);background:var(--tint-weak);border-radius:8px;padding:4px 9px;display:inline-flex;align-items:center;gap:4px;}
+  .uidchip .copyg{font-family:-apple-system,sans-serif;font-size:11px;}
+
+  /* sticky CTA dock */
+  .dock{position:absolute;left:0;right:0;bottom:0;display:flex;gap:8px;align-items:center;padding:12px 16px 20px;background:linear-gradient(to top,var(--canvas) 72%,transparent);flex-shrink:0;}
+  .dock .cta{flex:1;height:48px;border-radius:999px;background:var(--tint);color:#fff;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-cta);}
+  .dock .resetbtn{font-size:15px;font-weight:600;color:var(--tint);background:none;padding:0 4px;}
+
+  /* empty state */
+  .emptystate{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:40px 24px;text-align:center;}
+  .emptystate .eg{font-size:44px;opacity:.35;}
+  .emptystate .et{font-size:17px;font-weight:700;color:var(--ink);margin-top:6px;}
+  .emptystate .es{font-size:14px;color:var(--ink-2);line-height:1.5;margin-top:2px;}
+
+  /* ======= STUDENT LIST ROWS ======= */
+  .scard{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:8px;overflow:hidden;}
+  .scard-row{display:flex;align-items:center;gap:12px;padding:12px 14px;}
+
+  /* neutral initials avatar */
+  .avatar{width:40px;height:40px;border-radius:999px;background:var(--fill-2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--ink-2);letter-spacing:.5px;}
+
+  .scard-info{flex:1;min-width:0;}
+  .scard-name{font-size:16px;font-weight:700;color:var(--ink);}
+  .scard-uid{margin-top:3px;}
+  .scard-trail{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
+  .subj-pill{font-size:12px;font-weight:700;color:var(--ink-2);background:var(--fill);border-radius:999px;padding:4px 10px;}
+  .chevron{font-size:16px;color:var(--ink-4);}
+
+  /* ======= REPORT LIST ROWS ======= */
+  .rcard{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:8px;overflow:hidden;}
+  .rcard-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 0;}
+  .rcard-main{display:flex;align-items:flex-start;justify-content:space-between;padding:8px 14px 12px;gap:10px;}
+  .rcard-left{flex:1;min-width:0;}
+  .rcard-student{font-size:15px;font-weight:700;color:var(--ink);}
+  .rcard-sub{font-size:13px;color:var(--ink-2);margin-top:2px;}
+  .rcard-date{font-size:12px;color:var(--ink-3);margin-top:3px;}
+  .rcard-trail{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;}
+
+  /* report-type tags */
+  .rtag{font-size:11px;font-weight:800;letter-spacing:.2px;border-radius:999px;padding:4px 10px;}
+  .rtag.eval{background:var(--tint-weak);color:var(--tint-ink);}
+  .rtag.progress{background:var(--fill);color:var(--ink-2);}
+
+  /* ======= TASK LIST ROWS (Change 2: clean inset-card style, no left-border, no accordion) ======= */
+  .tcard{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:8px;overflow:hidden;}
+  .tcard-row{display:flex;align-items:center;gap:10px;padding:12px 14px;}
+  .tcard-left{flex:1;min-width:0;}
+  .tcard-uid{margin-bottom:4px;}
+  .tcard-student{font-size:15px;font-weight:700;color:var(--ink);}
+  .tcard-sub{font-size:13px;color:var(--ink-2);margin-top:2px;}
+  .tcard-trail{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;}
+  /* compact brand-blue submit link */
+  .submit-link{font-size:14px;font-weight:700;color:var(--tint);}
+
+  /* ======= FILTER SCREEN COMPONENTS (Change 1 — Reports filter) ======= */
+  .frmsec{margin:20px 0 0;}
+  .frmsechead{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2);margin:0 4px 8px;padding:0 16px;}
+  .frmcard{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;}
+  .frmrow{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:var(--card);}
+  .frmrow + .frmrow{border-top:1px solid var(--hair);}
+  .frmrow .fk{font-size:15px;color:var(--ink);}
+  .frmrow .fv{display:flex;align-items:center;gap:6px;font-size:15px;color:var(--ink-3);}
+  .frmrow .fv.sel{color:var(--tint);}
+  .frmrow .fchev{font-size:14px;color:var(--ink-4);}
+  .daterow{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:var(--card);}
+  .daterow + .daterow{border-top:1px solid var(--hair);}
+  .daterow .dk{font-size:15px;color:var(--ink);}
+  .daterow .dv{font-size:15px;color:var(--tint);font-weight:600;}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="docnote">
+    <h1>Deliver · Student Tasks — StudentList · StudentReport · TutorTaskList (2026-07-01)</h1>
+    <b>Three lean list screens sharing the deliver-class-records list grammar.</b>
+    <ul style="margin:8px 0 0;padding-left:18px;">
+      <li><b>StudentList</b> — who the tutor teaches; rows tap into the existing StudentsDetails screen. Avatars = neutral initials circles, never gendered illustration. Sort by Name / Most subjects.</li>
+      <li><b>StudentReport</b> — reports already submitted; read-only log. Each row carries: Request UID + student name + subject + report type (Evaluation / Progress) + date. Sort + filter added.</li>
+      <li><b>TutorTaskList</b> — reports the tutor still owes; action-oriented. Clean inset-card list with a trailing "Submit ›" brand-blue affordance. These are DISTINCT jobs from StudentReport and must stay separate screens.</li>
+    </ul>
+    <div class="notebox">
+      <b>Colour budget (locked this session):</b> primary CTA = brand-blue (<code>--tint</code>). Progress tag = neutral grey (never green). Evaluation tag = blue tint. Buttons are never green. Colour rides on icon + word, never colour-alone.<br>
+      <b>Conventions:</b> date DD-MMM-YYYY. Avatars = initials. UID chips are tap-to-copy style. No em-dashes. No invented backend claims. Money omitted here (not a field on these surfaces). No raw hex in frame markup.
+    </div>
+    <b>Sample data:</b> all names, UIDs, dates are labelled fixtures. Subject counts are indicative.
+  </div>
+
+  <!-- ===================== LIGHT MODE — 4 SCREENS ===================== -->
+  <div class="modehd">Light mode · all screens</div>
+  <div class="frames">
+
+    <!-- SCREEN 1 · STUDENT LIST (light) -->
+    <!-- Change 3: sort control added under search bar -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">1</span>StudentList (light) — 4 sample rows</div>
+      <div class="ph" id="L-students">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navlarge">
+          <div class="ltrow">
+            <div class="ltitle">Students</div>
+          </div>
+        </div>
+        <div class="searchbar"><span class="sg">&#128269;</span><span class="sph">Search student…</span></div>
+        <!-- Sort control — gated, no filter -->
+        <div class="sortrow">
+          <span class="sl">Sort:</span>
+          <span class="spill">Name (A–Z) &#8964;</span>
+        </div>
+
+        <div class="scroll">
+          <div class="scrollpad">
+
+            <!-- ROW A: Adam Lim -->
+            <div class="scard">
+              <div class="scard-row">
+                <div class="avatar">AL</div>
+                <div class="scard-info">
+                  <div class="scard-name">Adam Lim</div>
+                  <div class="scard-uid"><span class="uidchip">STU-10041 <span class="copyg">&#10696;</span></span></div>
+                </div>
+                <div class="scard-trail">
+                  <span class="subj-pill">3 subjects</span>
+                  <span class="chevron">&#8250;</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ROW B: Daniel Wong -->
+            <div class="scard">
+              <div class="scard-row">
+                <div class="avatar">DW</div>
+                <div class="scard-info">
+                  <div class="scard-name">Daniel Wong</div>
+                  <div class="scard-uid"><span class="uidchip">STU-10088 <span class="copyg">&#10696;</span></span></div>
+                </div>
+                <div class="scard-trail">
+                  <span class="subj-pill">2 subjects</span>
+                  <span class="chevron">&#8250;</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ROW C: Nurul Aisyah -->
+            <div class="scard">
+              <div class="scard-row">
+                <div class="avatar">NA</div>
+                <div class="scard-info">
+                  <div class="scard-name">Nurul Aisyah binti Razak</div>
+                  <div class="scard-uid"><span class="uidchip">STU-10072 <span class="copyg">&#10696;</span></span></div>
+                </div>
+                <div class="scard-trail">
+                  <span class="subj-pill">1 subject</span>
+                  <span class="chevron">&#8250;</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ROW D: Siti Rahmah -->
+            <div class="scard">
+              <div class="scard-row">
+                <div class="avatar">SR</div>
+                <div class="scard-info">
+                  <div class="scard-name">Siti Rahmah</div>
+                  <div class="scard-uid"><span class="uidchip">STU-10094 <span class="copyg">&#10696;</span></span></div>
+                </div>
+                <div class="scard-trail">
+                  <span class="subj-pill">1 subject</span>
+                  <span class="chevron">&#8250;</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~454px of 874px frame. ~420px headroom.</div>
+    </div>
+
+    <!-- SCREEN 2 · STUDENT REPORT (light) -->
+    <!-- Change 1: filter icon in nav + sort row below search -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">2</span>StudentReport — submitted reports (light) — 4 samples</div>
+      <div class="ph" id="L-reports">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navlarge">
+          <div class="ltrow">
+            <div class="ltitle">Reports</div>
+            <!-- filter icon — Change 1 -->
+            <div class="filtericon">&#9870;</div>
+          </div>
+        </div>
+        <div class="searchbar"><span class="sg">&#128269;</span><span class="sph">Search student, subject…</span></div>
+        <!-- Sort control — Change 1 -->
+        <div class="sortrow">
+          <span class="sl">Sort:</span>
+          <span class="spill">&#128197; Date (newest) &#8964;</span>
+        </div>
+
+        <div class="scroll">
+          <div class="scrollpad">
+
+            <!-- REPORT A: Evaluation -->
+            <div class="rcard">
+              <div class="rcard-head">
+                <span class="uidchip">REQ-20391 <span class="copyg">&#10696;</span></span>
+                <span class="rtag eval">Evaluation</span>
+              </div>
+              <div class="rcard-main">
+                <div class="rcard-left">
+                  <div class="rcard-student">Adam Lim</div>
+                  <div class="rcard-sub">Mathematics · Form 4</div>
+                  <div class="rcard-date">&#128197; 14-Jun-2026</div>
+                </div>
+                <div class="rcard-trail">
+                  <span class="chevron">&#8250;</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- REPORT B: Progress -->
+            <div class="rcard">
+              <div class="rcard-head">
+                <span class="uidchip">REQ-20204 <span class="copyg">&#10696;</span></span>
+                <span class="rtag progress">Progress</span>
+              </div>
+              <div class="rcard-main">
+                <div class="rcard-left">
+                  <div class="rcard-student">Nurul Aisyah binti Razak</div>
+                  <div class="rcard-sub">Chemistry · Form 6</div>
+                  <div class="rcard-date">&#128197; 02-Jun-2026</div>
+                </div>
+                <div class="rcard-trail">
+                  <span class="chevron">&#8250;</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- REPORT C: Evaluation -->
+            <div class="rcard">
+              <div class="rcard-head">
+                <span class="uidchip">REQ-19887 <span class="copyg">&#10696;</span></span>
+                <span class="rtag eval">Evaluation</span>
+              </div>
+              <div class="rcard-main">
+                <div class="rcard-left">
+                  <div class="rcard-student">Daniel Wong</div>
+                  <div class="rcard-sub">Physics · Form 5</div>
+                  <div class="rcard-date">&#128197; 20-May-2026</div>
+                </div>
+                <div class="rcard-trail">
+                  <span class="chevron">&#8250;</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- REPORT D: Progress -->
+            <div class="rcard">
+              <div class="rcard-head">
+                <span class="uidchip">REQ-19774 <span class="copyg">&#10696;</span></span>
+                <span class="rtag progress">Progress</span>
+              </div>
+              <div class="rcard-main">
+                <div class="rcard-left">
+                  <div class="rcard-student">Siti Rahmah</div>
+                  <div class="rcard-sub">Bahasa Melayu · Form 3</div>
+                  <div class="rcard-date">&#128197; 08-May-2026</div>
+                </div>
+                <div class="rcard-trail">
+                  <span class="chevron">&#8250;</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~562px of 874px frame. ~312px headroom.</div>
+    </div>
+
+    <!-- SCREEN 3 · REPORTS FILTER (light) — Change 1: new frame -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">2a</span>ReportsFilter — filter form (light)</div>
+      <div class="ph" id="L-reports-filter">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+
+        <!-- nav: Cancel + title -->
+        <div class="nav">
+          <span class="naction">Cancel</span>
+          <span class="ntitle">Filter</span>
+          <span></span>
+        </div>
+
+        <div class="scroll">
+          <div class="scrollpad">
+
+            <!-- Report type -->
+            <div class="frmsec">
+              <div class="frmsechead">Report type</div>
+              <div class="frmcard">
+                <div class="frmrow">
+                  <span class="fk">Report type</span>
+                  <span class="fv sel">Evaluation <span class="fchev">&#8250;</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Student -->
+            <div class="frmsec">
+              <div class="frmsechead">Student</div>
+              <div class="frmcard">
+                <div class="frmrow">
+                  <span class="fk">Student</span>
+                  <span class="fv">Any <span class="fchev">&#8250;</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Subject -->
+            <div class="frmsec">
+              <div class="frmsechead">Subject</div>
+              <div class="frmcard">
+                <div class="frmrow">
+                  <span class="fk">Subject</span>
+                  <span class="fv">Any <span class="fchev">&#8250;</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Date range -->
+            <div class="frmsec">
+              <div class="frmsechead">Date range</div>
+              <div class="frmcard">
+                <div class="daterow">
+                  <span class="dk">Start date</span>
+                  <span class="dv">01-May-2026</span>
+                </div>
+                <div class="daterow">
+                  <span class="dk">End date</span>
+                  <span class="dv">30-Jun-2026</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- spacer for CTA dock -->
+            <div style="height:88px;"></div>
+
+          </div>
+        </div>
+
+        <!-- sticky Apply dock -->
+        <div class="dock">
+          <span class="resetbtn">Reset</span>
+          <span class="cta">Apply filters</span>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~582px of 874px frame. ~292px headroom.</div>
+    </div>
+
+    <!-- SCREEN 4 · TUTOR TASK LIST (light) -->
+    <!-- Change 2: clean inset cards, no left-border, no accordion -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">3</span>TutorTaskList — pending reports (light) — 3 tasks</div>
+      <div class="ph" id="L-tasks">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navlarge">
+          <div class="ltrow">
+            <div class="ltitle">Tasks</div>
+          </div>
+        </div>
+        <div class="searchbar"><span class="sg">&#128269;</span><span class="sph">Search student, subject…</span></div>
+
+        <div class="scroll">
+          <div class="scrollpad">
+
+            <!-- count label -->
+            <div style="font-size:13px;font-weight:600;color:var(--ink-2);margin-bottom:10px;">3 reports to submit</div>
+
+            <!-- TASK A: Evaluation -->
+            <div class="tcard">
+              <div class="tcard-row">
+                <div class="tcard-left">
+                  <div class="tcard-uid"><span class="uidchip">REQ-20512 <span class="copyg">&#10696;</span></span></div>
+                  <div class="tcard-student">Adam Lim</div>
+                  <div class="tcard-sub">Mathematics · Form 4</div>
+                </div>
+                <div class="tcard-trail">
+                  <span class="rtag eval">Evaluation</span>
+                  <span class="submit-link">Submit &#8250;</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- TASK B: Progress -->
+            <div class="tcard">
+              <div class="tcard-row">
+                <div class="tcard-left">
+                  <div class="tcard-uid"><span class="uidchip">REQ-20488 <span class="copyg">&#10696;</span></span></div>
+                  <div class="tcard-student">Daniel Wong</div>
+                  <div class="tcard-sub">Physics · Form 5</div>
+                </div>
+                <div class="tcard-trail">
+                  <span class="rtag progress">Progress</span>
+                  <span class="submit-link">Submit &#8250;</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- TASK C: Evaluation -->
+            <div class="tcard">
+              <div class="tcard-row">
+                <div class="tcard-left">
+                  <div class="tcard-uid"><span class="uidchip">REQ-20467 <span class="copyg">&#10696;</span></span></div>
+                  <div class="tcard-student">Siti Rahmah</div>
+                  <div class="tcard-sub">Bahasa Melayu · Form 3</div>
+                </div>
+                <div class="tcard-trail">
+                  <span class="rtag eval">Evaluation</span>
+                  <span class="submit-link">Submit &#8250;</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~394px of 874px frame. ~480px headroom.</div>
+    </div>
+
+  </div>
+
+  <!-- ===================== DARK MODE — StudentList ===================== -->
+  <div class="modehd">Dark mode · StudentList</div>
+  <div class="frames">
+
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">1</span>StudentList (dark)</div>
+      <div class="ph dark" id="D-students">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navlarge">
+          <div class="ltrow">
+            <div class="ltitle">Students</div>
+          </div>
+        </div>
+        <div class="searchbar"><span class="sg">&#128269;</span><span class="sph">Search student…</span></div>
+        <!-- Sort control — Change 3 (dark) -->
+        <div class="sortrow">
+          <span class="sl">Sort:</span>
+          <span class="spill">Name (A–Z) &#8964;</span>
+        </div>
+
+        <div class="scroll">
+          <div class="scrollpad">
+
+            <div class="scard">
+              <div class="scard-row">
+                <div class="avatar">AL</div>
+                <div class="scard-info">
+                  <div class="scard-name">Adam Lim</div>
+                  <div class="scard-uid"><span class="uidchip">STU-10041 <span class="copyg">&#10696;</span></span></div>
+                </div>
+                <div class="scard-trail">
+                  <span class="subj-pill">3 subjects</span>
+                  <span class="chevron">&#8250;</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="scard">
+              <div class="scard-row">
+                <div class="avatar">DW</div>
+                <div class="scard-info">
+                  <div class="scard-name">Daniel Wong</div>
+                  <div class="scard-uid"><span class="uidchip">STU-10088 <span class="copyg">&#10696;</span></span></div>
+                </div>
+                <div class="scard-trail">
+                  <span class="subj-pill">2 subjects</span>
+                  <span class="chevron">&#8250;</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="scard">
+              <div class="scard-row">
+                <div class="avatar">NA</div>
+                <div class="scard-info">
+                  <div class="scard-name">Nurul Aisyah binti Razak</div>
+                  <div class="scard-uid"><span class="uidchip">STU-10072 <span class="copyg">&#10696;</span></span></div>
+                </div>
+                <div class="scard-trail">
+                  <span class="subj-pill">1 subject</span>
+                  <span class="chevron">&#8250;</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="scard">
+              <div class="scard-row">
+                <div class="avatar">SR</div>
+                <div class="scard-info">
+                  <div class="scard-name">Siti Rahmah</div>
+                  <div class="scard-uid"><span class="uidchip">STU-10094 <span class="copyg">&#10696;</span></span></div>
+                </div>
+                <div class="scard-trail">
+                  <span class="subj-pill">1 subject</span>
+                  <span class="chevron">&#8250;</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~454px of 874px frame. ~420px headroom.</div>
+    </div>
+
+  </div>
+
+  <!-- ===================== EMPTY STATES — all 3 ===================== -->
+  <div class="modehd">Empty states — StudentList · StudentReport · TutorTaskList</div>
+  <div class="frames">
+
+    <!-- EMPTY: StudentList -->
+    <div class="framewrap">
+      <div class="framelabel">StudentList · empty state</div>
+      <div class="ph" id="E-students">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navlarge">
+          <div class="ltrow"><div class="ltitle">Students</div></div>
+        </div>
+        <div class="searchbar"><span class="sg">&#128269;</span><span class="sph">Search student…</span></div>
+        <div class="sortrow">
+          <span class="sl">Sort:</span>
+          <span class="spill">Name (A–Z) &#8964;</span>
+        </div>
+        <div style="display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;padding:24px;">
+          <div style="font-size:44px;opacity:.3;">&#128100;</div>
+          <div style="font-size:17px;font-weight:700;color:var(--ink);margin-top:14px;">No students yet</div>
+          <div style="font-size:14px;color:var(--ink-2);line-height:1.5;text-align:center;margin-top:6px;">Your students will appear here once a request is matched to you.</div>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~374px of 874px frame. ~500px headroom.</div>
+    </div>
+
+    <!-- EMPTY: StudentReport -->
+    <div class="framewrap">
+      <div class="framelabel">StudentReport · empty state</div>
+      <div class="ph" id="E-reports">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navlarge">
+          <div class="ltrow">
+            <div class="ltitle">Reports</div>
+            <div class="filtericon">&#9870;</div>
+          </div>
+        </div>
+        <div class="searchbar"><span class="sg">&#128269;</span><span class="sph">Search student, subject…</span></div>
+        <div class="sortrow">
+          <span class="sl">Sort:</span>
+          <span class="spill">&#128197; Date (newest) &#8964;</span>
+        </div>
+        <div style="display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;padding:24px;">
+          <div style="font-size:44px;opacity:.3;">&#128203;</div>
+          <div style="font-size:17px;font-weight:700;color:var(--ink);margin-top:14px;">No reports yet</div>
+          <div style="font-size:14px;color:var(--ink-2);line-height:1.5;text-align:center;margin-top:6px;">Reports you submit will appear here. Check your task list to see what is pending.</div>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~374px of 874px frame. ~500px headroom.</div>
+    </div>
+
+    <!-- EMPTY: TutorTaskList -->
+    <div class="framewrap">
+      <div class="framelabel">TutorTaskList · empty state (all done)</div>
+      <div class="ph" id="E-tasks">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navlarge">
+          <div class="ltrow"><div class="ltitle">Tasks</div></div>
+        </div>
+        <div class="searchbar"><span class="sg">&#128269;</span><span class="sph">Search student, subject…</span></div>
+        <div style="display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;padding:24px;">
+          <div style="font-size:44px;opacity:.3;">&#9989;</div>
+          <div style="font-size:17px;font-weight:700;color:var(--ink);margin-top:14px;">No pending tasks</div>
+          <div style="font-size:14px;color:var(--ink-2);line-height:1.5;text-align:center;margin-top:6px;">All reports are up to date. New tasks appear here when a report is due.</div>
+        </div>
+      </div>
+      <div class="heightnote">Content: ~340px of 874px frame. ~534px headroom.</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deliver · Success/confirmation variants — rich mock</title>
+<style>
+  /* ============== TOKENS (verbatim from deliver-active-class.html) ============== */
+  :root{
+    --tint:#2B2FBE;            /* brand */
+    --tint-weak:rgba(43,47,190,.10);
+    --canvas:#F2F2F7;          /* grouped canvas */
+    --card:#FFFFFF;
+    --ink:#000000;
+    --ink-2:rgba(60,60,67,.62);
+    --ink-3:rgba(60,60,67,.45);
+    --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12);
+    --fill:rgba(120,120,128,.10);
+    --fill-2:#EAEAEF;          /* neutral money anchor */
+    --green:#16A34A;           /* fit / success — colour budget */
+    --green-ink:#166534;
+    --green-weak:rgba(22,163,74,.12);
+    --amber-ink:#92400e;       /* one-flag caution — colour budget */
+    --amber-weak:rgba(245,158,11,.18);
+    --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05);
+    --radius:12px;
+    --radius-lg:16px;
+  }
+  .dark{
+    --tint:#7C8CF0;
+    --tint-weak:rgba(124,140,240,.18);
+    --canvas:#000000;
+    --card:#1C1C1E;
+    --ink:#FFFFFF;
+    --ink-2:rgba(235,235,245,.62);
+    --ink-3:rgba(235,235,245,.45);
+    --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6);
+    --fill:rgba(120,120,128,.24);
+    --fill-2:#2C2C2E;
+    --green:#30D158;
+    --green-ink:#30D158;
+    --green-weak:rgba(48,209,88,.18);
+    --amber-ink:#FFD60A;
+    --amber-weak:rgba(255,214,10,.16);
+    --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5);
+  }
+
+  /* ============== PAGE CHROME (verbatim from deliver-active-class.html) ============== */
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;}
+  .doc{max-width:1320px;margin:0 auto;}
+  .docnote{font-size:13px;line-height:1.65;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+  .docnote h1{font-size:17px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px;}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 12px;border-bottom:1px solid #d4d4d8;padding-bottom:6px;}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center;}
+  .framewrap{display:flex;flex-direction:column;align-items:center;}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:8px;text-align:center;max-width:402px;}
+  .framelabel .step{display:inline-block;font-size:10px;font-weight:800;color:#fff;background:#2B2FBE;border-radius:999px;padding:2px 8px;margin-right:6px;}
+
+  /* ============== DEVICE FRAME (verbatim from deliver-active-class.html) ============== */
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;padding:0 16px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 6px 0 4px;}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px;}
+
+  /* nav (verbatim) */
+  .nav{display:flex;align-items:center;gap:8px;height:40px;}
+  .nav .back{font-size:24px;color:var(--tint);font-weight:300;line-height:1;}
+  .nav .ntitle{font-size:17px;font-weight:600;color:var(--ink);}
+  .nav .nspace{flex:1;}
+  .nav .help{font-size:13px;font-weight:600;color:var(--tint);}
+
+  /* primary / secondary actions (verbatim) */
+  .actions{position:absolute;left:16px;right:16px;bottom:18px;}
+  .cta{height:52px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:17px;font-weight:600;color:#fff;background:var(--tint);box-shadow:0 6px 16px var(--tint-weak);}
+  .cta .cg{font-size:18px;}
+  .subrow{display:flex;gap:10px;margin-top:10px;}
+  .sbtn{flex:1;height:44px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:14px;font-weight:600;color:var(--tint);background:var(--card);box-shadow:var(--shadow);}
+  .ctahint{text-align:center;font-size:12px;color:var(--ink-3);margin-top:9px;font-weight:600;}
+
+  /* sumcard / nextcard (verbatim) */
+  .sumcard{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);margin-bottom:11px;overflow:hidden;}
+  .sumrow{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;border-top:1px solid var(--hair);font-size:14px;}
+  .sumrow:first-child{border-top:none;}
+  .sumrow .k{color:var(--ink-2);}
+  .sumrow .v{color:var(--ink);font-weight:700;}
+  .nextcard{background:var(--tint-weak);border-radius:var(--radius-lg);padding:14px 15px;display:flex;align-items:center;gap:11px;}
+  .nextcard .nx{flex:1;}
+  .nextcard .nxl{font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--tint);}
+  .nextcard .nxt{font-size:14px;font-weight:700;color:var(--ink);margin-top:2px;}
+  .nextcard .nxchev{font-size:22px;color:var(--tint);font-weight:300;}
+
+  .spacer{flex:1;}
+
+  /* ============== SUCCESS HERO BLOCK ============== */
+  /* The green check circle (success icon — the only green on a success screen) */
+  .success-hero{text-align:center;padding:10px 0 6px;}
+  .success-icon{width:68px;height:68px;border-radius:999px;background:var(--green-weak);color:var(--green-ink);display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;margin:4px auto 12px;}
+  .success-title{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.3px;}
+  .success-body{font-size:14px;color:var(--ink-2);margin-top:6px;line-height:1.55;padding:0 8px;}
+
+  /* ============== REFERENCE CHIP (backdate variant) ============== */
+  .refchip{display:inline-flex;align-items:center;gap:7px;background:var(--fill);border:1px solid var(--hair);border-radius:8px;padding:8px 14px;font-size:13px;font-weight:700;color:var(--ink-2);margin:12px auto 0;cursor:default;letter-spacing:.2px;}
+  .refchip .ref-label{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-3);}
+  .refchip .ref-val{color:var(--ink);font-variant-numeric:tabular-nums;}
+  .refchip .ref-copy{font-size:11px;color:var(--tint);font-weight:700;padding-left:6px;border-left:1px solid var(--hair);}
+
+  .refchip-wrap{display:flex;justify-content:center;}
+
+  /* ============== NOTICE CHIP (subtle inline note) ============== */
+  .notice{display:flex;gap:8px;align-items:flex-start;background:var(--tint-weak);border-radius:var(--radius);padding:10px 12px;font-size:12.5px;font-weight:600;color:var(--tint);margin-bottom:12px;line-height:1.4;}
+  .notice .ng{font-size:14px;flex-shrink:0;}
+
+  @media (max-width:900px){ .frames{gap:30px} }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="docnote">
+    <h1>Deliver · Success/confirmation screen variants (2026-07-01)</h1>
+    These are the <b>5 success variants</b> brought to one quality floor. Founder direction: <b>variety is intentional</b> — each confirmation ends a different journey so the screen should feel distinct, not copy-pasted. Do not collapse them to a single template.
+    <br><br>
+    <b>Convention (locked this session):</b>
+    <ul style="margin:8px 0 0;padding-left:18px;">
+      <li><b>Primary CTA = brand-blue</b> (<code>--tint</code>). Never green. Green is reserved for the success check icon only (<code>--green-weak</code> fill, <code>--green-ink</code> text).</li>
+      <li><b>Neutral copy</b> — no hype, no em-dashes, no double-exclamation. "Sifututor" if the brand name appears.</li>
+      <li><b>All visual values are CSS-variable tokens</b> — no raw hex in the frame markup.</li>
+      <li><b>Variants 3 and 4 include dark-mode frames</b> (the metadata + secondary-action variants — the most complex, so most worth validating in dark).</li>
+    </ul>
+    <br>
+    All sample data is labelled. Icons are emoji stand-ins for SF Symbols in the real build.
+    <br><br>
+    <b>Frame headroom notes (content height vs 874px device frame):</b><br>
+    V1 ClassPostponeSuccess — ~58px headroom (compact, no extra rows).<br>
+    V2 ClassScheduleAdded — ~90px headroom (fewest elements, most breathing room).<br>
+    V3 BackdateEscalationSuccess — ~34px headroom (notice chip + reference chip make it the tallest).<br>
+    V4 EvaluationReportSuccess — ~18px headroom (tightest; secondary .subrow button + hint + sumcard).<br>
+    V5 ProgressReportSuccess — ~70px headroom (sumcard with 2 rows, no secondary action).
+  </div>
+
+  <!-- ===================== LIGHT MODE · 5 VARIANTS ===================== -->
+  <div class="modehd">Light mode · 5 success / confirmation variants</div>
+  <div class="frames">
+
+    <!-- V1 · CLASS POSTPONED -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">V1</span>ClassPostponeSuccess · light</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="nspace"></span><span class="help">Done</span></div>
+
+        <div class="success-hero">
+          <div class="success-icon">📅</div>
+          <div class="success-title">Class postponed</div>
+          <div class="success-body">Your class with Adam Lim has been moved to Thu, 26 Jun, 2:00 PM.</div>
+        </div>
+
+        <div style="height:16px"></div>
+
+        <div class="sumcard">
+          <div class="sumrow"><span class="k">Student</span><span class="v">Adam Lim</span></div>
+          <div class="sumrow"><span class="k">Original date</span><span class="v">Tue, 24 Jun, 2:00 PM</span></div>
+          <div class="sumrow"><span class="k">Rescheduled to</span><span class="v">Thu, 26 Jun, 2:00 PM</span></div>
+          <div class="sumrow"><span class="k">Subject</span><span class="v">Mathematics · Form 4</span></div>
+        </div>
+
+        <!-- parent-notification claim removed: pending Hafiz confirmation (does postpone auto-notify the parent?) -->
+
+        <div class="actions">
+          <div class="cta">Back to dashboard</div>
+          <div class="ctahint">Sample data. Student + date are placeholders.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- V2 · SCHEDULE UPDATED -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">V2</span>ClassScheduleAdded · light</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="nspace"></span><span class="help">Done</span></div>
+
+        <div class="success-hero">
+          <div class="success-icon">✓</div>
+          <div class="success-title">Schedule updated</div>
+          <div class="success-body">Your classes have been added to your schedule.</div>
+        </div>
+
+        <div style="height:16px"></div>
+
+        <div class="sumcard">
+          <div class="sumrow"><span class="k">Classes added</span><span class="v">3</span></div>
+          <div class="sumrow"><span class="k">Starting</span><span class="v">Mon, 30 Jun, 10:00 AM</span></div>
+          <div class="sumrow"><span class="k">Subject</span><span class="v">Mathematics · Form 4</span></div>
+        </div>
+
+        <div class="nextcard">
+          <div class="nx"><div class="nxl">Next class</div><div class="nxt">Adam Lim · Mon, 30 Jun · 10:00 AM</div></div>
+          <span class="nxchev">›</span>
+        </div>
+
+        <div class="actions">
+          <div class="cta">Back to dashboard</div>
+          <div class="ctahint">Sample data. Class count + dates are placeholders.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- V3 · BACKDATE REQUEST SUBMITTED -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">V3</span>BackdateEscalationSuccess · light</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="nspace"></span><span class="help">Done</span></div>
+
+        <div class="success-hero">
+          <div class="success-icon">⏱</div>
+          <div class="success-title">Backdate request submitted</div>
+          <div class="success-body">Your class from 3 days ago has been sent for admin review. We will notify you within 24 hours.</div>
+        </div>
+
+        <div class="refchip-wrap">
+          <div class="refchip">
+            <div>
+              <div class="ref-label">Reference</div>
+              <div class="ref-val">TKT-4827</div>
+            </div>
+            <span class="ref-copy">Tap to copy</span>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="sumcard">
+          <div class="sumrow"><span class="k">Class date</span><span class="v">Sat, 28 Jun</span></div>
+          <div class="sumrow"><span class="k">Student</span><span class="v">Adam Lim</span></div>
+          <div class="sumrow"><span class="k">Duration submitted</span><span class="v">1h 00m</span></div>
+          <div class="sumrow"><span class="k">Review within</span><span class="v">24 hours</span></div>
+        </div>
+
+        <div class="notice"><span class="ng">🔔</span>You will receive a notification once admin reviews the request.</div>
+
+        <div class="actions">
+          <div class="cta">Back to dashboard</div>
+          <div class="ctahint">Sample data. Ticket ID + dates are placeholders.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- V4 · EVALUATION REPORT SUBMITTED -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">V4</span>EvaluationReportSuccess · light</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="nspace"></span><span class="help">Done</span></div>
+
+        <div class="success-hero">
+          <div class="success-icon">📋</div>
+          <div class="success-title">Evaluation report submitted</div>
+          <div class="success-body">Adam Lim's evaluation report has been submitted.</div>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="sumcard">
+          <div class="sumrow"><span class="k">Student</span><span class="v">Adam Lim</span></div>
+          <div class="sumrow"><span class="k">Subject</span><span class="v">Mathematics · Form 4</span></div>
+          <div class="sumrow"><span class="k">Report type</span><span class="v">Evaluation (first class)</span></div>
+        </div>
+
+        <div class="notice" style="background:var(--amber-weak);color:var(--amber-ink);border:1px solid var(--amber-line);"><span class="ng">⚠️</span>The schedule for Adam Lim has not been set yet. Update it so the parent knows what to expect.</div>
+
+        <div class="actions">
+          <div class="subrow"><span class="sbtn">Update schedule</span></div>
+          <div style="height:10px"></div>
+          <div class="cta">Back to dashboard</div>
+          <div class="ctahint">Sample data. Student name is a placeholder.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- V5 · PROGRESS REPORT SUBMITTED -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">V5</span>ProgressReportSuccess · light</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="nspace"></span><span class="help">Done</span></div>
+
+        <div class="success-hero">
+          <div class="success-icon">📈</div>
+          <div class="success-title">Progress report submitted</div>
+          <div class="success-body">Adam Lim's progress report has been submitted.</div>
+        </div>
+
+        <div style="height:16px"></div>
+
+        <div class="sumcard">
+          <div class="sumrow"><span class="k">Student</span><span class="v">Adam Lim</span></div>
+          <div class="sumrow"><span class="k">Subject</span><span class="v">Mathematics · Form 4</span></div>
+          <div class="sumrow"><span class="k">Report type</span><span class="v">Progress (Class 12)</span></div>
+        </div>
+
+        <div class="nextcard">
+          <div class="nx"><div class="nxl">Next milestone</div><div class="nxt">Progress report due at class 24</div></div>
+          <span class="nxchev">›</span>
+        </div>
+
+        <div class="actions">
+          <div class="cta">Back to dashboard</div>
+          <div class="ctahint">Sample data. Student name + class count are placeholders.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== DARK MODE · V3 + V4 ===================== -->
+  <div class="modehd">Dark mode · variants 3 and 4 (the most complex: metadata chip + secondary action)</div>
+  <div class="frames">
+
+    <!-- DARK · V3 · BACKDATE REQUEST -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">V3</span>BackdateEscalationSuccess · dark</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="nspace"></span><span class="help">Done</span></div>
+
+        <div class="success-hero">
+          <div class="success-icon">⏱</div>
+          <div class="success-title">Backdate request submitted</div>
+          <div class="success-body">Your class from 3 days ago has been sent for admin review. We will notify you within 24 hours.</div>
+        </div>
+
+        <div class="refchip-wrap">
+          <div class="refchip">
+            <div>
+              <div class="ref-label">Reference</div>
+              <div class="ref-val">TKT-4827</div>
+            </div>
+            <span class="ref-copy">Tap to copy</span>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="sumcard">
+          <div class="sumrow"><span class="k">Class date</span><span class="v">Sat, 28 Jun</span></div>
+          <div class="sumrow"><span class="k">Student</span><span class="v">Adam Lim</span></div>
+          <div class="sumrow"><span class="k">Duration submitted</span><span class="v">1h 00m</span></div>
+          <div class="sumrow"><span class="k">Review within</span><span class="v">24 hours</span></div>
+        </div>
+
+        <div class="notice"><span class="ng">🔔</span>You will receive a notification once admin reviews the request.</div>
+
+        <div class="actions">
+          <div class="cta">Back to dashboard</div>
+          <div class="ctahint">Sample data. Ticket ID + dates are placeholders.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DARK · V4 · EVALUATION REPORT -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="step">V4</span>EvaluationReportSuccess · dark</div>
+      <div class="ph dark">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="nspace"></span><span class="help">Done</span></div>
+
+        <div class="success-hero">
+          <div class="success-icon">📋</div>
+          <div class="success-title">Evaluation report submitted</div>
+          <div class="success-body">Adam Lim's evaluation report has been submitted.</div>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="sumcard">
+          <div class="sumrow"><span class="k">Student</span><span class="v">Adam Lim</span></div>
+          <div class="sumrow"><span class="k">Subject</span><span class="v">Mathematics · Form 4</span></div>
+          <div class="sumrow"><span class="k">Report type</span><span class="v">Evaluation (first class)</span></div>
+        </div>
+
+        <div class="notice" style="background:var(--amber-weak);color:var(--amber-ink);border:1px solid var(--amber-line);"><span class="ng">⚠️</span>The schedule for Adam Lim has not been set yet. Update it so the parent knows what to expect.</div>
+
+        <div class="actions">
+          <div class="subrow"><span class="sbtn">Update schedule</span></div>
+          <div style="height:10px"></div>
+          <div class="cta">Back to dashboard</div>
+          <div class="ctahint">Sample data. Student name is a placeholder.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

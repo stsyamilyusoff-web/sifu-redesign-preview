@@ -275,6 +275,24 @@
     { stage:'deliver', name:'StudentsDetails', mock:'deliver-student-details.html', p0:true,
       after:'deliver-student-details', before:'StudentsDetails',
       chg:'Identity hero + a compact 2x2 contact grid (Call / WhatsApp / Email / Directions). Admin field cut, registration demoted.' },
+    { stage:'deliver', name:'Active class cockpit', mock:'deliver-active-class.html',
+      after:'deliver-active-class', before:null,
+      chg:'One screen, five states (pre-class, clock-in proof, live ring timer, clock-out proof, done summary). Replaces the context-free timer blob; adds who/what/where, the class earning, and a one-tap path to the report.' },
+    { stage:'deliver', name:'Class records', mock:'deliver-class-records.html',
+      after:'deliver-class-records', before:null,
+      chg:'Lean history list on one shared class card (name, RM, subject, date, then ID + status), a single-class detail hero, and a grouped filter. No duplicated facts; scan-clean cards.' },
+    { stage:'deliver', name:'Class edit + parent gate', mock:'deliver-class-edit.html',
+      after:'deliver-class-edit', before:null,
+      chg:'Class management trio: quick-pick Extend, a from-to Postpone comparison, and a neutral parent-approval gate where declining is as easy as confirming.' },
+    { stage:'deliver', name:'Success variants', mock:'deliver-success-variants.html',
+      after:'deliver-success-variants', before:null,
+      chg:'Five confirmation screens brought to one quality floor (varied by design, off-brand drift removed): postpone, schedule added, backdate review with ticket, evaluation, progress.' },
+    { stage:'deliver', name:'Students + tasks', mock:'deliver-student-tasks.html',
+      after:'deliver-student-tasks', before:null,
+      chg:'Students, submitted reports (with sort + filter), and a clean pending-tasks to-do list. Neutral initials avatars, one card grammar.' },
+    { stage:'deliver', name:'Camera + demand card', mock:'deliver-camera-demand.html',
+      after:'deliver-camera-demand', before:null,
+      chg:'Stock proof-capture camera, plus the Home demand card turned tappable (surfaced demand now leads to the Job Ticket feed).' },
 
     // ---- Profile & consent ----
     { stage:'profile', name:'ProfileMenu', mock:'profile-menu-hub.html',
@@ -286,6 +304,23 @@
     { stage:'profile', name:'ConsentGate', mock:'updateprofile-a45.html',
       after:'consentgate-a45', before:'ConsentGate',
       chg:'Terms + a Privacy summary + a consent checkbox + "Agree & continue" where the save happens. Casing bug fixed.' },
+
+    // ---- Support tickets (Chat B) ----
+    { stage:'grow', name:'Submit a ticket', mock:'support-ticket-picker.html',
+      after:'support-ticket-picker', before:null,
+      chg:'Neutral ticket-type picker (extra class, reschedule, end engagement, something else) + a Track-your-tickets entry. Centered nav, canonical rebuild.' },
+    { stage:'grow', name:'My tickets', mock:'support-my-tickets-list.html',
+      after:'support-my-tickets-list', before:null,
+      chg:'Active / History segmented control + lean StatusPill cards (de-striped). Naming standardized to "tickets".' },
+    { stage:'grow', name:'Ticket detail', mock:'support-ticket-detail.html',
+      after:'support-ticket-detail', before:null,
+      chg:'Tap-to-copy ID chip + StatusBanner; the follow-up footer hides on approved or duplicate tickets.' },
+    { stage:'grow', name:'Application status', mock:'support-application-status.html',
+      after:'support-application-status', before:null,
+      chg:'StatusBanner summary + a vertical timeline; deduped so contact and the review timeframe each appear once.' },
+    { stage:'grow', name:'Report an issue', mock:'support-form-complaint.html',
+      after:'support-form-complaint', before:null,
+      chg:'The form pattern: grouped sections + a picker sheet + a counted textarea + a sticky Submit-ticket dock.' },
   ];
 
   const T = 'gallery-thumbs/';

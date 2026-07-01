@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support &middot; Reschedule a class (form) &middot; canonical</title>
+<style>
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12); --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px; --radius-lg:16px;
+    --earn:rgba(43,47,190,.10); --earn-line:rgba(43,47,190,.18);
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18); --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --earn:rgba(124,140,240,.20); --earn-line:rgba(124,140,240,.32);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b}
+  .doc{max-width:1180px;margin:0 auto}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:20px}
+  .docnote h1{font-size:18px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:#52525b}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .modebar{display:flex;gap:7px;margin:0 0 18px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2 button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 14px;border-bottom:1px solid #d4d4d8;padding-bottom:6px}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12.5px;font-weight:700;color:#3f3f46;margin-bottom:9px;text-align:center;max-width:402px}
+  .framelabel .be{color:#a1a1aa} .framelabel .af{color:#2B2FBE}
+
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+  /* centered nav-title + labeled back (pushed-screen pattern) */
+  .navc{display:flex;align-items:center;height:44px;position:relative;flex-shrink:0;padding:2px 12px 4px}
+  .navc .back{display:inline-flex;align-items:center;gap:2px;color:var(--tint);font-size:16px;font-weight:600;z-index:2}
+  .navc .back .bx{font-size:23px;font-weight:400;line-height:1;margin-top:-1px}
+  .navc .ntitle{position:absolute;left:58px;right:58px;text-align:center;font-size:17px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav{display:flex;align-items:center;padding:2px 16px 4px;flex-shrink:0}
+  .nav .back{color:var(--ink-2);font-size:17px}
+
+  .scroll{flex:1;overflow:hidden;padding:0 16px 110px}
+  .ltsub{font-size:13.5px;color:var(--ink-2);line-height:1.45;margin:2px 0 16px}
+
+  .sec{margin-bottom:16px}
+  .sech{font-size:12px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;margin:0 4px 8px}
+  .card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden}
+  /* label + value form row */
+  .frow2{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 15px}
+  .frow2 + .frow2{border-top:1px solid var(--hair)}
+  .f2label{font-size:15px;color:var(--ink);flex-shrink:0}
+  .f2val{display:flex;align-items:center;gap:8px;font-size:15px;min-width:0;justify-content:flex-end;text-align:right}
+  .f2val .vtext{color:var(--ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .f2val .vauto{color:var(--ink-2)}
+  .f2val .vplace{color:var(--ink-3)}
+  .f2chev{font-size:16px;color:var(--ink-3);flex-shrink:0}
+  .tarea{padding:14px 15px 0;font-size:14.5px;color:var(--ink);line-height:1.5}
+  .charcount{font-size:11px;color:var(--ink-3);text-align:right;padding:8px 15px 12px}
+  .ftip{font-size:12px;color:var(--ink-2);margin:8px 6px 0;line-height:1.45}
+  .ftip .tlabel{font-weight:700;color:var(--ink-2)}
+
+  .dock{position:absolute;left:0;right:0;bottom:0;padding:14px 16px 26px;background:linear-gradient(to top,var(--canvas) 62%,rgba(242,242,247,0))}
+  .dark .dock{background:linear-gradient(to top,#000 62%,rgba(0,0,0,0))}
+  .submit{display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;background:var(--tint);border-radius:14px;padding:15px;box-shadow:var(--shadow-cta)}
+
+  /* bottom sheet */
+  .dim{position:absolute;inset:0;background:rgba(0,0,0,.38)}
+  .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--card);border-radius:20px 20px 0 0;padding:8px 0 22px;box-shadow:0 -8px 30px rgba(0,0,0,.18)}
+  .handle{width:38px;height:5px;border-radius:99px;background:var(--ink-4);margin:6px auto 8px}
+  .sheettitle{font-size:17px;font-weight:800;color:var(--ink);padding:6px 18px 8px}
+  .opt{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-top:1px solid var(--hair);font-size:15px;color:var(--ink)}
+  .opt .osub{font-size:12px;color:var(--ink-3);font-weight:400;margin-top:2px}
+  .opt.sel .oname{color:var(--tint);font-weight:700}
+  .opt .ck{color:var(--tint);font-weight:800}
+  .opt.disabled .oname{color:var(--ink-4)}
+  .opt.disabled .osub{color:var(--ink-4)}
+  .opt .lock{font-size:13px;color:var(--ink-4)}
+
+  /* BEFORE (live) */
+  .b-title{font-size:22px;font-weight:800;color:var(--ink);margin:4px 0 5px;line-height:1.2}
+  .b-sub{font-size:12.5px;color:var(--ink-3);line-height:1.4;margin-bottom:15px}
+  .b-lab{font-size:13px;font-weight:700;color:var(--ink-2);margin:0 0 6px}
+  .b-field{background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:13px 14px;margin-bottom:13px;font-size:14px;color:var(--ink-3);display:flex;align-items:center;justify-content:space-between}
+  .b-btn{background:var(--tint);color:#fff;border-radius:12px;padding:14px;text-align:center;font-size:15px;font-weight:700;margin-top:4px}
+
+  .annos{max-width:1180px;margin:22px auto 0}
+  .audit{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid #e7e7ea;border-radius:10px;overflow:hidden;margin-bottom:14px}
+  .audit th,.audit td{text-align:left;padding:8px 11px;border-top:1px solid #eee;vertical-align:top}
+  .audit th{background:#f6f6f8;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#71717a;border-top:none}
+  .audit td b{color:#18181b}
+  .vd{font-weight:800;font-size:11px;border-radius:5px;padding:1px 7px;white-space:nowrap}
+  .vd.keep{background:#e9f5ee;color:#166534} .vd.cut{background:#fbeaea;color:#b3261e} .vd.gate{background:#eef1fb;color:#2B2FBE} .vd.add{background:#fdf6e7;color:#92400e}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .cm{font-size:12px;line-height:1.6;color:#3f3f46;background:#fbfbfc;border:1px solid #e7e7ea;border-radius:10px;padding:12px 14px;margin-top:4px}
+  .cm b{color:#18181b}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Support &middot; Reschedule a class (form)</h1>
+    The class-reschedule ticket, for a class too old or already attended to move on the calendar. <b>Canonical form pattern</b> (centered nav, grouped rows, picker sheets, sticky dock). It restructures the live 6-field flow into 3 tidy groups (which class &middot; new time &middot; reason) without dropping a field. <b>Naming collision handled:</b> the field links a <b>job request</b> (stays "request", the sheet lists your requests) but the form creates a <b>support ticket</b> (the button is "Submit ticket"). The new end time is auto-set from the class duration (read-only). Submitting opens the <b>Parent approval</b> confirmation, it is not an instant send. Dates one format DD-MMM-YYYY. No duplication, no em-dashes. True 402&times;874, light + dark.
+    <div class="legend">
+      <span><i style="background:#2B2FBE"></i>Tint = submit + selected option + back</span>
+      <span><i style="background:#8a8a8e"></i>Neutral = fields, values, the auto end time</span>
+    </div>
+  </div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
+  </div>
+
+  <div class="modehd">After &middot; the form (filled) + the request picker sheet &middot; and the live before</div>
+  <div class="frames">
+
+    <!-- AFTER: filled form -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; The form</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Reschedule a class</span></div>
+        <div class="scroll">
+          <div class="ltsub">For a class more than 14 days old or already attended. Use the calendar for anything else.</div>
+
+          <div class="sec">
+            <div class="sech">Which class to move</div>
+            <div class="card">
+              <div class="frow2"><span class="f2label">Student</span><span class="f2val"><span class="vtext">Ali &middot; Add Maths, Form 4</span><span class="f2chev">&#8250;</span></span></div>
+              <div class="frow2"><span class="f2label">Class</span><span class="f2val"><span class="vtext">Thu 12-Jun &middot; 5:00 PM</span><span class="f2chev">&#8250;</span></span></div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">New time</div>
+            <div class="card">
+              <div class="frow2"><span class="f2label">Date</span><span class="f2val"><span class="vtext">Sat 14-Jun-2025</span><span class="f2chev">&#8250;</span></span></div>
+              <div class="frow2"><span class="f2label">Start</span><span class="f2val"><span class="vtext">10:00 AM</span><span class="f2chev">&#8250;</span></span></div>
+              <div class="frow2"><span class="f2label">Ends at</span><span class="f2val"><span class="vauto">12:00 PM</span></span></div>
+            </div>
+            <div class="ftip">The end time follows your class duration (2 hours).</div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Reason (optional)</div>
+            <div class="card">
+              <div class="tarea">Parent asked to move to Saturday morning because of a family event that week.</div>
+              <div class="charcount">78 / 500</div>
+            </div>
+            <div class="ftip"><span class="tlabel">Tip:</span> a line about your chat with the parent helps admin approve this faster.</div>
+          </div>
+        </div>
+        <div class="dock"><div class="submit">Submit ticket</div></div>
+      </div>
+    </div>
+
+    <!-- AFTER: request picker sheet -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Pick the request (bottom sheet)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Reschedule a class</span></div>
+        <div class="scroll">
+          <div class="ltsub">For a class more than 14 days old or already attended. Use the calendar for anything else.</div>
+          <div class="sec">
+            <div class="sech">Which class to move</div>
+            <div class="card"><div class="frow2"><span class="f2label">Student</span><span class="f2val"><span class="vplace">Choose one</span><span class="f2chev">&#8250;</span></span></div></div>
+          </div>
+        </div>
+        <div class="dim"></div>
+        <div class="sheet">
+          <div class="handle"></div>
+          <div class="sheettitle">Your requests</div>
+          <div class="opt sel"><div><div class="oname">Ali &middot; Add Maths</div><div class="osub">Form 4 &middot; SPM</div></div><span class="ck">&#10003;</span></div>
+          <div class="opt"><div><div class="oname">Siti &middot; Science</div><div class="osub">Form 2</div></div></div>
+          <div class="opt disabled"><div><div class="oname">Ahmad &middot; Physics</div><div class="osub">Not assigned yet</div></div><span class="lock">&#128274;</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BEFORE: live -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live reschedule</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back">&#8249;</span></div>
+        <div class="scroll" style="padding-bottom:16px">
+          <div class="b-title">Reschedule a class</div>
+          <div class="b-sub">For classes more than 14 days old or already attended. Use the calendar otherwise.</div>
+          <div class="b-lab">Tutor request</div>
+          <div class="b-field"><span>Choose a tutor request</span><span>&#8250;</span></div>
+          <div class="b-lab">Class</div>
+          <div class="b-field"><span>Choose a class</span><span>&#8250;</span></div>
+          <div class="b-lab">New date</div>
+          <div class="b-field"><span>Pick a date</span><span>&#8250;</span></div>
+          <div class="b-lab">New start time</div>
+          <div class="b-field"><span>Pick a time</span><span>&#8250;</span></div>
+          <div class="b-lab">New end time</div>
+          <div class="b-field"><span>Ends at -</span><span></span></div>
+          <div class="b-btn">Submit request</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="annos">
+    <h2>Field-level audit (challenge, don't trace &middot; KEEP / CUT / GATE / ADD)</h2>
+    <table class="audit">
+      <tr><th>Element (live)</th><th>Verdict</th><th>Provenance + reasoning</th></tr>
+      <tr><td><b>Title + subtitle</b></td><td><span class="vd keep">KEEP</span></td><td>Verbatim "Reschedule a class" (now the centered nav title) + the 14-day-rule subtitle (now a body intro).</td></tr>
+      <tr><td><b>Tutor request picker</b></td><td><span class="vd keep">KEEP</span></td><td>Real (required, <code>requestsApi.getAppliedList()</code>). Relabelled to <b>"Student"</b> (what the tutor picks by) but it IS the job request, so the sheet stays <b>"Your requests"</b>. Requests not yet approved/assigned are shown <b>disabled + "Not assigned yet" + lock</b> (the live gate).</td></tr>
+      <tr><td><b>Request summary card</b></td><td><span class="vd keep">KEEP</span></td><td>The selected value (student &middot; subject, level) shown inline on the row, so the row IS the summary. No separate card needed.</td></tr>
+      <tr><td><b>Class picker</b></td><td><span class="vd keep">KEEP</span></td><td>Real (required, scheduled classes for the chosen request). Disabled until a request is picked. The selected date+time show on the row.</td></tr>
+      <tr><td><b>New date / New start time</b></td><td><span class="vd keep">KEEP</span></td><td>Real (required; date min tomorrow, time picker). Grouped under "New time".</td></tr>
+      <tr><td><b>New end time (auto)</b></td><td><span class="vd keep">KEEP</span></td><td>Real, read-only "Ends at [time]", auto-set from the class duration. Rendered as a neutral non-tappable row; the "2 hours" source named in the helper.</td></tr>
+      <tr><td><b>Reason</b> (max 500)</td><td><span class="vd keep">KEEP</span></td><td>Real, optional. Textarea + counter + the live "chat with the parent" tip.</td></tr>
+      <tr><td><b>Submit "Submit request"</b></td><td><span class="vd keep">KEEP</span></td><td>Real. Reworded <b>"Submit ticket"</b> (naming). Sticky dock; disabled until request + class + date + start are set. Opens <b>Parent approval</b> (not an instant submit).</td></tr>
+    </table>
+
+    <div class="anno g"><span class="n">1</span><div><b>The naming collision, handled.</b> This is the one screen where both words are correct: you link a <b>request</b> (the job, "Your requests" sheet) to file a <b>ticket</b> (support, "Submit ticket"). Kept distinct, not merged.</div></div>
+    <div class="anno g"><span class="n">2</span><div><b>6 fields, 3 groups.</b> Which class (request + class) &middot; New time (date + start + auto end) &middot; Reason. A restructure, not a cut, every live field has one home; the auto end time is a read-only row, never an input.</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz dependencies:</b> (a) the "Not assigned yet" gate uses <code>applied_status !== 'approved' &amp;&amp; application_status !== 'completed'</code>, confirm. (b) class duration source for the auto end time (<code>request.class_duration</code> or class start/end). (c) submit routes to ParentApprovalConfirmation with the payload, confirm that flow is unchanged.</div></div>
+    <div class="cm"><b>Commercial pass (Retain &middot; keep the class alive).</b> <b>Founder:</b> a reschedule saves a class that would otherwise be lost, protecting GMV + the parent relationship; a clean flow reduces the drop-off where a tutor gives up and cancels. <b>Sales:</b> no upsell (retention flow). <b>Marketing:</b> "move it, do not lose it" is the felt value. <b>Analyst:</b> instrument reschedule-completion vs cancel, and parent-approval turnaround; guard = reschedules must not become a churn vector (watch repeat-reschedule on the same class). Tap-count: request + class + date + start + submit (4 taps + confirm).</div>
+  </div>
+</div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ if(m==='dark') p.classList.add('dark'); else p.classList.remove('dark'); });
+    document.querySelectorAll('.modebar .seg2 button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

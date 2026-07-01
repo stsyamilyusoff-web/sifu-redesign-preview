@@ -168,9 +168,9 @@
     <h1>Approved redesigns</h1>
     <p class="sub">The build-ready screens, leading with the new design. Each card opens the full mock; flip any card to see the live screen it replaces.</p>
     <div class="meta">
-      <span class="pill"><span class="dot"></span>13 build-ready screens</span>
-      <span class="pill">4 journey stages</span>
-      <span class="pill">All locked 2026-06-30</span>
+      <span class="pill"><span class="dot"></span><span id="pillCount">redesign cards</span></span>
+      <span class="pill" id="pillStages">journey stages</span>
+      <span class="pill">Locked 2026-07-01</span>
       <a class="maplink" href="full-map.html">See the full 95-screen map <span class="arr">&rarr;</span></a>
     </div>
   </header>
@@ -455,6 +455,10 @@
       b.classList.toggle('on', (b.dataset.all === 'before' && allBefore) || (b.dataset.all === 'after' && allAfter));
     });
   }
+
+  // Header stats stay in sync with the data (no more hardcoded staleness).
+  document.getElementById('pillCount').textContent = SCREENS.length + ' redesign cards';
+  document.getElementById('pillStages').textContent = new Set(SCREENS.map(s => s.stage)).size + ' journey stages';
 </script>
 </body>
 </html>

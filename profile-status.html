@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profile-rest &middot; Student status &middot; canonical (legacy re-skin + bug fixes)</title>
+<style>
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12); --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px; --radius-lg:16px;
+    --earn:rgba(43,47,190,.10); --earn-line:rgba(43,47,190,.18);
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18); --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --earn:rgba(124,140,240,.20); --earn-line:rgba(124,140,240,.32);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b}
+  .doc{max-width:1180px;margin:0 auto}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:20px}
+  .docnote h1{font-size:18px;margin:0 0 8px;color:#18181b}
+  .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:#52525b}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .modebar{display:flex;gap:7px;margin:0 0 18px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2b{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2b button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2b button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 14px;border-bottom:1px solid #d4d4d8;padding-bottom:6px}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12.5px;font-weight:700;color:#3f3f46;margin-bottom:9px;text-align:center;max-width:402px}
+  .framelabel .be{color:#a1a1aa} .framelabel .af{color:#2B2FBE}
+
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+  .navc{display:flex;align-items:center;height:44px;position:relative;flex-shrink:0;padding:2px 12px 4px}
+  .navc .back{display:inline-flex;align-items:center;gap:2px;color:var(--tint);font-size:16px;font-weight:600;z-index:2}
+  .navc .back .bx{font-size:23px;font-weight:400;line-height:1;margin-top:-1px}
+  .navc .ntitle{position:absolute;left:64px;right:64px;text-align:center;font-size:17px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav{display:flex;align-items:center;padding:2px 16px 4px;flex-shrink:0}
+  .nav .back{color:var(--ink-2);font-size:17px}
+
+  .scroll{flex:1;overflow:hidden;padding:0 16px 110px}
+  .ltsub{font-size:13.5px;color:var(--ink-2);line-height:1.45;margin:2px 0 16px}
+
+  /* student identity (read-only context) */
+  .idcard{display:flex;align-items:center;gap:13px;background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:13px 15px;margin-bottom:18px}
+  .idav{width:44px;height:44px;border-radius:50%;background:var(--tint-weak);color:var(--tint-ink);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;flex-shrink:0}
+  .idname{font-size:16px;font-weight:700;color:var(--ink)}
+  .idsub{font-size:12.5px;color:var(--ink-3);margin-top:1px}
+
+  .sec{margin-bottom:16px}
+  .sech{font-size:12px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;margin:0 4px 8px}
+  .card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden}
+  /* segmented control (binary status, cleaner than the live dropdown) */
+  .seg{display:flex;background:var(--tint-weak);border-radius:12px;padding:2px}
+  .so{flex:1;text-align:center;padding:11px 0;border-radius:10px;font-size:15px;font-weight:600;color:var(--ink-3)}
+  .so.active{background:var(--card);color:var(--ink);box-shadow:var(--shadow)}
+  /* picker row */
+  .frow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px}
+  .fk{font-size:15.5px;color:var(--ink);min-width:0}
+  .fk.pl{color:var(--ink-3)}
+  .fchev{font-size:17px;color:var(--ink-3)}
+  .tarea{padding:14px 15px 0;font-size:14.5px;color:var(--ink);line-height:1.5}
+  .charcount{font-size:11px;color:var(--ink-3);text-align:right;padding:8px 15px 12px}
+
+  .dock{position:absolute;left:0;right:0;bottom:0;padding:14px 16px 26px;background:linear-gradient(to top,var(--canvas) 62%,rgba(242,242,247,0))}
+  .dark .dock{background:linear-gradient(to top,#000 62%,rgba(0,0,0,0))}
+  .submit{display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;background:var(--tint);border-radius:14px;padding:15px;box-shadow:var(--shadow-cta)}
+
+  /* bottom sheet */
+  .dim{position:absolute;inset:0;background:rgba(0,0,0,.38)}
+  .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--card);border-radius:20px 20px 0 0;padding:8px 0 22px;box-shadow:0 -8px 30px rgba(0,0,0,.18)}
+  .handle{width:38px;height:5px;border-radius:99px;background:var(--ink-4);margin:6px auto 8px}
+  .sheettitle{font-size:17px;font-weight:800;color:var(--ink);padding:6px 18px 8px}
+  .opt{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-top:1px solid var(--hair);font-size:15px;color:var(--ink)}
+  .opt.sel{color:var(--tint);font-weight:700}
+  .opt .ck{color:var(--tint);font-weight:800}
+
+  /* BEFORE (live, bugs highlighted) */
+  .b-h{font-size:22px;font-weight:800;color:var(--ink);margin:4px 0 14px}
+  .b-lab{font-size:13px;font-weight:700;color:var(--ink-2);margin:0 0 6px}
+  .b-ro{background:var(--fill);border-radius:10px;padding:12px 13px;margin-bottom:14px;font-size:14px;color:var(--ink)}
+  .b-dd{background:var(--card);border:1px solid var(--hair);border-radius:10px;padding:12px 13px;margin-bottom:6px;font-size:14px;color:var(--ink-3);display:flex;align-items:center;justify-content:space-between}
+  .b-bug{font-size:11px;color:#b3261e;font-weight:700;margin:0 2px 12px}
+  .b-ta{background:var(--card);border:1px solid var(--hair);border-radius:10px;padding:12px 13px;margin-bottom:14px;font-size:14px;color:var(--ink-3);min-height:58px}
+  .b-btn{background:var(--tint);color:#fff;border-radius:10px;padding:13px;text-align:center;font-size:15px;font-weight:700}
+
+  .annos{max-width:1180px;margin:22px auto 0}
+  .audit{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid #e7e7ea;border-radius:10px;overflow:hidden;margin-bottom:14px}
+  .audit th,.audit td{text-align:left;padding:8px 11px;border-top:1px solid #eee;vertical-align:top}
+  .audit th{background:#f6f6f8;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#71717a;border-top:none}
+  .audit td b{color:#18181b}
+  .vd{font-weight:800;font-size:11px;border-radius:5px;padding:1px 7px;white-space:nowrap}
+  .vd.keep{background:#e9f5ee;color:#166534} .vd.cut{background:#fbeaea;color:#b3261e} .vd.gate{background:#eef1fb;color:#2B2FBE} .vd.add{background:#fdf6e7;color:#92400e} .vd.fix{background:#fbeaea;color:#b3261e}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .cm{font-size:12px;line-height:1.6;color:#3f3f46;background:#fbfbfc;border:1px solid #e7e7ea;border-radius:10px;padding:12px 14px;margin-top:4px}
+  .cm b{color:#18181b}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Profile-rest &middot; Student status (legacy re-skin + bug fixes)</h1>
+    Where a tutor marks a student active or inactive and says why, reached from the student detail. This is the <b>legacy odd-one-out</b> (old <code>Theme.*</code> tokens, raw FormData), re-skinned onto the canonical form pattern. The binary status becomes a <b>segmented control</b> (cleaner than the live dropdown). <b>Two live copy bugs fixed:</b> the "<b>calss</b>" typo ("Ended calss due to exam" &rarr; "Ended class due to exam"), and the <b>duplicate placeholder</b> (both the Status and Reason dropdowns said "Select Status" &rarr; now distinct). No em-dashes, no duplication. True 402&times;874, light + dark.
+    <div class="legend">
+      <span><i style="background:#2B2FBE"></i>Tint = status toggle + selected option + save</span>
+      <span><i style="background:#8a8a8e"></i>Neutral = read-only student, fields</span>
+      <span><i style="background:#b3261e"></i>Red = the live bugs (before frame)</span>
+    </div>
+  </div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2b"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
+  </div>
+
+  <div class="modehd">After &middot; the form (inactive + reason) + the reason picker (typo fixed) &middot; and the live before (bugs)</div>
+  <div class="frames">
+
+    <!-- AFTER: form -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; The form</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Student</span><span class="ntitle">Student status</span></div>
+        <div class="scroll">
+          <div class="ltsub">Update whether you are still teaching this student, and why.</div>
+
+          <div class="idcard">
+            <div class="idav">A</div>
+            <div><div class="idname">Ali bin Hassan</div><div class="idsub">Your student</div></div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Still teaching?</div>
+            <div class="seg"><div class="so">Active</div><div class="so active">Inactive</div></div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Reason</div>
+            <div class="card">
+              <div class="frow"><span class="fk">Ended class due to exam (UPSR, PT3, SPM)</span><span class="fchev">&#8250;</span></div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sech">Notes</div>
+            <div class="card">
+              <div class="tarea">Ali is sitting for SPM this term and paused tuition to focus on revision.</div>
+              <div class="charcount">76 / 300</div>
+            </div>
+          </div>
+        </div>
+        <div class="dock"><div class="submit">Save</div></div>
+      </div>
+    </div>
+
+    <!-- AFTER: reason sheet -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Reason picker (typo fixed)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Student</span><span class="ntitle">Student status</span></div>
+        <div class="scroll">
+          <div class="ltsub">Update whether you are still teaching this student, and why.</div>
+          <div class="sec">
+            <div class="sech">Reason</div>
+            <div class="card"><div class="frow"><span class="fk pl">Choose a reason</span><span class="fchev">&#8250;</span></div></div>
+          </div>
+        </div>
+        <div class="dim"></div>
+        <div class="sheet">
+          <div class="handle"></div>
+          <div class="sheettitle">Why the change?</div>
+          <div class="opt">Boarding school student</div>
+          <div class="opt sel">Ended class due to exam (UPSR, PT3, SPM) <span class="ck">&#10003;</span></div>
+          <div class="opt">Discontinued lessons</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BEFORE: live with bugs -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live (2 bugs)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="back">&#8249;</span></div>
+        <div class="scroll" style="padding-bottom:16px">
+          <div class="b-h">Status</div>
+          <div class="b-lab">Student Name</div>
+          <div class="b-ro">Ali bin Hassan</div>
+          <div class="b-lab">Status</div>
+          <div class="b-dd"><span>Select Status</span><span>&#9662;</span></div>
+          <div class="b-bug">&#9888; both dropdowns say "Select Status"</div>
+          <div class="b-lab">Reason Category</div>
+          <div class="b-dd"><span>Select Status</span><span>&#9662;</span></div>
+          <div class="b-bug">&#9888; option reads "Ended calss due to exam" (typo)</div>
+          <div class="b-lab">Reason</div>
+          <div class="b-ta">Enter Your Reason</div>
+          <div class="b-btn">Submit</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="annos">
+    <h2>Field-level audit (challenge, don't trace &middot; KEEP / CUT / FIX)</h2>
+    <table class="audit">
+      <tr><th>Element (live)</th><th>Verdict</th><th>Provenance + reasoning</th></tr>
+      <tr><td><b>Header "Status"</b></td><td><span class="vd keep">KEEP</span></td><td>Reworded <b>"Student status"</b> (clearer, it is about a student) as the centered nav title; labeled back "‹ Student".</td></tr>
+      <tr><td><b>Student Name</b> (read-only)</td><td><span class="vd keep">KEEP</span></td><td>Real (<code>route.params.studentName</code>). Promoted to a read-only identity card (initial + name) so the tutor sees who they are updating.</td></tr>
+      <tr><td><b>Status dropdown</b> (active / inactive)</td><td><span class="vd keep">KEEP</span></td><td>Real (required). A binary, so it becomes a <b>segmented control</b> [Active | Inactive] instead of a dropdown, one tap, no sheet.</td></tr>
+      <tr><td><b>Reason Category dropdown</b> (3 options)</td><td><span class="vd keep">KEEP</span></td><td>Real (required). Picker &rarr; sheet: Boarding school student / <b>Ended class due to exam (UPSR, PT3, SPM)</b> / Discontinued lessons.</td></tr>
+      <tr><td><b>"calss" typo</b></td><td><span class="vd fix">FIX</span></td><td>Live option "Ended <b>calss</b> due to exam UPSR, PT3 or SPM" &rarr; "Ended <b>class</b> due to exam (UPSR, PT3, SPM)". Backend enum value stays the same; only the label is corrected (Hafiz).</td></tr>
+      <tr><td><b>Duplicate "Select Status" placeholder</b></td><td><span class="vd fix">FIX</span></td><td>Live: both the Status and Reason-Category dropdowns used the placeholder "Select Status" (copy-paste bug). Now distinct, the segmented control needs no placeholder; the reason picker reads "Choose a reason".</td></tr>
+      <tr><td><b>Reason</b> (max 300)</td><td><span class="vd keep">KEEP</span></td><td>Real (required). Textarea + counter; placeholder "Enter Your Reason" &rarr; "Enter your reason" (sentence case). Section reworded "Notes".</td></tr>
+      <tr><td><b>Submit button</b></td><td><span class="vd keep">KEEP</span></td><td>Reworded <b>"Save"</b> (it updates a record, it is not a ticket submit). Sticky dock; validates status + reason before saving.</td></tr>
+    </table>
+
+    <div class="anno g"><span class="n">1</span><div><b>A re-skin + a clean-up.</b> The legacy screen keeps every field but moves onto the canonical tokens + form pattern; the two live copy bugs are fixed as part of the redesign, not shipped forward.</div></div>
+    <div class="anno g"><span class="n">2</span><div><b>Binary &rarr; segmented.</b> Active/Inactive is a two-way choice, so a segmented control is faster + clearer than a dropdown-in-a-sheet, and it removes one of the two "Select Status" placeholders entirely.</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz dependencies:</b> (a) the reason-category enum values are unchanged, only labels corrected, confirm the backend accepts the same keys. (b) confirm whether a reason is required when status = Active (the live validates reason regardless). (c) legacy endpoint <code>POST tutor/editStatus</code> + FormData, a candidate to modernise to the React Query pattern the rest of the app uses.</div></div>
+    <div class="cm"><b>Commercial pass (Retain &middot; roster hygiene).</b> <b>Founder:</b> accurate student status keeps the tutor's roster + the platform's active-class counts honest, which feeds correct capacity + payout data; a friction-free update means tutors actually keep it current. <b>Sales:</b> no upsell. <b>Marketing:</b> none (an internal management action). <b>Analyst:</b> instrument status-update frequency + inactive-reason mix (a spike in "exam" is seasonal, "discontinued" is a churn signal to watch); guard = an inactive mark must not silently drop the student from history. Tap-count: status + reason + save (3 taps + a note).</div>
+  </div>
+</div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ if(m==='dark') p.classList.add('dark'); else p.classList.remove('dark'); });
+    document.querySelectorAll('.modebar .seg2b button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

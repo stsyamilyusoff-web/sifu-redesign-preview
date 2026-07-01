@@ -321,6 +321,18 @@
     { stage:'grow', name:'Report an issue', mock:'support-form-complaint.html',
       after:'support-form-complaint', before:null,
       chg:'The form pattern: grouped sections + a picker sheet + a counted textarea + a sticky Submit-ticket dock.' },
+    { stage:'grow', name:'Reschedule a class', mock:'support-form-reschedule.html',
+      after:'support-form-reschedule', before:null,
+      chg:'6 fields grouped into 3; files a support ticket and opens the parent-approval gate; auto end-time read-only.' },
+    { stage:'grow', name:'End engagement', mock:'support-form-resignation.html',
+      after:'support-form-resignation', before:null,
+      chg:'Resignation as a 4-step wizard with a confirm alert and 3 guard states (suspended, ineligible, duplicate).' },
+    { stage:'grow', name:'Discouragement', mock:'support-discouragement.html',
+      after:'support-discouragement', before:null,
+      chg:'Lifecycle-aware deterrent (veteran stats / brand-new milestone / no-data) + an account-deletion loss-list. Exit de-emphasised, not blocked.' },
+    { stage:'profile', name:'Student status', mock:'profile-status.html',
+      after:'profile-status', before:null,
+      chg:'Student-status re-skin: the binary toggle becomes a segmented control, with a reason picker + notes. Two live copy bugs fixed.' },
 
     // ---- Reference tail (Chat C) ----
     { stage:'tail', name:'News', mock:'ref-news.html',

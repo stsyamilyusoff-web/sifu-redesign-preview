@@ -227,6 +227,26 @@
     <div class="grid" id="grid-profile"></div>
   </section>
 
+  <section class="stage">
+    <div class="stage-hd">
+      <span class="idx">05</span>
+      <h2>Retain &amp; Grow</h2>
+      <span class="role">Support tickets, account</span>
+      <span class="cnt"></span>
+    </div>
+    <div class="grid" id="grid-grow"></div>
+  </section>
+
+  <section class="stage">
+    <div class="stage-hd">
+      <span class="idx">06</span>
+      <h2>Reference</h2>
+      <span class="role">News, notifications, legal</span>
+      <span class="cnt"></span>
+    </div>
+    <div class="grid" id="grid-tail"></div>
+  </section>
+
   <p class="foot">
     Build handoff for the founder + Hafiz. Thumbnails are the actual rendered new mocks (light hero state, 1:1 device geometry).<br>
     Looking for everything else? <a href="full-map.html">Open the full 95-screen status map &rarr;</a>
@@ -405,8 +425,11 @@
     participate: document.getElementById('grid-participate'),
     deliver: document.getElementById('grid-deliver'),
     profile: document.getElementById('grid-profile'),
+    grow: document.getElementById('grid-grow'),
+    tail: document.getElementById('grid-tail'),
   };
-  SCREENS.forEach(s => { grids[s.stage].insertAdjacentHTML('beforeend', cardHTML(s)); });
+  // defensive: a card whose stage has no grid is skipped (never crashes the whole render)
+  SCREENS.forEach(s => { const g = grids[s.stage]; if (g) g.insertAdjacentHTML('beforeend', cardHTML(s)); else console.warn('no grid for stage', s.stage, s.name); });
 
   // per-card switch (does not navigate)
   document.querySelectorAll('.card').forEach(card => {
@@ -459,6 +482,12 @@
   // Header stats stay in sync with the data (no more hardcoded staleness).
   document.getElementById('pillCount').textContent = SCREENS.length + ' redesign cards';
   document.getElementById('pillStages').textContent = new Set(SCREENS.map(s => s.stage)).size + ' journey stages';
+  // per-section counts, dynamic (no hardcoded staleness)
+  Object.values(grids).forEach(g => {
+    if (!g) return;
+    const cnt = g.parentElement.querySelector('.cnt');
+    if (cnt) cnt.textContent = g.querySelectorAll('.card').length + ' screens';
+  });
 </script>
 </body>
 </html>

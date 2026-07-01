@@ -124,7 +124,7 @@ window.TUTOR_CATS = [
     briefs:[{href:"profile-menu-hub.html", label:"Profile-menu hub"},{href:"tutor-profile.html", label:"Tutor profile"}],
     screens:[
       {n:"ProfileMenu", s:"pass", m:"profile-menu-hub.html", d:"Profile hub: one-liner nav + variant-A milestone progress card (approved 2026-06-30)"},
-      {n:"Profile", s:"briefed", d:"Tutor profile (the three faces)"},
+      {n:"Profile", s:"pass", m:"profile-view.html", d:"Profile view: details editor + Milestone-Ladder tier card (3 faces: progressing/all-star); full-scroll frame [Chat A]"},
       {n:"UpdateProfile", s:"pass", m:"updateprofile-a45.html", d:"UpdateProfile A4.5 LOCKED 2026-06-30: re-skinned as the REAL name+email screen (verified phone read-only + optional referral; dead DOB cut; gender/address NOT added = they live in the done Activate cluster). Part of the 3-frame Acquire seam (.preview/updateprofile-a45.html) with ConsentGate + 'you're in' arrival; #2B2FBE; phone format aligned; verified 1:1. The audit's 13-tap-wall claim was a stale field list, corrected"},
       {n:"ConsentGate", s:"pass", m:"updateprofile-a45.html", d:"Consent gate A4.5 LOCKED 2026-06-30: re-skinned (Terms + Privacy summary + consent checkbox + Agree & continue save) in the 3-frame Acquire seam (.preview/updateprofile-a45.html); live 'SifuTutor's' casing bug fixed to 'Sifututor's'; #2B2FBE; verified 1:1"},
       {n:"Status", s:"pass", m:"profile-status.html", d:"Student status re-skin (SegmentedControl; fixed calss+placeholder bugs; Save) [Chat B]"},

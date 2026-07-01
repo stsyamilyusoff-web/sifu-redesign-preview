@@ -354,6 +354,9 @@
     { stage:'profile', name:'Student status', mock:'profile-status.html',
       after:'profile-status', before:null,
       chg:'Student-status re-skin: the binary toggle becomes a segmented control, with a reason picker + notes. Two live copy bugs fixed.' },
+    { stage:'profile', name:'Profile', mock:'profile-view.html',
+      after:'profile-view', before:null,
+      chg:'Personal-details editor + a Compact-Ring tier card (Beginner to All-Star) and the recommended-next-steps gaps. Deduped: card name + classes-taught removed (the header + ring already carry them).' },
 
     // ---- Reference tail (Chat C) ----
     { stage:'tail', name:'News', mock:'ref-news.html',
@@ -382,7 +385,7 @@
     'support-ticket-detail':'support-TicketDetail','support-application-status':'support-ApplicationStatusDetail',
     'support-form-complaint':'support-SubmitRequestGeneralComplaint','support-form-reschedule':'support-SubmitRequestClassReschedule',
     'support-form-resignation':'support-SubmitRequestResignation','support-discouragement':'support-Discouragement',
-    'profile-status':'profile-Status','ref-news':'news-News','ref-notifications':'news-Notifications',
+    'profile-status':'profile-Status','profile-view':'profile-Profile','ref-news':'news-News','ref-notifications':'news-Notifications',
     'ref-faqs':'static-FAQs','ref-legal':'static-PrivacyPolicy',
   };
   function cardHTML(s){

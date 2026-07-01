@@ -234,6 +234,7 @@
 
 </div>
 
+<script src="tutor-thumbs.js"></script>
 <script>
   // ---- data: the 13 approved redesigns ----
   // after  = new hero PNG (gallery-thumbs/<after>.png)
@@ -350,10 +351,25 @@
   ];
 
   const T = 'gallery-thumbs/';
+  const THUMBS = (window.TUTOR_THUMBS || {});
+  // Option 1 (2026-07-01): new-card after-slug -> live baseline key in tutor-thumbs.js,
+  // so before/after compares in THIS link (no separate full-map tab needed).
+  const LIVE = {
+    'deliver-active-class':'deliver-ActiveClass','deliver-class-records':'deliver-ClassRecords',
+    'deliver-class-edit':'deliver-EditPostponedClass','deliver-success-variants':'deliver-ClassPostponeSuccess',
+    'deliver-student-tasks':'students-StudentList','deliver-camera-demand':'engage-HomeDemandSummary',
+    'support-ticket-picker':'support-SubmitRequestPicker','support-my-tickets-list':'participate-MyRequestsList',
+    'support-ticket-detail':'support-TicketDetail','support-application-status':'support-ApplicationStatusDetail',
+    'support-form-complaint':'support-SubmitRequestGeneralComplaint','support-form-reschedule':'support-SubmitRequestClassReschedule',
+    'support-form-resignation':'support-SubmitRequestResignation','support-discouragement':'support-Discouragement',
+    'profile-status':'profile-Status','ref-news':'news-News','ref-notifications':'news-Notifications',
+    'ref-faqs':'static-FAQs','ref-legal':'static-PrivacyPolicy',
+  };
   function cardHTML(s){
-    const hasBefore = !!s.before;
+    const beforeSrc = s.before ? `${T}before-${s.before}.png` : ((LIVE[s.after] && THUMBS[LIVE[s.after]]) || '');
+    const hasBefore = !!beforeSrc;
     const beforeImg = hasBefore
-      ? `<img class="shot before" src="${T}before-${s.before}.png" alt="${s.name}, live (before)" loading="lazy">`
+      ? `<img class="shot before" src="${beforeSrc}" alt="${s.name}, live (before)" loading="lazy">`
       : '';
     const switchHTML = `
       <div class="switch">

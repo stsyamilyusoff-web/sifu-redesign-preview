@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wave 1 · Requests feed (Open tab) — LOCKED + improvements</title>
+<style>
+  body { margin: 0; padding: 28px 16px; background: #E9E9EE; font-family: -apple-system, system-ui, "Segoe UI", sans-serif; color: #18181b; }
+  .doc { max-width: 840px; margin: 0 auto; }
+  .docnote { font-size: 13px; line-height: 1.6; color: #52525b; background: #fff; border: 1px solid #e4e4e7; border-radius: 12px; padding: 14px 16px; margin-bottom: 20px; }
+  .docnote h1 { font-size: 16px; margin: 0 0 6px; } .docnote b { color: #18181b; }
+  .docnote code { font-family: ui-monospace, monospace; font-size: 12px; background: #f4f4f5; padding: 1px 4px; border-radius: 4px; }
+  .frames { display: flex; gap: 22px; align-items: flex-start; flex-wrap: wrap; justify-content: center; }
+  .framelabel { text-align: center; font-size: 12px; font-weight: 700; color: #52525b; margin-bottom: 8px; }
+  .ph { box-sizing: border-box; position: relative; width: 402px; height: 874px; overflow: hidden; background: #F2F2F7; border-radius: 0; padding: 0 14px 0; box-shadow: none; --tint:#2B2FBE; }
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 6px 0 4px;}
+  .sb-t{font-size:16px;font-weight:600;color:#000;letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:linear-gradient(90deg,#000 0 60%,#bbb 60%);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:#000;clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid #000;border-radius:3px;position:relative;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:#000;border-radius:1px;}
+  .lt { font-size: 29px; font-weight: 800; color: #000; letter-spacing: -.5px; margin-bottom: 12px; }
+  .seg { display: flex; background: rgba(43,47,190,.1); border-radius: 12px; padding: 2px; margin-bottom: 11px; }
+  .so { flex: 1; text-align: center; padding: 12px 0; border-radius: 10px; font-size: 14px; font-weight: 600; color: rgba(60,60,67,.55); } .so.active { background: #fff; color: #000; box-shadow: 0 1px 3px rgba(0,0,0,.16); }
+  .search { font-size: 13.5px; color: rgba(60,60,67,.4); background: rgba(120,120,128,.1); border-radius: 10px; padding: 9px 12px; margin-bottom: 12px; }
+  .ctrls { display: flex; gap: 6px; margin-bottom: 11px; flex-wrap: wrap; }
+  .cc { font-size: 12px; font-weight: 600; color: rgba(60,60,67,.55); background: #FFF; border-radius: 999px; padding: 5px 11px; }
+  .cc.sort { color: var(--tint); background: rgba(43,47,190,.1); } .cc.onf { color: #fff; background: var(--tint); } .cc.gf { color: rgba(60,60,67,.55); }
+  .floatpill { position: absolute; bottom: 22px; top: auto; left: 50%; transform: translateX(-50%); z-index: 5; font-size: 12px; font-weight: 700; color: #fff; background: var(--tint); border-radius: 999px; padding: 9px 18px; box-shadow: 0 6px 18px rgba(43,47,190,.5); white-space: nowrap; }
+  .swipehint { text-align: center; font-size: 11px; font-weight: 600; color: #16A34A; margin-bottom: 9px; }
+  .stack { display: flex; flex-direction: column; gap: 9px; }
+  .rcard { background: #FFF; border-radius: 12px; padding: 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.05); }
+  .c { flex: 1; min-width: 0; }
+  .l1 { font-size: 16px; font-weight: 700; color: #000; } .lvl { font-size: 13px; font-weight: 400; color: rgba(60,60,67,.55); }
+  .icons { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: 7px; }
+  .ic { font-size: 12px; font-weight: 600; color: rgba(60,60,67,.62); } .dot { color: rgba(60,60,67,.3); font-size: 11px; }
+  .match { font-size: 12.5px; color: #166534; font-weight: 600; margin-top: 7px; } .chk { font-weight: 800; }
+  .flagrow { margin-top: 8px; } .flag { font-size: 11px; font-weight: 700; color: #92400e; background: rgba(245,158,11,.18); border: 1px solid rgba(245,158,11,.4); border-radius: 999px; padding: 3px 10px; }
+  .apps { font-size: 12px; color: rgba(60,60,67,.45); margin-top: 7px; }
+  .rid { font-weight: 700; color: rgba(60,60,67,.6); } .copy { color: var(--tint); }
+  .besoc { color: #166534; font-weight: 700; }
+  .anchor { width: 78px; flex-shrink: 0; border-radius: 12px; background: #EAEAEF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 11px 5px; }
+  .mode { font-size: 11px; font-weight: 800; letter-spacing: .2px; color: #18181b; white-space: nowrap; }
+  .money { font-size: 18px; font-weight: 800; color: #18181b; letter-spacing: -.4px; line-height: 1; } .cur { font-size: 10px; font-weight: 700; color: rgba(60,60,67,.55); }
+  .swipewrap { position: relative; border-radius: 12px; overflow: hidden; }
+  .applypanel { position: absolute; top: 0; right: 0; bottom: 0; width: 96px; background: #16A34A; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; gap: 2px; }
+  .applypanel span { font-size: 18px; }
+  .swiped { transform: translateX(-78px); position: relative; box-shadow: -2px 0 8px rgba(0,0,0,.08); }
+  .empty { text-align: center; padding: 30px 16px; }
+  .eic { font-size: 34px; } .etit { font-size: 16px; font-weight: 800; margin-top: 8px; } .esub { font-size: 12.5px; color: rgba(60,60,67,.55); margin: 6px 0 16px; line-height: 1.45; }
+  .eb { font-size: 13px; font-weight: 700; background: #fff; color: #18181b; border-radius: 11px; padding: 11px; margin-top: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.05); } .eb.primary { background: var(--tint); color: #fff; height: 48px; border-radius: 999px; font-size: 16px; font-weight: 500; padding: 0; display: flex; align-items: center; justify-content: center; }
+  .ebrow { display: flex; gap: 8px; } .ebrow .eb { flex: 1; }
+  .elink { font-size: 12.5px; font-weight: 700; color: var(--tint); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Wave 1 · Requests feed (Open tab) — LOCKED + improvements (2026-06-22)</h1>
+    Hafiz-approved card kept as the base; five improvements added on top, none removed. <b>(1) Copyable Request ID</b> now sits in the meta row (subject leads the scan; tap the copy glyph; admin and tutor coordinate by it). <b>(2) Swipe-to-apply</b>: swipe a card to open a quick sheet with the comment pre-filled from the profile (still editable), then Submit. Fewer taps to apply, still intelligent; tapping the card still opens the full detail. No double-verification popup; the sheet is the confirmation. <b>(3) Specific fit reason</b> (subject, level, area), not a generic "matches you". <b>(4) Adaptive social proof</b>: "Be the first to apply" when low; the count softens to time-only when high so a discouraging "25 applied" never shows. <b>(5) Empty / low-supply state</b> (second frame) keeps niche and rural tutors engaged and doubles as the notification opt-in.<br>
+    Carried over from the lock: inline icon-row vocabulary (<code>DR-007</code>), colour budget (green = fit, amber = one flag; hierarchy schedule-clash, then special-needs, then out-of-area), the "3 new matches" cue. No batch apply (it pulls against intelligent applications). Roadmap angles + win-rate guardrail in <code>03-roadmap/redesign-strategy.md</code> section 8.
+  </div>
+  <div class="frames">
+   <div>
+    <div class="framelabel">Open tab — with improvements</div>
+    <div class="ph">
+      <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+      <div class="lt">Requests</div>
+      <div class="seg"><span class="so active">Open</span><span class="so">Applied</span></div>
+      <div class="search">Search by Request ID, subject, or area</div>
+      <div class="ctrls"><span class="cc sort">Relevance</span><span class="cc onf">Maths (12)</span><span class="cc gf">For me</span><span class="cc">Filter</span></div>
+      <div class="floatpill">↑ 3 new matches</div>
+      <div class="swipehint">swipe any card to apply</div>
+      <div class="stack">
+        <div class="rcard">
+          <div class="c">
+            <div class="l1">Mathematics <span class="lvl">· Form 4</span></div>
+            <div class="icons"><span class="ic">Female tutor</span><span class="dot">·</span><span class="ic">Tue 8:00 PM</span><span class="dot">·</span><span class="ic">1.5h</span><span class="dot">·</span><span class="ic">12 sessions</span></div>
+            <div class="match"><span class="chk">✓</span> Matches your subject, level &amp; area</div>
+            <div class="apps"><span class="rid">TREQ-859807 <span class="copy">⧉</span></span> · <span class="besoc">Be the first to apply</span></div>
+          </div>
+          <div class="anchor"><div class="mode">ONLINE</div><div class="money"><span class="cur">RM</span> 94</div></div>
+        </div>
+
+        <div class="swipewrap">
+          <div class="applypanel"><span>✓</span>Apply</div>
+          <div class="rcard swiped">
+            <div class="c">
+              <div class="l1">Physics <span class="lvl">· Form 4</span></div>
+              <div class="icons"><span class="ic">Male tutor</span><span class="dot">·</span><span class="ic">Mon 5:00 PM</span><span class="dot">·</span><span class="ic">2h</span><span class="dot">·</span><span class="ic">Bangsar</span></div>
+              <div class="match"><span class="chk">✓</span> Matches your area, subject &amp; level</div>
+              <div class="apps"><span class="rid">TREQ-655485 <span class="copy">⧉</span></span> · 6 applied · 5h ago</div>
+            </div>
+            <div class="anchor"><div class="mode">IN-PERSON</div><div class="money"><span class="cur">RM</span> 120</div></div>
+          </div>
+        </div>
+
+        <div class="rcard">
+          <div class="c">
+            <div class="l1">Bahasa Melayu <span class="lvl">· Form 3</span></div>
+            <div class="icons"><span class="ic">Female tutor</span><span class="dot">·</span><span class="ic">Thu 7:00 PM</span><span class="dot">·</span><span class="ic">1h</span><span class="dot">·</span><span class="ic">Weekly</span></div>
+            <div class="match"><span class="chk">✓</span> Matches your subject</div>
+            <div class="apps"><span class="rid">TREQ-773201 <span class="copy">⧉</span></span> · 2 applied · 1d ago</div>
+          </div>
+          <div class="anchor"><div class="mode">ONLINE</div><div class="money"><span class="cur">RM</span> 70</div></div>
+        </div>
+
+        <div class="rcard">
+          <div class="c">
+            <div class="l1">Chemistry <span class="lvl">· Form 6</span></div>
+            <div class="icons"><span class="ic">Female tutor</span><span class="dot">·</span><span class="ic">Sat 10:00 AM</span><span class="dot">·</span><span class="ic">2h</span><span class="dot">·</span><span class="ic">Mont Kiara</span></div>
+            <div class="flagrow"><span class="flag">Special needs</span></div>
+            <div class="match"><span class="chk">✓</span> Matches your subject · near you</div>
+            <div class="apps"><span class="rid">TREQ-450088 <span class="copy">⧉</span></span> · Posted 1d ago</div>
+          </div>
+          <div class="anchor"><div class="mode">IN-PERSON</div><div class="money"><span class="cur">RM</span> 150</div></div>
+        </div>
+      </div>
+    </div>
+   </div>
+
+   <div>
+    <div class="framelabel">Empty / low-supply state</div>
+    <div class="ph">
+      <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+      <div class="lt">Requests</div>
+      <div class="seg"><span class="so active">Open</span><span class="so">Applied</span></div>
+      <div class="empty">
+        <div class="eic">🔍</div>
+        <div class="etit">No new requests match you right now</div>
+        <div class="esub">We will alert you the moment a fit request appears.</div>
+        <div class="eb primary">Turn on match alerts</div>
+        <div class="ebrow"><span class="eb">Widen my area</span><span class="eb">Add subjects</span></div>
+        <div class="elink">Browse all requests</div>
+      </div>
+    </div>
+   </div>
+  </div>
+</div>
+</body>
+</html>

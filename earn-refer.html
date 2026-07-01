@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retain and grow &middot; EARN &middot; ReferFriend + MyReferralEarnings</title>
+<style>
+  :root{
+    --brand:#2B2FBE; --brand-weak:rgba(43,47,190,.10); --brand-weaker:rgba(43,47,190,.06);
+    --canvas:#F2F2F7; --surface:#FFFFFF; --field:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.6); --ink-3:rgba(60,60,67,.45); --ink-placeholder:rgba(60,60,67,.35);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.18);
+    --paid:#166534; --paid-bg:rgba(52,199,89,.14);
+    --pend:#92400e; --pend-bg:rgba(245,158,11,.16);
+    --onbrand:#FFFFFF;
+    --r-card:14px; --r-field:10px; --r-pill:999px;
+    --shadow-card:0 1px 3px rgba(0,0,0,.06);
+  }
+  [data-mode="dark"]{
+    --brand:#5B73E8; --brand-weak:rgba(91,115,232,.18); --brand-weaker:rgba(91,115,232,.10);
+    --canvas:#000000; --surface:#1C1C1E; --field:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.6); --ink-3:rgba(235,235,245,.4); --ink-placeholder:rgba(235,235,245,.3);
+    --hair:rgba(84,84,88,.55); --hair-strong:rgba(84,84,88,.75);
+    --paid:#4ADE80; --paid-bg:rgba(52,199,89,.18);
+    --pend:#FBBF24; --pend-bg:rgba(245,158,11,.18);
+    --shadow-card:0 1px 3px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:26px 16px;background:#E4E4EA;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;-webkit-font-smoothing:antialiased}
+  .doc{max-width:1180px;margin:0 auto}
+  .docnote{font-size:13px;line-height:1.62;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:15px 17px;margin-bottom:18px}
+  .docnote h1{font-size:16px;margin:0 0 7px} .docnote b{color:#18181b}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:#52525b}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .modebar{display:flex;gap:7px;margin:0 0 20px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2 button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  [data-mode="dark"] .seg2 button.on{background:#3A3A3C;color:#fff}
+  .grouplabel{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#71717a;margin:22px 0 11px}
+  .frames{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:9px}
+  .framelabel .be{color:#a1a1aa} .framelabel .af{color:#2B2FBE}
+
+  .ph{position:relative;width:380px;height:822px;overflow:hidden;background:var(--canvas);border-radius:42px;border:10px solid #0d0d10;box-shadow:0 10px 34px rgba(0,0,0,.22);display:flex;flex-direction:column}
+  .screen{flex:1;display:flex;flex-direction:column;padding:0 16px;overflow:hidden}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:46px;padding:6px 8px 0 6px;flex-shrink:0}
+  .sb-t{font-size:15px;font-weight:600;color:var(--ink);letter-spacing:.3px}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+  .nav{display:flex;align-items:center;gap:6px;padding:2px 0 6px;flex-shrink:0}
+  .nav .bk{font-size:20px;color:var(--brand);line-height:1;font-weight:600}
+  .nav .bklabel{font-size:16px;color:var(--brand);font-weight:500}
+  .lt{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-.5px;flex-shrink:0;margin-bottom:12px}
+  .home-ind{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:124px;height:5px;border-radius:99px;background:var(--ink);opacity:.32}
+  .body{flex:1;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:13px;padding-bottom:20px}
+  .body::-webkit-scrollbar{width:0;height:0}
+  .seclabel{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin:2px 4px -2px;flex-shrink:0}
+
+  /* hero */
+  .hero{position:relative;height:150px;border-radius:var(--r-card);overflow:hidden;flex-shrink:0;background:linear-gradient(135deg,var(--brand) 0%,#4b4fd6 55%,#7478e6 100%);display:flex;align-items:center;justify-content:center}
+  .hero-cap{font-size:11.5px;font-weight:700;color:rgba(255,255,255,.85);text-align:center;padding:0 24px;letter-spacing:.01em}
+  .hero-badge{position:absolute;top:11px;right:11px;background:rgba(255,255,255,.95);color:var(--brand);font-size:11.5px;font-weight:800;border-radius:var(--r-pill);padding:5px 11px}
+
+  .valline{font-size:14px;line-height:1.5;color:var(--ink-2);padding:0 2px;flex-shrink:0}
+
+  /* code chip */
+  .codewrap{background:var(--surface);border-radius:var(--r-card);box-shadow:var(--shadow-card);padding:15px;flex-shrink:0}
+  .codewrap .seclabel{margin:0 0 9px}
+  .codechip{display:flex;align-items:center;justify-content:space-between;background:var(--brand-weak);color:var(--brand);border-radius:var(--r-field);padding:14px 16px;cursor:pointer}
+  .codechip .code{font-size:19px;font-weight:800;letter-spacing:.06em}
+  .codechip .cp{font-size:16px;opacity:.85}
+
+  /* CTA */
+  .cta{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border-radius:var(--r-field);padding:15px;font-size:15.5px;font-weight:700;flex-shrink:0}
+
+  /* how it works */
+  .hiw{background:var(--surface);border-radius:var(--r-card);box-shadow:var(--shadow-card);overflow:hidden;flex-shrink:0}
+  .step{display:flex;gap:11px;padding:12px 15px;border-top:1px solid var(--hair)}
+  .step:first-child{border-top:none}
+  .stepnum{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--brand-weak);color:var(--brand);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .step-t{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .step-d{font-size:12px;color:var(--ink-3);margin-top:2px;line-height:1.4}
+
+  /* footer link row */
+  .linkrow{display:flex;align-items:center;justify-content:space-between;background:var(--surface);border-radius:var(--r-card);box-shadow:var(--shadow-card);padding:14px 15px;flex-shrink:0}
+  .linkrow-l{font-size:14px;font-weight:700;color:var(--ink)}
+  .linkrow-r{display:flex;align-items:center;gap:8px}
+  .linkrow-amt{font-size:12.5px;font-weight:700;color:var(--brand)}
+  .linkrow-chev{font-size:16px;color:var(--ink-3);font-weight:600}
+
+  /* balance card */
+  .balcard{background:var(--brand);border-radius:var(--r-card);box-shadow:var(--shadow-card);padding:16px;flex-shrink:0;color:#fff}
+  .bal-label{font-size:11.5px;font-weight:700;color:rgba(255,255,255,.78)}
+  .bal-amt{font-size:30px;font-weight:800;letter-spacing:-.7px;margin:8px 0 12px}
+  .bal-amt .cur{font-size:13px;font-weight:700;opacity:.85;margin-right:2px}
+  .claimbtn{display:inline-flex;align-items:center;justify-content:center;background:#fff;color:var(--brand);border-radius:var(--r-field);padding:10px 20px;font-size:13.5px;font-weight:800}
+
+  /* segmented */
+  .seg-track{display:flex;background:#e4e4ea;border-radius:9px;padding:3px;flex-shrink:0}
+  [data-mode="dark"] .seg-track{background:#2C2C2E}
+  .seg-track .opt{flex:1;text-align:center;font-size:13px;font-weight:700;color:var(--ink-3);padding:7px 0;border-radius:7px;cursor:pointer}
+  .seg-track .opt.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+
+  /* referral row */
+  .refrow{display:flex;align-items:center;gap:11px;padding:12px 15px;border-top:1px solid var(--hair)}
+  .refrow:first-child{border-top:none}
+  .avatar{flex-shrink:0;width:38px;height:38px;border-radius:50%;background:var(--brand-weak);color:var(--brand);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .refrow-mid{flex:1;min-width:0}
+  .refrow-name{font-size:14px;font-weight:700;color:var(--ink)}
+  .refrow-date{font-size:11.5px;color:var(--ink-3);margin-top:2px}
+  .refrow-right{flex-shrink:0;text-align:right}
+  .statuschip{font-size:10px;font-weight:800;border-radius:var(--r-pill);padding:3px 9px;display:inline-flex;align-items:center;gap:3px}
+  .statuschip.done{color:var(--paid);background:var(--paid-bg)}
+  .statuschip.pend{color:var(--pend);background:var(--pend-bg)}
+  .refrow-amt{font-size:13.5px;font-weight:800;color:var(--ink);margin-top:5px}
+
+  /* BEFORE (live) */
+  .b-hero-headline{font-size:24px;font-weight:800;color:var(--ink);text-align:center;margin:10px 0 6px}
+  .b-illblock{height:120px;background:linear-gradient(135deg,#dcdcf5,#c3c3f0);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#4a4a8a;font-weight:700;flex-shrink:0}
+  .b-desc{font-size:13px;color:var(--ink-2);text-align:center;padding:0 8px;line-height:1.45}
+  .b-tagline{font-size:12.5px;color:var(--brand);text-align:center;font-weight:700}
+  .b-codebtn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--surface);border:1.5px dashed var(--brand);color:var(--brand);border-radius:10px;padding:13px;font-size:16px;font-weight:800;letter-spacing:.06em}
+  .b-dark{background:#1c1c2e;color:#fff;border-radius:12px;padding:14px 15px}
+  .b-dark .b-m{color:#fff}
+  .b-dark .b-amt{color:#fff}
+  .b-hiw-btn{display:flex;align-items:center;justify-content:center;background:var(--field);border:1px solid var(--hair-strong);color:var(--ink);border-radius:10px;padding:12px;font-size:14px;font-weight:700}
+  .b-ttl{font-size:19px;font-weight:800;color:var(--ink)}
+  .b-tabs{display:flex;gap:0;border-bottom:1px solid var(--hair)}
+  .b-tab{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--ink-3);padding:9px 2px}
+  .b-tab.on{color:var(--brand);border-bottom:2px solid var(--brand)}
+  .b-refrow{display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid var(--hair)}
+  .b-refrow:first-child{border-top:none}
+  .b-avimg{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:#cfcfe0;display:flex;align-items:center;justify-content:center;font-size:6px;color:#5a5a8a;font-weight:700;text-align:center;line-height:1.1;overflow:hidden;padding:2px}
+  .b-refname{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .b-refdate{font-size:11px;color:var(--ink-3);margin-top:1px}
+  .b-refamt{margin-left:auto;font-size:13.5px;font-weight:800;color:var(--ink)}
+
+  .annos{max-width:1180px;margin:18px auto 0}
+  .audit{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid #e7e7ea;border-radius:10px;overflow:hidden;margin-bottom:14px}
+  .audit th,.audit td{text-align:left;padding:8px 11px;border-top:1px solid #eee;vertical-align:top}
+  .audit th{background:#f6f6f8;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#71717a;border-top:none}
+  .audit td b{color:#18181b}
+  .vd{font-weight:800;font-size:11px;border-radius:5px;padding:1px 7px;white-space:nowrap}
+  .vd.keep{background:#e9f5ee;color:#166534} .vd.cut{background:#fbeaea;color:#b3261e} .vd.gate{background:#eef1fb;color:#2B2FBE} .vd.add{background:#fdf6e7;color:#92400e} .vd.rename{background:#eef1fb;color:#2B2FBE}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .cm{font-size:12px;line-height:1.6;color:#3f3f46;background:#fbfbfc;border:1px solid #e7e7ea;border-radius:10px;padding:12px 14px;margin-top:4px}
+  .cm b{color:#18181b}
+  @media (max-width:820px){ .ph{width:340px;height:736px} }
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Retain and grow &middot; EARN &middot; ReferFriend + MyReferralEarnings (the referral pair)</h1>
+    Reached from Profile. <b>ReferFriend</b> is the pitch and the share action: a brand-tinted hero (standing in for a real photo of two friends), the value line, a tap-to-copy code chip, one CTA, three calm steps, and a link into the earnings screen. <b>MyReferralEarnings</b> is retitled <b>"Referral earnings"</b> so it never collides with the teaching Earnings hub, and shows the balance, a Completed/Pending segmented list, and a link back to "How referrals work". The reward amount is dynamic (ReferralSettings.tutor), the code copies in one tap, and every avatar is neutral initials, never a gendered stock photo. Brand = CTA + code chip + links; status is the Completed/Pending tab (no redundant per-row chip); no red. Tokens only, no em-dashes, DD-MMM-YYYY, whole-RM, light + dark.
+    <div class="legend">
+      <span><i style="background:#2B2FBE"></i>Brand = CTA + code chip + links</span>
+      <span><i style="background:#e4e4ea;border:1px solid #ccc"></i>Status = the Completed / Pending tab</span>
+      <span><i style="background:#F2F2F7;border:1px solid #ccc"></i>Grouped-grey canvas</span>
+    </div>
+  </div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
+  </div>
+
+  <div class="grouplabel">After &middot; the referral pair (share + track)</div>
+  <div class="frames">
+
+    <!-- FRAME 1: AFTER ReferFriend -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Refer a friend</div>
+      <div class="ph" data-mode="light">
+       <div class="screen">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="bk">&#8249;</span><span class="bklabel">Profile</span></div>
+        <div class="lt">Refer a friend</div>
+        <div class="body">
+
+          <div class="hero">
+            <div class="hero-badge">Earn RM 50</div>
+            <div class="hero-cap">Real photo: two friends<br>(brand-tint)</div>
+          </div>
+
+          <div class="valline">Know someone who would make a great tutor? Invite them to Sifututor.</div>
+
+          <div class="codewrap">
+            <div class="seclabel">Your code</div>
+            <div class="codechip"><span class="code">NURUL-2026</span><span class="cp">&#128203;</span></div>
+          </div>
+
+          <div class="cta">Share your code</div>
+
+          <div class="seclabel">How it works</div>
+          <div class="hiw">
+            <div class="step"><div class="stepnum">1</div><div><div class="step-t">Invite a friend</div><div class="step-d">Send them your referral code.</div></div></div>
+            <div class="step"><div class="stepnum">2</div><div><div class="step-t">They start teaching</div><div class="step-d">They join Sifututor and complete their first verified class.</div></div></div>
+            <div class="step"><div class="stepnum">3</div><div><div class="step-t">You earn RM 50</div><div class="step-d">It lands in your referral earnings, ready to claim.</div></div></div>
+          </div>
+
+          <div class="linkrow"><span class="linkrow-l">Referral earnings</span><div class="linkrow-r"><span class="linkrow-amt">RM 150 available</span><span class="linkrow-chev">&#8250;</span></div></div>
+
+        </div>
+       </div>
+       <div class="home-ind"></div>
+      </div>
+    </div>
+
+    <!-- FRAME 2: AFTER MyReferralEarnings -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Referral earnings</div>
+      <div class="ph" data-mode="light">
+       <div class="screen">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="bk">&#8249;</span><span class="bklabel">Refer</span></div>
+        <div class="lt">Referral earnings</div>
+        <div class="body">
+
+          <div class="balcard">
+            <div class="bal-label">Available balance</div>
+            <div class="bal-amt"><span class="cur">RM</span>150</div>
+            <div class="claimbtn">Claim</div>
+          </div>
+
+          <div class="seg-track">
+            <div class="opt on">Completed</div>
+            <div class="opt">Pending</div>
+          </div>
+
+          <div class="hiw">
+            <div class="refrow">
+              <div class="avatar">AH</div>
+              <div class="refrow-mid"><div class="refrow-name">Aisyah Rahman</div><div class="refrow-date">Referred 02-May-2026</div></div>
+              <div class="refrow-right"><div class="refrow-amt">RM 50</div></div>
+            </div>
+            <div class="refrow">
+              <div class="avatar">FK</div>
+              <div class="refrow-mid"><div class="refrow-name">Faiz Kamal</div><div class="refrow-date">Referred 18-Apr-2026</div></div>
+              <div class="refrow-right"><div class="refrow-amt">RM 50</div></div>
+            </div>
+            <div class="refrow">
+              <div class="avatar">ML</div>
+              <div class="refrow-mid"><div class="refrow-name">Mei Ling</div><div class="refrow-date">Referred 03-Mar-2026</div></div>
+              <div class="refrow-right"><div class="refrow-amt">RM 50</div></div>
+            </div>
+          </div>
+
+          <div class="linkrow"><span class="linkrow-l">How referrals work</span><span class="linkrow-chev">&#8250;</span></div>
+
+        </div>
+       </div>
+       <div class="home-ind"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="grouplabel">Before &middot; live screens</div>
+  <div class="frames">
+
+    <!-- FRAME 3: BEFORE ReferFriend -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live ReferFriend</div>
+      <div class="ph" data-mode="light">
+       <div class="screen">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="bk">&#8249;</span><span class="b-ttl">Profile</span></div>
+        <div class="body" style="padding-top:6px">
+          <div class="b-hero-headline">Get RM50!</div>
+          <div class="b-illblock">illustration placeholder</div>
+          <div class="b-desc">Invite a New User and Receive a Credit of RM50.</div>
+          <div class="b-codebtn">NURUL-2026 &#128203;</div>
+          <div class="b-tagline">Share your code and earn rewards!</div>
+          <div class="b-dark">
+            <div class="b-m" style="font-size:13px;font-weight:700;opacity:.8">My Earnings</div>
+            <div class="b-amt" style="font-size:20px;margin:6px 0 2px">RM 150.00</div>
+          </div>
+          <div class="b-hiw-btn">How It Works</div>
+        </div>
+       </div>
+       <div class="home-ind"></div>
+      </div>
+    </div>
+
+    <!-- FRAME 4: BEFORE MyReferralEarnings -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live MyReferralEarnings</div>
+      <div class="ph" data-mode="light">
+       <div class="screen">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="nav"><span class="bk">&#8249;</span><span class="b-ttl">My Earnings</span></div>
+        <div class="body" style="padding-top:6px">
+          <div class="b-dark">
+            <div class="b-m" style="font-size:12px;opacity:.75">Available balance</div>
+            <div class="b-amt" style="font-size:26px;margin:6px 0 10px">RM 150.00</div>
+            <div class="claimbtn" style="background:#fff;color:#1c1c2e">Claim Now</div>
+          </div>
+          <div class="b-tabs">
+            <div class="b-tab on">Completed</div>
+            <div class="b-tab">Pending</div>
+            <div class="b-tab">How it works</div>
+          </div>
+          <div>
+            <div class="b-refrow">
+              <div class="b-avimg">Student<br>Male.webp</div>
+              <div><div class="b-refname">Aisyah Rahman</div><div class="b-refdate">Referred on May 02 2026</div></div>
+              <div class="b-refamt">RM50</div>
+            </div>
+            <div class="b-refrow">
+              <div class="b-avimg">Student<br>Male.webp</div>
+              <div><div class="b-refname">Faiz Kamal</div><div class="b-refdate">Referred on Apr 18 2026</div></div>
+              <div class="b-refamt">RM50</div>
+            </div>
+            <div class="b-refrow">
+              <div class="b-avimg">Student<br>Male.webp</div>
+              <div><div class="b-refname">Mei Ling</div><div class="b-refdate">Referred on Mar 03 2026</div></div>
+              <div class="b-refamt">RM50</div>
+            </div>
+          </div>
+        </div>
+       </div>
+       <div class="home-ind"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="annos">
+    <h2>Field-level audit (challenge, don't trace &middot; KEEP / CUT / GATE / ADD / RENAME)</h2>
+    <table class="audit">
+      <tr><th>Element (live)</th><th>Verdict</th><th>Reasoning</th></tr>
+      <tr><td><b>Reward headline</b> ("Get RM50!")</td><td><span class="vd keep">KEEP</span>, de-hyped</td><td>Kept as a hero badge "Earn RM 50" on the photo block, no exclamation mark. The reward stays visible, the tone drops the hype.</td></tr>
+      <tr><td><b>Referral code</b></td><td><span class="vd add">TAP-COPY</span></td><td>The live screen already has a copy button; the redesign makes the whole chip one large tap target with a clear copy glyph, matching the PaymentLedger Ref-chip pattern.</td></tr>
+      <tr><td><b>Description</b> ("Invite a New User and Receive a Credit of RM50.")</td><td><span class="vd keep">KEEP</span>, reworded</td><td>Reworded to state the real gate: the reward pays out only after the friend's <b>first verified class</b>, not on sign-up. Removes the implied instant credit.</td></tr>
+      <tr><td><b>My Earnings card + How It Works</b></td><td><span class="vd keep">KEEP</span></td><td>Both kept: the balance link row into Referral earnings, and the 3-step explainer, now inline on the same screen instead of a separate button.</td></tr>
+      <tr><td><b>3 how-it-works steps</b></td><td><span class="vd keep">KEEP</span>, reworded</td><td>Reworded from the hypey live copy ("They hit the road", "You make Savings!") to calm, accurate steps: share the code, they teach their first class, you earn RM 50.</td></tr>
+      <tr><td><b>Avatar image</b> (live "StudentMale.webp" on every row)</td><td><span class="vd rename">FIX</span></td><td>The live app reuses one gendered stock photo for every referred user regardless of who they are. Redesign uses neutral initials in a tinted circle, matching the photography direction (no gendered stand-ins).</td></tr>
+      <tr><td><b>Screen title</b> ("My Earnings")</td><td><span class="vd rename">RENAME</span></td><td>Renamed to <b>"Referral earnings"</b>. "My Earnings" collides with the teaching-Earnings hub elsewhere in the app; the new title disambiguates at a glance.</td></tr>
+      <tr><td><b>Money</b> (live "RM50.00" / "RM 150.00")</td><td><span class="vd gate">WHOLE-RM</span></td><td>Trailing .00 stripped everywhere on both screens: "RM 50", "RM 150".</td></tr>
+      <tr><td><b>Completed / Pending status</b></td><td><span class="vd keep">TAB</span></td><td>Status is the segmented tab (the list is filtered by it), so a per-row status chip would just repeat the active tab. Rows stay clean: name, referred date, amount. The Pending tab shows the amount as not-yet-earned.</td></tr>
+    </table>
+    <div class="anno g"><span class="n">1</span><div><b>De-hyped, still exciting.</b> The reward stays the headline (RM 50 badge on the hero, large balance on Referral earnings) but the exclamation marks and "Get RM50!" urgency are gone. The tone matches the rest of Sifututor: calm, factual, still a genuine reward.</div></div>
+    <div class="anno"><span class="n">2</span><div><b>Tap-to-copy code, full width.</b> The code chip on ReferFriend is the single largest tap target after the CTA, so sharing a code by voice call or WhatsApp is a one-hand action.</div></div>
+    <div class="anno"><span class="n">3</span><div><b>Title fix: "Referral earnings", not "My Earnings".</b> The teaching Earnings hub already owns "Earnings" as a concept; keeping the live name here would read as the same balance. The new title makes the source of the money explicit.</div></div>
+    <div class="anno"><span class="n">4</span><div><b>Neutral avatars.</b> Every referral row uses tinted initials instead of the live app's single reused "StudentMale" image, so a referred user of any gender is represented honestly.</div></div>
+    <div class="cm"><b>Commercial pass (Referral growth loop).</b> <b>Founder:</b> referral is the cheapest acquisition channel available; a clean, trustworthy share flow compounds tutor supply without ad spend. <b>Sales:</b> the honest attach point is the moment of pride right after a good class, when a tutor is most likely to think of a friend. <b>Marketing:</b> the shareable code chip is the growth loop itself, every share is a branded touchpoint. <b>Analyst:</b> instrument code-share-tap rate and referral-completion rate (code shared &rarr; friend signs up &rarr; friend's first verified class); guard metric = the flow must stay honest, easily ignored, and never a dark pattern (no forced share, no nagging).</div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz:</b> (a) confirm the reward amount reads from ReferralSettings.tutor (dynamic), never hard-coded RM50 in the client; (b) confirm Claim posts to /referral/withdraw and disbursement is admin-side; (c) confirm a referral flips Pending &rarr; Completed only when the referred user finishes their first VERIFIED class (the BonusRule gate), not on sign-up.</div></div>
+  </div>
+</div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ p.setAttribute('data-mode', m); });
+    document.querySelectorAll('.modebar .seg2 button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

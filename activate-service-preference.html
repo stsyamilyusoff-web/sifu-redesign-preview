@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activate &middot; Service Preference (3-step) &middot; conformed</title>
+<style>
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12); --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --err:#B3261E; --err-weak:rgba(179,38,30,.10);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px; --radius-lg:16px;
+    --map:#E5EAE6; --map-street:#FFFFFF; --map-park:#CFE6CF; --ring:rgba(43,47,190,.14); --ring-line:rgba(43,47,190,.55);
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18); --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --err:#FF6B61; --err-weak:rgba(255,107,97,.14);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --map:#20262A; --map-street:#3A4248; --map-park:#2A3A2E; --ring:rgba(124,140,240,.20); --ring-line:rgba(124,140,240,.6);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;-webkit-font-smoothing:antialiased}
+  .doc{max-width:1180px;margin:0 auto}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px}
+  .docnote h1{font-size:16px;margin:0 0 7px;color:#18181b} .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:#52525b}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .modebar{display:flex;gap:7px;margin:0 0 20px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2 button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .grouplabel{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#71717a;margin:20px 0 11px}
+  .frames{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:9px}
+  .framelabel .be{color:#a1a1aa} .framelabel .af{color:#2B2FBE}
+
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+  .navc{display:flex;align-items:center;height:44px;position:relative;flex-shrink:0;padding:2px 12px 2px}
+  .navc .back{display:inline-flex;align-items:center;gap:2px;color:var(--tint);font-size:16px;font-weight:600;z-index:2}
+  .navc .back .bx{font-size:23px;font-weight:400;line-height:1;margin-top:-1px}
+  .navc .ntitle{position:absolute;left:64px;right:64px;text-align:center;font-size:17px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .wizprog{padding:2px 16px 0;flex-shrink:0}
+  .wizbar{height:5px;border-radius:999px;background:var(--tint-weak);overflow:hidden}
+  .wizbar i{display:block;height:100%;background:var(--tint);border-radius:999px}
+  .wizstep{font-size:11.5px;font-weight:700;color:var(--ink-3);margin-top:7px}
+
+  .scroll{flex:1;overflow:hidden;padding:0 16px 96px}
+  .lt{font-size:25px;font-weight:800;color:var(--ink);letter-spacing:-.5px;margin:4px 0 4px}
+  .ltsub{font-size:13px;color:var(--ink-2);line-height:1.45;margin-bottom:16px}
+
+  .fld{margin-bottom:16px}
+  .flabel{display:flex;align-items:baseline;gap:7px;margin-bottom:7px}
+  .flabel .nm{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .flabel .meta{font-size:11px;font-weight:600;color:var(--ink-3);margin-left:auto}
+  .why{font-size:11.5px;color:var(--ink-2);line-height:1.4;margin:-2px 0 8px}
+  .why .pin{color:var(--green-ink);font-weight:700}
+  .selfield{background:var(--card);border:1px solid var(--hair-strong);border-radius:10px;padding:13px;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow)}
+  .selfield .val{flex:1;font-size:14px;color:var(--ink);font-weight:500}
+  .selfield .val.ph-empty{color:var(--ink-3);font-weight:400}
+  .selfield .chev{font-size:13px;color:var(--ink-2)}
+  .flagtag{font-size:9px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--amber-ink);background:var(--amber-weak);border:1px solid var(--amber-line);border-radius:5px;padding:1px 6px;margin-left:6px}
+
+  .tokens{display:flex;flex-wrap:wrap;gap:7px;background:var(--card);border:1px solid var(--hair-strong);border-radius:10px;padding:11px;box-shadow:var(--shadow)}
+  .tok{display:inline-flex;align-items:center;gap:6px;background:var(--tint);color:#fff;font-size:12px;font-weight:700;border-radius:999px;padding:6px 11px}
+  .tok .xx{opacity:.7;font-weight:800;font-size:11px}
+  .tok.add{background:transparent;color:var(--tint);border:1px dashed var(--tint)}
+  .tok.lvl{background:var(--tint-weak);color:var(--tint-ink)}
+
+  /* per-language proficiency rows */
+  .proflist{margin-top:9px;display:flex;flex-direction:column;gap:8px}
+  .profrow{display:flex;align-items:center;gap:9px}
+  .profname{font-size:12.5px;font-weight:700;color:var(--ink);width:112px;flex-shrink:0}
+  .profseg{flex:1;display:flex;background:var(--fill);border-radius:9px;padding:2px}
+  .profseg span{flex:1;text-align:center;padding:7px 2px;font-size:11px;font-weight:600;color:var(--ink-3);border-radius:7px}
+  .profseg span.on{background:var(--card);color:var(--ink);box-shadow:var(--shadow);font-weight:700}
+
+  .segmode{display:flex;background:var(--tint-weak);border-radius:10px;padding:3px}
+  .segmode span{flex:1;text-align:center;padding:9px 4px;font-size:12.5px;font-weight:600;color:var(--ink-2);border-radius:8px;display:flex;align-items:center;justify-content:center;gap:5px}
+  .segmode span.on{background:var(--card);color:var(--ink);box-shadow:var(--shadow);font-weight:700}
+
+  .pitch{background:var(--card);border:1px solid var(--hair-strong);border-radius:10px;padding:13px;box-shadow:var(--shadow)}
+  .pitch .txt{font-size:13.5px;color:var(--ink);line-height:1.5;min-height:88px}
+  .pitchfoot{display:flex;align-items:center;justify-content:space-between;margin-top:7px}
+  .pitchfoot .help{font-size:11px;color:var(--ink-2)}
+  .pitchfoot .cnt{font-size:11px;color:var(--ink-3);font-weight:600}
+
+  .slots{display:flex;flex-direction:column;gap:9px}
+  .slot{background:var(--card);border:1px solid var(--hair-strong);border-radius:10px;padding:12px 13px;display:flex;align-items:flex-start;gap:11px;box-shadow:var(--shadow)}
+  .slot.on{border-color:var(--tint);background:var(--tint-weak)}
+  .box{width:21px;height:21px;border-radius:6px;border:1.6px solid var(--hair-strong);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;color:transparent;font-size:13px;font-weight:800}
+  .slot.on .box{background:var(--tint);border-color:var(--tint);color:#fff}
+  .slottext{flex:1;min-width:0}
+  .slottitle{font-size:13.5px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .slotsub{font-size:11.5px;color:var(--ink-2);margin-top:3px;line-height:1.35}
+  .common{font-size:10px;font-weight:800;color:var(--green-ink);background:var(--green-weak);border-radius:999px;padding:2px 8px}
+  /* open-to-other toggle (separate from the preset slots) */
+  .toggle{display:flex;align-items:flex-start;gap:11px;background:var(--card);border:1px solid var(--hair);border-radius:10px;padding:13px;box-shadow:var(--shadow);margin-top:11px}
+  .toggle .tg{width:44px;height:27px;border-radius:999px;background:var(--tint);position:relative;flex-shrink:0;margin-top:1px}
+  .toggle .tg::after{content:"";position:absolute;top:2px;right:2px;width:23px;height:23px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+  .toggle .tt{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .toggle .ts{font-size:11.5px;color:var(--ink-2);margin-top:3px;line-height:1.35}
+
+  /* teaching service-area (pin + radius), In-person/Hybrid */
+  .areacard{background:var(--card);border:1px solid var(--hair);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden}
+  .amap{position:relative;height:148px;overflow:hidden;background:var(--map)}
+  .amap .street{position:absolute;background:var(--map-street)}
+  .amap .park{position:absolute;background:var(--map-park);border-radius:6px}
+  .amap .ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;background:var(--ring);border:2px solid var(--ring-line)}
+  .amap .pin{position:absolute;left:50%;top:50%;transform:translate(-50%,-100%);z-index:4}
+  .amap .pin .head{width:26px;height:26px;border-radius:50% 50% 50% 0;background:var(--tint);transform:rotate(-45deg);box-shadow:0 5px 12px rgba(0,0,0,.35);border:2px solid #fff}
+  .amap .pin .dot{position:absolute;left:50%;top:8px;transform:translate(-50%,-50%);width:8px;height:8px;border-radius:50%;background:#fff}
+  .amapedit{position:absolute;right:9px;bottom:9px;background:var(--card);color:var(--tint);font-size:12px;font-weight:700;border-radius:999px;padding:6px 12px;box-shadow:var(--shadow)}
+  .arow{display:flex;align-items:center;gap:10px;padding:13px 15px;border-top:1px solid var(--hair)}
+  .arow .aic{color:var(--tint);font-size:16px}
+  .arow .at{font-size:14.5px;font-weight:700;color:var(--ink)}
+  .arow .as{font-size:12px;color:var(--ink-2);margin-top:1px}
+  .addarea{display:flex;align-items:center;justify-content:center;gap:6px;padding:13px;font-size:14px;font-weight:700;color:var(--tint);border-top:1px solid var(--hair)}
+  .recap{background:var(--green-weak);border-radius:10px;padding:11px 12px;display:flex;gap:9px;align-items:flex-start;margin-top:14px}
+  .recap .tk{color:var(--green-ink);font-size:15px;font-weight:800;line-height:1.2}
+  .recap .rt{font-size:11.5px;color:var(--green-ink);font-weight:700;line-height:1.4}
+
+  .foot{position:absolute;left:0;right:0;bottom:0;padding:12px 16px 24px;background:linear-gradient(to top,var(--canvas) 62%,rgba(242,242,247,0));flex-shrink:0}
+  .dark .foot{background:linear-gradient(to top,#000 62%,rgba(0,0,0,0))}
+  .cta{height:52px;border-radius:14px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700;box-shadow:var(--shadow-cta)}
+  .footskip{text-align:center;font-size:11.5px;color:var(--ink-3);margin-top:9px}
+
+  /* before (live) */
+  .b-nav{display:flex;align-items:center;gap:10px;height:44px;padding:0 4px;flex-shrink:0}
+  .b-bk{font-size:22px;color:var(--ink-2)}
+  .b-ttl{font-size:19px;font-weight:800;color:var(--ink)}
+  .b-pill{margin-left:auto;font-size:12px;font-weight:700;color:var(--tint);background:var(--tint-weak);border-radius:999px;padding:5px 11px}
+  .b-body{flex:1;overflow:hidden;padding:12px 16px 0}
+  .b-lbl{font-size:12.5px;font-weight:600;color:var(--ink);margin:0 0 6px}
+  .b-field{background:var(--card);border:1px solid var(--hair-strong);border-radius:10px;padding:12px;font-size:13.5px;color:var(--ink-3);margin-bottom:15px;display:flex;justify-content:space-between}
+  .b-cta{height:48px;border-radius:999px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;margin-top:4px}
+
+  .annos{max-width:1180px;margin:22px auto 0}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Activate &middot; Service Preference (the 3-step matching spine)</h1>
+    The data the matching engine reads (subjects, levels, curricula, languages, mode, teaching area, availability), so a verified tutor who under-fills it stays invisible to requests. <b>Conformed to Wave-1</b>: canonical <code>--tint</code> tokens, <code>.dark</code>, true 402&times;874, header split (centered step-title + labeled back + progress; duplicated title dropped), no dashes. <b>Fidelity fixes vs the prior mock, verified in code:</b> Curricula is <b>multi-select</b> (was single); proficiency is <b>per-language</b>; mode is Online / In-person / <b>Hybrid</b> (was "Both"); Step 3 "Open to other times" is a <b>toggle</b> (was a slot) with the live descriptions restored. Colour budget held (green = fit only). Field audit + Hafiz flags below.
+    <div class="legend">
+      <span><i style="background:#2B2FBE"></i>Tint = action / selected</span>
+      <span><i style="background:#166534"></i>Green = fit signal (rationed)</span>
+      <span><i style="background:#F2F2F7;border:1px solid #ccc"></i>Grouped-grey canvas</span>
+    </div>
+  </div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
+  </div>
+
+  <div class="grouplabel">After &middot; the 3-step matching wizard</div>
+  <div class="frames">
+
+    <!-- STEP 1 -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Step 1 &middot; What you teach</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">What you teach</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:33%"></i></div><div class="wizstep">Step 1 of 3</div></div>
+        <div class="scroll">
+          <div class="ltsub">This is how requests find you.</div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Subjects you teach</span><span class="meta">2 selected</span></div>
+            <div class="why"><span class="pin">Requests match your subjects first.</span></div>
+            <div class="tokens"><span class="tok">Mathematics <span class="xx">&#215;</span></span><span class="tok">Science <span class="xx">&#215;</span></span><span class="tok add">+ Add subject</span></div>
+          </div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Levels</span><span class="meta">2 selected</span></div>
+            <div class="tokens"><span class="tok lvl">Form 4 <span class="xx">&#215;</span></span><span class="tok lvl">Form 5 <span class="xx">&#215;</span></span><span class="tok add">+ Add level</span></div>
+          </div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Curricula</span><span class="meta">2 selected</span></div>
+            <div class="tokens"><span class="tok lvl">KSSM <span class="xx">&#215;</span></span><span class="tok lvl">Cambridge <span class="xx">&#215;</span></span><span class="tok add">+ Add curriculum</span></div>
+          </div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Languages</span><span class="meta">Max 3</span></div>
+            <div class="tokens"><span class="tok">English <span class="xx">&#215;</span></span><span class="tok">Bahasa Melayu <span class="xx">&#215;</span></span><span class="tok add">+ Add</span></div>
+            <div class="proflist">
+              <div class="profrow"><span class="profname">English</span><span class="profseg"><span class="on">Native</span><span>Fluent</span><span>Conversational</span></span></div>
+              <div class="profrow"><span class="profname">Bahasa Melayu</span><span class="profseg"><span class="on">Native</span><span>Fluent</span><span>Conversational</span></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="foot"><div class="cta">Save and continue</div></div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Step 2 &middot; Where and how</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Where and how</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:66%"></i></div><div class="wizstep">Step 2 of 3</div></div>
+        <div class="scroll">
+          <div class="ltsub">Requests are matched to how and where you teach.</div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Mode of tutoring</span></div>
+            <div class="segmode"><span>&#127968; Online</span><span class="on">&#128205; In-person</span><span>Hybrid</span></div>
+          </div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Where you teach</span></div>
+            <div class="why">Students within your radius see your requests.</div>
+            <div class="areacard">
+              <div class="amap">
+                <div class="street" style="left:0;right:0;top:44%;height:8px"></div>
+                <div class="street" style="top:0;bottom:0;left:56%;width:9px"></div>
+                <div class="park" style="left:8%;top:10%;width:26%;height:30%"></div>
+                <div class="ring" style="width:146px;height:146px"></div>
+                <div class="pin"><div class="head"></div><div class="dot"></div></div>
+                <div class="amapedit">Adjust area</div>
+              </div>
+              <div class="arow"><span class="aic">&#128205;</span><div><div class="at">Petaling Jaya</div><div class="as">Within 10 km</div></div></div>
+              <div class="addarea">+ Add another area</div>
+            </div>
+          </div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Years of experience</span><span class="flagtag">New</span></div>
+            <div class="selfield"><span class="val">8 years</span><span class="chev">&#9662;</span></div>
+          </div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Your pitch to parents</span></div>
+            <div class="pitch">
+              <div class="txt">SPM Mathematics and Science specialist with 8 years guiding Form 4 and Form 5 students. I focus on exam technique and building confidence, with weekly progress check-ins for parents.</div>
+              <div class="pitchfoot"><span class="help">Parents read this to pick you</span><span class="cnt">142 / 300</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="foot"><div class="cta">Save and continue</div></div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Step 3 &middot; When you teach</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">When you teach</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:100%"></i></div><div class="wizstep">Step 3 of 3</div></div>
+        <div class="scroll">
+          <div class="ltsub">Select every slot you can teach. Wider availability means more requests.</div>
+          <div class="slots">
+            <div class="slot on"><span class="box">&#10003;</span><div class="slottext"><div class="slottitle">Weekday evenings (6pm to 10pm) <span class="common">Most common</span></div><div class="slotsub">The dominant Sifututor slot</div></div></div>
+            <div class="slot on"><span class="box">&#10003;</span><div class="slottext"><div class="slottitle">Weekday after school (3pm to 6pm)</div><div class="slotsub">Primary / secondary kids before dinner</div></div></div>
+            <div class="slot"><span class="box"></span><div class="slottext"><div class="slottitle">Weekday daytime (8am to 3pm)</div><div class="slotsub">For homeschool students or daytime classes</div></div></div>
+            <div class="slot on"><span class="box">&#10003;</span><div class="slottext"><div class="slottitle">Weekend daytime (8am to 6pm)</div><div class="slotsub">Saturdays and Sundays before dinner</div></div></div>
+            <div class="slot"><span class="box"></span><div class="slottext"><div class="slottitle">Weekend evenings (6pm to 10pm)</div><div class="slotsub">Saturday and Sunday after dinner</div></div></div>
+          </div>
+          <div class="toggle">
+            <span class="tg"></span>
+            <div><div class="tt">Open to other times too</div><div class="ts">Parents can still send requests outside these slots. I will consider each one based on my schedule.</div></div>
+          </div>
+          <div class="recap">
+            <span class="tk">&#10003;</span>
+            <span class="rt">You now match Maths and Science requests, Form 4 to 5, in-person within 10 km of PJ, weekday evenings and weekends.</span>
+          </div>
+        </div>
+        <div class="foot"><div class="cta">Save teaching profile</div><div class="footskip">You can update this anytime in your profile</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="grouplabel">Before &middot; live baseline (faithful)</div>
+  <div class="frames">
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live Step 1 of 3</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="b-nav"><span class="b-bk">&#8249;</span><span class="b-ttl">Service Preference</span><span class="b-pill">1 of 3</span></div>
+        <div class="b-body">
+          <div class="b-lbl">Subjects you teach</div><div class="b-field"><span>Mathematics, Science</span><span>&#9662;</span></div>
+          <div class="b-lbl">Levels</div><div class="b-field"><span>Form 4, Form 5</span><span>&#9662;</span></div>
+          <div class="b-lbl">Curricula</div><div class="b-field"><span>Choose curricula</span><span>&#9662;</span></div>
+          <div class="b-lbl">Languages (max 3)</div><div class="b-field"><span>Choose languages</span><span>&#9662;</span></div>
+        </div>
+        <div class="foot" style="position:static;background:none;padding:8px 16px 16px"><div class="b-cta">Save and continue</div></div>
+      </div>
+    </div>
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live Step 2 of 3</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="b-nav"><span class="b-bk">&#8249;</span><span class="b-ttl">Service Preference</span><span class="b-pill">2 of 3</span></div>
+        <div class="b-body">
+          <div class="b-lbl">Mode of tutoring</div><div class="b-field"><span>Choose mode</span><span>&#9662;</span></div>
+          <div class="b-lbl">Preferred cities</div><div class="b-field"><span>Choose cities</span><span>&#9662;</span></div>
+          <div class="b-lbl">Teaching experience</div><div class="b-field" style="min-height:96px;align-items:flex-start"><span>Describe your teaching background and approach</span></div>
+        </div>
+        <div class="foot" style="position:static;background:none;padding:8px 16px 16px"><div class="b-cta">Save and continue</div></div>
+      </div>
+    </div>
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live Step 3 (Availability)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="b-nav"><span class="b-bk">&#8249;</span><span class="b-ttl">Service Preference</span><span class="b-pill">3 of 3</span></div>
+        <div class="b-body">
+          <div class="b-lbl" style="font-size:14px;font-weight:700">When are you available to teach?</div>
+          <div class="ltsub" style="margin-bottom:12px">Select every slot you can teach. Parents see this when matching.</div>
+          <div class="slots">
+            <div class="slot"><span class="box"></span><div class="slottext"><div class="slottitle" style="font-weight:600">Weekday daytime (8am-3pm)</div></div></div>
+            <div class="slot"><span class="box"></span><div class="slottext"><div class="slottitle" style="font-weight:600">Weekday after school (3pm-6pm)</div></div></div>
+            <div class="slot"><span class="box"></span><div class="slottext"><div class="slottitle" style="font-weight:600">Weekday evenings (6pm-10pm)</div></div></div>
+            <div class="slot"><span class="box"></span><div class="slottext"><div class="slottitle" style="font-weight:600">Weekend daytime (8am-6pm)</div></div></div>
+          </div>
+        </div>
+        <div class="foot" style="position:static;background:none;padding:8px 16px 16px"><div class="b-cta" style="background:#9a9aa0">Save</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annos">
+    <h2>Field-level audit + fidelity fixes (verified vs live code)</h2>
+    <div class="anno g"><span class="n">1</span><div><b>Curricula is now multi-select.</b> Live (<code>Step1WhatYouTeach</code>) reads <code>data.curricula[]</code> as a multi-select deduped by id; the prior mock showed a single "Choose curriculum". Fixed to removable chips.</div></div>
+    <div class="anno g"><span class="n">2</span><div><b>Per-language proficiency.</b> Live stores a proficiency for EACH selected language (Native / Fluent / Conversational, defaults conversational). The prior mock showed one shared row; now each language has its own.</div></div>
+    <div class="anno g"><span class="n">3</span><div><b>Mode + availability corrected.</b> Mode = Online / In-person / <b>Hybrid</b> (live enum; was "Both"). Step 3 "Open to other times too" is a <b>toggle</b> with the live subtitle (was a 6th slot), and the 5 presets keep their live descriptions ("The dominant Sifututor slot", etc.).</div></div>
+    <div class="anno g"><span class="n">5</span><div><b>Cities &rarr; teaching area (founder direction 2026-07-01).</b> The live city multi-select is replaced by a <b>pin + travel-radius</b> service area (distance-based matching), <b>gated on mode</b>: Online = no location (fixes the live "cities required for Online" oddness), In-person / Hybrid = the area. Multiple areas allowed. The "Set your teaching area" picker is its own node (<code>activate-teaching-area.html</code>).</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz + product flags:</b> (a) <b>matching moves from <code>city_id[]</code> to a distance query</b> (store area lat/long + radius; match requests by distance) &middot; a real backend change + native map SDK + the town-name reverse-lookup (or ship "within N km" only for v1). Radius = preset chips (5 / 10 / 15 / 20 km). (b) <b>"Years of experience" is a NEW field</b> (live Step 2 has only the free-text pitch); confirm a backend years field or keep it in the pitch. (c) curriculum / level / language option lists are backend-driven (<code>GET tutor/curricula</code>, <code>GET levels</code>); availability presets from <code>useSettings('availability_presets')</code>. (d) proficiency defaults to "conversational" if untouched.</div></div>
+    <div class="anno"><span class="n">4</span><div><b>Conform, not redesign.</b> The prior mock's good ideas are kept: progress bar per step, one concise why-cue per step, removable token chips over comma strings, the "Most common" availability hint, and the closing fit recap (now "in-person in PJ and KL"). No rate field (pricing is platform-set).</div></div>
+  </div>
+</div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ if(m==='dark') p.classList.add('dark'); else p.classList.remove('dark'); });
+    document.querySelectorAll('.modebar .seg2 button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

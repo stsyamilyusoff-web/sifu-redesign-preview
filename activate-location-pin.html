@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activate &middot; Quick-pin location (exploration)</title>
+<style>
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12); --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px; --radius-lg:16px;
+    --map:#E5EAE6; --map-street:#FFFFFF; --map-park:#CFE6CF; --map-water:#B9D6E8;
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18); --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --map:#20262A; --map-street:#3A4248; --map-park:#2A3A2E; --map-water:#243642;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b}
+  .doc{max-width:1180px;margin:0 auto}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:20px}
+  .docnote h1{font-size:17px;margin:0 0 8px;color:#18181b} .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px}
+  .expl{background:#eef1fb;border:1px solid #cdd6f5;border-radius:10px;padding:10px 13px;margin-top:10px;font-size:12.5px;color:#2b2f6b;line-height:1.55}
+  .expl b{color:#1e2168}
+  .modebar{display:flex;gap:7px;margin:0 0 18px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2 button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 14px;border-bottom:1px solid #d4d4d8;padding-bottom:6px}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12.5px;font-weight:700;color:#3f3f46;margin-bottom:9px;text-align:center;max-width:402px}
+  .framelabel .af{color:#2B2FBE}
+
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+  .navc{display:flex;align-items:center;height:44px;position:relative;flex-shrink:0;padding:2px 12px 4px}
+  .navc .back{display:inline-flex;align-items:center;gap:2px;color:var(--tint);font-size:16px;font-weight:600;z-index:2}
+  .navc .back .bx{font-size:23px;font-weight:400;line-height:1;margin-top:-1px}
+  .navc .ntitle{position:absolute;left:58px;right:58px;text-align:center;font-size:17px;font-weight:700;color:var(--ink);white-space:nowrap}
+  .wizprog{padding:2px 16px 0;flex-shrink:0}
+  .wizbar{height:5px;border-radius:999px;background:var(--tint-weak);overflow:hidden}
+  .wizbar i{display:block;height:100%;background:var(--tint);border-radius:999px}
+  .wizstep{font-size:11.5px;font-weight:700;color:var(--ink-3);margin-top:7px}
+  .scroll{flex:1;overflow:hidden;padding:0 16px}
+  .ltsub{font-size:13px;color:var(--ink-2);line-height:1.45;margin:6px 0 16px}
+  .sech{font-size:12px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;margin:0 4px 8px}
+  .card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+  .gr{padding:12px 15px;border-top:1px solid var(--hair)}
+  .gr:first-child{border-top:none}
+  .fl{font-size:11px;color:var(--ink-3);font-weight:600}
+  .fv{font-size:15px;font-weight:600;color:var(--ink);margin-top:3px}
+  .fv.placeholder{color:var(--ink-3);font-weight:400}
+  .drill{display:flex;align-items:center;gap:8px}
+  .drill .fvwrap{flex:1;min-width:0}
+  .chev{font-size:15px;color:var(--ink-3)}
+  .autotag{font-size:9.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--green-ink);background:var(--green-weak);border-radius:5px;padding:2px 6px;margin-left:7px;vertical-align:1px}
+
+  /* the pin CTA (entry) */
+  .pincta{display:flex;align-items:center;gap:12px;background:var(--tint);color:#fff;border-radius:14px;padding:15px;box-shadow:var(--shadow-cta);margin-bottom:11px}
+  .pincta .pi{font-size:20px}
+  .pincta .pt{font-size:15.5px;font-weight:700}
+  .pincta .ps{font-size:11.5px;opacity:.85;margin-top:1px}
+  .typelink{text-align:center;font-size:14px;font-weight:700;color:var(--tint);padding:6px}
+
+  /* map picker */
+  .map{position:relative;flex:1;background:var(--map);overflow:hidden}
+  .street{position:absolute;background:var(--map-street)}
+  .park{position:absolute;background:var(--map-park);border-radius:8px}
+  .water{position:absolute;background:var(--map-water);border-radius:10px}
+  .pin{position:absolute;left:50%;top:44%;transform:translate(-50%,-100%);z-index:4}
+  .pin .head{width:34px;height:34px;border-radius:50% 50% 50% 0;background:var(--tint);transform:rotate(-45deg);box-shadow:0 6px 14px rgba(0,0,0,.35);border:2px solid #fff}
+  .pin .dot{position:absolute;left:50%;top:12px;transform:translate(-50%,-50%);width:11px;height:11px;border-radius:50%;background:#fff}
+  .pinshadow{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:16px;height:6px;border-radius:50%;background:rgba(0,0,0,.22);z-index:3}
+  .draghint{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:999px;white-space:nowrap;z-index:5}
+  .locbtn{position:absolute;right:14px;bottom:14px;width:46px;height:46px;border-radius:50%;background:var(--card);box-shadow:var(--shadow-soft);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--tint);z-index:5}
+  /* confirm sheet over the map */
+  .confirm{flex-shrink:0;background:var(--card);border-radius:20px 20px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.14);padding:16px 16px 24px;margin-top:-18px;position:relative;z-index:6}
+  .confirm .cl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3);margin-bottom:7px}
+  .confirm .caddr{display:flex;gap:10px;align-items:flex-start}
+  .confirm .cai{color:var(--tint);font-size:17px;margin-top:1px}
+  .confirm .cat{font-size:15.5px;font-weight:700;color:var(--ink);line-height:1.3}
+  .confirm .cas{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+  .confirm .cbtn{margin-top:15px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;background:var(--tint);border-radius:14px;padding:15px;box-shadow:var(--shadow-cta)}
+
+  /* mini-map thumbnail (result) */
+  .thumb{position:relative;height:120px;background:var(--map);border-radius:var(--radius);overflow:hidden;margin:0 0 0}
+  .thumb .pin{top:50%} .thumb .pin .head{width:26px;height:26px} .thumb .pin .dot{top:9px;width:8px;height:8px}
+  .thumbedit{position:absolute;right:10px;bottom:10px;background:var(--card);color:var(--tint);font-size:12px;font-weight:700;border-radius:999px;padding:6px 12px;box-shadow:var(--shadow)}
+  .foot{position:absolute;left:0;right:0;bottom:0;padding:12px 16px 26px;background:linear-gradient(to top,var(--canvas) 62%,rgba(242,242,247,0))}
+  .dark .foot{background:linear-gradient(to top,#000 62%,rgba(0,0,0,0))}
+  .cta{height:52px;border-radius:14px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;box-shadow:var(--shadow-cta)}
+
+  .annos{max-width:1180px;margin:22px auto 0}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Activate &middot; Set your location (quick-pin picker)</h1>
+    The BioDetails <b>location</b> step, the primary path (founder-approved 2026-07-01): instead of typing, the tutor drops a map pin (the <b>Grab / foodpanda</b> pattern). GPS pins their current spot, they nudge the map to fine-tune, and the pin <b>reverse-geocodes</b> into address + state + city + postal, the same fields (and the same lat/long the live app already stores). Type-to-search stays as the fallback. This is the tutor's <b>home address, captured for verification</b> (where they teach is set separately in "Where &amp; how you teach", by city). Never shown to parents.
+    <div class="expl"><b>Folded into BioDetails</b> as the primary location path (see <code>activate-identity-forms.html</code>). This picker is its own screen &middot; a new node. Needs a native map SDK (Google Maps / Mapbox) &middot; a build + Hafiz item, not a JS-only change.</div>
+  </div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
+  </div>
+
+  <div class="modehd">Explore &middot; entry &rarr; pin picker &rarr; auto-filled result</div>
+  <div class="frames">
+
+    <!-- 1. ENTRY -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">1</span> &middot; Entry (pin-first, type as fallback)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Your details</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:20%"></i></div><div class="wizstep">Step 1 of 5</div></div>
+        <div class="scroll">
+          <div class="ltsub">Your home address, so we can verify you. A pin is faster and more accurate than typing it.</div>
+          <div class="sech">Your location</div>
+          <div class="pincta">
+            <span class="pi">&#128205;</span>
+            <div><div class="pt">Pin my location</div><div class="ps">Fastest &middot; we drop a pin on your spot</div></div>
+          </div>
+          <div class="typelink">Type my address instead</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. PIN PICKER -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">2</span> &middot; The pin picker (Grab pattern)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Set your location</span></div>
+        <div class="map">
+          <div class="street" style="left:0;right:0;top:30%;height:12px"></div>
+          <div class="street" style="left:0;right:0;top:62%;height:16px"></div>
+          <div class="street" style="top:0;bottom:0;left:26%;width:12px"></div>
+          <div class="street" style="top:0;bottom:0;left:66%;width:16px"></div>
+          <div class="street" style="left:0;right:0;top:83%;height:9px"></div>
+          <div class="park" style="left:30%;top:34%;width:32%;height:24%"></div>
+          <div class="water" style="left:70%;top:66%;width:34%;height:20%"></div>
+          <div class="park" style="left:2%;top:66%;width:20%;height:14%"></div>
+          <div class="draghint">Drag the map to move the pin</div>
+          <div class="pinshadow"></div>
+          <div class="pin"><div class="head"></div><div class="dot"></div></div>
+          <div class="locbtn">&#9678;</div>
+        </div>
+        <div class="confirm">
+          <div class="cl">Your pin</div>
+          <div class="caddr">
+            <span class="cai">&#128205;</span>
+            <div><div class="cat">12 Jalan Bukit Pantai</div><div class="cas">Bangsar, Petaling Jaya, Selangor 47301</div></div>
+          </div>
+          <div class="cbtn">Confirm this location</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. RESULT -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">3</span> &middot; Auto-filled result (back in the form)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Your details</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:20%"></i></div><div class="wizstep">Step 1 of 5</div></div>
+        <div class="scroll">
+          <div class="ltsub">Your home address, so we can verify you. A pin is faster and more accurate than typing it.</div>
+          <div class="sech">Your location</div>
+          <div class="card" style="padding:8px">
+            <div class="thumb">
+              <div class="street" style="left:0;right:0;top:44%;height:10px"></div>
+              <div class="street" style="top:0;bottom:0;left:56%;width:12px"></div>
+              <div class="park" style="left:8%;top:10%;width:30%;height:34%"></div>
+              <div class="pinshadow"></div>
+              <div class="pin"><div class="head"></div><div class="dot"></div></div>
+              <div class="thumbedit">Adjust pin</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="gr"><div class="fl">Address</div><div class="fv">12 Jalan Bukit Pantai, Bangsar</div></div>
+            <div class="gr"><div class="drill"><div class="fvwrap"><div class="fl">State</div><div class="fv">Selangor</div></div><span class="chev">&#9662;</span></div></div>
+            <div class="gr"><div class="drill"><div class="fvwrap"><div class="fl">City</div><div class="fv">Petaling Jaya</div></div><span class="chev">&#9662;</span></div></div>
+            <div class="gr"><div class="fl">Postal code</div><div class="fv">47301</div></div>
+          </div>
+          <div class="ltsub" style="margin-top:2px">From the pin. You can edit any field.</div>
+        </div>
+        <div class="foot"><div class="cta">Continue</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="annos">
+    <h2>Exploration notes</h2>
+    <div class="anno g"><span class="n">1</span><div><b>Same data, less friction.</b> The pin produces the exact lat/long the live app already stores (Google Places gives it today), plus a reverse-geocoded address + state + city + postal, so nothing downstream changes. It just replaces typing with a tap-and-nudge.</div></div>
+    <div class="anno g"><span class="n">2</span><div><b>Type stays as the fallback.</b> Some tutors prefer typing, or GPS is off, or the pin is wrong. The "Type my address instead" path keeps the current autocomplete + manual fields, so nobody is blocked.</div></div>
+    <div class="anno"><span class="n">3</span><div><b>Auto-filled fields stay editable.</b> State / City / Postal show an "Auto" tag but remain drill-in editable, in case the reverse-geocode is slightly off. Never a locked black box.</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Dependency + Hafiz:</b> needs a native map SDK (Google Maps / Mapbox) &middot; a build change, not JS-only. Confirm: reverse-geocode provider + cost, GPS permission copy, and whether the pin lat/long should replace or supplement the current Places lat/long. Privacy: the exact home pin is sensitive &middot; keep it verification-only, never parent-visible. Request matching stays city-based in Step2 (Where &amp; how you teach), not this pin.</div></div>
+  </div>
+</div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ if(m==='dark') p.classList.add('dark'); else p.classList.remove('dark'); });
+    document.querySelectorAll('.modebar .seg2 button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

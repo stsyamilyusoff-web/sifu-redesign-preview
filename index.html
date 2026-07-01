@@ -194,6 +194,17 @@
     <div class="grid" id="grid-acquire"></div>
   </section>
 
+  <!-- ============ STAGE 1b ============ -->
+  <section class="stage">
+    <div class="stage-hd">
+      <span class="idx">01b</span>
+      <h2>Activate</h2>
+      <span class="role">Verify, then the first application</span>
+      <span class="cnt"></span>
+    </div>
+    <div class="grid" id="grid-activate"></div>
+  </section>
+
   <!-- ============ STAGE 2 ============ -->
   <section class="stage">
     <div class="stage-hd">
@@ -275,10 +286,42 @@
       after:'verifycode-a43', before:'VerifyCode',
       chg:'Focus-first OTP with the resend copy fixed to "Resend code in 0:59" (was the broken "Resend End in 59 Seconds"), plus Edit-number recovery.' },
 
+    // ---- Activate ----
+    { stage:'activate', name:'Identity forms (Bio, Education, Emergency)', mock:'activate-identity-forms.html',
+      after:'activate-identity-forms', before:null,
+      chg:'Bio Details (City restored, inline IC age-check, quick-pin home address for verification), Education Details (year picker, backend-driven qualification list), and Emergency Contact (privacy-framed).' },
+    { stage:'activate', name:'Set home location (pin)', mock:'activate-location-pin.html',
+      after:'activate-location-pin', before:null,
+      chg:'NEW: quick-pin picker for the Bio home address (Grab pattern), with type-address fallback. Verification/KYC only, not matching.' },
+    { stage:'activate', name:'Service preference (3-step wizard)', mock:'activate-service-preference.html',
+      after:'activate-service-preference', before:null,
+      chg:'What you teach (curricula multi-select, per-language proficiency), Where and how (mode + teaching area + years of experience), and When you teach (availability, Open-to-other-times toggle).' },
+    { stage:'activate', name:'Set teaching area (pin + radius)', mock:'activate-teaching-area.html',
+      after:'activate-teaching-area', before:null,
+      chg:'NEW: pin + travel-radius teaching area (5/10/15/20 km preset chips). Distance-based matching replaces the old city list; gated on In-person/Hybrid mode.' },
+    { stage:'activate', name:'Verification uploads (docs + video)', mock:'activate-uploads.html',
+      after:'activate-uploads', before:null,
+      chg:'Per-file state treatment (done / uploading / failed+retry), 2 MB doc limit, IC front-only. Intro video reframed around how parents choose you (30-120s, 50 MB).' },
+    { stage:'activate', name:'Application submitted', mock:'activate-application-submitted.html',
+      after:'activate-application-submitted', before:null,
+      chg:'One parametrized screen replaces three near-identical success screens. Adds a review timeline and an Activate-to-Participate fit-request nudge.' },
+    { stage:'activate', name:'Verify gate (Unverify)', mock:'activate-unverify-gate.html',
+      after:'activate-unverify-gate', before:null,
+      chg:'An on-ramp, not a dead-end: step preview, time estimate, and resume-progress for tutors partway through verification.' },
+
     // ---- Participate ----
     { stage:'participate', name:'TutorRequests', mock:'requests-feed-r1.html',
       after:'requests-feed-r1', before:'TutorRequests',
       chg:'Earning-forward feed card (RM / month as motivation) with every fit fact in fixed scan zones and a single-line footer.' },
+    { stage:'participate', name:'Request detail + apply', mock:'wave1-apply-detail.html',
+      after:'wave1-apply-detail', before:null,
+      chg:'The canonical apply screen (Direction-C hero, student card, commission, apply/share). Shared by RequestDetails, RequestDetailById, and RecommendedRequestDetail. Maintained from Wave 1.' },
+    { stage:'participate', name:'Applied request detail', mock:'wave1-applied-detail.html',
+      after:'wave1-applied-detail', before:null,
+      chg:'Post-apply detail: status banner, address gated on approved + in-person, no apply/comment. Maintained from Wave 1.' },
+    { stage:'participate', name:'Request filters', mock:'wave1-request-filters.html',
+      after:'wave1-request-filters', before:null,
+      chg:'The feed filter sheet. Live uses state/city dropdowns; this mock uses GPS multi-pin + radius, gated on a backend location-model decision. Maintained from Wave 1.' },
 
     // ---- Win & Deliver ----
     { stage:'deliver', name:'ClassSchedule', mock:'deliver-class-schedule.html',
@@ -325,6 +368,17 @@
     { stage:'profile', name:'ConsentGate', mock:'updateprofile-a45.html',
       after:'consentgate-a45', before:'ConsentGate',
       chg:'Terms + a Privacy summary + a consent checkbox + "Agree & continue" where the save happens. Casing bug fixed.' },
+
+    // ---- Earn ----
+    { stage:'grow', name:'Earnings hub', mock:'earn-payment-hub.html',
+      after:'earn-payment-hub', before:null,
+      chg:'YTD "Earned in 2026" hero with a paid/pending split, a lean Awaiting-payout row, and the Pending earnings drill-in. Whole-RM, DD-MMM-YYYY, no promised payout date.' },
+    { stage:'grow', name:'Payment ledger (receipt)', mock:'earn-payment-ledger.html',
+      after:'earn-payment-ledger', before:null,
+      chg:'One payout\'s shareable receipt: expandable per-request cards, tap-to-copy payout Ref and Request IDs, deductions shown neutral. The one 2dp screen (exact reconciliation).' },
+    { stage:'grow', name:'Refer a friend + Referral earnings', mock:'earn-refer.html',
+      after:'earn-refer', before:null,
+      chg:'De-hyped referral front door (tap-to-copy code, 3 calm steps) plus Referral earnings (retitled from My Referral Earnings): Balance + Claim, Completed/Pending segmented, neutral-initials avatars.' },
 
     // ---- Support tickets (Chat B) ----
     { stage:'grow', name:'Submit a ticket', mock:'support-ticket-picker.html',
@@ -387,6 +441,10 @@
     'support-form-resignation':'support-SubmitRequestResignation','support-discouragement':'support-Discouragement',
     'profile-status':'profile-Status','profile-view':'profile-Profile','ref-news':'news-News','ref-notifications':'news-Notifications',
     'ref-faqs':'static-FAQs','ref-legal':'static-PrivacyPolicy',
+    'earn-payment-hub':'earn-Payment','earn-payment-ledger':'earn-PaymentLedger','earn-refer':'earn-ReferFriend',
+    'activate-application-submitted':'activate-VerificationSubmittedSuccess','activate-unverify-gate':'activate-UnverifyScreen',
+    'wave1-apply-detail':'participate-RequestDetails','wave1-applied-detail':'participate-TutorAppliedRequestDetails',
+    'wave1-request-filters':'participate-RequestFilters',
   };
   function cardHTML(s){
     const beforeSrc = s.before ? `${T}before-${s.before}.png` : ((LIVE[s.after] && THUMBS[LIVE[s.after]]) || '');
@@ -425,6 +483,7 @@
   // render into stage grids
   const grids = {
     acquire: document.getElementById('grid-acquire'),
+    activate: document.getElementById('grid-activate'),
     participate: document.getElementById('grid-participate'),
     deliver: document.getElementById('grid-deliver'),
     profile: document.getElementById('grid-profile'),

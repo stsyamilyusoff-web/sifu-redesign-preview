@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activate &middot; Uploads (Documents &middot; Intro video) &middot; conformed</title>
+<style>
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12); --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --err:#B3261E; --err-weak:rgba(179,38,30,.10);
+    --thumb:rgba(60,60,67,.08);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px; --radius-lg:16px;
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18); --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(245,158,11,.4);
+    --err:#FF6B61; --err-weak:rgba(255,107,97,.14);
+    --thumb:rgba(235,235,245,.10);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;-webkit-font-smoothing:antialiased}
+  .doc{max-width:1180px;margin:0 auto}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px}
+  .docnote h1{font-size:16px;margin:0 0 7px;color:#18181b} .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:#52525b}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .modebar{display:flex;gap:7px;margin:0 0 20px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2 button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .grouplabel{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#71717a;margin:22px 0 11px}
+  .frames{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:9px}
+  .framelabel .be{color:#a1a1aa} .framelabel .af{color:#2B2FBE}
+
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink)}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+  .navc{display:flex;align-items:center;height:44px;position:relative;flex-shrink:0;padding:2px 12px 2px}
+  .navc .back{display:inline-flex;align-items:center;gap:2px;color:var(--tint);font-size:16px;font-weight:600;z-index:2}
+  .navc .back .bx{font-size:23px;font-weight:400;line-height:1;margin-top:-1px}
+  .navc .ntitle{position:absolute;left:64px;right:64px;text-align:center;font-size:17px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .wizprog{padding:2px 16px 0;flex-shrink:0}
+  .wizbar{height:5px;border-radius:999px;background:var(--tint-weak);overflow:hidden}
+  .wizbar i{display:block;height:100%;background:var(--tint);border-radius:999px}
+  .wizstep{font-size:11.5px;font-weight:700;color:var(--ink-3);margin-top:7px}
+
+  .scroll{flex:1;overflow:hidden;padding:0 16px}
+  .dh{font-size:23px;font-weight:800;color:var(--ink);letter-spacing:-.4px;line-height:1.15;margin:6px 0 5px}
+  .ltsub{font-size:13px;color:var(--ink-2);line-height:1.45;margin:4px 0 14px}
+
+  .upsum{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--ink-2);margin-bottom:10px}
+  .upsum .pct{color:var(--tint);font-weight:800}
+  .doclist{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden}
+  .drow{display:flex;align-items:center;gap:12px;padding:13px 14px;border-top:1px solid var(--hair)}
+  .drow:first-child{border-top:none}
+  .thumb{width:42px;height:42px;border-radius:9px;background:var(--thumb);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;overflow:hidden}
+  .thumb.img{background:linear-gradient(135deg,#9fb4e8,#6f86d6)}
+  .dmid{flex:1;min-width:0}
+  .dname{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .dmeta{font-size:11px;color:var(--ink-3);margin-top:2px}
+  .dmeta.req{color:var(--ink-2)}
+  .dbar{height:4px;background:var(--tint-weak);border-radius:99px;margin-top:6px;overflow:hidden}
+  .dbar i{display:block;height:100%;background:var(--tint);border-radius:99px}
+  .dstate{flex-shrink:0;font-size:11px;font-weight:800;display:flex;align-items:center;gap:5px}
+  .dstate.done{color:var(--green-ink)}
+  .dstate.prog{color:var(--tint)}
+  .dstate.err{color:var(--err)}
+  .pill-action{font-size:11px;font-weight:800;color:var(--tint);background:var(--tint-weak);border-radius:999px;padding:5px 12px}
+  .pill-redo{font-size:11px;font-weight:700;color:var(--ink-2);background:var(--thumb);border-radius:999px;padding:5px 11px}
+  .help{font-size:11.5px;color:var(--ink-2);line-height:1.45;display:flex;gap:7px;align-items:flex-start;padding:0 4px;margin-top:14px}
+  .help .ico{color:var(--ink-3);font-weight:800;flex-shrink:0}
+
+  /* intro video */
+  .dh2{font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-.4px;line-height:1.14;margin:6px 0 5px}
+  .vhero{border-radius:16px;background:linear-gradient(135deg,#2B2FBE,#3a52c8);height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;overflow:hidden;margin-bottom:14px}
+  .dark .vhero{background:linear-gradient(135deg,#3a4db8,#5566cc)}
+  .vhero .playbtn{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:8px}
+  .vhero .vh-cap{font-size:11px;font-weight:700;opacity:.92}
+  .why-card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:13px 15px;margin-bottom:14px}
+  .why-h{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:9px;display:flex;align-items:center;gap:7px}
+  .why-h .star{color:var(--amber-ink)}
+  .tiprow{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;color:var(--ink-2);line-height:1.4;padding:5px 0}
+  .tiprow .ti-ic{flex-shrink:0;font-size:14px}
+  .reassure{font-size:11.5px;color:var(--ink-2);display:flex;gap:7px;align-items:flex-start;line-height:1.4;padding:0 4px}
+  .reassure .ico{color:var(--green-ink);font-weight:800;flex-shrink:0}
+  .vpreview{border-radius:16px;background:var(--thumb);height:150px;position:relative;overflow:hidden;display:flex;align-items:flex-end;margin-bottom:12px}
+  .vpreview .pimg{position:absolute;inset:0;background:linear-gradient(135deg,#7f93d8,#4a61b8)}
+  .vpreview .ptime{position:relative;margin:10px;font-size:11px;font-weight:800;color:#fff;background:rgba(0,0,0,.4);border-radius:6px;padding:3px 8px}
+  .vpreview .pplay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--tint)}
+  .vstatus{display:flex;align-items:center;gap:8px;background:var(--green-weak);border-radius:10px;padding:10px 13px;margin-bottom:14px}
+  .vstatus .tk{color:var(--green-ink);font-weight:800;font-size:15px}
+  .vstatus .vt{font-size:11.5px;color:var(--green-ink);font-weight:700;line-height:1.35}
+
+  .foot{position:absolute;left:0;right:0;bottom:0;padding:12px 16px 24px;background:linear-gradient(to top,var(--canvas) 62%,rgba(242,242,247,0))}
+  .dark .foot{background:linear-gradient(to top,#000 62%,rgba(0,0,0,0))}
+  .cta{height:52px;border-radius:14px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700;box-shadow:var(--shadow-cta)}
+  .cta.dim{background:var(--ink-4);box-shadow:none}
+  .vbtns{display:flex;gap:9px}
+  .vbtn{flex:1;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:15px;font-weight:700}
+  .vbtn.pri{background:var(--tint);color:#fff;box-shadow:var(--shadow-cta)}
+  .vbtn.sec{background:var(--tint-weak);color:var(--tint)}
+
+  /* before (live) */
+  .b-nav{display:flex;align-items:center;gap:10px;height:44px;padding:0 4px;flex-shrink:0}
+  .b-bk{font-size:22px;color:var(--ink-2)}
+  .b-ttl{font-size:19px;font-weight:800;color:var(--ink)}
+  .b-body{flex:1;overflow:hidden;padding:12px 16px 0}
+  .b-card{background:var(--card);border:1px solid var(--hair-strong);border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;font-size:14px;color:var(--ink)}
+  .b-card .cloud{font-size:18px;color:var(--ink-2)}
+  .b-cta{height:48px;border-radius:999px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;margin-top:6px}
+  .b-info{background:var(--tint-weak);border-radius:14px;padding:15px;font-size:13px;color:var(--ink);line-height:1.5;margin-bottom:13px}
+  .b-bul{font-size:12px;color:var(--ink-2);line-height:1.9;margin-top:4px}
+  .b-obtn{height:48px;border:1px solid var(--tint-weak);border-radius:999px;background:var(--tint-weak);color:var(--tint);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin-bottom:10px}
+
+  .annos{max-width:1180px;margin:18px auto 0}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .audit{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid #e7e7ea;border-radius:10px;overflow:hidden;margin-bottom:14px}
+  .audit th,.audit td{text-align:left;padding:8px 11px;border-top:1px solid #eee;vertical-align:top}
+  .audit th{background:#f6f6f8;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#71717a;border-top:none}
+  .audit td b{color:#18181b}
+  .vd{font-weight:800;font-size:11px;border-radius:5px;padding:1px 7px;white-space:nowrap}
+  .vd.keep{background:#e9f5ee;color:#166534} .vd.cut{background:#fbeaea;color:#b3261e} .vd.gate{background:#eef1fb;color:#2B2FBE} .vd.add{background:#fdf6e7;color:#92400e} .vd.fix{background:#fbeaea;color:#b3261e}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Activate &middot; Uploads (Documents and Intro video)</h1>
+    The two upload steps of the verification wizard. <b>Conformed to Wave-1</b>: canonical <code>--tint</code> tokens, <code>.dark</code>, true 402&times;874, header split (centered step-title + labeled back + progress; the duplicated large title dropped), no dashes. <b>Fidelity fixes, verified in code:</b> size limit is <b>2 MB</b> (was 5 MB); the identity card is <b>one upload, front</b> (live submits <code>identity_card_front</code> only, no back); the video review line is softened (live shows "Pending review", no SLA promise). Documents keeps the "nothing fails silently" per-file state; the video keeps the "how parents choose you" reframe. Red is kept only for a failed upload. Colour budget held (green = done).
+    <div class="legend">
+      <span><i style="background:#2B2FBE"></i>Tint = action + uploading</span>
+      <span><i style="background:#166534"></i>Green = uploaded / done</span>
+      <span><i style="background:#b3261e"></i>Red = upload failed</span>
+      <span><i style="background:#F2F2F7;border:1px solid #ccc"></i>Grouped-grey canvas</span>
+    </div>
+  </div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
+  </div>
+
+  <!-- ============ DOCUMENTS ============ -->
+  <div class="grouplabel">Step 4 &middot; Documents (per-file state, nothing fails silently)</div>
+  <div class="frames">
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Mixed states (done / uploading / to-do)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Upload documents</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:80%"></i></div><div class="wizstep">Step 4 of 5</div></div>
+        <div class="scroll">
+          <div class="ltsub">Clear files, under 2 MB each. PDF or image.</div>
+          <div class="upsum"><span>2 of 4 uploaded</span><span>&middot;</span><span class="pct">50%</span></div>
+          <div class="doclist">
+            <div class="drow"><div class="thumb">&#128196;</div><div class="dmid"><div class="dname">Resume</div><div class="dmeta">resume_ahmad.pdf &middot; 380 KB</div></div><div class="dstate done">&#10003; Done</div></div>
+            <div class="drow"><div class="thumb img">&#127891;</div><div class="dmid"><div class="dname">Education transcript</div><div class="dmeta">transcript.jpg &middot; 1.2 MB</div></div><div class="dstate done">&#10003; Done</div></div>
+            <div class="drow"><div class="thumb img"></div><div class="dmid"><div class="dname">Formal photo</div><div class="dmeta">Uploading 60%</div><div class="dbar"><i style="width:60%"></i></div></div><div class="dstate prog">60%</div></div>
+            <div class="drow"><div class="thumb">&#128196;</div><div class="dmid"><div class="dname">Identity card</div><div class="dmeta req">Required &middot; clear, all corners visible</div></div><span class="pill-action">Upload</span></div>
+          </div>
+          <div class="help"><span class="ico">&#128274;</span><span>Documents are used only to verify you. Parents never see them.</span></div>
+        </div>
+        <div class="foot"><div class="cta dim">Continue when all uploaded</div></div>
+      </div>
+    </div>
+
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; One failed</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Upload documents</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:80%"></i></div><div class="wizstep">Step 4 of 5</div></div>
+        <div class="scroll">
+          <div class="ltsub">Clear files, under 2 MB each. PDF or image.</div>
+          <div class="upsum"><span>3 of 4 uploaded</span><span>&middot;</span><span class="pct" style="color:var(--err)">1 needs attention</span></div>
+          <div class="doclist">
+            <div class="drow"><div class="thumb">&#128196;</div><div class="dmid"><div class="dname">Resume</div><div class="dmeta">resume_ahmad.pdf &middot; 380 KB</div></div><span class="pill-redo">Replace</span></div>
+            <div class="drow"><div class="thumb img"></div><div class="dmid"><div class="dname">Education transcript</div><div class="dmeta">transcript.jpg &middot; 1.2 MB</div></div><span class="pill-redo">Replace</span></div>
+            <div class="drow"><div class="thumb img"></div><div class="dmid"><div class="dname">Formal photo</div><div class="dmeta">photo.jpg &middot; 880 KB</div></div><span class="pill-redo">Replace</span></div>
+            <div class="drow"><div class="thumb">&#9888;</div><div class="dmid"><div class="dname">Identity card</div><div class="dmeta" style="color:var(--err)">File too large. Keep it under 2 MB.</div></div><div class="dstate err">Retry</div></div>
+          </div>
+          <div class="help"><span class="ico">&#128274;</span><span>Documents are used only to verify you. Parents never see them.</span></div>
+        </div>
+        <div class="foot"><div class="cta dim">Fix 1 file to continue</div></div>
+      </div>
+    </div>
+
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live Upload Documents</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="b-nav"><span class="b-bk">&#8249;</span><span class="b-ttl">Upload Documents</span></div>
+        <div class="b-body">
+          <div class="b-card">Resume <span class="cloud">&#9729;</span></div>
+          <div class="b-card">Education Transcript <span class="cloud">&#9729;</span></div>
+          <div class="b-card">Formal Photo <span class="cloud">&#9729;</span></div>
+          <div class="b-card">Identity Card <span class="cloud">&#9729;</span></div>
+          <div class="b-cta">Save</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annos">
+    <table class="audit">
+      <tr><th>Document (live key)</th><th>Verdict</th><th>Reasoning (verified vs VerificationDocumentsUpload/index.tsx)</th></tr>
+      <tr><td><b>Resume</b> (<code>resume</code>)</td><td><span class="vd keep">KEEP</span> + <span class="vd add">state</span></td><td>Real, required. ADD a done state + file name + size + thumbnail so the tutor sees it landed.</td></tr>
+      <tr><td><b>Education transcript</b> (<code>education_transcript</code>)</td><td><span class="vd keep">KEEP</span> + <span class="vd add">state</span></td><td>Real, required. Per-file state replaces the silent cloud icon.</td></tr>
+      <tr><td><b>Formal photo</b> (<code>formal_photo</code>)</td><td><span class="vd keep">KEEP</span> + <span class="vd add">state</span></td><td>Real, required. Shown mid-upload with a live progress bar.</td></tr>
+      <tr><td><b>Identity card</b> (<code>identity_card</code> &rarr; <code>identity_card_front</code>)</td><td><span class="vd keep">KEEP</span> + <span class="vd fix">FIX</span></td><td>Real, required. <b>One upload, front only</b> in live (submits <code>identity_card_front</code>); the prior mock's "front and back" is not in code, relabelled to "Identity card". ADD the "all corners visible" hint + explicit error.</td></tr>
+      <tr><td><b>File size limit</b></td><td><span class="vd fix">FIX</span></td><td>Live rejects &gt; <b>2 MB</b> ("Please select a file smaller than 2MB"); the prior mock said 5 MB. Corrected to 2 MB in the subtitle + the error copy.</td></tr>
+    </table>
+    <div class="anno g"><span class="n">1</span><div><b>Per-file state, nothing fails silently.</b> Each row shows done (green tick + name + size), uploading (live % bar), to-do (Upload pill), or failed (red + reason + Retry). The "2 of 4 uploaded, 50%" summary is the at-a-glance total the live screen lacks.</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz:</b> confirm the required set is exactly these 4; confirm <b>IC front-only vs front+back</b> (live only submits front, verification may want the back); accepted types are <code>pdf</code> + <code>images</code> (PDF or image); endpoint <code>POST tutor/documents</code>.</div></div>
+  </div>
+
+  <!-- ============ INTRO VIDEO ============ -->
+  <div class="grouplabel">Step 5 &middot; Intro video (framed as "how parents choose you")</div>
+  <div class="frames">
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Before recording</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Intro video</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:100%"></i></div><div class="wizstep">Step 5 of 5</div></div>
+        <div class="scroll">
+          <div class="dh2">This is how parents choose you</div>
+          <div class="ltsub">A short intro is the first thing parents watch. We also use it to confirm it is really you.</div>
+          <div class="vhero"><div class="playbtn">&#9658;</div><div class="vh-cap">30 to 120 seconds &middot; up to 50 MB</div></div>
+          <div class="why-card">
+            <div class="why-h"><span class="star">&#9733;</span> Tips for a video that wins jobs</div>
+            <div class="tiprow"><span class="ti-ic">&#9728;</span><span>Good light, face the camera</span></div>
+            <div class="tiprow"><span class="ti-ic">&#128522;</span><span>Be warm and yourself, parents are choosing a person</span></div>
+            <div class="tiprow"><span class="ti-ic">&#11088;</span><span>Lead with your strongest subject</span></div>
+            <div class="tiprow"><span class="ti-ic">&#9201;</span><span>Under a minute is plenty</span></div>
+          </div>
+          <div class="reassure"><span class="ico">&#10003;</span><span>We review every video before it appears on your profile.</span></div>
+        </div>
+        <div class="foot"><div class="vbtns"><div class="vbtn pri">&#9210; Record</div><div class="vbtn sec">Choose file</div></div></div>
+      </div>
+    </div>
+
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Recorded (review and submit)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Intro video</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:100%"></i></div><div class="wizstep">Step 5 of 5</div></div>
+        <div class="scroll">
+          <div class="dh2">This is how parents choose you</div>
+          <div class="ltsub">Watch it back. Re-record until it feels right.</div>
+          <div class="vpreview"><div class="pimg"></div><div class="pplay">&#9658;</div><div class="ptime">0:48</div></div>
+          <div class="vstatus"><span class="tk">&#10003;</span><span class="vt">Looks good. We review it before it appears, usually within a few business days.</span></div>
+          <div class="why-card">
+            <div class="why-h"><span class="star">&#9733;</span> Before you submit</div>
+            <div class="tiprow"><span class="ti-ic">&#128064;</span><span>Your face is clear and well lit</span></div>
+            <div class="tiprow"><span class="ti-ic">&#128266;</span><span>Your voice is easy to hear</span></div>
+          </div>
+          <div class="reassure"><span class="ico">&#10003;</span><span>Only reviewed videos appear to parents.</span></div>
+        </div>
+        <div class="foot"><div class="vbtns"><div class="vbtn pri" style="flex:2">Use this video</div><div class="vbtn sec">Re-record</div></div></div>
+      </div>
+    </div>
+
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live Intro Video</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="b-nav"><span class="b-bk">&#8249;</span><span class="b-ttl">Intro Video</span></div>
+        <div class="b-body">
+          <div class="b-info">Add a 30 to 120 second intro video to your profile.
+            <div class="b-bul">&bull; Speak clearly and face the camera.<br>&bull; Find good lighting (daylight works well).<br>&bull; Introduce yourself and your teaching style.<br>&bull; We review each video before it appears on your profile.</div>
+          </div>
+          <div class="b-obtn">Record a video</div>
+          <div class="b-obtn" style="background:var(--card);border-color:var(--hair-strong);color:var(--ink)">Choose from Gallery</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annos">
+    <table class="audit">
+      <tr><th>Element</th><th>Verdict</th><th>Reasoning (verified vs IntroVideoUpload/index.tsx)</th></tr>
+      <tr><td><b>Intro video file</b></td><td><span class="vd keep">KEEP</span></td><td>Real. 30 to 120 s (<code>MIN/MAX_VIDEO_DURATION</code>), up to 50 MB. Dual purpose: identity proof + the parent-facing showcase. In-app <b>recording is supported</b> (record / gallery), so both buttons are real.</td></tr>
+      <tr><td><b>Tips list</b></td><td><span class="vd keep">KEEP</span> + reframe</td><td>Kept, reframed to "tips for a video that wins jobs" (the live tips include "Speak clearly and face the camera", "We review each video...").</td></tr>
+      <tr><td><b>Recorded preview + review</b></td><td><span class="vd add">ADD</span></td><td>Live has no recorded UI. ADD a playback preview, a self-check, and the honest review line. Status maps to live "Pending review".</td></tr>
+      <tr><td><b>Review-time line</b></td><td><span class="vd keep">KEEP</span></td><td>Aligned to the live success copy ("we review intro videos... usually within a few business days"); the prior mock's "2 working days" was tightened to match the real wording.</td></tr>
+    </table>
+    <div class="anno g"><span class="n">1</span><div><b>Reframed as the advertisement.</b> "This is how parents choose you" tells the tutor why it matters, lifting quality. Identity proof + parent-facing showcase in one, so it stays inside the verification gate.</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz (important):</b> the intro-video endpoint <code>POST tutor/intro-video</code> is <b>NOT on the release branch</b> and is <b>flag-gated behind <code>enhanced_data_collection_enabled</code></b> (integration-only) &middot; the video step may not be live yet, confirm the rollout. 30 to 120 s + 50 MB + record/gallery are code-confirmed. Also reached standalone (ProfileMenu + a profile-completeness drip prompt), not only in the wizard. Written pitch stays on ServicePreference Step 2 (the video is the pitch here).</div></div>
+  </div>
+</div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ if(m==='dark') p.classList.add('dark'); else p.classList.remove('dark'); });
+    document.querySelectorAll('.modebar .seg2 button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

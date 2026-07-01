@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activate &middot; Application submitted (consolidated) &middot; conformed</title>
+<style>
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12); --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px; --radius-lg:16px;
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18); --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(245,158,11,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;-webkit-font-smoothing:antialiased}
+  .doc{max-width:1180px;margin:0 auto}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px}
+  .docnote h1{font-size:16px;margin:0 0 7px;color:#18181b} .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:#52525b}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .modebar{display:flex;gap:7px;margin:0 0 20px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2 button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .grouplabel{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#71717a;margin:20px 0 11px}
+  .frames{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:9px}
+  .framelabel .be{color:#a1a1aa} .framelabel .af{color:#2B2FBE}
+
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink)}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+  .scroll{flex:1;overflow:hidden;padding:12px 16px 108px;display:flex;flex-direction:column;gap:14px}
+
+  .confhead{text-align:center;padding:8px 6px 2px}
+  .tick{width:62px;height:62px;border-radius:50%;background:var(--green-weak);color:var(--green-ink);font-size:32px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+  .ctitle{font-size:23px;font-weight:800;color:var(--ink);letter-spacing:-.4px}
+  .csub{font-size:13.5px;color:var(--ink-2);line-height:1.45;margin-top:7px}
+
+  .tl{background:var(--card);border-radius:var(--radius-lg);padding:6px 16px;box-shadow:var(--shadow)}
+  .tlrow{display:flex;gap:13px;padding:13px 0;align-items:center}
+  .tlrow+.tlrow{border-top:1px solid var(--hair)}
+  .dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+  .dot.done{background:var(--green-weak);color:var(--green-ink)}
+  .dot.now{background:var(--tint);color:#fff}
+  .dot.next{background:var(--tint-weak);color:var(--tint-ink)}
+  .tltxt{flex:1;min-width:0}
+  .tlname{font-size:14px;font-weight:700;color:var(--ink)}
+  .tlname.muted{color:var(--ink-2);font-weight:600}
+  .tlmeta{font-size:11.5px;color:var(--ink-3);margin-top:2px;line-height:1.35}
+  .tlnow{font-size:10px;font-weight:800;color:var(--tint-ink);background:var(--tint-weak);border-radius:999px;padding:2px 9px;align-self:center;flex-shrink:0}
+
+  .nudgehd{font-size:13px;font-weight:800;color:var(--ink);margin:2px 2px 8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .nudgehd .lock{font-size:10.5px;font-weight:700;color:var(--ink-3);background:var(--fill);border-radius:999px;padding:2px 9px}
+  .reqcard{background:var(--card);border-radius:12px;padding:13px 14px;display:flex;align-items:center;gap:11px;box-shadow:var(--shadow);margin-bottom:8px}
+  .reqcard.locked{opacity:.72}
+  .rc-c{flex:1;min-width:0}
+  .rc-subj{font-size:14.5px;font-weight:700;color:var(--ink)} .rc-lvl{font-size:12px;font-weight:400;color:var(--ink-2)}
+  .rc-icons{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:5px}
+  .rc-ic{font-size:11.5px;color:var(--ink-2)} .rc-dot{color:var(--ink-3);font-size:10px}
+  .rc-fit{font-size:11.5px;color:var(--green-ink);font-weight:700;margin-top:5px}
+  .rc-anchor{width:72px;flex-shrink:0;border-radius:10px;background:var(--fill);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:9px 4px}
+  .rc-mode{font-size:9.5px;font-weight:800;color:var(--ink);letter-spacing:.2px} .rc-money{font-size:16px;font-weight:800;color:var(--ink);line-height:1} .rc-cur{font-size:9px;font-weight:700;color:var(--ink-2)}
+  .nudgesub{font-size:11px;color:var(--ink-3);text-align:center;margin-top:2px;line-height:1.4}
+
+  .foot{position:absolute;left:0;right:0;bottom:0;padding:12px 16px 22px;background:linear-gradient(to top,var(--canvas) 62%,rgba(242,242,247,0))}
+  .dark .foot{background:linear-gradient(to top,#000 62%,rgba(0,0,0,0))}
+  .cta{height:52px;border-radius:14px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700;box-shadow:var(--shadow-cta)}
+  .cta.ghost{background:transparent;color:var(--tint);box-shadow:none;height:42px;font-size:14.5px;margin-top:5px;font-weight:700}
+
+  /* before (live) */
+  .center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px}
+  .illu{width:130px;height:130px;border-radius:20px;background:var(--tint-weak);display:flex;align-items:center;justify-content:center;font-size:56px;margin-bottom:18px}
+  .bt{font-size:24px;font-weight:800;color:var(--ink)}
+  .bsub{font-size:13px;color:var(--ink-2);margin-top:8px;line-height:1.45}
+  .bbtn{height:50px;width:100%;border-radius:999px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;margin-top:26px}
+  .bnote{font-size:12px;color:var(--ink-3);margin-top:16px;line-height:1.4}
+
+  .annos{max-width:1180px;margin:22px auto 0}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Activate &middot; Application submitted (consolidated)</h1>
+    <b>One screen replaces three.</b> Live has three near-identical "Thank You / We have received your application" confirmations (<code>VerificationSubmittedSuccess</code> + the two <code>TutorVerificationProcess</code> successes) that dead-end on "Done". <b>Conformed to Wave-1</b>: canonical <code>--tint</code> tokens, <code>.dark</code>, true 402&times;874, no dashes. Consolidated into one parametrized screen that adds the two things the live misses: an <b>honest review timeline</b> and the <b>Activate to Participate nudge</b> (a locked preview of the fit requests waiting once verified, so there is no empty Home after approval). Calm copy, no hype. Colour budget held (green = done).
+    <div class="legend">
+      <span><i style="background:#2B2FBE"></i>Tint = action + current stage</span>
+      <span><i style="background:#166534"></i>Green = completed / submitted</span>
+      <span><i style="background:#F2F2F7;border:1px solid #ccc"></i>Grouped-grey canvas</span>
+    </div>
+  </div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
+  </div>
+
+  <div class="grouplabel">After &middot; the consolidated screen (parametrized: new + returning)</div>
+  <div class="frames">
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Submitted (new tutor)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="scroll">
+          <div class="confhead">
+            <div class="tick">&#10003;</div>
+            <div class="ctitle">Application submitted</div>
+            <div class="csub">Thanks. We are reviewing your profile and will let you know.</div>
+          </div>
+          <div class="tl">
+            <div class="tlrow"><span class="dot done">&#10003;</span><div class="tltxt"><div class="tlname muted">Submitted</div><div class="tlmeta">Today</div></div></div>
+            <div class="tlrow"><span class="dot now">&#8226;</span><div class="tltxt"><div class="tlname">Under review</div><div class="tlmeta">Usually a few business days</div></div><span class="tlnow">Now</span></div>
+            <div class="tlrow"><span class="dot next">&#9733;</span><div class="tltxt"><div class="tlname">Verified, then apply</div><div class="tlmeta">We notify you and open requests</div></div></div>
+          </div>
+          <div>
+            <div class="nudgehd">Waiting for you once verified <span class="lock">&#128274; Apply when verified</span></div>
+            <div class="reqcard locked">
+              <div class="rc-c">
+                <div class="rc-subj">Mathematics <span class="rc-lvl">&middot; Form 4</span></div>
+                <div class="rc-icons"><span class="rc-ic">Online</span><span class="rc-dot">&middot;</span><span class="rc-ic">Tue 8:00 PM</span><span class="rc-dot">&middot;</span><span class="rc-ic">1.5h</span></div>
+                <div class="rc-fit">&#10003; Matches your subject and level</div>
+              </div>
+              <div class="rc-anchor"><div class="rc-mode">ONLINE</div><div class="rc-money"><span class="rc-cur">RM</span> 94</div></div>
+            </div>
+            <div class="reqcard locked">
+              <div class="rc-c">
+                <div class="rc-subj">Add Maths <span class="rc-lvl">&middot; Form 5</span></div>
+                <div class="rc-icons"><span class="rc-ic">In-person</span><span class="rc-dot">&middot;</span><span class="rc-ic">Petaling Jaya</span><span class="rc-dot">&middot;</span><span class="rc-ic">2h</span></div>
+                <div class="rc-fit">&#10003; Matches your subject and area</div>
+              </div>
+              <div class="rc-anchor"><div class="rc-mode">IN-PERSON</div><div class="rc-money"><span class="rc-cur">RM</span> 120</div></div>
+            </div>
+            <div class="nudgesub">3 requests match what you teach right now</div>
+          </div>
+        </div>
+        <div class="foot"><div class="cta">Go to Home</div><div class="cta ghost">Browse all requests</div></div>
+      </div>
+    </div>
+
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Submitted (returning tutor variant)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="scroll">
+          <div class="confhead">
+            <div class="tick">&#10003;</div>
+            <div class="ctitle">Profile resubmitted</div>
+            <div class="csub">Thanks. We are reviewing your updated details and will let you know.</div>
+          </div>
+          <div class="tl">
+            <div class="tlrow"><span class="dot done">&#10003;</span><div class="tltxt"><div class="tlname muted">Resubmitted</div><div class="tlmeta">Today</div></div></div>
+            <div class="tlrow"><span class="dot now">&#8226;</span><div class="tltxt"><div class="tlname">Under review</div><div class="tlmeta">Usually a few business days</div></div><span class="tlnow">Now</span></div>
+            <div class="tlrow"><span class="dot next">&#9733;</span><div class="tltxt"><div class="tlname">Back to applying</div><div class="tlmeta">Your requests reopen once verified</div></div></div>
+          </div>
+          <div>
+            <div class="nudgehd">Picking up where you left off</div>
+            <div class="reqcard">
+              <div class="rc-c">
+                <div class="rc-subj">Physics <span class="rc-lvl">&middot; Form 4</span></div>
+                <div class="rc-icons"><span class="rc-ic">Online</span><span class="rc-dot">&middot;</span><span class="rc-ic">Mon 5:00 PM</span><span class="rc-dot">&middot;</span><span class="rc-ic">2h</span></div>
+                <div class="rc-fit">&#10003; Matches your subject and level</div>
+              </div>
+              <div class="rc-anchor"><div class="rc-mode">ONLINE</div><div class="rc-money"><span class="rc-cur">RM</span> 110</div></div>
+            </div>
+            <div class="nudgesub">Reviewing usually takes a few business days</div>
+          </div>
+        </div>
+        <div class="foot"><div class="cta">Go to Home</div><div class="cta ghost">View my applications</div></div>
+      </div>
+    </div>
+
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live (one of 3 identical)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="center">
+          <div class="illu">&#127881;</div>
+          <div class="bt">Thank You!</div>
+          <div class="bsub">We have received your application.</div>
+          <div class="bbtn">Done</div>
+          <div class="bnote">We will reach out to you once your profile has been verified.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annos">
+    <h2>What each change does (verified vs VerificationSubmittedSuccess/index.tsx)</h2>
+    <div class="anno g"><span class="n">1</span><div><b>Three screens become one.</b> <code>VerificationSubmittedSuccess</code> ("Thank You! / We have received your application") + the two <code>TutorVerificationProcess</code> successes are the same idea. One parametrized screen takes the title + body + third-timeline label, so a new submit and a resubmit reuse the same component (two variants shown).</div></div>
+    <div class="anno"><span class="n">2</span><div><b>Honest review timeline.</b> Submitted &rarr; Under review (now, a few business days) &rarr; Verified then apply. A clear expectation instead of the live open-ended "we will reach out".</div></div>
+    <div class="anno g"><span class="n">3</span><div><b>Activate to Participate nudge.</b> A locked preview of fit requests waiting once verified, from the subjects + area just entered. The activation lever the live "Done" dead-end throws away, no empty Home after approval.</div></div>
+    <div class="anno"><span class="n">4</span><div><b>Calm copy + two real exits.</b> "Application submitted" not "Thank You!", no exclamation. Primary "Go to Home" + a quiet secondary; the request preview is clearly locked until verified.</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz:</b> (a) the request preview needs the matching feed to return fit requests for a not-yet-verified tutor (read-only, apply-gated) from the subjects / mode / teaching area just submitted, else fall back to "we will show requests once verified"; (b) confirm the review SLA (live has no number; "a few business days" matches the intro-video copy); (c) confirm the returning-tutor ("resubmitted") copy is a distinct state. Live: "Done" &rarr; Home.</div></div>
+  </div>
+</div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ if(m==='dark') p.classList.add('dark'); else p.classList.remove('dark'); });
+    document.querySelectorAll('.modebar .seg2 button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

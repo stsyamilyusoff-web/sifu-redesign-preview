@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activate &middot; Identity forms (Bio &middot; Education &middot; Emergency) &middot; conformed</title>
+<style>
+  /* canonical Wave-1 tokens (+ a functional red --err for hard form errors, founder-approved 2026-07-01) */
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12); --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --err:#B3261E; --err-weak:rgba(179,38,30,.10); --err-line:rgba(179,38,30,.30);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px; --radius-lg:16px;
+    --map:#E5EAE6; --map-street:#FFFFFF; --map-park:#CFE6CF;
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18); --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(255,214,10,.4);
+    --err:#FF6B61; --err-weak:rgba(255,107,97,.14); --err-line:rgba(255,107,97,.32);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --map:#20262A; --map-street:#3A4248; --map-park:#2A3A2E;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b;-webkit-font-smoothing:antialiased}
+  .doc{max-width:1180px;margin:0 auto}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:18px}
+  .docnote h1{font-size:16px;margin:0 0 7px;color:#18181b} .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:#52525b}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .modebar{display:flex;gap:7px;margin:0 0 20px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2 button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .grouplabel{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#71717a;margin:22px 0 11px}
+  .frames{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12px;font-weight:700;color:#52525b;margin-bottom:9px}
+  .framelabel .be{color:#a1a1aa} .framelabel .af{color:#2B2FBE}
+
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.3px}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+  /* wizard header: centered nav-title + labeled back, then a progress bar + step caption */
+  .navc{display:flex;align-items:center;height:44px;position:relative;flex-shrink:0;padding:2px 12px 2px}
+  .navc .back{display:inline-flex;align-items:center;gap:2px;color:var(--tint);font-size:16px;font-weight:600;z-index:2}
+  .navc .back .bx{font-size:23px;font-weight:400;line-height:1;margin-top:-1px}
+  .navc .ntitle{position:absolute;left:64px;right:64px;text-align:center;font-size:17px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .wizprog{padding:2px 16px 0;flex-shrink:0}
+  .wizbar{height:5px;border-radius:999px;background:var(--tint-weak);overflow:hidden}
+  .wizbar i{display:block;height:100%;background:var(--tint);border-radius:999px}
+  .wizstep{font-size:11.5px;font-weight:700;color:var(--ink-3);margin-top:7px}
+
+  .scroll{flex:1;overflow:hidden;padding:0 16px}
+  .ltsub{font-size:13px;color:var(--ink-2);line-height:1.45;margin:6px 0 14px}
+
+  /* grouped form card (label-above-value rows) */
+  .grp{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+  .gcap{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);padding:12px 15px 0}
+  .gr{padding:12px 15px;border-top:1px solid var(--hair)}
+  .gr:first-child{border-top:none}
+  .fl{font-size:11px;color:var(--ink-3);font-weight:600}
+  .fv{font-size:15px;font-weight:600;color:var(--ink);margin-top:3px}
+  .fv.placeholder{color:var(--ink-3);font-weight:400}
+  .gr.locked{background:var(--fill)}
+  .lockrow{display:flex;align-items:center;gap:8px}
+  .lockrow .fvwrap{flex:1;min-width:0}
+  .locktag{font-size:9.5px;font-weight:700;color:var(--ink-3);background:var(--fill);border:1px solid var(--hair);border-radius:999px;padding:2px 8px;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+  .drill{display:flex;align-items:center;gap:8px}
+  .drill .fvwrap{flex:1;min-width:0}
+  .chev{font-size:15px;color:var(--ink-3)}
+  .gr.errbox{background:var(--err-weak)}
+  .gr.okbox{background:var(--green-weak)}
+  .vnote{font-size:11px;font-weight:700;margin-top:6px;display:flex;align-items:center;gap:5px}
+  .vnote.ok{color:var(--green-ink)} .vnote.bad{color:var(--err)}
+
+  .help{font-size:11.5px;color:var(--ink-2);line-height:1.45;display:flex;gap:7px;align-items:flex-start;padding:0 4px;margin-bottom:14px}
+  .help .ico{color:var(--tint);font-weight:800;flex-shrink:0}
+  .help.lock .ico{color:var(--ink-3)}
+  .phoneprefix{display:flex;align-items:center;gap:9px}
+  .flag-chip{width:24px;height:16px;border-radius:3px;background:linear-gradient(180deg,#cc0001 0 16%,#fff 16% 28%,#cc0001 28% 44%,#fff 44% 56%,#cc0001 56% 72%,#fff 72% 84%,#cc0001 84% 100%);position:relative;overflow:hidden;flex-shrink:0;border:1px solid var(--hair)}
+  .flag-chip::before{content:"";position:absolute;left:0;top:0;width:12px;height:56%;background:#010066}
+  .flag-chip::after{content:"\2605";position:absolute;left:2px;top:0px;color:#ffce00;font-size:7px}
+  .examples{display:flex;gap:9px;margin-bottom:14px}
+  .ex{flex:1;border-radius:10px;padding:8px 10px;font-size:10.5px;font-weight:700;line-height:1.35}
+  .ex.ok{background:var(--green-weak);color:var(--green-ink)}
+  .ex.bad{background:var(--err-weak);color:var(--err)}
+
+  /* location (quick-pin primary, type fallback) */
+  .sech{font-size:12px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;margin:2px 4px 8px}
+  .pincta{display:flex;align-items:center;gap:12px;background:var(--tint);color:#fff;border-radius:14px;padding:14px 15px;box-shadow:var(--shadow-cta);margin-bottom:10px}
+  .pincta .pi{font-size:19px}
+  .pincta .pt{font-size:15px;font-weight:700}
+  .pincta .ps{font-size:11px;opacity:.85;margin-top:1px}
+  .typelink{text-align:center;font-size:14px;font-weight:700;color:var(--tint);padding:4px;margin-bottom:14px}
+  .locmap{position:relative;height:100px;overflow:hidden;background:var(--map)}
+  .locmap .street{position:absolute;background:var(--map-street)}
+  .locmap .park{position:absolute;background:var(--map-park);border-radius:6px}
+  .locmap .pin{position:absolute;left:50%;top:50%;transform:translate(-50%,-100%);z-index:3}
+  .locmap .pin .head{width:24px;height:24px;border-radius:50% 50% 50% 0;background:var(--tint);transform:rotate(-45deg);box-shadow:0 4px 10px rgba(0,0,0,.3);border:2px solid #fff}
+  .locmap .pin .dot{position:absolute;left:50%;top:8px;transform:translate(-50%,-50%);width:8px;height:8px;border-radius:50%;background:#fff}
+  .locmap .pinshadow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:12px;height:5px;border-radius:50%;background:rgba(0,0,0,.2);z-index:2}
+  .locmap .thumbedit{position:absolute;right:9px;bottom:9px;background:var(--card);color:var(--tint);font-size:12px;font-weight:700;border-radius:999px;padding:6px 12px;box-shadow:var(--shadow)}
+
+  /* pinned CTA dock */
+  .foot{position:absolute;left:0;right:0;bottom:0;padding:12px 16px 26px;background:linear-gradient(to top,var(--canvas) 62%,rgba(242,242,247,0));flex-shrink:0}
+  .dark .foot{background:linear-gradient(to top,#000 62%,rgba(0,0,0,0))}
+  .cta{height:52px;border-radius:14px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700;box-shadow:var(--shadow-cta)}
+  .cta.disabled{background:var(--ink-4);box-shadow:none}
+
+  /* before (live) */
+  .b-nav{display:flex;align-items:center;gap:10px;height:44px;padding:0 4px;flex-shrink:0}
+  .b-bk{font-size:22px;color:var(--ink-2)}
+  .b-ttl{font-size:19px;font-weight:800;color:var(--ink)}
+  .b-body{flex:1;overflow:hidden;padding:8px 16px 0}
+  .b-lbl{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:6px}
+  .b-field{background:var(--card);border:1px solid var(--hair-strong);border-radius:10px;padding:12px;font-size:13.5px;color:var(--ink-3);margin-bottom:11px}
+  .b-field.lk{background:var(--fill);color:var(--ink-2)}
+  .b-cta{height:48px;border-radius:999px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;margin-top:6px}
+
+  .annos{max-width:1180px;margin:18px auto 0}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .audit{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid #e7e7ea;border-radius:10px;overflow:hidden;margin-bottom:14px}
+  .audit th,.audit td{text-align:left;padding:8px 11px;border-top:1px solid #eee;vertical-align:top}
+  .audit th{background:#f6f6f8;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#71717a;border-top:none}
+  .audit td b{color:#18181b}
+  .vd{font-weight:800;font-size:11px;border-radius:5px;padding:1px 7px;white-space:nowrap}
+  .vd.keep{background:#e9f5ee;color:#166534} .vd.cut{background:#fbeaea;color:#b3261e} .vd.gate{background:#eef1fb;color:#2B2FBE} .vd.add{background:#fdf6e7;color:#92400e}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Activate &middot; Identity forms (Bio &middot; Education &middot; Emergency contact)</h1>
+    The three short form steps of the verification wizard. <b>Conformed to Wave-1</b>: canonical <code>--tint</code> tokens, <code>.dark</code>, true 402&times;874, and the <b>header split</b> (centered step-title + labeled back + a progress bar; the duplicated large title was dropped). Content preserved: the <b>inline IC age-check</b> friction-fix (an under-20/over-50 applicant learns in the first field), locked prefilled fields, privacy framing. <b>City added</b> (the live State&rarr;City dependent dropdowns; the prior mock dropped it). Red is kept only for a genuine blocking validation error (founder call); green = valid, everything else neutral. No em-dashes, DD-MMM-YYYY. Field audit under each screen.
+    <div class="legend">
+      <span><i style="background:#2B2FBE"></i>Tint = action</span>
+      <span><i style="background:#166534"></i>Green = valid</span>
+      <span><i style="background:#b3261e"></i>Red = blocking error only</span>
+      <span><i style="background:#F2F2F7;border:1px solid #ccc"></i>Locked / grouped-grey</span>
+    </div>
+  </div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
+  </div>
+
+  <!-- ============ BIO DETAILS ============ -->
+  <div class="grouplabel">Step 1 &middot; Bio details (with inline IC age check)</div>
+  <div class="frames">
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Your details (IC valid)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Your details</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:20%"></i></div><div class="wizstep">Step 1 of 5</div></div>
+        <div class="scroll">
+          <div class="ltsub">Takes a minute. Your information stays private.</div>
+          <div class="grp">
+            <div class="gcap">&#128274; From your sign-up &middot; locked</div>
+            <div class="gr locked"><div class="fl">Full name</div><div class="fv">E2E Tutor Ahmad</div></div>
+            <div class="gr locked"><div class="fl">Phone number</div><div class="fv">+60 12-345 6789</div></div>
+            <div class="gr locked"><div class="fl">Email</div><div class="fv">ahmad@email.com</div></div>
+          </div>
+          <div class="grp">
+            <div class="gr okbox"><div class="fl">IC number</div><div class="fv">960101-14-5678</div><div class="vnote ok">&#10003; Age 28, you qualify to tutor</div></div>
+          </div>
+          <div class="sech">Your location</div>
+          <div class="grp">
+            <div class="locmap">
+              <div class="street" style="left:0;right:0;top:46%;height:9px"></div>
+              <div class="street" style="top:0;bottom:0;left:58%;width:10px"></div>
+              <div class="park" style="left:8%;top:12%;width:30%;height:36%"></div>
+              <div class="pinshadow"></div>
+              <div class="pin"><div class="head"></div><div class="dot"></div></div>
+              <div class="thumbedit">Adjust on map</div>
+            </div>
+            <div class="gr"><div class="fl">Address</div><div class="fv">12 Jalan Bukit Pantai, Bangsar</div></div>
+            <div class="gr"><div class="drill"><div class="fvwrap"><div class="fl">State</div><div class="fv">Selangor</div></div><span class="chev">&#9662;</span></div></div>
+            <div class="gr"><div class="drill"><div class="fvwrap"><div class="fl">City</div><div class="fv">Petaling Jaya</div></div><span class="chev">&#9662;</span></div></div>
+            <div class="gr"><div class="fl">Postal code</div><div class="fv">47301</div></div>
+          </div>
+          <div class="help lock"><span class="ico">&#128274;</span><span>Your IC and home pin are used only to verify you. Never shown to parents.</span></div>
+        </div>
+        <div class="foot"><div class="cta">Continue</div></div>
+      </div>
+    </div>
+
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; IC out of range (instant)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Your details</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:20%"></i></div><div class="wizstep">Step 1 of 5</div></div>
+        <div class="scroll">
+          <div class="ltsub">Takes a minute. Your information stays private.</div>
+          <div class="grp">
+            <div class="gr errbox"><div class="fl">IC number</div><div class="fv">100101-14-5678</div><div class="vnote bad">&#10007; Tutors must be 20 to 50. This IC reads age 16.</div></div>
+          </div>
+          <div class="examples">
+            <div class="ex ok">&#10003; 960101 &middot; age 28, good</div>
+            <div class="ex bad">&#10007; 100101 &middot; age 16, too young</div>
+          </div>
+          <div class="sech">Your location</div>
+          <div class="pincta"><span class="pi">&#128205;</span><div><div class="pt">Pin my location</div><div class="ps">Fastest &middot; we drop a pin on your spot</div></div></div>
+          <div class="typelink">Type my address instead</div>
+          <div class="help lock"><span class="ico">&#128274;</span><span>The check is instant, so you know before you finish the form.</span></div>
+        </div>
+        <div class="foot"><div class="cta disabled">Continue</div></div>
+      </div>
+    </div>
+
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live Bio Details</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="b-nav"><span class="b-bk">&#8249;</span><span class="b-ttl">Bio Details</span></div>
+        <div class="b-body">
+          <div class="b-lbl">Full Name</div><div class="b-field lk">E2E Tutor Ahmad</div>
+          <div class="b-lbl">Phone Number</div><div class="b-field lk">+60 12-345 6789</div>
+          <div class="b-lbl">Email</div><div class="b-field lk">ahmad@email.com</div>
+          <div class="b-lbl">IC Number</div><div class="b-field">Enter IC Number</div>
+          <div class="b-lbl">Residential Address</div><div class="b-field">Address (Area and State)</div>
+          <div class="b-lbl">State</div><div class="b-field">Select State</div>
+          <div class="b-lbl">Postal Code</div><div class="b-field">Enter Postal Code</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annos">
+    <table class="audit">
+      <tr><th>Field (live)</th><th>Verdict</th><th>Reasoning (verified vs BioDetails/index.tsx)</th></tr>
+      <tr><td><b>Full name / Phone / Email</b></td><td><span class="vd gate">GATE</span></td><td>Live renders them as inputs but they are <code>editable={false}</code> (dead onChange). Shown correctly as <b>locked</b> read-only, carried from sign-up.</td></tr>
+      <tr><td><b>IC number</b></td><td><span class="vd keep">KEEP</span> + <span class="vd add">ADD</span></td><td>Real (required, auto-formats <code>xxxxxx-xx-xxxx</code>). ADD: the age 20 to 50 check is live but only on submit; surfaced <b>inline</b> here. Verification-only, never shown to parents.</td></tr>
+      <tr><td><b>Location (address + State + City + Postal)</b></td><td><span class="vd keep">KEEP</span> + <span class="vd add">ADD</span></td><td><b>Quick-pin is now the primary path</b> (founder 2026-07-01): "Pin my location" (GPS + draggable map, the Grab pattern) reverse-geocodes into all four fields, which stay editable; <b>"Type my address instead"</b> keeps the live Google Places autocomplete as fallback. The pin yields the same lat/long the live app already stores. This is the <b>home address for verification</b> (KYC), the request/matching location is separate, in Step2 "Where &amp; how you teach" (preferred cities). <b>City restored</b> (the prior mock dropped it; live has State&rarr;City dependent dropdowns). Postal auto-fills; kept as a field.</td></tr>
+    </table>
+    <div class="anno g"><span class="n">1</span><div><b>Inline IC age-check (friction-fix).</b> Validates the IC birth-date against the 20 to 50 rule in place ("Age 28, you qualify" / "Tutors must be 20 to 50. This IC reads age 16"), so an ineligible applicant learns in the first field, not after submitting. The two example chips make the rule concrete.</div></div>
+    <div class="anno g"><span class="n">2</span><div><b>Quick-pin location (primary path).</b> "Pin my location" leads (GPS + a draggable map, the Grab / foodpanda pattern); the pin reverse-geocodes into address + State + City + Postal, all editable, with type-to-search as the fallback. The picker is its own screen &middot; see <code>activate-location-pin.html</code>. Same lat/long the live app already captures.</div></div>
+    <div class="anno"><span class="n">3</span><div><b>Conformed header + City restored.</b> Centered step-title + labeled back + progress bar (the duplicated large title dropped); the missing City dropdown is back so no live field is lost.</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz:</b> the quick-pin needs a <b>native map SDK</b> (Google Maps / Mapbox) &middot; a build change, plus a reverse-geocode provider + cost, GPS-permission copy, and whether the pin lat/long replaces or supplements the current Places lat/long. Confirm the age rule (20 to 50 from the IC prefix); name/phone/email immutable post sign-up. Save label is an i18n token (<code>button.save</code>); the wizard shows "Continue".</div></div>
+  </div>
+
+  <!-- ============ EDUCATION ============ -->
+  <div class="grouplabel">Step 2 &middot; Education</div>
+  <div class="frames">
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Education</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Education</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:40%"></i></div><div class="wizstep">Step 2 of 5</div></div>
+        <div class="scroll">
+          <div class="ltsub">Your highest qualification. Parents see this on your profile.</div>
+          <div class="grp">
+            <div class="gr"><div class="drill"><div class="fvwrap"><div class="fl">Highest qualification</div><div class="fv">Bachelor of Education</div></div><span class="chev">&#9662;</span></div></div>
+            <div class="gr"><div class="drill"><div class="fvwrap"><div class="fl">Field of study</div><div class="fv">Mathematics</div></div><span class="chev">&#8250;</span></div></div>
+            <div class="gr"><div class="drill"><div class="fvwrap"><div class="fl">Institution</div><div class="fv">Universiti Malaya</div></div><span class="chev">&#8250;</span></div></div>
+            <div class="gr"><div class="drill"><div class="fvwrap"><div class="fl">Year completed</div><div class="fv">2014</div></div><span class="chev">&#9662;</span></div></div>
+          </div>
+          <div class="help"><span class="ico">&#9733;</span><span>A clear qualification helps parents trust your subject expertise.</span></div>
+        </div>
+        <div class="foot"><div class="cta">Continue</div></div>
+      </div>
+    </div>
+
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live Education</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="b-nav"><span class="b-bk">&#8249;</span><span class="b-ttl">Education</span></div>
+        <div class="b-body">
+          <div class="b-lbl">Highest Education</div><div class="b-field">Select Education</div>
+          <div class="b-lbl">Field of Study</div><div class="b-field">Field of Study</div>
+          <div class="b-lbl">Academic Year</div><div class="b-field">Academic Year</div>
+          <div class="b-lbl">Institution Name</div><div class="b-field">Institution Name</div>
+          <div class="b-cta">Save</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annos">
+    <table class="audit">
+      <tr><th>Field (live)</th><th>Verdict</th><th>Reasoning (verified vs EducationDetails/index.tsx)</th></tr>
+      <tr><td><b>Highest Education</b></td><td><span class="vd keep">KEEP</span></td><td>Real dropdown (options from <code>useSettings('HighestEducation')</code>). Relabelled "Highest qualification"; parent-facing trust signal.</td></tr>
+      <tr><td><b>Field of Study</b></td><td><span class="vd keep">KEEP</span></td><td>Real (required text). Kept.</td></tr>
+      <tr><td><b>Academic Year</b></td><td><span class="vd keep">KEEP</span></td><td>Real (numeric, max 4, free-text live). Relabelled "Year completed"; shown as a year <b>picker</b> (enhancement, flag).</td></tr>
+      <tr><td><b>Institution Name</b></td><td><span class="vd keep">KEEP</span></td><td>Real (required text). Kept, parent-facing credibility.</td></tr>
+    </table>
+    <div class="anno"><span class="n">1</span><div><b>No fields cut.</b> Education is already lean, re-skinned to the grouped card + progress (Step 2 of 5, 40%). Free-text swapped to pickers where the value is an enumeration (qualification, year).</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz:</b> confirm the <code>HighestEducation</code> option list (server-side). Academic Year is free-text live; confirm the backend accepts a picker year. Highest-only, or allow multiple qualifications?</div></div>
+  </div>
+
+  <!-- ============ EMERGENCY CONTACT ============ -->
+  <div class="grouplabel">Step 1 &middot; Emergency contact (a sub-step under Your details)</div>
+  <div class="frames">
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">AFTER</span> &middot; Emergency contact</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Emergency contact</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:20%"></i></div><div class="wizstep">Step 1 of 5</div></div>
+        <div class="scroll">
+          <div class="ltsub">Someone we can reach if we cannot reach you. Private, never shown to parents.</div>
+          <div class="grp">
+            <div class="gr"><div class="fl">Contact name</div><div class="fv">Siti Aminah binti Hassan</div></div>
+            <div class="gr"><div class="drill"><div class="fvwrap"><div class="fl">Relationship</div><div class="fv">Spouse</div></div><span class="chev">&#9662;</span></div></div>
+            <div class="gr"><div class="fl">Contact number</div><div class="fv"><span class="phoneprefix"><span class="flag-chip"></span><span class="prefix">+60 13-222 4567</span></span></div></div>
+          </div>
+          <div class="help lock"><span class="ico">&#128274;</span><span>Used only in an emergency during a class. Parents never see this.</span></div>
+        </div>
+        <div class="foot"><div class="cta">Save</div></div>
+      </div>
+    </div>
+
+    <div class="framewrap">
+      <div class="framelabel"><span class="be">BEFORE</span> &middot; live Emergency Contact</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="b-nav"><span class="b-bk">&#8249;</span><span class="b-ttl">Emergency Contact</span></div>
+        <div class="b-body">
+          <div class="b-lbl">Emergency Contact Name</div><div class="b-field">Emergency Contact Name</div>
+          <div class="b-lbl">Relationship</div><div class="b-field">Select Relation</div>
+          <div class="b-lbl">Emergency Contact Number</div><div class="b-field">&#127474;&#127486; &nbsp; +60 ...</div>
+          <div class="b-cta">Save</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annos">
+    <table class="audit">
+      <tr><th>Field (live)</th><th>Verdict</th><th>Reasoning (verified vs EmergencyContact/index.tsx)</th></tr>
+      <tr><td><b>Emergency Contact Name</b></td><td><span class="vd keep">KEEP</span></td><td>Real (required). Relabelled "Contact name".</td></tr>
+      <tr><td><b>Relationship</b></td><td><span class="vd keep">KEEP</span></td><td>Real dropdown (<code>useSettings('relationship')</code>). Kept as a picker.</td></tr>
+      <tr><td><b>Emergency Contact Number</b></td><td><span class="vd keep">KEEP</span></td><td>Real (PhoneInput, MY default, validated). Kept with dial-code + flag.</td></tr>
+    </table>
+    <div class="anno"><span class="n">1</span><div><b>Privacy framing added.</b> Live gives no context; the redesign states why it is collected and that parents never see it, which lifts completion on a sensitive ask.</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz:</b> confirm the <code>relationship</code> option list (server-side). Live phone placeholder fallback "102298245" is a hardcoded example, not user data.</div></div>
+  </div>
+</div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ if(m==='dark') p.classList.add('dark'); else p.classList.remove('dark'); });
+    document.querySelectorAll('.modebar .seg2 button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

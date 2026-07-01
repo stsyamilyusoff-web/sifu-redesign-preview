@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wave 1 · Applied-request detail — LOCKED reference</title>
+<style>
+  body { margin: 0; padding: 28px 16px; background: #E9E9EE; font-family: -apple-system, system-ui, "Segoe UI", sans-serif; color: #18181b; }
+  .doc { max-width: 880px; margin: 0 auto; }
+  .docnote { font-size: 13px; line-height: 1.6; color: #52525b; background: #fff; border: 1px solid #e4e4e7; border-radius: 12px; padding: 14px 16px; margin-bottom: 20px; }
+  .docnote h1 { font-size: 16px; margin: 0 0 6px; } .docnote b { color: #18181b; }
+  .docnote code { font-family: ui-monospace, monospace; font-size: 12px; background: #f4f4f5; padding: 1px 4px; border-radius: 4px; }
+  .trip { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .ph { box-sizing: border-box; width: 402px; height: 874px; overflow: hidden; flex: 0 0 auto; background: #F2F2F7; border-radius: 0; padding: 0 14px 14px; --tint:#2B2FBE; display: flex; flex-direction: column; box-shadow: none; }
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 6px 0 4px;flex-shrink:0;}
+  .sb-t{font-size:16px;font-weight:600;color:#000;letter-spacing:.3px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+  .sb-sig{width:17px;height:11px;background:linear-gradient(90deg,#000 0 60%,#bbb 60%);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%);}
+  .sb-wifi{width:16px;height:12px;background:#000;clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%);}
+  .sb-bat{width:24px;height:12px;border:1.3px solid #000;border-radius:3px;position:relative;}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:#000;border-radius:1px;}
+  .lbl { display: none; }
+  .hd { font-size: 14px; font-weight: 700; color: #000; padding: 4px 2px 11px; } .bk { color: var(--tint); font-weight: 600; font-size: 16px; }
+  .status { border-radius: 13px; padding: 11px 13px; }
+  .status.appr { background: rgba(52,199,89,.12); border: 1px solid rgba(52,199,89,.35); }
+  .status.pend { background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.4); }
+  .status.uns { background: rgba(120,120,128,.1); border: 1px solid rgba(120,120,128,.25); }
+  .hs { font-size: 15px; font-weight: 800; } .appr .hs { color: #166534; } .pend .hs { color: #92400e; } .uns .hs { color: #6b7280; }
+  .hc { font-size: 12px; line-height: 1.45; margin-top: 4px; } .appr .hc { color: #15803d; } .pend .hc { color: #b45309; } .uns .hc { color: #71717a; }
+  .hero { background: #fff; border-radius: 12px; padding: 16px; margin-top: 9px; box-shadow: 0 1px 3px rgba(0,0,0,.05); } .hero.dim { opacity: .65; }
+  .subj { font-size: 19px; font-weight: 800; color: #000; } .lv { font-weight: 400; color: rgba(60,60,67,.5); font-size: 15px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+  .tg { font-size: 11.5px; font-weight: 600; color: #1a1a2e; background: #F2F2F7; border: 1px solid rgba(0,0,0,.05); border-radius: 999px; padding: 4px 9px; }
+  .cbot { display: flex; justify-content: space-between; align-items: center; margin-top: 11px; padding-top: 10px; border-top: 1px solid #f0f0f3; }
+  .money { font-size: 17px; font-weight: 800; color: #000; } .cur { font-size: 10px; font-weight: 700; color: rgba(60,60,67,.5); } .per { font-size: 10px; font-weight: 500; color: rgba(60,60,67,.5); }
+  .idc { font-family: ui-monospace,monospace; font-size: 12px; color: rgba(60,60,67,.6); } .cp { font-family: -apple-system,sans-serif; color: var(--tint); }
+  .card { background: #fff; border-radius: 12px; padding: 16px; margin-top: 9px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+  .ch { font-size: 11.5px; font-weight: 800; color: #000; text-transform: uppercase; letter-spacing: .03em; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .kv { display: flex; justify-content: space-between; padding: 3px 0; font-size: 12px; } .k { color: #999; } .v { color: #1a1a2e; font-weight: 600; } .v.gated { color: #92400e; font-size: 12px; }
+  .rev { font-size: 11px; font-weight: 700; color: #166534; background: rgba(52,199,89,.16); border-radius: 999px; padding: 1px 6px; }
+  .ctas { margin-top: auto; padding-top: 11px; display: flex; flex-direction: column; gap: 7px; }
+  .cta { height: 48px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 500; }
+  .cta.pri { background: var(--tint); color: #fff; } .cta.sec { background: rgba(43,47,190,.1); color: var(--tint); }
+  .nocta { margin-top: auto; padding-top: 11px; font-size: 12px; font-style: italic; color: rgba(60,60,67,.45); text-align: center; }
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Wave 1 · Applied-request detail — LOCKED reference</h1>
+    The tap-through from an applied request (Applied tab → <code>TutorAppliedRequestDetails</code>). On <code>@sifu/ui</code>, English-first. Redesigned from the read-only original that never showed status + had no action.<br>
+    <b>Hero = Direction C</b> (<a>DR-007</a>): subject·level + icon-fact chips + RM + <b>copyable Request ID</b> (the comms key). The <b>status banner above carries the state colour</b> (Approved green / Pending amber / Unsuccessful grey) — so the hero chips stay neutral (no double-coding; colour budget held).<br>
+    <b>Audit (tutor POV):</b> CUT tutor-preference + "special need: None"; <b>student name gated until approved</b> (privacy); fit signals dropped (dead once applied).<br>
+    <b>State-aware actions:</b> Approved → 💬 Message parent + View in your schedule (Hafiz Q10/Q12) · Pending → no premature action · Unsuccessful → Browse similar. No gambling copy.
+  </div>
+  <div class="trip">
+    <!-- APPROVED -->
+    <div class="ph">
+      <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+      <div class="lbl" style="color:#166534">APPROVED</div>
+      <div class="hd"><span class="bk">‹</span> Application</div>
+      <div class="status appr"><div class="hs">✓ Approved</div><div class="hc">The parent approved your application. Message them to arrange the first class.</div></div>
+      <div class="hero">
+        <div class="subj">Physics <span class="lv">· Form 5</span></div>
+        <div class="tags"><span class="tg">🏠 In-person</span><span class="tg">🔁 Long-term</span><span class="tg">📅 Mon 5:00 PM</span><span class="tg">📍 Bangsar</span></div>
+        <div class="cbot"><div class="money"><span class="cur">RM</span> 120 <span class="per">· 8 sessions</span></div><div class="idc">TREQ-554120 <span class="cp">⧉</span></div></div>
+      </div>
+      <div class="card"><div class="ch">Student</div><div class="kv"><span class="k">Name</span><span class="v">Ali bin Hassan</span></div><div class="kv"><span class="k">Detail</span><span class="v">Male · 15</span></div></div>
+      <div class="card"><div class="ch">Class address <span class="rev">on approval</span></div><div class="kv"><span class="v">📍 12 Jalan Bukit, Petaling Jaya</span></div></div>
+      <div class="ctas"><div class="cta pri">💬 Message parent</div><div class="cta sec">View in your schedule</div></div>
+    </div>
+    <!-- PENDING -->
+    <div class="ph">
+      <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+      <div class="lbl" style="color:#92400e">PENDING</div>
+      <div class="hd"><span class="bk">‹</span> Application</div>
+      <div class="status pend"><div class="hs">⏳ Pending</div><div class="hc">The parent is reviewing applications.</div></div>
+      <div class="hero">
+        <div class="subj">Mathematics <span class="lv">· Form 4</span></div>
+        <div class="tags"><span class="tg">🏠 Online</span><span class="tg">📅 Tue 8:00 PM</span><span class="tg">⏱️ 1.5h</span><span class="tg">🔁 12 sessions</span></div>
+        <div class="cbot"><div class="money"><span class="cur">RM</span> 94</div><div class="idc">TREQ-687080 <span class="cp">⧉</span></div></div>
+      </div>
+      <div class="card"><div class="ch">Student</div><div class="kv"><span class="k">Name</span><span class="v gated">🔒 Shown once approved</span></div><div class="kv"><span class="k">Detail</span><span class="v">Male · 15</span></div></div>
+      <div class="card"><div class="ch">Timeline</div><div class="kv"><span class="k">Applied</span><span class="v">2 days ago</span></div><div class="kv"><span class="k">Status</span><span class="v">Parent reviewing</span></div><div class="kv"><span class="k">Typical decision</span><span class="v">within a week</span></div></div>
+      <div class="ctas"><div class="cta sec">Browse similar requests</div></div>
+    </div>
+    <!-- UNSUCCESSFUL -->
+    <div class="ph">
+      <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+      <div class="lbl" style="color:#6b7280">UNSUCCESSFUL</div>
+      <div class="hd"><span class="bk">‹</span> Application</div>
+      <div class="status uns"><div class="hs">✕ Unsuccessful</div><div class="hc">This request went to another tutor.</div></div>
+      <div class="hero dim">
+        <div class="subj">Chemistry <span class="lv">· Form 6</span></div>
+        <div class="tags"><span class="tg">🏠 Online</span><span class="tg">📅 Sat 10:00 AM</span><span class="tg">⏱️ 2h</span></div>
+        <div class="cbot"><div class="money"><span class="cur">RM</span> 88</div><div class="idc">TREQ-190833 <span class="cp">⧉</span></div></div>
+      </div>
+      <div class="ctas"><div class="cta pri">Browse similar requests</div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activate &middot; Teaching service-area (pin + radius)</title>
+<style>
+  :root{
+    --tint:#2B2FBE; --tint-weak:rgba(43,47,190,.10); --tint-ink:#2B2FBE;
+    --canvas:#F2F2F7; --card:#FFFFFF;
+    --ink:#000000; --ink-2:rgba(60,60,67,.62); --ink-3:rgba(60,60,67,.45); --ink-4:rgba(60,60,67,.30);
+    --hair:rgba(60,60,67,.12); --hair-strong:rgba(60,60,67,.16); --fill:rgba(120,120,128,.10); --fill-2:#EAEAEF;
+    --green:#16A34A; --green-ink:#166534; --green-weak:rgba(22,163,74,.12); --green-line:rgba(22,163,74,.28);
+    --amber-ink:#92400e; --amber-weak:rgba(245,158,11,.18); --amber-line:rgba(245,158,11,.40);
+    --shadow:0 1px 3px rgba(0,0,0,.05); --shadow-soft:0 4px 16px rgba(0,0,0,.07); --shadow-cta:0 4px 14px rgba(43,47,190,.30);
+    --radius:12px; --radius-lg:16px;
+    --map:#E5EAE6; --map-street:#FFFFFF; --map-park:#CFE6CF; --map-water:#B9D6E8;
+    --ring:rgba(43,47,190,.14); --ring-line:rgba(43,47,190,.55);
+  }
+  .dark{
+    --tint:#7C8CF0; --tint-weak:rgba(124,140,240,.18); --tint-ink:#7C8CF0;
+    --canvas:#000000; --card:#1C1C1E;
+    --ink:#FFFFFF; --ink-2:rgba(235,235,245,.62); --ink-3:rgba(235,235,245,.45); --ink-4:rgba(235,235,245,.30);
+    --hair:rgba(84,84,88,.6); --hair-strong:rgba(84,84,88,.8); --fill:rgba(120,120,128,.24); --fill-2:#2C2C2E;
+    --green:#30D158; --green-ink:#30D158; --green-weak:rgba(48,209,88,.18); --green-line:rgba(48,209,88,.32);
+    --amber-ink:#FFD60A; --amber-weak:rgba(255,214,10,.16); --amber-line:rgba(245,158,11,.4);
+    --shadow:0 1px 3px rgba(0,0,0,.5); --shadow-soft:0 6px 20px rgba(0,0,0,.5); --shadow-cta:0 6px 18px rgba(124,140,240,.45);
+    --map:#20262A; --map-street:#3A4248; --map-park:#2A3A2E; --map-water:#243642;
+    --ring:rgba(124,140,240,.20); --ring-line:rgba(124,140,240,.6);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:28px 16px 80px;background:#E9E9EE;font-family:-apple-system,system-ui,"Segoe UI",sans-serif;color:#18181b}
+  .doc{max-width:1180px;margin:0 auto}
+  .frames{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;justify-content:center}
+  .docnote{font-size:13px;line-height:1.6;color:#52525b;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:16px 18px;margin-bottom:20px}
+  .docnote h1{font-size:17px;margin:0 0 8px;color:#18181b} .docnote b{color:#18181b}
+  .docnote code{font-family:ui-monospace,monospace;font-size:12px;background:#f4f4f5;padding:1px 5px;border-radius:4px}
+  .expl{background:#eef1fb;border:1px solid #cdd6f5;border-radius:10px;padding:10px 13px;margin-top:10px;font-size:12.5px;color:#2b2f6b;line-height:1.55}
+  .expl b{color:#1e2168}
+  .modebar{display:flex;gap:7px;margin:0 0 18px}
+  .modebar b{font-size:11px;font-weight:800;color:#52525b;align-self:center;margin-right:4px}
+  .seg2{display:inline-flex;background:#d6d6dd;border-radius:9px;padding:3px}
+  .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:#52525b;padding:6px 14px;border-radius:7px;cursor:pointer}
+  .seg2 button.on{background:#fff;color:#18181b;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .modehd{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#71717a;margin:24px 0 14px;border-bottom:1px solid #d4d4d8;padding-bottom:6px}
+  .framewrap{display:flex;flex-direction:column;align-items:center}
+  .framelabel{font-size:12.5px;font-weight:700;color:#3f3f46;margin-bottom:9px;text-align:center;max-width:402px}
+  .framelabel .af{color:#2B2FBE}
+
+  .ph{box-sizing:border-box;position:relative;width:402px;height:874px;overflow:hidden;background:var(--canvas);border-radius:30px;box-shadow:0 8px 30px rgba(0,0,0,.18);color:var(--ink);display:flex;flex-direction:column}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;height:50px;padding:0 22px 0 20px;flex-shrink:0}
+  .sb-t{font-size:16px;font-weight:600;color:var(--ink)}
+  .sb-r{display:flex;align-items:center;gap:6px}
+  .sb-sig{width:17px;height:11px;background:var(--ink);clip-path:polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,28% 45%,46% 45%,46% 100%,28% 100%,56% 20%,74% 20%,74% 100%,56% 100%,84% 0,100% 0,100% 100%,84% 100%)}
+  .sb-wifi{width:16px;height:12px;background:var(--ink);clip-path:polygon(50% 100%,0 45%,12% 33%,50% 70%,88% 33%,100% 45%)}
+  .sb-bat{width:24px;height:12px;border:1.3px solid var(--ink);border-radius:3px;position:relative;opacity:.9}
+  .sb-bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:15px;background:var(--ink);border-radius:1px}
+  .navc{display:flex;align-items:center;height:44px;position:relative;flex-shrink:0;padding:2px 12px 2px}
+  .navc .back{display:inline-flex;align-items:center;gap:2px;color:var(--tint);font-size:16px;font-weight:600;z-index:2}
+  .navc .back .bx{font-size:23px;font-weight:400;line-height:1;margin-top:-1px}
+  .navc .ntitle{position:absolute;left:58px;right:58px;text-align:center;font-size:17px;font-weight:700;color:var(--ink);white-space:nowrap}
+  .wizprog{padding:2px 16px 0;flex-shrink:0}
+  .wizbar{height:5px;border-radius:999px;background:var(--tint-weak);overflow:hidden}
+  .wizbar i{display:block;height:100%;background:var(--tint);border-radius:999px}
+  .wizstep{font-size:11.5px;font-weight:700;color:var(--ink-3);margin-top:7px}
+  .scroll{flex:1;overflow:hidden;padding:0 16px 96px}
+  .ltsub{font-size:13px;color:var(--ink-2);line-height:1.45;margin:6px 0 16px}
+
+  .fld{margin-bottom:16px}
+  .flabel{display:flex;align-items:baseline;gap:7px;margin-bottom:8px}
+  .flabel .nm{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .why{font-size:11.5px;color:var(--ink-2);margin:-3px 0 8px}
+  .segmode{display:flex;background:var(--tint-weak);border-radius:10px;padding:3px}
+  .segmode span{flex:1;text-align:center;padding:9px 4px;font-size:12.5px;font-weight:600;color:var(--ink-2);border-radius:8px;display:flex;align-items:center;justify-content:center;gap:5px}
+  .segmode span.on{background:var(--card);color:var(--ink);box-shadow:var(--shadow);font-weight:700}
+  .pitch{background:var(--card);border:1px solid var(--hair-strong);border-radius:10px;padding:13px;box-shadow:var(--shadow)}
+  .pitch .txt{font-size:13.5px;color:var(--ink);line-height:1.5;min-height:70px}
+  .pitchfoot{display:flex;justify-content:space-between;margin-top:7px}
+  .pitchfoot .help{font-size:11px;color:var(--ink-2)} .pitchfoot .cnt{font-size:11px;color:var(--ink-3);font-weight:600}
+
+  /* map + radius ring */
+  .map{position:relative;overflow:hidden;background:var(--map)}
+  .map .street{position:absolute;background:var(--map-street)}
+  .map .park{position:absolute;background:var(--map-park);border-radius:6px}
+  .map .water{position:absolute;background:var(--map-water);border-radius:8px}
+  .ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;background:var(--ring);border:2px solid var(--ring-line)}
+  .pin{position:absolute;left:50%;top:50%;transform:translate(-50%,-100%);z-index:4}
+  .pin .head{width:28px;height:28px;border-radius:50% 50% 50% 0;background:var(--tint);transform:rotate(-45deg);box-shadow:0 5px 12px rgba(0,0,0,.35);border:2px solid #fff}
+  .pin .dot{position:absolute;left:50%;top:9px;transform:translate(-50%,-50%);width:9px;height:9px;border-radius:50%;background:#fff}
+
+  /* service-area card (in Step 2) */
+  .areacard{background:var(--card);border:1px solid var(--hair);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden}
+  .areacard .amap{position:relative;height:150px}
+  .amapedit{position:absolute;right:9px;bottom:9px;background:var(--card);color:var(--tint);font-size:12px;font-weight:700;border-radius:999px;padding:6px 12px;box-shadow:var(--shadow)}
+  .arow{display:flex;align-items:center;gap:10px;padding:13px 15px;border-top:1px solid var(--hair)}
+  .arow .aic{color:var(--tint);font-size:16px}
+  .arow .atx{flex:1;min-width:0}
+  .arow .at{font-size:14.5px;font-weight:700;color:var(--ink)}
+  .arow .as{font-size:12px;color:var(--ink-2);margin-top:1px}
+  .addarea{display:flex;align-items:center;justify-content:center;gap:6px;padding:13px;font-size:14px;font-weight:700;color:var(--tint);border-top:1px solid var(--hair)}
+
+  /* radius control (in picker) */
+  .radchips{display:flex;gap:8px;margin-top:2px}
+  .radchip{flex:1;text-align:center;background:var(--card);border:1px solid var(--hair-strong);border-radius:10px;padding:11px 4px;font-size:13px;font-weight:700;color:var(--ink-2);box-shadow:var(--shadow)}
+  .radchip.on{background:var(--tint);color:#fff;border-color:var(--tint)}
+  .coverage{display:flex;gap:9px;align-items:flex-start;background:var(--green-weak);border-radius:10px;padding:11px 13px;margin-top:14px}
+  .coverage .ck{color:var(--green-ink);font-weight:800;font-size:14px}
+  .coverage .ct{font-size:12px;color:var(--green-ink);font-weight:700;line-height:1.4}
+
+  .locbtn{position:absolute;right:14px;bottom:14px;width:46px;height:46px;border-radius:50%;background:var(--card);box-shadow:var(--shadow-soft);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--tint);z-index:5}
+  .picksheet{flex-shrink:0;background:var(--card);border-radius:20px 20px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.14);padding:16px 16px 24px;margin-top:-18px;position:relative;z-index:6}
+  .picksheet .pl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3);margin-bottom:8px}
+  .picksheet .radlabel{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .picksheet .radlabel .rn{font-size:14px;font-weight:700;color:var(--ink)}
+  .picksheet .radlabel .rv{font-size:14px;font-weight:800;color:var(--tint-ink)}
+  .picksheet .cbtn{margin-top:15px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;background:var(--tint);border-radius:14px;padding:15px;box-shadow:var(--shadow-cta)}
+
+  .foot{position:absolute;left:0;right:0;bottom:0;padding:12px 16px 24px;background:linear-gradient(to top,var(--canvas) 62%,rgba(242,242,247,0))}
+  .dark .foot{background:linear-gradient(to top,#000 62%,rgba(0,0,0,0))}
+  .cta{height:52px;border-radius:14px;background:var(--tint);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;box-shadow:var(--shadow-cta)}
+
+  .annos{max-width:1180px;margin:22px auto 0}
+  .annos h2{font-size:14px;font-weight:800;margin:0 0 10px;color:#18181b}
+  .anno{display:flex;gap:11px;font-size:12.5px;line-height:1.5;color:#3f3f46;background:#fff;border:1px solid #e7e7ea;border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .anno .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#e8ebf9;color:#2B2FBE;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .anno b{color:#18181b}
+  .anno.h{background:#fdf6e7;border-color:rgba(245,158,11,.35)} .anno.h .n{background:rgba(245,158,11,.2);color:#92400e}
+  .anno.g{background:#eef7f1;border-color:rgba(31,122,68,.3)} .anno.g .n{background:rgba(31,122,68,.18);color:#166534}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="docnote">
+    <h1>Activate &middot; Set your teaching area (pin + radius)</h1>
+    Founder direction (2026-07-01): in-person tutors <b>pin their preferred teaching location(s) and set a travel radius</b>, so matching is distance-based ("students within X km of here") instead of a city list. <b>Gated on mode</b>: Online tutors set no location (resolves the live "cities required for Online" oddness); In-person / Hybrid set the area. Multiple areas allowed (a base in PJ and one in KL). Reuses the Bio map pin, adds a <b>radius ring</b> + a coverage read-out.
+    <div class="expl"><b>Approved 2026-07-01, folded into Service Preference Step 2</b> (see <code>activate-service-preference.html</code>). This is the dedicated "Set your teaching area" picker screen (a new node). Replaces the live city multi-select; backend shifts from a <code>city_id[]</code> list to a <b>distance query</b> (lat/long + radius) &middot; a real Hafiz/build item.</div>
+  </div>
+  <div class="modebar"><b>APPEARANCE</b>
+    <div class="seg2"><button class="on" onclick="setMode('light',this)">Light</button><button onclick="setMode('dark',this)">Dark</button></div>
+  </div>
+
+  <div class="modehd">Proposal &middot; in-person area (in Step 2) + the pin+radius picker + the online state</div>
+  <div class="frames">
+
+    <!-- 1. STEP 2, in-person, with the area -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">1</span> &middot; Step 2 &middot; In-person (area set)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Where and how</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:66%"></i></div><div class="wizstep">Step 2 of 3</div></div>
+        <div class="scroll">
+          <div class="ltsub">Requests are matched to how and where you teach.</div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Mode of tutoring</span></div>
+            <div class="segmode"><span>&#127968; Online</span><span class="on">&#128205; In-person</span><span>Hybrid</span></div>
+          </div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Where you teach</span></div>
+            <div class="why">Students within your radius see your requests.</div>
+            <div class="areacard">
+              <div class="amap map">
+                <div class="street" style="left:0;right:0;top:44%;height:8px"></div>
+                <div class="street" style="top:0;bottom:0;left:56%;width:9px"></div>
+                <div class="park" style="left:8%;top:10%;width:26%;height:30%"></div>
+                <div class="ring" style="width:150px;height:150px"></div>
+                <div class="pin"><div class="head"></div><div class="dot"></div></div>
+                <div class="amapedit">Adjust area</div>
+              </div>
+              <div class="arow"><span class="aic">&#128205;</span><div class="atx"><div class="at">Petaling Jaya</div><div class="as">Within 10 km</div></div></div>
+              <div class="addarea">+ Add another area</div>
+            </div>
+          </div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Your pitch to parents</span></div>
+            <div class="pitch"><div class="txt">SPM Maths and Science specialist, 8 years with Form 4 and 5. Exam technique and weekly parent check-ins.</div><div class="pitchfoot"><span class="help">Parents read this to pick you</span><span class="cnt">108 / 300</span></div></div>
+          </div>
+        </div>
+        <div class="foot"><div class="cta">Save and continue</div></div>
+      </div>
+    </div>
+
+    <!-- 2. the pin + radius picker -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">2</span> &middot; Set area (pin + radius)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Set your teaching area</span></div>
+        <div class="map" style="flex:1">
+          <div class="street" style="left:0;right:0;top:30%;height:11px"></div>
+          <div class="street" style="left:0;right:0;top:64%;height:14px"></div>
+          <div class="street" style="top:0;bottom:0;left:28%;width:11px"></div>
+          <div class="street" style="top:0;bottom:0;left:68%;width:14px"></div>
+          <div class="park" style="left:32%;top:12%;width:30%;height:18%"></div>
+          <div class="water" style="left:72%;top:70%;width:34%;height:20%"></div>
+          <div class="ring" style="width:280px;height:280px"></div>
+          <div class="pin"><div class="head"></div><div class="dot"></div></div>
+          <div class="locbtn">&#9678;</div>
+        </div>
+        <div class="picksheet">
+          <div class="pl">Travel radius</div>
+          <div class="radlabel"><span class="rn">How far will you travel?</span></div>
+          <div class="radchips"><span class="radchip">5 km</span><span class="radchip on">10 km</span><span class="radchip">15 km</span><span class="radchip">20 km</span></div>
+          <div class="coverage"><span class="ck">&#10003;</span><span class="ct">Reaches students within 10 km &middot; about PJ, Subang and Shah Alam.</span></div>
+          <div class="cbtn">Confirm area</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. STEP 2 online (no location) -->
+    <div class="framewrap">
+      <div class="framelabel"><span class="af">3</span> &middot; Step 2 &middot; Online (no location)</div>
+      <div class="ph">
+        <div class="statusbar"><div class="sb-t">9:41</div><div class="sb-r"><span class="sb-sig"></span><span class="sb-wifi"></span><span class="sb-bat"></span></div></div>
+        <div class="navc"><span class="back"><span class="bx">&#8249;</span>Back</span><span class="ntitle">Where and how</span></div>
+        <div class="wizprog"><div class="wizbar"><i style="width:66%"></i></div><div class="wizstep">Step 2 of 3</div></div>
+        <div class="scroll">
+          <div class="ltsub">Requests are matched to how and where you teach.</div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Mode of tutoring</span></div>
+            <div class="segmode"><span class="on">&#127968; Online</span><span>&#128205; In-person</span><span>Hybrid</span></div>
+          </div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Years of experience</span></div>
+            <div class="pitch" style="min-height:0;padding:13px"><div style="font-size:14px;font-weight:600;color:var(--ink);display:flex;justify-content:space-between">8 years <span style="color:var(--ink-3)">&#9662;</span></div></div>
+          </div>
+          <div class="fld">
+            <div class="flabel"><span class="nm">Your pitch to parents</span></div>
+            <div class="pitch"><div class="txt">SPM Maths and Science specialist, 8 years with Form 4 and 5. Exam technique and weekly parent check-ins.</div><div class="pitchfoot"><span class="help">Parents read this to pick you</span><span class="cnt">108 / 300</span></div></div>
+          </div>
+          <div class="coverage" style="background:var(--tint-weak)"><span class="ck" style="color:var(--tint-ink)">&#127760;</span><span class="ct" style="color:var(--tint-ink)">Online tutors teach anywhere &middot; no teaching area needed.</span></div>
+        </div>
+        <div class="foot"><div class="cta">Save and continue</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="annos">
+    <h2>Proposal notes</h2>
+    <div class="anno g"><span class="n">1</span><div><b>Distance beats a city list.</b> A pin + radius matches by actual travel distance, so a PJ tutor willing to travel 10 km also catches nearby Subang / Shah Alam requests without hand-picking every city. More precise for both sides.</div></div>
+    <div class="anno g"><span class="n">2</span><div><b>Gated on mode, cleanly.</b> Online = no area (fixes the live "cities required for Online" oddness). In-person / Hybrid = the area. Multiple areas allowed for tutors who teach around two bases.</div></div>
+    <div class="anno"><span class="n">3</span><div><b>Coverage read-out.</b> The picker names the towns the radius covers ("about PJ, Subang and Shah Alam") so the tutor understands their reach before confirming, not just an abstract circle.</div></div>
+    <div class="anno h"><span class="n">?</span><div><b>Hafiz / build:</b> (a) matching moves from <code>city_id[]</code> to a <b>distance query</b> (store area lat/long + radius; match requests by distance) &middot; a backend change. (b) Native map SDK + the reverse-lookup that names covered towns (or drop the town names for v1 and show just "within 10 km"). (c) radius presets (5 / 10 / 15 / 20 km) or a free slider &middot; confirm the set. (d) max number of areas per tutor.</div></div>
+  </div>
+</div>
+<script>
+  function setMode(m, btn){
+    document.querySelectorAll('.ph').forEach(function(p){ if(m==='dark') p.classList.add('dark'); else p.classList.remove('dark'); });
+    document.querySelectorAll('.modebar .seg2 button').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+  }
+</script>
+</body>
+</html>

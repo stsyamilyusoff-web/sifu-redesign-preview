@@ -147,17 +147,17 @@ window.TUTOR_CATS = [
   { key:"news", stage:"grow", t:"News + notifications", tab:"News", desc:"Updates and the notification feed",
     briefs:[{href:"tail-consistency.html", label:"Tail consistency"}],
     screens:[
-      {n:"News", s:"baseline", d:"News list (News tab)"},
-      {n:"NewsDetails", s:"floored", d:"News article (link color fixed)"},
-      {n:"Notifications", s:"floored", d:"Notification feed"},
+      {n:"News", s:"pass", m:"ref-news.html", d:"News feed cards (unread dot, thumbnail, timestamp) [Chat C]"},
+      {n:"NewsDetails", s:"pass", m:"ref-news.html", d:"News reader (standfirst + image + body; links normalised to brand) [Chat C]"},
+      {n:"Notifications", s:"pass", m:"ref-notifications.html", d:"Notification feed (Recent/Older, per-sender chips, awareness rows chevron-less) [Chat C]"},
     ]},
   { key:"static", stage:"tail", t:"Static + legal", tab:"Stack", desc:"Reference and legal pages",
     briefs:[{href:"tail-consistency.html", label:"Tail consistency"},{href:"consistency-sweep.html", label:"Consistency sweep"}],
     screens:[
-      {n:"FAQs", s:"floored", d:"Frequently asked questions"},
-      {n:"PrivacyPolicy", s:"baseline", d:"Privacy policy"},
-      {n:"TermAndConditions", s:"baseline", d:"Terms and conditions"},
-      {n:"PolicyScreen", s:"floored", d:"Generic policy viewer"},
+      {n:"FAQs", s:"pass", m:"ref-faqs.html", d:"Search-first help (search hero + browse-by-topic disclosure + Send-a-ticket footer) [Chat C]"},
+      {n:"PrivacyPolicy", s:"pass", m:"ref-legal.html", d:"Shared legal reader (server HTML body, redesigned chrome) [Chat C]"},
+      {n:"TermAndConditions", s:"pass", m:"ref-legal.html", d:"Shared legal reader (2nd instance) [Chat C]"},
+      {n:"PolicyScreen", s:"pass", m:"ref-legal.html", d:"Generic policy reader template (Privacy + Terms are thin wrappers) [Chat C]"},
     ]},
 ];
 window.TUTOR_LABEL = {pass:"Locked", briefed:"Briefed", floored:"Floored", baseline:"Baseline", deprecated:"Deprecated"};

@@ -321,6 +321,20 @@
     { stage:'grow', name:'Report an issue', mock:'support-form-complaint.html',
       after:'support-form-complaint', before:null,
       chg:'The form pattern: grouped sections + a picker sheet + a counted textarea + a sticky Submit-ticket dock.' },
+
+    // ---- Reference tail (Chat C) ----
+    { stage:'tail', name:'News', mock:'ref-news.html',
+      after:'ref-news', before:null,
+      chg:'News feed on cards (unread brand dot, subject, status subtitle, thumbnail, timestamp) with a rich empty state; the article reader normalises inline links to brand.' },
+    { stage:'tail', name:'Notifications', mock:'ref-notifications.html',
+      after:'ref-notifications', before:null,
+      chg:'Notification feed with Recent / Older sections, a per-sender icon chip, and chevron-less awareness rows. Rich empty state.' },
+    { stage:'tail', name:'FAQs', mock:'ref-faqs.html',
+      after:'ref-faqs', before:null,
+      chg:'Reworked search-first: a search hero + browse-by-topic progressive disclosure + a "Send a ticket" deflection footer. Every category and question preserved.' },
+    { stage:'tail', name:'Legal reader', mock:'ref-legal.html',
+      after:'ref-legal', before:null,
+      chg:'Shared policy reader (Privacy, Terms, generic): redesigned chrome (header, last-updated, jump-nav, readable typography, dark mode); the body stays server-driven.' },
   ];
 
   const T = 'gallery-thumbs/';

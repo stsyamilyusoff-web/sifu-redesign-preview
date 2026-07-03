@@ -312,16 +312,16 @@
     // ---- Participate ----
     { stage:'participate', name:'TutorRequests', mock:'requests-feed-r1.html',
       after:'requests-feed-r1', before:'TutorRequests',
-      chg:'Earning-forward feed card (RM / month as motivation) with every fit fact in fixed scan zones and a single-line footer.' },
+      chg:'D0 locked card verbatim (hub v0.30): RM leads with no month qualifier, indigo mode pill + location, subject title, quiet glyph detail lines, green Matches-you only, ID + posted-ago footer. For me / Latest / Applied tabs; feed search gated out.' },
     { stage:'participate', name:'Request detail + apply', mock:'wave1-apply-detail.html',
       after:'wave1-apply-detail', before:null,
-      chg:'The canonical apply screen (Direction-C hero, student card, commission, apply/share). Shared by RequestDetails, RequestDetailById, and RecommendedRequestDetail. Maintained from Wave 1.' },
+      chg:'B-final (hub v0.29): subject + level lead, no student name pre-match, parent-ask quote card, Similar requests link, Airbnb dock with underlined RM + Apply. Comment lives in the Apply confirm sheet. Shared by RequestDetails, RequestDetailById, and RecommendedRequestDetail.' },
     { stage:'participate', name:'Applied request detail', mock:'wave1-applied-detail.html',
       after:'wave1-applied-detail', before:null,
-      chg:'Post-apply detail: status banner, address gated on approved + in-person, no apply/comment. Maintained from Wave 1.' },
+      chg:'B-final read-only variant: approved banner, name + address unlocked on approval, no apply/comment. The file also carries the unavailable state and the Apply confirm sheet.' },
     { stage:'participate', name:'Request filters', mock:'wave1-request-filters.html',
       after:'wave1-request-filters', before:null,
-      chg:'The feed filter sheet. Live uses state/city dropdowns; this mock uses GPS multi-pin + radius, gated on a backend location-model decision. Maintained from Wave 1.' },
+      chg:'Quiet accordion (hub v0.32): collapsed value-summary rows, one section open at a time; your-subjects + your-levels smart defaults, decoupled plain subject names, pin + radius flag-gated on the backend location model.' },
 
     // ---- Win & Deliver ----
     { stage:'deliver', name:'ClassSchedule', mock:'deliver-class-schedule.html',

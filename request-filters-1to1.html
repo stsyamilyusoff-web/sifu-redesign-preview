@@ -10,7 +10,7 @@
 .sec{font-size:14px;font-weight:700;margin:11px 0 7px}
 .hint{font-weight:400;color:#9aa0aa;font-size:12px}
 .ch0{font-size:13px;font-weight:500;background:#E9EBF2;border-radius:999px;padding:7px 14px;color:#0b0b0c;display:inline-block;margin:0 4px 6px 0}
-.ch1{font-size:13px;font-weight:500;background:#243cb3;color:#fff;border-radius:999px;padding:7px 14px;display:inline-block;margin:0 4px 6px 0}
+.ch1{font-size:13px;font-weight:500;background:#0b0b0c;color:#fff;border-radius:999px;padding:7px 14px;display:inline-block;margin:0 4px 6px 0}
 .pre{display:flex;justify-content:space-between;align-items:center;background:#F5F9FF;border:1px solid #E7EBF0;border-radius:12px;padding:9px 12px}
 .pre b{font-size:13.5px;font-weight:500}
 .pre span{font-size:12.5px;color:#243cb3;font-weight:700}
@@ -18,45 +18,28 @@
 .dock u{font-size:14.5px;font-weight:700}
 .dock .cta{background:#243cb3;color:#fff;font-size:15px;font-weight:700;border-radius:12px;padding:13px 20px}
 .prow{display:flex;justify-content:space-between;align-items:center;padding:13px 2px;border-bottom:1px solid #E7EBF0;font-size:15px}
-.cbx{width:22px;height:22px;border-radius:6px;background:#243cb3;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px}
+.cbx{width:22px;height:22px;border-radius:6px;background:#0b0b0c;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px}
 .cb0{width:22px;height:22px;border-radius:6px;border:1.5px solid #d8dae0;display:inline-block}
+
+.row{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid #EEEFF2}
+.row .lb{font-size:11px;font-weight:700;color:#9aa0aa;text-transform:uppercase;letter-spacing:.05em}
+.row .vl{font-size:14px;font-weight:500;color:#0b0b0c}
+.row .vl small{color:#9aa0aa;font-weight:400;font-size:13px}
+.row .cv{color:#c0c3c9;margin-left:8px;font-size:12px}
+.k1{font-size:13px;font-weight:500;background:#0b0b0c;color:#fff;border-radius:999px;padding:7px 14px;display:inline-block;margin:0 4px 6px 0}
+.k0{font-size:13px;font-weight:500;border:1px solid #d8dae0;border-radius:999px;padding:7px 14px;color:#4a4a52;display:inline-block;margin:0 4px 6px 0}
+.cap{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.cap span:first-child{font-size:12px;color:#787882}
+.cap span:last-child{font-size:12px;color:#0b0b0c;font-weight:500;text-decoration:underline}
+.lnk{font-size:13px;color:#0b0b0c;font-weight:500;text-decoration:underline}
 </style></head><body>
 
-<span class="framelabel">filter-sheet-full</span>
-<div class="ph">
-<div style="padding:60px 20px;filter:blur(1px);opacity:.5"><div style="font-size:26px;font-weight:800">Student Request</div></div>
-<div style="position:absolute;inset:0;background:rgba(0,0,0,.30);border-radius:34px"></div>
-<div class="sheet">
-<div class="grab"></div>
-<div class="shead"><b>Filters</b><span class="x">&#10005;</span></div>
-<div style="padding:0 20px 8px">
-<div class="sec">Sort by</div>
-<div style="display:flex;border:1px solid #d8dae0;border-radius:12px;font-size:13.5px;text-align:center">
-<div style="flex:1;padding:8px 0;background:#EDEFFA;border:1.5px solid #243cb3;border-radius:12px;font-weight:700;color:#243cb3">Newest</div>
-<div style="flex:1;padding:8px 0;color:#4a4a52">Highest RM</div>
-<div style="flex:1;padding:8px 0;color:#4a4a52;border-left:1px solid #d8dae0">Nearest*</div></div>
-<div class="sec">Mode</div>
-<div><span class="ch1"><svg fill="currentColor" style="width:14px;height:14px;color:#fff;vertical-align:-2.5px" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></svg> In-person</span><span class="ch0"><svg fill="currentColor" style="width:14px;height:14px;color:#4a4a52;vertical-align:-2.5px" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M232,168h-8V72a24,24,0,0,0-24-24H56A24,24,0,0,0,32,72v96H24a8,8,0,0,0-8,8v16a24,24,0,0,0,24,24H216a24,24,0,0,0,24-24V176A8,8,0,0,0,232,168ZM48,72a8,8,0,0,1,8-8H200a8,8,0,0,1,8,8v96H48ZM224,192a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8v-8H224ZM152,88a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h32A8,8,0,0,1,152,88Z"/></svg> Online</span></div>
-<div class="sec">Subject</div>
-<div class="pre"><b>&#10024; Your subjects</b><span>Select all 5</span></div>
-<div style="margin-top:7px"><span class="ch1">Add Maths &#10005;</span><span class="ch1">Physics &#10005;</span><span class="ch0">Mathematics</span><span class="ch0">Science</span><span class="ch0">Chemistry</span></div>
-<div style="font-size:12.5px;color:#243cb3;font-weight:700;margin-top:1px">+ Other subject &#8250;</div>
-<div class="sec">Level <span class="hint">· optional · from your subjects</span></div>
-<div><span class="ch1">&#10003; SPM</span><span class="ch0">PT3</span><span style="font-size:13px;color:#243cb3;font-weight:700;padding:7px 6px;display:inline-block">All levels &#8964;</span></div>
-<div class="sec">Location <span class="hint">· in-person only</span></div>
-<div class="pre"><b>&#128205; Near you · Bangsar</b><span>Move pin &#8250;</span></div>
-<div style="display:flex;align-items:center;gap:10px;margin-top:9px">
-<span style="font-size:12.5px;color:#787882">Radius</span>
-<div style="flex:1;height:4px;background:#E7EBF0;border-radius:2px;position:relative"><div style="width:40%;height:4px;background:#243cb3;border-radius:2px"></div><span style="position:absolute;left:40%;top:-6px;width:16px;height:16px;background:#243cb3;border-radius:50%;margin-left:-8px"></span></div>
-<span style="font-size:13.5px;font-weight:700">10 km</span></div>
-<div style="font-size:13px;color:#243cb3;font-weight:700;margin-top:8px">Or choose state &amp; city &#8250;</div>
-<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0 2px;border-top:1px solid #E7EBF0;margin-top:10px"><span style="font-size:14.5px;font-weight:700">Request ID</span><span style="font-size:13.5px;color:#9aa0aa">TREQ-&#8230; &#8250;</span></div>
-<div style="font-size:10.5px;color:#9aa0aa;margin:6px 0 8px">*Nearest sort + pin &amp; radius are flag-gated (gate #8); state &amp; city is the live fallback</div>
-</div>
-<div class="dock"><u>Clear all</u><span class="cta">Show 8 requests</span></div>
-</div>
-</div>
-
+<span class="framelabel">filter-collapsed</span>
+<div class="ph"><div style="padding:60px 20px;filter:blur(1px);opacity:.5"><div style="font-size:26px;font-weight:800">Student Request</div></div><div style="position:absolute;inset:0;background:rgba(0,0,0,.30);border-radius:34px"></div><div class="sheet"><div style="width:36px;height:5px;background:#E7EBF0;border-radius:99px;margin:8px auto 5px"></div><div style="text-align:center;position:relative;padding:0 0 10px;border-bottom:1px solid #EEEFF2"><b style="font-size:16px;font-weight:700">Filters</b><span style="position:absolute;right:20px;top:-1px;font-size:16px;color:#9aa0aa">&#10005;</span></div><div style="padding:0 20px 4px"><div class="row" style="padding:15px 0"><span class="lb">Sort</span><span class="vl">Newest<span class="cv">&#8964;</span></span></div><div class="row" style="padding:15px 0"><span class="lb">Mode</span><span class="vl">In-person<span class="cv">&#8964;</span></span></div><div class="row" style="padding:15px 0"><span class="lb">Subject</span><span class="vl">Add Maths, Physics<span class="cv">&#8964;</span></span></div><div class="row" style="padding:15px 0"><span class="lb">Level</span><span class="vl">SPM<span class="cv">&#8964;</span></span></div><div class="row" style="padding:15px 0"><span class="lb">Location</span><span class="vl">Near you · 10 km<span class="cv">&#8964;</span></span></div><div class="row" style="padding:15px 0;border-bottom:none"><span class="lb">Request ID</span><span class="vl"><small>Any</small><span class="cv">&#8964;</span></span></div></div><div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #EEEFF2;padding:13px 20px 26px;background:#fff;border-radius:0 0 34px 34px"><span style="font-size:14.5px;font-weight:700;text-decoration:underline">Clear all</span><span style="background:#243cb3;color:#fff;font-size:15px;font-weight:700;border-radius:12px;padding:13px 20px">Show 8 requests</span></div></div></div>
+<span class="framelabel">filter-subject-open</span>
+<div class="ph"><div style="padding:60px 20px;filter:blur(1px);opacity:.5"><div style="font-size:26px;font-weight:800">Student Request</div></div><div style="position:absolute;inset:0;background:rgba(0,0,0,.30);border-radius:34px"></div><div class="sheet"><div style="width:36px;height:5px;background:#E7EBF0;border-radius:99px;margin:8px auto 5px"></div><div style="text-align:center;position:relative;padding:0 0 10px;border-bottom:1px solid #EEEFF2"><b style="font-size:16px;font-weight:700">Filters</b><span style="position:absolute;right:20px;top:-1px;font-size:16px;color:#9aa0aa">&#10005;</span></div><div style="padding:0 20px 4px"><div class="row" style="padding:15px 0"><span class="lb">Sort</span><span class="vl">Newest<span class="cv">&#8964;</span></span></div><div class="row" style="padding:15px 0"><span class="lb">Mode</span><span class="vl">In-person<span class="cv">&#8964;</span></span></div><div class="row" style="border-bottom:none"><span class="lb">Subject</span><span class="vl"><span class="cv">&#8963;</span></span></div><div style="padding:0 0 14px;border-bottom:1px solid #EEEFF2"><div class="cap"><span>Your subjects</span><span>Select all 5</span></div><span class="k1">Add Maths &#10005;</span><span class="k1">Physics &#10005;</span><span class="k0">Mathematics</span><span class="k0">Science</span><span class="k0">Chemistry</span><div style="margin-top:4px"><span class="lnk">Other subject</span></div></div><div class="row" style="padding:15px 0"><span class="lb">Level</span><span class="vl">SPM<span class="cv">&#8964;</span></span></div><div class="row" style="padding:15px 0"><span class="lb">Location</span><span class="vl">Near you · 10 km<span class="cv">&#8964;</span></span></div><div class="row" style="padding:15px 0;border-bottom:none"><span class="lb">Request ID</span><span class="vl"><small>Any</small><span class="cv">&#8964;</span></span></div></div><div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #EEEFF2;padding:13px 20px 26px;background:#fff;border-radius:0 0 34px 34px"><span style="font-size:14.5px;font-weight:700;text-decoration:underline">Clear all</span><span style="background:#243cb3;color:#fff;font-size:15px;font-weight:700;border-radius:12px;padding:13px 20px">Show 8 requests</span></div></div></div>
+<span class="framelabel">filter-location-open</span>
+<div class="ph"><div style="padding:60px 20px;filter:blur(1px);opacity:.5"><div style="font-size:26px;font-weight:800">Student Request</div></div><div style="position:absolute;inset:0;background:rgba(0,0,0,.30);border-radius:34px"></div><div class="sheet"><div style="width:36px;height:5px;background:#E7EBF0;border-radius:99px;margin:8px auto 5px"></div><div style="text-align:center;position:relative;padding:0 0 10px;border-bottom:1px solid #EEEFF2"><b style="font-size:16px;font-weight:700">Filters</b><span style="position:absolute;right:20px;top:-1px;font-size:16px;color:#9aa0aa">&#10005;</span></div><div style="padding:0 20px 4px"><div class="row" style="padding:15px 0"><span class="lb">Sort</span><span class="vl">Newest<span class="cv">&#8964;</span></span></div><div class="row" style="padding:15px 0"><span class="lb">Mode</span><span class="vl">In-person<span class="cv">&#8964;</span></span></div><div class="row" style="padding:15px 0"><span class="lb">Subject</span><span class="vl">Add Maths, Physics<span class="cv">&#8964;</span></span></div><div class="row" style="padding:15px 0"><span class="lb">Level</span><span class="vl">SPM<span class="cv">&#8964;</span></span></div><div class="row" style="border-bottom:none"><span class="lb">Location</span><span class="vl"><span class="cv">&#8963;</span></span></div><div style="padding:0 0 14px;border-bottom:1px solid #EEEFF2"><div class="cap"><span>&#128205; Near you · Bangsar</span><span>Move pin</span></div><div style="display:flex;align-items:center;gap:10px;margin-top:4px"><span style="font-size:12.5px;color:#787882">Radius</span><div style="flex:1;height:4px;background:#EEEFF2;border-radius:2px;position:relative"><div style="width:40%;height:4px;background:#0b0b0c;border-radius:2px"></div><span style="position:absolute;left:40%;top:-6px;width:16px;height:16px;background:#0b0b0c;border-radius:50%;margin-left:-8px"></span></div><span style="font-size:13.5px;font-weight:700">10 km</span></div><div style="margin-top:10px"><span class="lnk">Or choose state &amp; city</span></div></div><div class="row" style="padding:15px 0;border-bottom:none"><span class="lb">Request ID</span><span class="vl"><small>Any</small><span class="cv">&#8964;</span></span></div></div><div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #EEEFF2;padding:13px 20px 26px;background:#fff;border-radius:0 0 34px 34px"><span style="font-size:14.5px;font-weight:700;text-decoration:underline">Clear all</span><span style="background:#243cb3;color:#fff;font-size:15px;font-weight:700;border-radius:12px;padding:13px 20px">Show 8 requests</span></div></div></div>
 <span class="framelabel">filter-subject-picker</span>
 <div class="ph">
 <div style="padding:60px 20px;filter:blur(1px);opacity:.5"><div style="font-size:26px;font-weight:800">Student Request</div></div>
@@ -99,7 +82,7 @@
 <div style="position:absolute;left:12%;top:70%;width:60%;height:3px;background:#fff;transform:rotate(4deg)"></div>
 <div style="position:absolute;left:50%;top:50%;width:210px;height:210px;border:2px solid #243cb3;background:rgba(36,60,179,.10);border-radius:50%;transform:translate(-50%,-50%)"></div>
 <svg fill="currentColor" style="width:38px;height:38px;color:#243cb3;position:absolute;left:50%;top:50%;transform:translate(-50%,-92%)" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,16a88.1,88.1,0,0,0-88,88c0,75.3,80,132.17,83.41,134.55a8,8,0,0,0,9.18,0C136,236.17,216,179.3,216,104A88.1,88.1,0,0,0,128,16Zm0,56a32,32,0,1,1-32,32A32,32,0,0,1,128,72Z"/></svg>
-<span style="position:absolute;right:12px;bottom:12px;background:#fff;border-radius:10px;padding:8px 12px;font-size:12.5px;font-weight:700;color:#243cb3;box-shadow:0 2px 8px rgba(0,0,0,.12)">&#8982; Use my location</span>
+<span style="position:absolute;right:12px;bottom:12px;background:#fff;border-radius:10px;padding:8px 12px;font-size:12.5px;font-weight:700;color:#0b0b0c;box-shadow:0 2px 8px rgba(0,0,0,.12)">&#8982; Use my location</span>
 </div>
 <div style="padding:14px 20px 8px">
 <div style="font-size:13.5px;color:#4a4a52">Drag the pin or search an area</div>
@@ -108,7 +91,7 @@
 <span style="font-size:14px">Bangsar, Kuala Lumpur</span></div>
 <div style="display:flex;align-items:center;gap:10px;margin-top:13px">
 <span style="font-size:12.5px;color:#787882">Radius</span>
-<div style="flex:1;height:4px;background:#E7EBF0;border-radius:2px;position:relative"><div style="width:40%;height:4px;background:#243cb3;border-radius:2px"></div><span style="position:absolute;left:40%;top:-6px;width:16px;height:16px;background:#243cb3;border-radius:50%;margin-left:-8px"></span></div>
+<div style="flex:1;height:4px;background:#E7EBF0;border-radius:2px;position:relative"><div style="width:40%;height:4px;background:#0b0b0c;border-radius:2px"></div><span style="position:absolute;left:40%;top:-6px;width:16px;height:16px;background:#0b0b0c;border-radius:50%;margin-left:-8px"></span></div>
 <span style="font-size:13.5px;font-weight:700">10 km</span></div>
 <div style="margin-top:10px"><span class="ch0">5 km</span><span class="ch1">&#10003; 10 km</span><span class="ch0">20 km</span><span class="ch0">50 km</span></div>
 </div>

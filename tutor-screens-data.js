@@ -28,7 +28,7 @@ window.TUTOR_CATS = [
   { key:"activate", stage:"activate", t:"Activate", tab:"Verification", desc:"The new-tutor verification on-ramp",
     briefs:[{href:"activate.html", label:"Activate"}],
     screens:[
-      {n:"UnverifyScreen", s:"pass", m:"activate-unverify-gate.html", d:"Verify gate — on-ramp not a dead-end: step preview + time estimate + resume-progress; needs per-section completion flags (Hafiz) [Chat B]"},
+      {n:"UnverifyScreen", s:"pass", m:"verify-onramp-1to1.html", d:"RE-LOCKED 05-Jul-2026 gate A (hub v0.35, browser-passed): value-first title + 4 numbered group previews + about-15-min + notify note; Lane-C plate slot; copy rides gate #9 (apply-before-approval policy); verified 1:1 (frame 1)"},
       {n:"ServicePreference", s:"briefed", d:"What/where you teach — 3-step wizard (LOCKED)"},
       {n:"ServicePreference / Step1WhatYouTeach", s:"pass", m:"activate-service-preference.html", d:"What you teach: curricula multi-select, per-language proficiency [Chat B]", cap:"activate-ServicePreferenceStep1"},
       {n:"ServicePreference / Step2WhereAndHow", s:"pass", m:"activate-service-preference.html", d:"Mode Online/In-person/Hybrid; cities -> pin+radius teaching area (gated on mode); Years of experience (new field) [Chat B]", cap:"activate-ServicePreferenceStep2"},
@@ -41,7 +41,7 @@ window.TUTOR_CATS = [
       {n:"VerificationDocumentsUpload", s:"pass", m:"activate-uploads.html", d:"Per-file state: done/uploading/failed+retry; 2 MB limit (not 5), IC = one upload/front only [Chat B]"},
       {n:"IntroVideoUpload", s:"pass", m:"activate-uploads.html", d:"Reframed: how parents choose you + recorded preview; 30-120s + 50 MB; ENDPOINT FLAG-GATED (enhanced_data_collection_enabled) + not on release branch [Chat B]"},
       {n:"Application submitted", s:"deprecated", d:"merged -> VerificationSubmittedSuccess (one consolidated success node; activate-application-submitted.html)"},
-      {n:"TutorVerificationProcess", s:"briefed", d:"UN-DEPRECATED 05-Jul-2026 (v0.34 founder verdict supersedes the Chat-B merge): the checklist STAYS as the verification worklist; gains resume-to-next-incomplete + the Declaration checkbox + Submit at its bottom; submitted state -> locked success pattern"},
+      {n:"TutorVerificationProcess", s:"pass", m:"verify-onramp-1to1.html", d:"LOCKED 05-Jul-2026 checklist B (hub v0.35, browser-passed): Fresha pill cards - green Completed pills, indigo-bordered active row w/ Continue (resume), grey chevrons, optional intro video, N-of-7 count, Declaration + Submit-for-review folded at bottom (enabled on completion); submitted -> locked success pattern; verified 1:1 (frames 2-3)"},
       {n:"TutorVerificationProcessForOldTutor", s:"deprecated", d:"copy VARIANT of the checklist/success (re-verify framing), not a screen (v0.34)"},
       {n:"VerificationSubmittedSuccess", s:"pass", m:"activate-application-submitted.html", d:"Consolidates 3 near-identical success screens into one parametrized node; adds review timeline + Activate->Participate fit-request nudge [Chat B]"},
       {n:"TutorVerificationDeclaration", s:"deprecated", d:"FOLDED into the checklist submit moment (v0.34): declaration checkbox + Submit at the worklist bottom"},

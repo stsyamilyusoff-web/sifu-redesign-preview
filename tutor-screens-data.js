@@ -72,7 +72,7 @@ window.TUTOR_CATS = [
   { key:"deliver", stage:"deliver", t:"Deliver", tab:"Calendar", desc:"Teach: schedule, attendance, the class loop",
     briefs:[{href:"deliver.html", label:"Deliver"}],
     screens:[
-      {n:"ClassSchedule", s:"pass", m:"deliver-class-schedule.html", d:"Schedule cockpit: real ClassStatus lifecycle (Scheduled/Ongoing/Attended/Verified), slim done-row, earnings summary, expandable week-to-month calendar (approved 2026-06-30)"},
+      {n:"ClassSchedule", s:"pass", m:"deliver-schedule-1to1.html", d:"RE-LOCKED 06-Jul-2026 (hub v0.39, browser-passed): Option-2 time spine (group headers own starts; cards carry duration+end; back-to-back grouping); labeled-row cards w/ split bottom action row (state/location left, one outlined action right); exceptions-only status; NO earnings (supersedes the mock RM); expandable month w/ density dots + calendar-glyph pill; Phosphor icons throughout; flag: app checks pending status absent from the ClassStatus enum"},
       {n:"AddClassSchedule", s:"pass", m:"deliver-add-class.html", d:"Create-class form (canonical, new quota model): focus-first stepped flow, schedules contracted classes (no quota-cap, no extra-class, each class auto-invoiced), keeps backdate cliff + proof + repeat-weekly + escalation; design LOCKED 2026-06-30, ships with the billing cutover (allocator flag)"},
       {n:"ClassScheduleAdded", s:"pass", m:"deliver-success-variants.html", d:"Class added (success variant V2)"},
       {n:"BackdateClassSchedule", s:"deprecated", d:"RETIRED → AddClassSchedule (dead route, zero callers; the backdate job already lives inside AddClass)"},

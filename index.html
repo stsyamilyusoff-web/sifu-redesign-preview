@@ -84,7 +84,7 @@
   .stage-hd .cnt{margin-left:auto;font-size:12.5px;color:var(--faint);font-weight:600}
 
   /* ---------- Grid + cards ---------- */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(232px, 1fr));gap:22px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(304px, 1fr));gap:22px}
   .card{
     background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
     text-decoration:none;color:inherit;display:flex;flex-direction:column;
@@ -94,41 +94,41 @@
 
   .framewrap{
     position:relative;background:linear-gradient(170deg,#FBFCFF 0%,#EEF1F8 100%);
-    padding:20px 20px 0;display:flex;justify-content:center;align-items:flex-end;height:300px;overflow:hidden;
+    padding:16px 12px 0;display:flex;justify-content:center;align-items:flex-end;gap:9px;height:320px;overflow:hidden;
+    text-decoration:none;color:inherit;
   }
-  /* phone shell - gives the bare screenshot a device edge */
+  /* one slot per phone: label chip on top, device below */
+  .slot{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0}
+  .slot .lbl{font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;border-radius:5px;padding:2px 8px}
+  .slot .lbl.live{color:var(--ink-2);background:#fff;border:1px solid var(--line)}
+  .slot .lbl.new{color:#fff;background:var(--brand);box-shadow:0 2px 6px rgba(43,47,190,.35)}
   .phone{
-    width:148px;border-radius:24px 24px 0 0;overflow:hidden;
+    width:122px;border-radius:20px 20px 0 0;overflow:hidden;
     box-shadow:0 -1px 0 rgba(21,22,28,.04), 0 14px 30px rgba(21,22,28,.20), 0 2px 8px rgba(21,22,28,.10);
-    border:5px solid #11131A;border-bottom:0;background:#11131A;
-    transform:translateY(2px);
+    border:4px solid #11131A;border-bottom:0;background:#11131A;
   }
   .phone img{display:block;width:100%;height:auto}
-  /* before/after stacking inside the same shell */
-  .phone .shot{display:block;width:100%}
-  .phone .shot.before{display:none}
-  .card[data-show="before"] .phone .shot.after{display:none}
-  .card[data-show="before"] .phone .shot.before{display:block}
+  /* net-new screens: dashed placeholder where the live screen would sit */
+  .ghost{
+    width:122px;height:225px;border:2px dashed var(--brand-line);border-radius:18px;background:rgba(255,255,255,.65);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-size:10.5px;font-weight:600;color:var(--faint);padding:14px;line-height:1.5;margin-bottom:12px;
+  }
+  .cmp-arr{align-self:center;color:var(--faint);font-size:16px;font-weight:800;padding-bottom:110px;flex:0 0 auto}
 
-  /* corner state badge */
-  .badge{
-    position:absolute;top:14px;left:14px;font-size:10px;font-weight:800;letter-spacing:.4px;
-    border-radius:6px;padding:3px 8px;text-transform:uppercase;z-index:3;
+  /* sticky stage jump bar */
+  .jumpbar{
+    position:sticky;top:0;z-index:30;display:flex;gap:8px;overflow-x:auto;
+    padding:10px 2px;margin-top:14px;background:rgba(245,247,251,.94);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);scrollbar-width:none;
   }
-  .badge.now{color:#fff;background:var(--brand);box-shadow:0 2px 6px rgba(43,47,190,.4)}
-  .badge.before{color:var(--ink-2);background:#fff;border:1px solid var(--line)}
-  /* per-card view switch (sits on the frame) */
-  .switch{
-    position:absolute;top:12px;right:12px;display:inline-flex;background:rgba(255,255,255,.92);
-    border:1px solid var(--line);border-radius:9px;padding:3px;z-index:4;backdrop-filter:blur(3px);
-    box-shadow:0 2px 8px rgba(21,22,28,.10);
+  .jumpbar::-webkit-scrollbar{display:none}
+  .jumpbar a{
+    flex:0 0 auto;font-size:12.5px;font-weight:700;color:var(--ink-2);background:var(--card);
+    border:1px solid var(--line);border-radius:999px;padding:7px 14px;text-decoration:none;transition:.12s;
   }
-  .switch button{
-    border:0;background:transparent;font:inherit;font-size:10.5px;font-weight:800;color:var(--muted);
-    padding:4px 9px;border-radius:6px;cursor:pointer;transition:.1s;letter-spacing:.2px;
-  }
-  .switch button.on{background:var(--brand);color:#fff}
-  .switch button:disabled{color:var(--faint);cursor:not-allowed;opacity:.55}
+  .jumpbar a b{color:var(--brand);font-weight:800}
+  .jumpbar a:hover{border-color:var(--brand-line);color:var(--brand)}
 
   /* P0 tag */
   .p0{
@@ -138,10 +138,17 @@
 
   .body{padding:15px 16px 17px;border-top:1px solid var(--line-2);display:flex;flex-direction:column;gap:7px;flex:1}
   .body .nm{font-size:15px;font-weight:800;letter-spacing:-.1px;display:flex;align-items:center;gap:8px}
-  .body .nm .open{margin-left:auto;color:var(--faint);font-size:13px;transition:.12s}
-  .card:hover .body .nm .open{color:var(--brand);transform:translateX(2px)}
   .body .chg{font-size:12.5px;color:var(--muted);line-height:1.45}
   .body .meta-row{display:flex;align-items:center;gap:7px;margin-top:2px}
+  .actions{display:flex;gap:8px;margin-top:auto;padding-top:10px}
+  .actions a{
+    flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    font-size:12.5px;font-weight:700;text-decoration:none;border-radius:9px;padding:9px 10px;transition:.12s;
+  }
+  .actions a.cmp{background:var(--brand);color:#fff;box-shadow:0 2px 8px rgba(43,47,190,.25)}
+  .actions a.cmp:hover{filter:brightness(1.08)}
+  .actions a.mock{background:var(--card);color:var(--ink-2);border:1px solid var(--line)}
+  .actions a.mock:hover{border-color:var(--brand-line);color:var(--brand)}
   .tag-new{font-size:9.5px;font-weight:800;color:var(--new);background:var(--new-bg);border-radius:5px;padding:2px 7px;letter-spacing:.3px}
   .tag-base{font-size:9.5px;font-weight:700;color:var(--muted);background:#F1F2F5;border-radius:5px;padding:2px 7px;letter-spacing:.3px}
 
@@ -155,7 +162,7 @@
     .head{padding:26px 22px}
     .head h1{font-size:25px}
     a.maplink{margin-left:0;margin-top:14px;width:100%;justify-content:center}
-    .grid{grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));gap:16px}
+    .grid{grid-template-columns:1fr;gap:16px}
     .controls .lede{width:100%}
   }
 </style>
@@ -166,21 +173,19 @@
   <header class="head">
     <p class="kicker">Sifututor · Tutor app redesign</p>
     <h1>Approved redesigns</h1>
-    <p class="sub">The build-ready screens, leading with the new design. Each card opens the full mock; flip any card to see the live screen it replaces.</p>
+    <p class="sub">Every approved screen compared in place: the live app on the left, the build-ready redesign on the right. Tap any card to open the full mock.</p>
     <div class="meta">
       <span class="pill"><span class="dot"></span><span id="pillCount">redesign cards</span></span>
       <span class="pill" id="pillStages">journey stages</span>
-      <span class="pill">Locked 2026-07-01</span>
+      <span class="pill">Updated 2026-07-06</span>
       <a class="maplink" href="full-map.html">See the full 95-screen map <span class="arr">&rarr;</span></a>
     </div>
   </header>
 
+  <nav class="jumpbar" id="jumpbar" aria-label="Jump to a journey stage"></nav>
+
   <div class="controls">
-    <span class="lede">Cards show the <strong>new design</strong>. Use the toggle to flip every card at once, or flip cards one by one.</span>
-    <div class="seg" id="globalseg">
-      <button data-all="after" class="on">New design</button>
-      <button data-all="before">Live (before)</button>
-    </div>
+    <span class="lede"><strong>Live now</strong> on the left, the <strong>approved redesign</strong> on the right. A dashed slot means the screen is net-new, with nothing live to replace.</span>
   </div>
 
   <!-- ============ STAGE 1 ============ -->
@@ -448,39 +453,71 @@
     'activate-application-submitted':'activate-VerificationSubmittedSuccess','activate-unverify-gate':'activate-UnverifyScreen',
     'wave1-apply-detail':'participate-RequestDetails','wave1-applied-detail':'participate-TutorAppliedRequestDetails',
     'wave1-request-filters':'participate-RequestFilters',
+    'activate-identity-forms':'activate-BioDetails','activate-service-preference':'activate-ServicePreference',
+    'activate-uploads':'activate-VerificationDocumentsUpload',
   };
+  // genuinely new screens (no live equivalent exists at all)
+  const NETNEW = new Set(['activate-location-pin','activate-teaching-area']);
+  // card after-slug -> pair name in /compare/ (reg-cli report); NEW3 = after-only items ("new-" ids)
+  const CMP = {
+    'splash-a44':'acquire-Splash','onboarding-a41':'acquire-OnBoarding','login-a42':'acquire-Login',
+    'verifycode-a43':'acquire-VerifyCode','activate-identity-forms':'activate-BioDetails',
+    'activate-location-pin':'activate-SetHomeLocationPin','activate-service-preference':'activate-ServicePreferenceStep1',
+    'activate-teaching-area':'activate-SetTeachingArea','activate-uploads':'activate-VerificationDocumentsUpload',
+    'activate-application-submitted':'activate-VerificationSubmittedSuccess','activate-unverify-gate':'activate-UnverifyScreen',
+    'requests-feed-r1':'participate-TutorRequests','wave1-apply-detail':'participate-RequestDetails',
+    'wave1-applied-detail':'participate-TutorAppliedRequestDetails','wave1-request-filters':'participate-RequestFilters',
+    'deliver-class-schedule':'deliver-ClassSchedule','deliver-add-class':'deliver-AddClassSchedule',
+    'deliver-evaluation-report':'report-EvaluationReport','deliver-progress-report':'report-ProgressReport',
+    'deliver-student-details':'students-StudentsDetails','deliver-active-class':'deliver-ActiveClass',
+    'deliver-class-records':'deliver-ClassRecords','deliver-class-edit':'deliver-ExtraClass',
+    'deliver-success-variants':'deliver-ClassPostponeSuccess','deliver-student-tasks':'students-StudentList',
+    'deliver-camera-demand':'engage-Home','profile-menu-hub':'profile-ProfileMenu',
+    'updateprofile-a45':'activate-UpdateProfile','consentgate-a45':'activate-ConsentGate',
+    'profile-status':'profile-Status','profile-view':'profile-Profile',
+    'earn-payment-hub':'earn-Payment','earn-payment-ledger':'earn-PaymentLedger','earn-refer':'earn-ReferFriend',
+    'support-ticket-picker':'support-SubmitRequestPicker','support-my-tickets-list':'participate-MyRequestsList',
+    'support-ticket-detail':'support-TicketDetail','support-application-status':'support-ApplicationStatusDetail',
+    'support-form-complaint':'support-SubmitRequestGeneralComplaint','support-form-reschedule':'support-SubmitRequestClassReschedule',
+    'support-form-resignation':'support-SubmitRequestResignation','support-discouragement':'support-Discouragement',
+    'ref-news':'news-News','ref-notifications':'news-Notifications','ref-faqs':'static-FAQs','ref-legal':'static-PrivacyPolicy',
+  };
+  const NEW3 = new Set(['acquire-Splash','activate-SetHomeLocationPin','activate-SetTeachingArea']);
+  function cmpHref(slug){
+    const pair = CMP[slug];
+    if (!pair) return null;
+    const prefix = NEW3.has(pair) ? 'new' : 'changed';
+    return `compare/index.html?id=${prefix}-${pair}.png`;
+  }
   function cardHTML(s){
     const beforeSrc = s.before ? `${T}before-${s.before}.png` : ((LIVE[s.after] && THUMBS[LIVE[s.after]]) || '');
     const hasBefore = !!beforeSrc;
-    const beforeImg = hasBefore
-      ? `<img class="shot before" src="${beforeSrc}" alt="${s.name}, live (before)" loading="lazy">`
-      : '';
-    const switchHTML = `
-      <div class="switch">
-        <button data-view="after" class="on">New</button>
-        <button data-view="before" ${hasBefore ? '' : 'disabled title="No live baseline captured"'}>Before</button>
-      </div>`;
+    const isNetNew = NETNEW.has(s.after);
+    const ghostCopy = isNetNew ? 'Net-new screen<br>nothing live to replace' : 'Live screen exists<br>capture not added yet';
+    const beforeSlot = hasBefore
+      ? `<div class="slot"><span class="lbl live">Live now</span><div class="phone"><img src="${beforeSrc}" alt="${s.name}, live (before)" loading="lazy"></div></div>`
+      : `<div class="slot"><span class="lbl live">Live now</span><div class="ghost">${ghostCopy}</div></div>`;
     const p0 = s.p0 ? `<span class="p0">P0</span>` : '';
     const metaTag = hasBefore
       ? `<span class="tag-new">NEW</span><span class="tag-base">vs live</span>`
-      : `<span class="tag-new">NEW</span><span class="tag-base">no baseline</span>`;
+      : `<span class="tag-new">NEW</span><span class="tag-base">${isNetNew ? 'net-new' : 'no capture yet'}</span>`;
+    const cmp = cmpHref(s.after);
+    const cmpBtn = cmp ? `<a class="cmp" href="${cmp}" target="_blank" rel="noopener">Compare &harr;</a>` : '';
     return `
-      <a class="card" data-show="after" href="${s.mock}" target="_blank" rel="noopener">
-        <div class="framewrap">
-          <span class="badge now">New</span>
-          ${switchHTML}
+      <div class="card">
+        <a class="framewrap" href="${s.mock}" target="_blank" rel="noopener">
+          ${beforeSlot}
+          <span class="cmp-arr">&rarr;</span>
+          <div class="slot"><span class="lbl new">New</span><div class="phone"><img src="${T}${s.after}.png" alt="${s.name}, new design" loading="lazy"></div></div>
           ${p0}
-          <div class="phone">
-            <img class="shot after" src="${T}${s.after}.png" alt="${s.name}, new design" loading="lazy">
-            ${beforeImg}
-          </div>
-        </div>
+        </a>
         <div class="body">
-          <div class="nm">${s.name}<span class="open">Open mock &rarr;</span></div>
+          <div class="nm">${s.name}</div>
           <div class="chg">${s.chg}</div>
           <div class="meta-row">${metaTag}</div>
+          <div class="actions">${cmpBtn}</div>
         </div>
-      </a>`;
+      </div>`;
   }
 
   // render into stage grids
@@ -496,53 +533,16 @@
   // defensive: a card whose stage has no grid is skipped (never crashes the whole render)
   SCREENS.forEach(s => { const g = grids[s.stage]; if (g) g.insertAdjacentHTML('beforeend', cardHTML(s)); else console.warn('no grid for stage', s.stage, s.name); });
 
-  // per-card switch (does not navigate)
-  document.querySelectorAll('.card').forEach(card => {
-    const badge = card.querySelector('.badge');
-    card.querySelectorAll('.switch button').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.preventDefault(); e.stopPropagation();
-        if (btn.disabled) return;
-        const view = btn.dataset.view;
-        card.dataset.show = view;
-        card.querySelectorAll('.switch button').forEach(b => b.classList.toggle('on', b === btn));
-        badge.textContent = view === 'before' ? 'Before' : 'New';
-        badge.className = 'badge ' + (view === 'before' ? 'before' : 'now');
-        syncGlobal();
-      });
-    });
+  // sticky stage jump chips, built from the rendered sections
+  const jb = document.getElementById('jumpbar');
+  document.querySelectorAll('.stage').forEach((sec, i) => {
+    const id = 'stage-' + i;
+    sec.id = id;
+    sec.style.scrollMarginTop = '62px';
+    const nm = sec.querySelector('h2').textContent;
+    const n = sec.querySelectorAll('.card').length;
+    jb.insertAdjacentHTML('beforeend', `<a href="#${id}">${nm} <b>${n}</b></a>`);
   });
-
-  // global toggle flips every card
-  const gseg = document.getElementById('globalseg');
-  gseg.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const view = btn.dataset.all;
-      gseg.querySelectorAll('button').forEach(b => b.classList.toggle('on', b === btn));
-      document.querySelectorAll('.card').forEach(card => {
-        // a card with no baseline always stays on "after"
-        const beforeBtn = card.querySelector('.switch button[data-view="before"]');
-        const canBefore = beforeBtn && !beforeBtn.disabled;
-        const target = (view === 'before' && canBefore) ? 'before' : 'after';
-        card.dataset.show = target;
-        card.querySelectorAll('.switch button').forEach(b => b.classList.toggle('on', b.dataset.view === target));
-        const badge = card.querySelector('.badge');
-        badge.textContent = target === 'before' ? 'Before' : 'New';
-        badge.className = 'badge ' + (target === 'before' ? 'before' : 'now');
-      });
-    });
-  });
-
-  // keep the global control honest if a single card is flipped away from the set
-  function syncGlobal(){
-    const cards = [...document.querySelectorAll('.card')];
-    const allBefore = cards.filter(c => c.querySelector('.switch button[data-view="before"]:not([disabled])'))
-                           .every(c => c.dataset.show === 'before');
-    const allAfter = cards.every(c => c.dataset.show === 'after');
-    gseg.querySelectorAll('button').forEach(b => {
-      b.classList.toggle('on', (b.dataset.all === 'before' && allBefore) || (b.dataset.all === 'after' && allAfter));
-    });
-  }
 
   // Header stats stay in sync with the data (no more hardcoded staleness).
   document.getElementById('pillCount').textContent = SCREENS.length + ' redesign cards';

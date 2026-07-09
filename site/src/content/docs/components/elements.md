@@ -19,7 +19,8 @@ Each element went through a forensic craft pass: grounded in the five reference 
 | Context card | [open board](/sifu-redesign-preview/elements/context-card.html) |  |
 | Card type system (5 treatments + role map) | [open board](/sifu-redesign-preview/elements/card-type-system.html) |  |
 | Stat / metric card (earner-grounded) | [open board](/sifu-redesign-preview/elements/stat-card.html) | Earnings HERO deferred: none of the earner captures had one to pin. Capture real earner earnings screens (Grab Driver Earnings tab or a rider app) before the Home/earnings surface. No fabricated hero. |
+| Notification / reminder card (3 configs) | [open board](/sifu-redesign-preview/elements/reminder-card.html) | BRAND RULE: urgency = amber tint + the plain fact. Never red, never a countdown, never a pulse. One flexible card (type-slot), varying only fill tint + action slot; the 3 configs demonstrate all 3 action-slots. |
 
-**Coming next (library-first order):** Notification + reminder cards -> Tabs family -> Feedback: banner, toast, empty, skeleton, badge -> Inputs.
+**Coming next (library-first order):** Tabs family -> Feedback: banner, toast, empty, skeleton, badge -> Inputs.
 
 Screens have not yet been re-folded onto this library; when that happens, the per-screen comparisons and decision records update through the usual frame manifests.

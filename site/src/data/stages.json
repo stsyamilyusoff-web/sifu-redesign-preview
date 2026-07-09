@@ -1,0 +1,744 @@
+[
+ {
+  "key": "acquire",
+  "num": "1",
+  "title": "Acquire",
+  "role": "Top of funnel",
+  "star": false,
+  "phase": "Later",
+  "briefs": [
+   {
+    "label": "Onboarding tidy",
+    "href": "acquire-onboarding.html"
+   }
+  ],
+  "nodes": [
+   {
+    "name": "Splash",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Acquire"
+   },
+   {
+    "name": "OnBoarding",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Acquire"
+   },
+   {
+    "name": "GetStarted",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Acquire"
+   },
+   {
+    "name": "Login",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Acquire"
+   },
+   {
+    "name": "VerifyCode",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Acquire"
+   }
+  ]
+ },
+ {
+  "key": "activate",
+  "num": "2",
+  "title": "Activate",
+  "role": "Feeder — widens the funnel",
+  "star": false,
+  "phase": "Designing now",
+  "briefs": [
+   {
+    "label": "Activate",
+    "href": "activate.html"
+   }
+  ],
+  "nodes": [
+   {
+    "name": "UnverifyScreen",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "ServicePreference",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "ServicePreference / Step1WhatYouTeach",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "ServicePreference / Step2WhereAndHow",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "ServicePreference / Step3 (AvailabilitySlots)",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "SetHomeLocationPin",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "SetTeachingArea",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "BioDetails",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "EducationDetails",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "EmergencyContact",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "VerificationDocumentsUpload",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "IntroVideoUpload",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "Application submitted",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Activate"
+   },
+   {
+    "name": "TutorVerificationProcess",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "TutorVerificationProcessForOldTutor",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Activate"
+   },
+   {
+    "name": "VerificationSubmittedSuccess",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Activate"
+   },
+   {
+    "name": "TutorVerificationDeclaration",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Activate"
+   }
+  ]
+ },
+ {
+  "key": "participate",
+  "num": "3",
+  "title": "Participate",
+  "role": "★ North Star — the core loop",
+  "star": true,
+  "phase": "Done",
+  "briefs": [
+   {
+    "label": "Home",
+    "href": "home-engage.html"
+   },
+   {
+    "label": "Wave 1 build brief",
+    "href": "wave1-enhancement-brief.html"
+   },
+   {
+    "label": "Requests + Apply (superseded)",
+    "href": "requests-participate.html"
+   }
+  ],
+  "nodes": [
+   {
+    "name": "Home",
+    "status": "briefed",
+    "statusLabel": "Waiting for design",
+    "cluster": "Home"
+   },
+   {
+    "name": "Home / DemandSummaryCard",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Home"
+   },
+   {
+    "name": "TutorRequests",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Participate"
+   },
+   {
+    "name": "RequestDetails",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Participate"
+   },
+   {
+    "name": "RequestDetailById",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Participate"
+   },
+   {
+    "name": "RecommendedRequestDetail",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Participate"
+   },
+   {
+    "name": "SharedRequestDetail",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Participate"
+   },
+   {
+    "name": "TutorAppliedRequestDetails",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Participate"
+   },
+   {
+    "name": "RequestFilters",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Participate"
+   },
+   {
+    "name": "ApplyConfirmSheet",
+    "status": "briefed",
+    "statusLabel": "Waiting for design",
+    "cluster": "Participate"
+   },
+   {
+    "name": "SubjectPicker",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Participate"
+   },
+   {
+    "name": "LocationPinSheet",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Participate"
+   },
+   {
+    "name": "Filter",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Participate"
+   },
+   {
+    "name": "TutorTaskList",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Participate"
+   },
+   {
+    "name": "JTDetailByNotification",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Participate"
+   }
+  ]
+ },
+ {
+  "key": "deliver",
+  "num": "4",
+  "title": "Win & Deliver",
+  "role": "Service delivery",
+  "star": false,
+  "phase": "Later",
+  "briefs": [
+   {
+    "label": "Deliver",
+    "href": "deliver.html"
+   },
+   {
+    "label": "Evaluation report",
+    "href": "deliver-evaluation-report.html"
+   },
+   {
+    "label": "Class reports",
+    "href": "reports.html"
+   },
+   {
+    "label": "Progress report",
+    "href": "progress-report.html"
+   }
+  ],
+  "nodes": [
+   {
+    "name": "ClassSchedule",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "AddClassSchedule",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ClassScheduleAdded",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "BackdateClassSchedule",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "BackdateEscalationSuccess",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ExtraClass",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ParentApprovalConfirmation",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ExtendClass",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "EditPostponedClass",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ClassPostponeSuccess",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "EditAttendedClass",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ClassRecords",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ClassRecordFilter",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ActiveClass",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ActiveClass / ClockInBody",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ActiveClass / InProgressBody",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ActiveClass / SubmitProofBody",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ActiveClass / DoneBody",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ClassTimerCountScreen",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ClockInScreen / ClockIn",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ClockOutScreen",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ClockoutSuccessfully",
+    "status": "floored",
+    "statusLabel": "Needs polish",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "BackToDashboardScreen",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "ClassDetailByNotification",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "CameraScreen",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Deliver"
+   },
+   {
+    "name": "EvaluationReport",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Report"
+   },
+   {
+    "name": "SubmitEvaluationReport",
+    "status": "merged",
+    "statusLabel": "Merged",
+    "cluster": "Report"
+   },
+   {
+    "name": "EvaluationReportSuccess",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Report"
+   },
+   {
+    "name": "ProgressReport",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Report"
+   },
+   {
+    "name": "ProgressReportSuccess",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Report"
+   },
+   {
+    "name": "StudentReport",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Report"
+   },
+   {
+    "name": "StudentReport / EvaluationReportView",
+    "status": "briefed",
+    "statusLabel": "Waiting for design",
+    "cluster": "Report"
+   },
+   {
+    "name": "StudentReport / ProgressReportView",
+    "status": "briefed",
+    "statusLabel": "Waiting for design",
+    "cluster": "Report"
+   },
+   {
+    "name": "ReportSubmission",
+    "status": "merged",
+    "statusLabel": "Merged",
+    "cluster": "Report"
+   },
+   {
+    "name": "StudentList",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Students"
+   },
+   {
+    "name": "StudentsDetails",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Students"
+   }
+  ]
+ },
+ {
+  "key": "grow",
+  "num": "5",
+  "title": "Retain & Grow",
+  "role": "Retention + revenue",
+  "star": false,
+  "phase": "Later",
+  "briefs": [
+   {
+    "label": "Deliver (earnings section)",
+    "href": "deliver.html"
+   },
+   {
+    "label": "Profile-menu hub",
+    "href": "profile-menu-hub.html"
+   },
+   {
+    "label": "Tutor profile",
+    "href": "tutor-profile.html"
+   },
+   {
+    "label": "Support loop",
+    "href": "support-loop.html"
+   },
+   {
+    "label": "Tail consistency",
+    "href": "tail-consistency.html"
+   }
+  ],
+  "nodes": [
+   {
+    "name": "Payment",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Earn"
+   },
+   {
+    "name": "PaymentLedger",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Earn"
+   },
+   {
+    "name": "PendingEarningsDetail",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Earn"
+   },
+   {
+    "name": "ReferFriend",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Earn"
+   },
+   {
+    "name": "MyReferralEarnings",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Earn"
+   },
+   {
+    "name": "ProfileMenu",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Profile + account"
+   },
+   {
+    "name": "Profile",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Profile + account"
+   },
+   {
+    "name": "UpdateProfile",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Profile + account"
+   },
+   {
+    "name": "ConsentGate",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Profile + account"
+   },
+   {
+    "name": "Status",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Profile + account"
+   },
+   {
+    "name": "HelpCentre",
+    "status": "briefed",
+    "statusLabel": "Waiting for design",
+    "cluster": "Support"
+   },
+   {
+    "name": "ContactCentre",
+    "status": "briefed",
+    "statusLabel": "Waiting for design",
+    "cluster": "Support"
+   },
+   {
+    "name": "MyRequestsList",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Support"
+   },
+   {
+    "name": "TicketDetail",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Support"
+   },
+   {
+    "name": "ApplicationStatusDetail",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Support"
+   },
+   {
+    "name": "Discouragement",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Support"
+   },
+   {
+    "name": "SubmitRequestPicker",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Support"
+   },
+   {
+    "name": "SubmitRequestExtraClass",
+    "status": "deprecated",
+    "statusLabel": "Retiring",
+    "cluster": "Support"
+   },
+   {
+    "name": "SubmitRequestClassReschedule",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Support"
+   },
+   {
+    "name": "SubmitRequestGeneralComplaint",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Support"
+   },
+   {
+    "name": "SubmitRequestResignation",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Support"
+   },
+   {
+    "name": "News",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "News + notifications"
+   },
+   {
+    "name": "NewsDetails",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "News + notifications"
+   },
+   {
+    "name": "Notifications",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "News + notifications"
+   }
+  ]
+ },
+ {
+  "key": "tail",
+  "num": "6",
+  "title": "Reference",
+  "role": "Cross-cutting",
+  "star": false,
+  "phase": "Later",
+  "briefs": [
+   {
+    "label": "Tail consistency",
+    "href": "tail-consistency.html"
+   },
+   {
+    "label": "Consistency sweep",
+    "href": "consistency-sweep.html"
+   }
+  ],
+  "nodes": [
+   {
+    "name": "FAQs",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Static + legal"
+   },
+   {
+    "name": "PrivacyPolicy",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Static + legal"
+   },
+   {
+    "name": "TermAndConditions",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Static + legal"
+   },
+   {
+    "name": "PolicyScreen",
+    "status": "pass",
+    "statusLabel": "Ready to build",
+    "cluster": "Static + legal"
+   }
+  ]
+ }
+]

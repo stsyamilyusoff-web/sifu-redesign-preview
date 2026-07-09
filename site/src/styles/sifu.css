@@ -1,0 +1,11 @@
+/* Sifututor brand accent for Starlight (locked ramp #2B2FBE) */
+:root {
+	--sl-color-accent-low: #eef0fe;
+	--sl-color-accent: #2b2fbe;
+	--sl-color-accent-high: #243cb3;
+}
+:root[data-theme='dark'] {
+	--sl-color-accent-low: #1c1e52;
+	--sl-color-accent: #7d86f0;
+	--sl-color-accent-high: #d7dafb;
+}

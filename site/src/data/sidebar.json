@@ -1,0 +1,303 @@
+[
+ {
+  "label": "Start here",
+  "items": [
+   {
+    "label": "Overview",
+    "slug": "overview"
+   },
+   {
+    "label": "Gallery",
+    "slug": "gallery"
+   }
+  ]
+ },
+ {
+  "label": "Tutor app · journey",
+  "items": [
+   {
+    "label": "1. Acquire",
+    "collapsed": true,
+    "items": [
+     {
+      "label": "Stage overview",
+      "slug": "tutor/acquire"
+     },
+     {
+      "label": "Splash",
+      "slug": "tutor/acquire/splash"
+     },
+     {
+      "label": "OnBoarding",
+      "slug": "tutor/acquire/onboarding"
+     },
+     {
+      "label": "Login",
+      "slug": "tutor/acquire/login"
+     },
+     {
+      "label": "VerifyCode",
+      "slug": "tutor/acquire/verifycode"
+     }
+    ]
+   },
+   {
+    "label": "2. Activate",
+    "collapsed": true,
+    "items": [
+     {
+      "label": "Stage overview",
+      "slug": "tutor/activate"
+     },
+     {
+      "label": "Identity forms (Bio, Educati…",
+      "slug": "tutor/activate/identity-forms-bio-education-emergency"
+     },
+     {
+      "label": "Set home location (pin)",
+      "slug": "tutor/activate/set-home-location-pin"
+     },
+     {
+      "label": "Service preference (3-step w…",
+      "slug": "tutor/activate/service-preference-3-step-wizard"
+     },
+     {
+      "label": "Set teaching area (pin + rad…",
+      "slug": "tutor/activate/set-teaching-area-pin-radius"
+     },
+     {
+      "label": "Verification uploads (docs +…",
+      "slug": "tutor/activate/verification-uploads-docs-video"
+     },
+     {
+      "label": "Application submitted",
+      "slug": "tutor/activate/application-submitted"
+     },
+     {
+      "label": "Verify gate (Unverify)",
+      "slug": "tutor/activate/verify-gate-unverify"
+     },
+     {
+      "label": "UpdateProfile",
+      "slug": "tutor/activate/updateprofile"
+     },
+     {
+      "label": "ConsentGate",
+      "slug": "tutor/activate/consentgate"
+     }
+    ]
+   },
+   {
+    "label": "3. Participate ★",
+    "collapsed": false,
+    "items": [
+     {
+      "label": "Stage overview",
+      "slug": "tutor/participate"
+     },
+     {
+      "label": "TutorRequests",
+      "slug": "tutor/participate/tutorrequests"
+     },
+     {
+      "label": "Request detail + apply",
+      "slug": "tutor/participate/request-detail-apply"
+     },
+     {
+      "label": "Applied request detail",
+      "slug": "tutor/participate/applied-request-detail"
+     },
+     {
+      "label": "Request filters",
+      "slug": "tutor/participate/request-filters"
+     }
+    ]
+   },
+   {
+    "label": "4. Win & Deliver",
+    "collapsed": true,
+    "items": [
+     {
+      "label": "Stage overview",
+      "slug": "tutor/deliver"
+     },
+     {
+      "label": "ClassSchedule",
+      "slug": "tutor/deliver/classschedule"
+     },
+     {
+      "label": "AddClassSchedule",
+      "slug": "tutor/deliver/addclassschedule"
+     },
+     {
+      "label": "EvaluationReport",
+      "slug": "tutor/deliver/evaluationreport"
+     },
+     {
+      "label": "ProgressReport",
+      "slug": "tutor/deliver/progressreport"
+     },
+     {
+      "label": "StudentsDetails",
+      "slug": "tutor/deliver/studentsdetails"
+     },
+     {
+      "label": "Active class cockpit",
+      "slug": "tutor/deliver/active-class-cockpit"
+     },
+     {
+      "label": "Class records",
+      "slug": "tutor/deliver/class-records"
+     },
+     {
+      "label": "Class edit + parent gate",
+      "slug": "tutor/deliver/class-edit-parent-gate"
+     },
+     {
+      "label": "Success variants",
+      "slug": "tutor/deliver/success-variants"
+     },
+     {
+      "label": "Students + tasks",
+      "slug": "tutor/deliver/students-tasks"
+     },
+     {
+      "label": "Camera + demand card",
+      "slug": "tutor/deliver/camera-demand-card"
+     }
+    ]
+   },
+   {
+    "label": "5. Retain & Grow",
+    "collapsed": true,
+    "items": [
+     {
+      "label": "Stage overview",
+      "slug": "tutor/grow"
+     },
+     {
+      "label": "ProfileMenu",
+      "slug": "tutor/grow/profilemenu"
+     },
+     {
+      "label": "Earnings hub",
+      "slug": "tutor/grow/earnings-hub"
+     },
+     {
+      "label": "Payment ledger (receipt)",
+      "slug": "tutor/grow/payment-ledger-receipt"
+     },
+     {
+      "label": "Refer a friend + Referral ea…",
+      "slug": "tutor/grow/refer-a-friend-referral-earnings"
+     },
+     {
+      "label": "Submit a ticket",
+      "slug": "tutor/grow/submit-a-ticket"
+     },
+     {
+      "label": "My tickets",
+      "slug": "tutor/grow/my-tickets"
+     },
+     {
+      "label": "Ticket detail",
+      "slug": "tutor/grow/ticket-detail"
+     },
+     {
+      "label": "Application status",
+      "slug": "tutor/grow/application-status"
+     },
+     {
+      "label": "Report an issue",
+      "slug": "tutor/grow/report-an-issue"
+     },
+     {
+      "label": "Reschedule a class",
+      "slug": "tutor/grow/reschedule-a-class"
+     },
+     {
+      "label": "End engagement",
+      "slug": "tutor/grow/end-engagement"
+     },
+     {
+      "label": "Discouragement",
+      "slug": "tutor/grow/discouragement"
+     },
+     {
+      "label": "Student status",
+      "slug": "tutor/grow/student-status"
+     },
+     {
+      "label": "Profile",
+      "slug": "tutor/grow/profile"
+     }
+    ]
+   },
+   {
+    "label": "6. Reference",
+    "collapsed": true,
+    "items": [
+     {
+      "label": "Stage overview",
+      "slug": "tutor/tail"
+     },
+     {
+      "label": "News",
+      "slug": "tutor/tail/news"
+     },
+     {
+      "label": "Notifications",
+      "slug": "tutor/tail/notifications"
+     },
+     {
+      "label": "FAQs",
+      "slug": "tutor/tail/faqs"
+     },
+     {
+      "label": "Legal reader",
+      "slug": "tutor/tail/legal-reader"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "label": "Customer app",
+  "items": [
+   {
+    "label": "All screens",
+    "slug": "customer"
+   }
+  ]
+ },
+ {
+  "label": "Foundations",
+  "items": [
+   {
+    "label": "Colour",
+    "slug": "foundations/colour"
+   },
+   {
+    "label": "Fonts",
+    "slug": "foundations/fonts"
+   },
+   {
+    "label": "Type-scale law",
+    "slug": "foundations/type-scale"
+   },
+   {
+    "label": "Tap-affordance law",
+    "slug": "foundations/tap-affordance"
+   }
+  ]
+ },
+ {
+  "label": "Program",
+  "items": [
+   {
+    "label": "Status",
+    "slug": "program/status"
+   }
+  ]
+ }
+]

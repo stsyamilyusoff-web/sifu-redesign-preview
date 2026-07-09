@@ -1,0 +1,28 @@
+---
+title: Sifututor Design System
+description: Every screen decision, comparison and status in one system.
+template: splash
+hero:
+  tagline: Every screen's redesign, its live comparison, and the decisions behind it - one page per screen, searchable, always current.
+  actions:
+    - text: Start with the Participate pilot
+      link: tutor/participate/requests-feed/
+      icon: right-arrow
+    - text: Program status
+      link: program/status/
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+	<Card title="Screens" icon="seti:image">
+		One page per screen: all states side-by-side with live, the design provenance, the mock, the briefs.
+	</Card>
+	<Card title="Decisions" icon="open-book">
+		Which references were pinned and why, which were dropped, what is Sifututor-original.
+	</Card>
+	<Card title="Program" icon="rocket">
+		How far along the redesign is, in plain words, with the still-to-design list by name.
+	</Card>
+</CardGrid>

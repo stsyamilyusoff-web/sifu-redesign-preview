@@ -1,0 +1,271 @@
+{
+ "briefBase": "https://stsyamilyusoff-web.github.io/sifu-customer-preview/",
+ "stages": [
+  {
+   "key": "acquire",
+   "title": "Get started",
+   "nodes": [
+    {
+     "name": "Splash",
+     "status": "Cluster floor pass",
+     "brief": "onboarding.html"
+    },
+    {
+     "name": "OnBoarding",
+     "status": "Mocked (in brief)",
+     "brief": "onboarding.html"
+    },
+    {
+     "name": "GetStarted",
+     "status": "Demoted (folded)",
+     "brief": "onboarding.html"
+    },
+    {
+     "name": "Register",
+     "status": "Mocked (in brief)",
+     "brief": "onboarding.html"
+    },
+    {
+     "name": "VerifyCode",
+     "status": "Mocked (in brief)",
+     "brief": "onboarding.html"
+    },
+    {
+     "name": "UpdateProfile",
+     "status": "Mocked (in brief)",
+     "brief": "onboarding.html"
+    }
+   ]
+  },
+  {
+   "key": "match",
+   "title": "Request & Match",
+   "nodes": [
+    {
+     "name": "Requests",
+     "status": "Mocked (in brief)",
+     "brief": "request-flow.html"
+    },
+    {
+     "name": "RequestNow",
+     "status": "Mocked (in brief)",
+     "brief": "request-flow.html"
+    },
+    {
+     "name": "TutorRequest",
+     "status": "Demoted (folded)",
+     "brief": "request-flow.html"
+    },
+    {
+     "name": "SchedulePreferencesForm",
+     "status": "Mocked (in brief)",
+     "brief": "request-flow.html"
+    },
+    {
+     "name": "GetTutorRequestPrice",
+     "status": "Demoted (folded)",
+     "brief": "request-flow.html"
+    },
+    {
+     "name": "TutorRequestAppliedStatus",
+     "status": "Demoted (folded)",
+     "brief": "request-flow.html"
+    },
+    {
+     "name": "RequestDetails",
+     "status": "Cluster floor pass",
+     "brief": "request-flow.html"
+    },
+    {
+     "name": "RequestCompletedDetails",
+     "status": "Demoted (folded)",
+     "brief": "request-flow.html"
+    },
+    {
+     "name": "Curated choice",
+     "status": "Shared component",
+     "brief": "request-flow.html"
+    }
+   ]
+  },
+  {
+   "key": "attend",
+   "title": "Schedule & Attend",
+   "nodes": [
+    {
+     "name": "ClassSchedule",
+     "status": "Mocked (in brief)",
+     "brief": "schedule-attendance.html"
+    },
+    {
+     "name": "TutorClassAttendance",
+     "status": "Mocked (in brief)",
+     "brief": "schedule-attendance.html"
+    }
+   ]
+  },
+  {
+   "key": "pay",
+   "title": "Pay",
+   "nodes": [
+    {
+     "name": "Invoice",
+     "status": "Mocked (in brief)",
+     "brief": "billing.html"
+    },
+    {
+     "name": "PayAllSummary",
+     "status": "Mocked (in brief)",
+     "brief": "billing.html"
+    },
+    {
+     "name": "CommitmentFeePending",
+     "status": "Mocked (in brief)",
+     "brief": "billing.html"
+    },
+    {
+     "name": "InvoiceDetailPending",
+     "status": "Cluster floor pass",
+     "brief": "billing.html"
+    },
+    {
+     "name": "InvoiceDetailPaid",
+     "status": "Cluster floor pass",
+     "brief": "billing.html"
+    },
+    {
+     "name": "CommitmentFeeDetail",
+     "status": "Cluster floor pass",
+     "brief": "billing.html"
+    },
+    {
+     "name": "RefundInvoiceDetail",
+     "status": "Cluster floor pass",
+     "brief": "billing.html"
+    },
+    {
+     "name": "PaymentGateway",
+     "status": "Cluster floor pass",
+     "brief": "billing.html"
+    },
+    {
+     "name": "PaymentCongratulations",
+     "status": "Cluster floor pass",
+     "brief": "billing.html"
+    },
+    {
+     "name": "SharedInvoiceDetail",
+     "status": "Shared component",
+     "brief": "billing.html"
+    }
+   ]
+  },
+  {
+   "key": "progress",
+   "title": "Stay & Progress",
+   "nodes": [
+    {
+     "name": "Home",
+     "status": "Mocked (in brief)",
+     "brief": "home.html"
+    },
+    {
+     "name": "StudentReport",
+     "status": "Mocked (in brief)",
+     "brief": "reports-view.html"
+    },
+    {
+     "name": "EvaluationReport",
+     "status": "Mocked (in brief)",
+     "brief": "reports-view.html"
+    },
+    {
+     "name": "ProgressReport",
+     "status": "Mocked (in brief)",
+     "brief": "reports-view.html"
+    }
+   ]
+  },
+  {
+   "key": "account",
+   "title": "Account & More",
+   "nodes": [
+    {
+     "name": "ProfileMenu",
+     "status": "Mocked (in brief)",
+     "brief": "profile-hub.html"
+    },
+    {
+     "name": "ParentProfile",
+     "status": "Mocked (in brief)",
+     "brief": "profile-hub.html"
+    },
+    {
+     "name": "StudentList",
+     "status": "Mocked (in brief)",
+     "brief": "profile-hub.html"
+    },
+    {
+     "name": "AddNewStudent",
+     "status": "Mocked (in brief)",
+     "brief": "profile-hub.html"
+    },
+    {
+     "name": "CameraScreen",
+     "status": "Cluster floor pass",
+     "brief": "profile-hub.html"
+    },
+    {
+     "name": "News",
+     "status": "Mocked (in brief)",
+     "brief": "content-notifications.html"
+    },
+    {
+     "name": "NewsDetails",
+     "status": "Demoted (folded)",
+     "brief": "content-notifications.html"
+    },
+    {
+     "name": "LatestBlog",
+     "status": "Demoted (folded)",
+     "brief": "content-notifications.html"
+    },
+    {
+     "name": "RouteToBlogsDetails",
+     "status": "Demoted (folded)",
+     "brief": "content-notifications.html"
+    },
+    {
+     "name": "Notifications",
+     "status": "Mocked (in brief)",
+     "brief": "content-notifications.html"
+    },
+    {
+     "name": "ReferFriend",
+     "status": "Mocked (in brief)",
+     "brief": "referral-static.html"
+    },
+    {
+     "name": "MyReferralEarnings",
+     "status": "Mocked (in brief)",
+     "brief": "referral-static.html"
+    },
+    {
+     "name": "FAQs",
+     "status": "Mocked (in brief)",
+     "brief": "referral-static.html"
+    },
+    {
+     "name": "TermAndConditions",
+     "status": "Mocked (in brief)",
+     "brief": "referral-static.html"
+    },
+    {
+     "name": "PrivacyPolicy",
+     "status": "Mocked (in brief)",
+     "brief": "referral-static.html"
+    }
+   ]
+  }
+ ]
+}

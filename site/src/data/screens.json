@@ -1,0 +1,1419 @@
+[
+ {
+  "slug": "splash",
+  "stage": "acquire",
+  "name": "Splash",
+  "mock": "splash-a44.html",
+  "hero": "splash-a44",
+  "summary": "Clean brand-mark flood: shield, Sifututor wordmark, tagline and loader. Boot logic + deep-link routing preserved.",
+  "states": [
+   {
+    "name": "acquire-Splash",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/acquire-Splash.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "onboarding",
+  "stage": "acquire",
+  "name": "OnBoarding",
+  "mock": "onboarding-a41.html",
+  "hero": "onboarding-a41",
+  "summary": "Three value slides re-grounded to real tutor jobs (matched students, billing handled, earn per class), with real-photography direction.",
+  "states": [
+   {
+    "name": "acquire-OnBoarding",
+    "label": "Main",
+    "before": "compare/before/acquire-OnBoarding.png",
+    "after": "compare/after/acquire-OnBoarding.png"
+   },
+   {
+    "name": "acquire-OnBoarding--slide-2",
+    "label": "slide 2",
+    "before": "compare/before/acquire-OnBoarding--slide-2.png",
+    "after": "compare/after/acquire-OnBoarding--slide-2.png"
+   },
+   {
+    "name": "acquire-OnBoarding--slide-3",
+    "label": "slide 3",
+    "before": "compare/before/acquire-OnBoarding--slide-3.png",
+    "after": "compare/after/acquire-OnBoarding--slide-3.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "login",
+  "stage": "acquire",
+  "name": "Login",
+  "mock": "login-a42.html",
+  "hero": "login-a42",
+  "summary": "Focus-first phone capture: brand mark, the international phone field as the hero, a pinned Continue. All 13 live fields kept.",
+  "states": [
+   {
+    "name": "acquire-Login",
+    "label": "Main",
+    "before": "compare/before/acquire-Login.png",
+    "after": "compare/after/acquire-Login.png"
+   },
+   {
+    "name": "acquire-Login--filled-busy",
+    "label": "filled busy",
+    "before": "compare/before/acquire-Login--filled-busy.png",
+    "after": "compare/after/acquire-Login--filled-busy.png"
+   },
+   {
+    "name": "acquire-Login--invalid",
+    "label": "invalid",
+    "before": "compare/before/acquire-Login--invalid.png",
+    "after": "compare/after/acquire-Login--invalid.png"
+   },
+   {
+    "name": "acquire-Login--login-mode",
+    "label": "login mode",
+    "before": "compare/before/acquire-Login--login-mode.png",
+    "after": "compare/after/acquire-Login--login-mode.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "verifycode",
+  "stage": "acquire",
+  "name": "VerifyCode",
+  "mock": "verifycode-a43.html",
+  "hero": "verifycode-a43",
+  "summary": "Focus-first OTP with the resend copy fixed to \"Resend code in 0:59\" (was the broken \"Resend End in 59 Seconds\"), plus Edit-number recovery.",
+  "states": [
+   {
+    "name": "acquire-VerifyCode",
+    "label": "Main",
+    "before": "compare/before/acquire-VerifyCode.png",
+    "after": "compare/after/acquire-VerifyCode.png"
+   },
+   {
+    "name": "acquire-VerifyCode--counting",
+    "label": "counting",
+    "before": "compare/before/acquire-VerifyCode--counting.png",
+    "after": "compare/after/acquire-VerifyCode--counting.png"
+   },
+   {
+    "name": "acquire-VerifyCode--wrong-otp",
+    "label": "wrong otp",
+    "before": "compare/before/acquire-VerifyCode--wrong-otp.png",
+    "after": "compare/after/acquire-VerifyCode--wrong-otp.png"
+   },
+   {
+    "name": "acquire-VerifyCode--verifying",
+    "label": "verifying",
+    "before": "compare/before/acquire-VerifyCode--verifying.png",
+    "after": "compare/after/acquire-VerifyCode--verifying.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "identity-forms-bio-education-emergency",
+  "stage": "activate",
+  "name": "Identity forms (Bio, Education, Emergency)",
+  "mock": "activate-identity-forms.html",
+  "hero": "activate-identity-forms",
+  "summary": "Bio Details (City restored, inline IC age-check, quick-pin home address for verification), Education Details (year picker, backend-driven qualification list), and Emergency Contact (privacy-framed).",
+  "states": [
+   {
+    "name": "activate-BioDetails",
+    "label": "Main",
+    "before": "compare/before/activate-BioDetails.png",
+    "after": "compare/after/activate-BioDetails.png"
+   },
+   {
+    "name": "activate-EducationDetails",
+    "label": "Main",
+    "before": "compare/before/activate-EducationDetails.png",
+    "after": "compare/after/activate-EducationDetails.png"
+   },
+   {
+    "name": "activate-EmergencyContact",
+    "label": "Main",
+    "before": "compare/before/activate-EmergencyContact.png",
+    "after": "compare/after/activate-EmergencyContact.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "set-home-location-pin",
+  "stage": "activate",
+  "name": "Set home location (pin)",
+  "mock": "activate-location-pin.html",
+  "hero": "activate-location-pin",
+  "summary": "NEW: quick-pin picker for the Bio home address (Grab pattern), with type-address fallback. Verification/KYC only, not matching.",
+  "states": [
+   {
+    "name": "activate-SetHomeLocationPin",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/activate-SetHomeLocationPin.png"
+   },
+   {
+    "name": "activate-SetHomeLocationPin--picker",
+    "label": "picker",
+    "before": null,
+    "after": "compare/after/activate-SetHomeLocationPin--picker.png"
+   },
+   {
+    "name": "activate-SetHomeLocationPin--autofilled",
+    "label": "autofilled",
+    "before": null,
+    "after": "compare/after/activate-SetHomeLocationPin--autofilled.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "service-preference-3-step-wizard",
+  "stage": "activate",
+  "name": "Service preference (3-step wizard)",
+  "mock": "activate-service-preference.html",
+  "hero": "activate-service-preference",
+  "summary": "What you teach (curricula multi-select, per-language proficiency), Where and how (mode + teaching area + years of experience), and When you teach (availability, Open-to-other-times toggle).",
+  "states": [
+   {
+    "name": "activate-ServicePreferenceStep1",
+    "label": "Main",
+    "before": "compare/before/activate-ServicePreferenceStep1.png",
+    "after": "compare/after/activate-ServicePreferenceStep1.png"
+   },
+   {
+    "name": "activate-ServicePreferenceStep2",
+    "label": "Main",
+    "before": "compare/before/activate-ServicePreferenceStep2.png",
+    "after": "compare/after/activate-ServicePreferenceStep2.png"
+   },
+   {
+    "name": "activate-AvailabilitySlots",
+    "label": "Main",
+    "before": "compare/before/activate-AvailabilitySlots.png",
+    "after": "compare/after/activate-AvailabilitySlots.png"
+   },
+   {
+    "name": "activate-ServicePreferenceStep1--first-run",
+    "label": "first run",
+    "before": "compare/before/activate-ServicePreferenceStep1--first-run.png",
+    "after": "compare/after/activate-ServicePreferenceStep1--first-run.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "set-teaching-area-pin-radius",
+  "stage": "activate",
+  "name": "Set teaching area (pin + radius)",
+  "mock": "activate-teaching-area.html",
+  "hero": "activate-teaching-area",
+  "summary": "NEW: pin + travel-radius teaching area (5/10/15/20 km preset chips). Distance-based matching replaces the old city list; gated on In-person/Hybrid mode.",
+  "states": [
+   {
+    "name": "activate-SetTeachingArea",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/activate-SetTeachingArea.png"
+   },
+   {
+    "name": "activate-SetTeachingArea--set-area",
+    "label": "set area",
+    "before": null,
+    "after": "compare/after/activate-SetTeachingArea--set-area.png"
+   },
+   {
+    "name": "activate-SetTeachingArea--online",
+    "label": "online",
+    "before": null,
+    "after": "compare/after/activate-SetTeachingArea--online.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "verification-uploads-docs-video",
+  "stage": "activate",
+  "name": "Verification uploads (docs + video)",
+  "mock": "activate-uploads.html",
+  "hero": "activate-uploads",
+  "summary": "Per-file state treatment (done / uploading / failed+retry), 2 MB doc limit, IC front-only. Intro video reframed around how parents choose you (30-120s, 50 MB).",
+  "states": [
+   {
+    "name": "activate-VerificationDocumentsUpload",
+    "label": "Main",
+    "before": "compare/before/activate-VerificationDocumentsUpload.png",
+    "after": "compare/after/activate-VerificationDocumentsUpload.png"
+   },
+   {
+    "name": "activate-IntroVideoUpload",
+    "label": "Main",
+    "before": "compare/before/activate-IntroVideoUpload.png",
+    "after": "compare/after/activate-IntroVideoUpload.png"
+   },
+   {
+    "name": "activate-TutorVerificationProcess--under-review",
+    "label": "under review",
+    "before": "compare/before/activate-TutorVerificationProcess--under-review.png",
+    "after": "compare/after/activate-TutorVerificationProcess--under-review.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "application-submitted",
+  "stage": "activate",
+  "name": "Application submitted",
+  "mock": "activate-application-submitted.html",
+  "hero": "activate-application-submitted",
+  "summary": "One parametrized screen replaces three near-identical success screens. Adds a review timeline and an Activate-to-Participate fit-request nudge.",
+  "states": [
+   {
+    "name": "activate-VerificationSubmittedSuccess",
+    "label": "Main",
+    "before": "compare/before/activate-VerificationSubmittedSuccess.png",
+    "after": "compare/after/activate-VerificationSubmittedSuccess.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "verify-gate-unverify",
+  "stage": "activate",
+  "name": "Verify gate (Unverify)",
+  "mock": "activate-unverify-gate.html",
+  "hero": "activate-unverify-gate",
+  "summary": "LOCKED v0.35: value-first gate (numbered group previews, about-15-min) + Fresha pill-card checklist with resume row, optional intro video, and the declaration + submit folded at the bottom.",
+  "states": [
+   {
+    "name": "activate-UnverifyScreen",
+    "label": "Main",
+    "before": "compare/before/activate-UnverifyScreen.png",
+    "after": "compare/after/activate-UnverifyScreen.png"
+   },
+   {
+    "name": "activate-TutorVerificationProcess",
+    "label": "Main",
+    "before": "compare/before/activate-TutorVerificationProcess.png",
+    "after": "compare/after/activate-TutorVerificationProcess.png"
+   },
+   {
+    "name": "activate-TutorVerificationProcess--complete",
+    "label": "complete",
+    "before": "compare/before/activate-TutorVerificationProcess--complete.png",
+    "after": "compare/after/activate-TutorVerificationProcess--complete.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "tutorrequests",
+  "stage": "participate",
+  "name": "TutorRequests",
+  "mock": "requests-feed-r1.html",
+  "hero": "requests-feed-r1",
+  "summary": "D0 locked card verbatim (hub v0.30): RM leads with no month qualifier, indigo mode pill + location, subject title, quiet glyph detail lines, green Matches-you only, ID + posted-ago footer. For me / Latest / Applied tabs; feed search gated out. New-requests floating chip above the tab bar (v0.33).",
+  "states": [
+   {
+    "name": "participate-TutorRequests",
+    "label": "Main",
+    "before": "compare/before/participate-TutorRequests.png",
+    "after": "compare/after/participate-TutorRequests.png"
+   },
+   {
+    "name": "participate-TutorRequests--scrolled",
+    "label": "scrolled",
+    "before": "compare/before/participate-TutorRequests--scrolled.png",
+    "after": "compare/after/participate-TutorRequests--scrolled.png"
+   },
+   {
+    "name": "participate-TutorRequests--new-chip",
+    "label": "new chip",
+    "before": "compare/before/participate-TutorRequests--new-chip.png",
+    "after": "compare/after/participate-TutorRequests--new-chip.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "request-detail-apply",
+  "stage": "participate",
+  "name": "Request detail + apply",
+  "mock": "wave1-apply-detail.html",
+  "hero": "wave1-apply-detail",
+  "summary": "B-final (hub v0.29): subject + level lead, no student name pre-match, parent-ask quote card, Similar requests link, Airbnb dock with underlined RM + Apply. Comment lives in the Apply confirm sheet. Shared by RequestDetails, RequestDetailById, and RecommendedRequestDetail.",
+  "states": [
+   {
+    "name": "participate-RequestDetails",
+    "label": "Main",
+    "before": "compare/before/participate-RequestDetails.png",
+    "after": "compare/after/participate-RequestDetails.png"
+   },
+   {
+    "name": "participate-RequestDetailById",
+    "label": "Main",
+    "before": "compare/before/participate-RequestDetailById.png",
+    "after": "compare/after/participate-RequestDetailById.png"
+   },
+   {
+    "name": "participate-RecommendedRequestDetail",
+    "label": "Main",
+    "before": "compare/before/participate-RecommendedRequestDetail.png",
+    "after": "compare/after/participate-RecommendedRequestDetail.png"
+   },
+   {
+    "name": "participate-JTDetailByNotification",
+    "label": "Main",
+    "before": "compare/before/participate-JTDetailByNotification.png",
+    "after": "compare/after/participate-JTDetailByNotification.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "applied-request-detail",
+  "stage": "participate",
+  "name": "Applied request detail",
+  "mock": "wave1-applied-detail.html",
+  "hero": "wave1-applied-detail",
+  "summary": "B-final read-only variant: approved banner, name + address unlocked on approval, no apply/comment. The file also carries the unavailable state and the Apply confirm sheet.",
+  "states": [
+   {
+    "name": "participate-TutorAppliedRequestDetails",
+    "label": "Main",
+    "before": "compare/before/participate-TutorAppliedRequestDetails.png",
+    "after": "compare/after/participate-TutorAppliedRequestDetails.png"
+   },
+   {
+    "name": "participate-ApplyConfirmSheet",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/participate-ApplyConfirmSheet.png"
+   },
+   {
+    "name": "participate-TutorAppliedRequestDetails--unavailable",
+    "label": "unavailable",
+    "before": "compare/before/participate-TutorAppliedRequestDetails--unavailable.png",
+    "after": "compare/after/participate-TutorAppliedRequestDetails--unavailable.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "request-filters",
+  "stage": "participate",
+  "name": "Request filters",
+  "mock": "wave1-request-filters.html",
+  "hero": "wave1-request-filters",
+  "summary": "Quiet accordion (hub v0.32): collapsed value-summary rows, one section open at a time; your-subjects + your-levels smart defaults, decoupled plain subject names, pin + radius flag-gated on the backend location model.",
+  "states": [
+   {
+    "name": "participate-RequestFilters",
+    "label": "Main",
+    "before": "compare/before/participate-RequestFilters.png",
+    "after": "compare/after/participate-RequestFilters.png"
+   },
+   {
+    "name": "participate-SubjectPicker",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/participate-SubjectPicker.png"
+   },
+   {
+    "name": "participate-LocationPinSheet",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/participate-LocationPinSheet.png"
+   },
+   {
+    "name": "participate-RequestFilters--subject-open",
+    "label": "subject open",
+    "before": "compare/before/participate-RequestFilters--subject-open.png",
+    "after": "compare/after/participate-RequestFilters--subject-open.png"
+   },
+   {
+    "name": "participate-RequestFilters--location-open",
+    "label": "location open",
+    "before": "compare/before/participate-RequestFilters--location-open.png",
+    "after": "compare/after/participate-RequestFilters--location-open.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "classschedule",
+  "stage": "deliver",
+  "name": "ClassSchedule",
+  "mock": "deliver-class-schedule.html",
+  "hero": "deliver-class-schedule",
+  "summary": "LOCKED v0.39: time-spine group headers, labeled cards with split action rows, exceptions-only status, expandable month with density dots. Earnings removed per founder verdict.",
+  "states": [
+   {
+    "name": "deliver-ClassSchedule",
+    "label": "Main",
+    "before": "compare/before/deliver-ClassSchedule.png",
+    "after": "compare/after/deliver-ClassSchedule.png"
+   },
+   {
+    "name": "deliver-ClassSchedule--day-with-class",
+    "label": "day with class",
+    "before": "compare/before/deliver-ClassSchedule--day-with-class.png",
+    "after": "compare/after/deliver-ClassSchedule--day-with-class.png"
+   },
+   {
+    "name": "deliver-ClassSchedule--past-day-done",
+    "label": "past day done",
+    "before": "compare/before/deliver-ClassSchedule--past-day-done.png",
+    "after": "compare/after/deliver-ClassSchedule--past-day-done.png"
+   },
+   {
+    "name": "deliver-ClassSchedule--month-expanded",
+    "label": "month expanded",
+    "before": "compare/before/deliver-ClassSchedule--month-expanded.png",
+    "after": "compare/after/deliver-ClassSchedule--month-expanded.png"
+   },
+   {
+    "name": "deliver-ClassSchedule--empty-day",
+    "label": "empty day",
+    "before": "compare/before/deliver-ClassSchedule--empty-day.png",
+    "after": "compare/after/deliver-ClassSchedule--empty-day.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "addclassschedule",
+  "stage": "deliver",
+  "name": "AddClassSchedule",
+  "mock": "deliver-add-class.html",
+  "hero": "deliver-add-class",
+  "summary": "Focus-first stepped create-class form for the new auto-invoice model. Keeps the backdate cliff, proof, and repeat-weekly.",
+  "states": [
+   {
+    "name": "deliver-AddClassSchedule",
+    "label": "Main",
+    "before": "compare/before/deliver-AddClassSchedule.png",
+    "after": "compare/after/deliver-AddClassSchedule.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--student-picker",
+    "label": "student picker",
+    "before": "compare/before/deliver-AddClassSchedule--student-picker.png",
+    "after": "compare/after/deliver-AddClassSchedule--student-picker.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--schedule-suggestion",
+    "label": "schedule suggestion",
+    "before": "compare/before/deliver-AddClassSchedule--schedule-suggestion.png",
+    "after": "compare/after/deliver-AddClassSchedule--schedule-suggestion.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--pattern-builder",
+    "label": "pattern builder",
+    "before": "compare/before/deliver-AddClassSchedule--pattern-builder.png",
+    "after": "compare/after/deliver-AddClassSchedule--pattern-builder.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--manual-dates",
+    "label": "manual dates",
+    "before": "compare/before/deliver-AddClassSchedule--manual-dates.png",
+    "after": "compare/after/deliver-AddClassSchedule--manual-dates.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--pattern-clash",
+    "label": "pattern clash",
+    "before": "compare/before/deliver-AddClassSchedule--pattern-clash.png",
+    "after": "compare/after/deliver-AddClassSchedule--pattern-clash.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--success",
+    "label": "success",
+    "before": "compare/before/deliver-AddClassSchedule--success.png",
+    "after": "compare/after/deliver-AddClassSchedule--success.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "evaluationreport",
+  "stage": "deliver",
+  "name": "EvaluationReport",
+  "mock": "deliver-evaluation-report.html",
+  "hero": "deliver-evaluation-report",
+  "summary": "First-class baseline form: full-bleed photo intro + baseline-score dial (no trend) + vertical-ladder rating. Absorbs two old screens.",
+  "states": [
+   {
+    "name": "report-EvaluationReport",
+    "label": "Main",
+    "before": "compare/before/report-EvaluationReport.png",
+    "after": "compare/after/report-EvaluationReport.png"
+   },
+   {
+    "name": "report-EvaluationReport--step-1",
+    "label": "step 1",
+    "before": "compare/before/report-EvaluationReport--step-1.png",
+    "after": "compare/after/report-EvaluationReport--step-1.png"
+   },
+   {
+    "name": "report-EvaluationReport--step-2",
+    "label": "step 2",
+    "before": "compare/before/report-EvaluationReport--step-2.png",
+    "after": "compare/after/report-EvaluationReport--step-2.png"
+   },
+   {
+    "name": "report-EvaluationReport--step-3",
+    "label": "step 3",
+    "before": "compare/before/report-EvaluationReport--step-3.png",
+    "after": "compare/after/report-EvaluationReport--step-3.png"
+   },
+   {
+    "name": "report-EvaluationReport--review",
+    "label": "review",
+    "before": "compare/before/report-EvaluationReport--review.png",
+    "after": "compare/after/report-EvaluationReport--review.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "progressreport",
+  "stage": "deliver",
+  "name": "ProgressReport",
+  "mock": "deliver-progress-report.html",
+  "hero": "deliver-progress-report",
+  "summary": "Recurring 12-class report: credit-score dial (baseline to now trend), per-dimension movement, and a Luna parent verdict.",
+  "states": [
+   {
+    "name": "report-ProgressReport",
+    "label": "Main",
+    "before": "compare/before/report-ProgressReport.png",
+    "after": "compare/after/report-ProgressReport.png"
+   },
+   {
+    "name": "report-ProgressReport--step-1-observation",
+    "label": "step 1 observation",
+    "before": "compare/before/report-ProgressReport--step-1-observation.png",
+    "after": "compare/after/report-ProgressReport--step-1-observation.png"
+   },
+   {
+    "name": "report-ProgressReport--step-2-performance",
+    "label": "step 2 performance",
+    "before": "compare/before/report-ProgressReport--step-2-performance.png",
+    "after": "compare/after/report-ProgressReport--step-2-performance.png"
+   },
+   {
+    "name": "report-ProgressReport--step-3-attitude",
+    "label": "step 3 attitude",
+    "before": "compare/before/report-ProgressReport--step-3-attitude.png",
+    "after": "compare/after/report-ProgressReport--step-3-attitude.png"
+   },
+   {
+    "name": "report-ProgressReport--parent-summary",
+    "label": "parent summary",
+    "before": "compare/before/report-ProgressReport--parent-summary.png",
+    "after": "compare/after/report-ProgressReport--parent-summary.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "studentsdetails",
+  "stage": "deliver",
+  "name": "StudentsDetails",
+  "mock": "deliver-student-details.html",
+  "hero": "deliver-student-details",
+  "summary": "Identity hero + a compact 2x2 contact grid (Call / WhatsApp / Email / Directions). Admin field cut, registration demoted.",
+  "states": [
+   {
+    "name": "students-StudentsDetails",
+    "label": "Main",
+    "before": "compare/before/students-StudentsDetails.png",
+    "after": "compare/after/students-StudentsDetails.png"
+   },
+   {
+    "name": "students-StudentsDetails--online",
+    "label": "online",
+    "before": "compare/before/students-StudentsDetails--online.png",
+    "after": "compare/after/students-StudentsDetails--online.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "active-class-cockpit",
+  "stage": "deliver",
+  "name": "Active class cockpit",
+  "mock": "deliver-active-class.html",
+  "hero": "deliver-active-class",
+  "summary": "One screen, five states (pre-class, clock-in proof, live ring timer, clock-out proof, done summary). Replaces the context-free timer blob; adds who/what/where, the class earning, and a one-tap path to the report.",
+  "states": [
+   {
+    "name": "deliver-ActiveClass",
+    "label": "Main",
+    "before": "compare/before/deliver-ActiveClass.png",
+    "after": "compare/after/deliver-ActiveClass.png"
+   },
+   {
+    "name": "deliver-ActiveClassPreClass",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassPreClass.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockOut",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockOut.png"
+   },
+   {
+    "name": "deliver-ActiveClassDone",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassDone.png"
+   }
+  ],
+  "decision": {
+   "board": "refboards/teaching-now.html",
+   "headline": "No whole-screen precedent exists; about half this screen is Sifututor-original.",
+   "pinned": [
+    {
+     "ref": "Grab Driver #155",
+     "tier": "strong",
+     "why": "in-class comms pattern + the explicit-end principle"
+    },
+    {
+     "ref": "Grab Driver #154",
+     "tier": "strong",
+     "why": "comms entry point during an active job"
+    },
+    {
+     "ref": "inDrive #19",
+     "tier": "honest-analogy",
+     "why": "context discipline, from an arriving beat"
+    },
+    {
+     "ref": "inDrive #21",
+     "tier": "honest-analogy",
+     "why": "explicit-end principle, from a fare step"
+    },
+    {
+     "ref": "Airbnb #142",
+     "tier": "honest-analogy",
+     "why": "extend chip-picker, from a booking filter"
+    }
+   ],
+   "dropped": [
+    {
+     "ref": "Grab Driver #160",
+     "why": "reads as a \"Go Online\" start state - misleading for an in-class screen"
+    }
+   ],
+   "ours": [
+    "timed hero (elapsed vs planned + amber over-run)",
+    "focus-note slot",
+    "extend-a-live-class concept"
+   ]
+  }
+ },
+ {
+  "slug": "class-records",
+  "stage": "deliver",
+  "name": "Class records",
+  "mock": "deliver-class-records.html",
+  "hero": "deliver-class-records",
+  "summary": "Lean history list on one shared class card (name, RM, subject, date, then ID + status), a single-class detail hero, and a grouped filter. No duplicated facts; scan-clean cards.",
+  "states": [
+   {
+    "name": "deliver-ClassRecords",
+    "label": "Main",
+    "before": "compare/before/deliver-ClassRecords.png",
+    "after": "compare/after/deliver-ClassRecords.png"
+   },
+   {
+    "name": "deliver-ClassRecordFilter",
+    "label": "Main",
+    "before": "compare/before/deliver-ClassRecordFilter.png",
+    "after": "compare/after/deliver-ClassRecordFilter.png"
+   },
+   {
+    "name": "deliver-ClassDetailByNotification",
+    "label": "Main",
+    "before": "compare/before/deliver-ClassDetailByNotification.png",
+    "after": "compare/after/deliver-ClassDetailByNotification.png"
+   },
+   {
+    "name": "deliver-ClassRecords--not-found",
+    "label": "not found",
+    "before": "compare/before/deliver-ClassRecords--not-found.png",
+    "after": "compare/after/deliver-ClassRecords--not-found.png"
+   },
+   {
+    "name": "deliver-ClassRecords--filtered-empty",
+    "label": "filtered empty",
+    "before": "compare/before/deliver-ClassRecords--filtered-empty.png",
+    "after": "compare/after/deliver-ClassRecords--filtered-empty.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "class-edit-parent-gate",
+  "stage": "deliver",
+  "name": "Class edit + parent gate",
+  "mock": "deliver-class-edit.html",
+  "hero": "deliver-class-edit",
+  "summary": "Class management trio: quick-pick Extend, a from-to Postpone comparison, and a neutral parent-approval gate where declining is as easy as confirming.",
+  "states": [
+   {
+    "name": "deliver-ExtraClass",
+    "label": "Main",
+    "before": "compare/before/deliver-ExtraClass.png",
+    "after": "compare/after/deliver-ExtraClass.png"
+   },
+   {
+    "name": "deliver-EditPostponedClass",
+    "label": "Main",
+    "before": "compare/before/deliver-EditPostponedClass.png",
+    "after": "compare/after/deliver-EditPostponedClass.png"
+   },
+   {
+    "name": "activate-ParentApprovalConfirmation",
+    "label": "Main",
+    "before": "compare/before/activate-ParentApprovalConfirmation.png",
+    "after": "compare/after/activate-ParentApprovalConfirmation.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "success-variants",
+  "stage": "deliver",
+  "name": "Success variants",
+  "mock": "deliver-success-variants.html",
+  "hero": "deliver-success-variants",
+  "summary": "Five confirmation screens brought to one quality floor (varied by design, off-brand drift removed): postpone, schedule added, backdate review with ticket, evaluation, progress.",
+  "states": [
+   {
+    "name": "deliver-ClassPostponeSuccess",
+    "label": "Main",
+    "before": "compare/before/deliver-ClassPostponeSuccess.png",
+    "after": "compare/after/deliver-ClassPostponeSuccess.png"
+   },
+   {
+    "name": "deliver-ClassScheduleAdded",
+    "label": "Main",
+    "before": "compare/before/deliver-ClassScheduleAdded.png",
+    "after": "compare/after/deliver-ClassScheduleAdded.png"
+   },
+   {
+    "name": "deliver-BackdateEscalationSuccess",
+    "label": "Main",
+    "before": "compare/before/deliver-BackdateEscalationSuccess.png",
+    "after": "compare/after/deliver-BackdateEscalationSuccess.png"
+   },
+   {
+    "name": "report-EvaluationReportSuccess",
+    "label": "Main",
+    "before": "compare/before/report-EvaluationReportSuccess.png",
+    "after": "compare/after/report-EvaluationReportSuccess.png"
+   },
+   {
+    "name": "report-ProgressReportSuccess",
+    "label": "Main",
+    "before": "compare/before/report-ProgressReportSuccess.png",
+    "after": "compare/after/report-ProgressReportSuccess.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "students-tasks",
+  "stage": "deliver",
+  "name": "Students + tasks",
+  "mock": "deliver-student-tasks.html",
+  "hero": "deliver-student-tasks",
+  "summary": "Students, submitted reports (with sort + filter), and a clean pending-tasks to-do list. Neutral initials avatars, one card grammar.",
+  "states": [
+   {
+    "name": "students-StudentList",
+    "label": "Main",
+    "before": "compare/before/students-StudentList.png",
+    "after": "compare/after/students-StudentList.png"
+   },
+   {
+    "name": "report-StudentReport",
+    "label": "Main",
+    "before": "compare/before/report-StudentReport.png",
+    "after": "compare/after/report-StudentReport.png"
+   },
+   {
+    "name": "participate-TutorTaskList",
+    "label": "Main",
+    "before": "compare/before/participate-TutorTaskList.png",
+    "after": "compare/after/participate-TutorTaskList.png"
+   },
+   {
+    "name": "deliver-StudentTasks--reports-filter",
+    "label": "reports filter",
+    "before": "compare/before/deliver-StudentTasks--reports-filter.png",
+    "after": "compare/after/deliver-StudentTasks--reports-filter.png"
+   },
+   {
+    "name": "students-StudentList--empty",
+    "label": "empty",
+    "before": "compare/before/students-StudentList--empty.png",
+    "after": "compare/after/students-StudentList--empty.png"
+   },
+   {
+    "name": "report-StudentReport--empty",
+    "label": "empty",
+    "before": "compare/before/report-StudentReport--empty.png",
+    "after": "compare/after/report-StudentReport--empty.png"
+   },
+   {
+    "name": "participate-TutorTaskList--empty",
+    "label": "empty",
+    "before": "compare/before/participate-TutorTaskList--empty.png",
+    "after": "compare/after/participate-TutorTaskList--empty.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "camera-demand-card",
+  "stage": "deliver",
+  "name": "Camera + demand card",
+  "mock": "deliver-camera-demand.html",
+  "hero": "deliver-camera-demand",
+  "summary": "Stock proof-capture camera, plus the Home demand card turned tappable (surfaced demand now leads to the Job Ticket feed).",
+  "states": [
+   {
+    "name": "engage-Home",
+    "label": "Main",
+    "before": "compare/before/engage-Home.png",
+    "after": "compare/after/engage-Home.png"
+   },
+   {
+    "name": "deliver-CameraScreen",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/deliver-CameraScreen.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "profilemenu",
+  "stage": "grow",
+  "name": "ProfileMenu",
+  "mock": "profile-menu-hub.html",
+  "hero": "profile-menu-hub",
+  "summary": "A clean one-liner navigation hub with a milestone progress card up top.",
+  "states": [
+   {
+    "name": "profile-ProfileMenu",
+    "label": "Main",
+    "before": "compare/before/profile-ProfileMenu.png",
+    "after": "compare/after/profile-ProfileMenu.png"
+   },
+   {
+    "name": "profile-ProfileMenu--new-tutor",
+    "label": "new tutor",
+    "before": "compare/before/profile-ProfileMenu--new-tutor.png",
+    "after": "compare/after/profile-ProfileMenu--new-tutor.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "updateprofile",
+  "stage": "activate",
+  "name": "UpdateProfile",
+  "mock": "updateprofile-a45.html",
+  "hero": "updateprofile-a45",
+  "summary": "Re-skinned as the real name + email screen (verified phone locked, optional referral). Dead date-of-birth field cut.",
+  "states": [
+   {
+    "name": "activate-UpdateProfile",
+    "label": "Main",
+    "before": "compare/before/activate-UpdateProfile.png",
+    "after": "compare/after/activate-UpdateProfile.png"
+   },
+   {
+    "name": "activate-ConsentGate",
+    "label": "Main",
+    "before": "compare/before/activate-ConsentGate.png",
+    "after": "compare/after/activate-ConsentGate.png"
+   },
+   {
+    "name": "activate-UpdateProfile--arrival",
+    "label": "arrival",
+    "before": "compare/before/activate-UpdateProfile--arrival.png",
+    "after": "compare/after/activate-UpdateProfile--arrival.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "consentgate",
+  "stage": "activate",
+  "name": "ConsentGate",
+  "mock": "updateprofile-a45.html",
+  "hero": "consentgate-a45",
+  "summary": "Terms + a Privacy summary + a consent checkbox + \"Agree & continue\" where the save happens. Casing bug fixed.",
+  "states": [
+   {
+    "name": "activate-UpdateProfile",
+    "label": "Main",
+    "before": "compare/before/activate-UpdateProfile.png",
+    "after": "compare/after/activate-UpdateProfile.png"
+   },
+   {
+    "name": "activate-ConsentGate",
+    "label": "Main",
+    "before": "compare/before/activate-ConsentGate.png",
+    "after": "compare/after/activate-ConsentGate.png"
+   },
+   {
+    "name": "activate-UpdateProfile--arrival",
+    "label": "arrival",
+    "before": "compare/before/activate-UpdateProfile--arrival.png",
+    "after": "compare/after/activate-UpdateProfile--arrival.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "earnings-hub",
+  "stage": "grow",
+  "name": "Earnings hub",
+  "mock": "earn-payment-hub.html",
+  "hero": "earn-payment-hub",
+  "summary": "YTD \"Earned in 2026\" hero with a paid/pending split, a lean Awaiting-payout row, and the Pending earnings drill-in. Whole-RM, DD-MMM-YYYY, no promised payout date.",
+  "states": [
+   {
+    "name": "earn-Payment",
+    "label": "Main",
+    "before": "compare/before/earn-Payment.png",
+    "after": "compare/after/earn-Payment.png"
+   },
+   {
+    "name": "earn-PendingEarningsDetail",
+    "label": "Main",
+    "before": "compare/before/earn-PendingEarningsDetail.png",
+    "after": "compare/after/earn-PendingEarningsDetail.png"
+   },
+   {
+    "name": "earn-Payment--history-month",
+    "label": "history month",
+    "before": "compare/before/earn-Payment--history-month.png",
+    "after": "compare/after/earn-Payment--history-month.png"
+   },
+   {
+    "name": "earn-Payment--awaiting",
+    "label": "awaiting",
+    "before": "compare/before/earn-Payment--awaiting.png",
+    "after": "compare/after/earn-Payment--awaiting.png"
+   },
+   {
+    "name": "earn-Payment--filter-sheet",
+    "label": "filter sheet",
+    "before": "compare/before/earn-Payment--filter-sheet.png",
+    "after": "compare/after/earn-Payment--filter-sheet.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "payment-ledger-receipt",
+  "stage": "grow",
+  "name": "Payment ledger (receipt)",
+  "mock": "earn-payment-ledger.html",
+  "hero": "earn-payment-ledger",
+  "summary": "One payout's shareable receipt: expandable per-request cards, tap-to-copy payout Ref and Request IDs, deductions shown neutral. The one 2dp screen (exact reconciliation).",
+  "states": [
+   {
+    "name": "earn-PaymentLedger",
+    "label": "Main",
+    "before": "compare/before/earn-PaymentLedger.png",
+    "after": "compare/after/earn-PaymentLedger.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "refer-a-friend-referral-earnings",
+  "stage": "grow",
+  "name": "Refer a friend + Referral earnings",
+  "mock": "earn-refer.html",
+  "hero": "earn-refer",
+  "summary": "De-hyped referral front door (tap-to-copy code, 3 calm steps) plus Referral earnings (retitled from My Referral Earnings): Balance + Claim, Completed/Pending segmented, neutral-initials avatars.",
+  "states": [
+   {
+    "name": "earn-ReferFriend",
+    "label": "Main",
+    "before": "compare/before/earn-ReferFriend.png",
+    "after": "compare/after/earn-ReferFriend.png"
+   },
+   {
+    "name": "earn-MyReferralEarnings",
+    "label": "Main",
+    "before": "compare/before/earn-MyReferralEarnings.png",
+    "after": "compare/after/earn-MyReferralEarnings.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "submit-a-ticket",
+  "stage": "grow",
+  "name": "Submit a ticket",
+  "mock": "support-ticket-picker.html",
+  "hero": "support-ticket-picker",
+  "summary": "Neutral ticket-type picker (extra class, reschedule, end engagement, something else) + a Track-your-tickets entry. Centered nav, canonical rebuild.",
+  "states": [
+   {
+    "name": "support-SubmitRequestPicker",
+    "label": "Main",
+    "before": "compare/before/support-SubmitRequestPicker.png",
+    "after": "compare/after/support-SubmitRequestPicker.png"
+   },
+   {
+    "name": "support-SubmitRequestPicker--unverified",
+    "label": "unverified",
+    "before": "compare/before/support-SubmitRequestPicker--unverified.png",
+    "after": "compare/after/support-SubmitRequestPicker--unverified.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "my-tickets",
+  "stage": "grow",
+  "name": "My tickets",
+  "mock": "support-my-tickets-list.html",
+  "hero": "support-my-tickets-list",
+  "summary": "Active / History segmented control + lean StatusPill cards (de-striped). Naming standardized to \"tickets\".",
+  "states": [
+   {
+    "name": "participate-MyRequestsList",
+    "label": "Main",
+    "before": "compare/before/participate-MyRequestsList.png",
+    "after": "compare/after/participate-MyRequestsList.png"
+   },
+   {
+    "name": "participate-MyRequestsList--empty",
+    "label": "empty",
+    "before": "compare/before/participate-MyRequestsList--empty.png",
+    "after": "compare/after/participate-MyRequestsList--empty.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "ticket-detail",
+  "stage": "grow",
+  "name": "Ticket detail",
+  "mock": "support-ticket-detail.html",
+  "hero": "support-ticket-detail",
+  "summary": "Tap-to-copy ID chip + StatusBanner; the follow-up footer hides on approved or duplicate tickets.",
+  "states": [
+   {
+    "name": "support-TicketDetail",
+    "label": "Main",
+    "before": "compare/before/support-TicketDetail.png",
+    "after": "compare/after/support-TicketDetail.png"
+   },
+   {
+    "name": "support-TicketDetail--approved",
+    "label": "approved",
+    "before": "compare/before/support-TicketDetail--approved.png",
+    "after": "compare/after/support-TicketDetail--approved.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "application-status",
+  "stage": "grow",
+  "name": "Application status",
+  "mock": "support-application-status.html",
+  "hero": "support-application-status",
+  "summary": "StatusBanner summary + a vertical timeline; deduped so contact and the review timeframe each appear once.",
+  "states": [
+   {
+    "name": "support-ApplicationStatusDetail",
+    "label": "Main",
+    "before": "compare/before/support-ApplicationStatusDetail.png",
+    "after": "compare/after/support-ApplicationStatusDetail.png"
+   },
+   {
+    "name": "support-ApplicationStatusDetail--suspended",
+    "label": "suspended",
+    "before": "compare/before/support-ApplicationStatusDetail--suspended.png",
+    "after": "compare/after/support-ApplicationStatusDetail--suspended.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "report-an-issue",
+  "stage": "grow",
+  "name": "Report an issue",
+  "mock": "support-form-complaint.html",
+  "hero": "support-form-complaint",
+  "summary": "The form pattern: grouped sections + a picker sheet + a counted textarea + a sticky Submit-ticket dock.",
+  "states": [
+   {
+    "name": "support-SubmitRequestGeneralComplaint",
+    "label": "Main",
+    "before": "compare/before/support-SubmitRequestGeneralComplaint.png",
+    "after": "compare/after/support-SubmitRequestGeneralComplaint.png"
+   },
+   {
+    "name": "support-SubmitRequestGeneralComplaint--category-sheet",
+    "label": "category sheet",
+    "before": "compare/before/support-SubmitRequestGeneralComplaint--category-sheet.png",
+    "after": "compare/after/support-SubmitRequestGeneralComplaint--category-sheet.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "reschedule-a-class",
+  "stage": "grow",
+  "name": "Reschedule a class",
+  "mock": "support-form-reschedule.html",
+  "hero": "support-form-reschedule",
+  "summary": "6 fields grouped into 3; files a support ticket and opens the parent-approval gate; auto end-time read-only.",
+  "states": [
+   {
+    "name": "support-SubmitRequestClassReschedule",
+    "label": "Main",
+    "before": "compare/before/support-SubmitRequestClassReschedule.png",
+    "after": "compare/after/support-SubmitRequestClassReschedule.png"
+   },
+   {
+    "name": "support-SubmitRequestClassReschedule--request-sheet",
+    "label": "request sheet",
+    "before": "compare/before/support-SubmitRequestClassReschedule--request-sheet.png",
+    "after": "compare/after/support-SubmitRequestClassReschedule--request-sheet.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "end-engagement",
+  "stage": "grow",
+  "name": "End engagement",
+  "mock": "support-form-resignation.html",
+  "hero": "support-form-resignation",
+  "summary": "Resignation as a 4-step wizard with a confirm alert and 3 guard states (suspended, ineligible, duplicate).",
+  "states": [
+   {
+    "name": "support-SubmitRequestResignation",
+    "label": "Main",
+    "before": "compare/before/support-SubmitRequestResignation.png",
+    "after": "compare/after/support-SubmitRequestResignation.png"
+   },
+   {
+    "name": "support-SubmitRequestResignation--confirm",
+    "label": "confirm",
+    "before": "compare/before/support-SubmitRequestResignation--confirm.png",
+    "after": "compare/after/support-SubmitRequestResignation--confirm.png"
+   },
+   {
+    "name": "support-SubmitRequestResignation--guard",
+    "label": "guard",
+    "before": "compare/before/support-SubmitRequestResignation--guard.png",
+    "after": "compare/after/support-SubmitRequestResignation--guard.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "discouragement",
+  "stage": "grow",
+  "name": "Discouragement",
+  "mock": "support-discouragement.html",
+  "hero": "support-discouragement",
+  "summary": "Lifecycle-aware deterrent (veteran stats / brand-new milestone / no-data) + an account-deletion loss-list. Exit de-emphasised, not blocked.",
+  "states": [
+   {
+    "name": "support-Discouragement",
+    "label": "Main",
+    "before": "compare/before/support-Discouragement.png",
+    "after": "compare/after/support-Discouragement.png"
+   },
+   {
+    "name": "support-Discouragement--brand-new",
+    "label": "brand new",
+    "before": "compare/before/support-Discouragement--brand-new.png",
+    "after": "compare/after/support-Discouragement--brand-new.png"
+   },
+   {
+    "name": "support-Discouragement--delete-account",
+    "label": "delete account",
+    "before": "compare/before/support-Discouragement--delete-account.png",
+    "after": "compare/after/support-Discouragement--delete-account.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "student-status",
+  "stage": "grow",
+  "name": "Student status",
+  "mock": "profile-status.html",
+  "hero": "profile-status",
+  "summary": "Student-status re-skin: the binary toggle becomes a segmented control, with a reason picker + notes. Two live copy bugs fixed.",
+  "states": [
+   {
+    "name": "profile-Status",
+    "label": "Main",
+    "before": "compare/before/profile-Status.png",
+    "after": "compare/after/profile-Status.png"
+   },
+   {
+    "name": "profile-Status--reason-picker",
+    "label": "reason picker",
+    "before": "compare/before/profile-Status--reason-picker.png",
+    "after": "compare/after/profile-Status--reason-picker.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "profile",
+  "stage": "grow",
+  "name": "Profile",
+  "mock": "profile-view.html",
+  "hero": "profile-view",
+  "summary": "Personal-details editor + a Compact-Ring tier card (Beginner to All-Star) and the recommended-next-steps gaps. Deduped: card name + classes-taught removed (the header + ring already carry them).",
+  "states": [
+   {
+    "name": "profile-Profile",
+    "label": "Main",
+    "before": "compare/before/profile-Profile.png",
+    "after": "compare/after/profile-Profile.png"
+   },
+   {
+    "name": "profile-Profile--complete",
+    "label": "complete",
+    "before": "compare/before/profile-Profile--complete.png",
+    "after": "compare/after/profile-Profile--complete.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "news",
+  "stage": "tail",
+  "name": "News",
+  "mock": "ref-news.html",
+  "hero": "ref-news",
+  "summary": "News feed on cards (unread brand dot, subject, status subtitle, thumbnail, timestamp) with a rich empty state; the article reader normalises inline links to brand.",
+  "states": [
+   {
+    "name": "news-News--empty",
+    "label": "empty",
+    "before": "compare/before/news-News--empty.png",
+    "after": "compare/after/news-News--empty.png"
+   },
+   {
+    "name": "news-News",
+    "label": "Main",
+    "before": "compare/before/news-News.png",
+    "after": "compare/after/news-News.png"
+   },
+   {
+    "name": "news-NewsDetails",
+    "label": "Main",
+    "before": "compare/before/news-NewsDetails.png",
+    "after": "compare/after/news-NewsDetails.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "notifications",
+  "stage": "tail",
+  "name": "Notifications",
+  "mock": "ref-notifications.html",
+  "hero": "ref-notifications",
+  "summary": "Notification feed with Recent / Older sections, a per-sender icon chip, and chevron-less awareness rows. Rich empty state.",
+  "states": [
+   {
+    "name": "news-Notifications--empty",
+    "label": "empty",
+    "before": "compare/before/news-Notifications--empty.png",
+    "after": "compare/after/news-Notifications--empty.png"
+   },
+   {
+    "name": "news-Notifications",
+    "label": "Main",
+    "before": "compare/before/news-Notifications.png",
+    "after": "compare/after/news-Notifications.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "faqs",
+  "stage": "tail",
+  "name": "FAQs",
+  "mock": "ref-faqs.html",
+  "hero": "ref-faqs",
+  "summary": "Reworked search-first: a search hero + browse-by-topic progressive disclosure + a \"Send a ticket\" deflection footer. Every category and question preserved.",
+  "states": [
+   {
+    "name": "static-FAQs--topic-expanded",
+    "label": "topic expanded",
+    "before": "compare/before/static-FAQs--topic-expanded.png",
+    "after": "compare/after/static-FAQs--topic-expanded.png"
+   },
+   {
+    "name": "static-FAQs",
+    "label": "Main",
+    "before": "compare/before/static-FAQs.png",
+    "after": "compare/after/static-FAQs.png"
+   }
+  ],
+  "decision": null
+ },
+ {
+  "slug": "legal-reader",
+  "stage": "tail",
+  "name": "Legal reader",
+  "mock": "ref-legal.html",
+  "hero": "ref-legal",
+  "summary": "Shared policy reader (Privacy, Terms, generic): redesigned chrome (header, last-updated, jump-nav, readable typography, dark mode); the body stays server-driven.",
+  "states": [
+   {
+    "name": "static-PrivacyPolicy",
+    "label": "Main",
+    "before": "compare/before/static-PrivacyPolicy.png",
+    "after": "compare/after/static-PrivacyPolicy.png"
+   },
+   {
+    "name": "static-TermAndConditions",
+    "label": "Main",
+    "before": "compare/before/static-TermAndConditions.png",
+    "after": "compare/after/static-TermAndConditions.png"
+   }
+  ],
+  "decision": null
+ }
+]

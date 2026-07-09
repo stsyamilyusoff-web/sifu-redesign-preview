@@ -157,7 +157,88 @@
   .foot a{color:var(--brand);font-weight:700;text-decoration:none}
   .foot a:hover{text-decoration:underline}
 
+  /* ---------- Gallery view (Mobbin-style flat scan) ---------- */
+  .gallery{display:none;grid-template-columns:repeat(auto-fill, minmax(196px, 1fr));gap:18px 14px}
+  body.galmode .grid{display:none}
+  body.galmode .gallery{display:grid}
+  .gtile{cursor:pointer;transition:transform .12s ease}
+  .gtile:hover{transform:translateY(-3px)}
+  .gtile img{
+    display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--line);
+    background:#fff;box-shadow:0 8px 22px rgba(21,22,28,.10);
+  }
+  .gtile:hover img{box-shadow:var(--shadow-hover);border-color:var(--brand-line)}
+  .gtile .gcap{font-size:11px;font-weight:600;color:var(--muted);margin:8px 2px 0;line-height:1.35}
+  .gtile .gcap b{color:var(--ink-2);font-weight:700}
+  @media (max-width:560px){ .gallery{grid-template-columns:repeat(2, 1fr);gap:14px 10px} }
+
+  /* ---------- In-page compare panel ---------- */
+  .cpanel{position:fixed;inset:0;z-index:60;display:none}
+  .cpanel.on{display:block}
+  .cpanel .bg{position:absolute;inset:0;background:rgba(13,15,35,.62);backdrop-filter:blur(3px)}
+  .cpanel .sheet{
+    position:absolute;inset:24px;background:var(--bg);border-radius:20px;overflow:hidden;
+    display:flex;flex-direction:column;box-shadow:0 30px 90px rgba(0,0,0,.4);
+  }
+  .cpanel .hd{
+    display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--card);
+    border-bottom:1px solid var(--line);flex-wrap:wrap;
+  }
+  .cpanel .hd .ttl{font-size:16px;font-weight:800;letter-spacing:-.2px;margin-right:4px}
+  .cpanel .navbtn{
+    border:1px solid var(--line);background:var(--card);border-radius:9px;font:inherit;font-size:12.5px;
+    font-weight:700;color:var(--ink-2);padding:7px 12px;cursor:pointer;transition:.12s;
+  }
+  .cpanel .navbtn:hover{border-color:var(--brand-line);color:var(--brand)}
+  .cpanel .hd .x{margin-left:auto;font-size:20px;line-height:1;border:0;background:transparent;color:var(--muted);cursor:pointer;padding:4px 8px}
+  .cpanel .hd .x:hover{color:var(--ink)}
+  .cpanel .tabs{display:flex;gap:7px;overflow-x:auto;padding:10px 18px;background:var(--card);border-bottom:1px solid var(--line);scrollbar-width:none}
+  .cpanel .tabs::-webkit-scrollbar{display:none}
+  .cpanel .tabs button{
+    flex:0 0 auto;border:1px solid var(--line);background:var(--card);border-radius:999px;font:inherit;
+    font-size:12.5px;font-weight:700;color:var(--ink-2);padding:7px 14px;cursor:pointer;transition:.12s;
+  }
+  .cpanel .tabs button.on{background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 2px 8px rgba(43,47,190,.3)}
+  .cpanel .stage{flex:1;display:flex;align-items:center;justify-content:center;gap:26px;padding:16px;min-height:0;position:relative}
+  .cpanel .col{display:flex;flex-direction:column;align-items:center;gap:9px;height:100%;min-width:0}
+  .cpanel .col .clbl{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;border-radius:5px;padding:2px 9px}
+  .cpanel .col .clbl.live{color:var(--ink-2);background:var(--card);border:1px solid var(--line)}
+  .cpanel .col .clbl.new{color:#fff;background:var(--brand)}
+  .cpanel .col .ph{flex:1;min-height:0;display:flex;align-items:flex-start;justify-content:center}
+  .cpanel .col .ph img{
+    max-height:100%;width:auto;max-width:100%;border-radius:14px;border:1px solid var(--line);
+    box-shadow:0 10px 30px rgba(21,22,28,.18);background:#fff;
+  }
+  .cpanel .ghostbox{
+    width:190px;max-height:88%;flex:1;border:2px dashed var(--brand-line);border-radius:16px;background:rgba(255,255,255,.6);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-size:12px;font-weight:600;color:var(--faint);padding:18px;line-height:1.5;
+  }
+  /* slider mode */
+  .cpanel .slwrap{position:relative;height:100%;display:none;align-items:flex-start;justify-content:center}
+  .cpanel.slider .slwrap{display:flex}
+  .cpanel.slider .col{display:none}
+  .cpanel .slbox{position:relative;height:100%;display:flex;align-items:flex-start}
+  .cpanel .slbox img{max-height:100%;width:auto;display:block;border-radius:14px;border:1px solid var(--line);background:#fff}
+  .cpanel .slbox .top{position:absolute;inset:0;overflow:hidden}
+  .cpanel .slbox .top img{position:absolute;left:0;top:0;height:100%}
+  .cpanel .slbox .bar{position:absolute;top:0;bottom:0;width:2px;background:var(--brand);box-shadow:0 0 0 1px rgba(255,255,255,.7)}
+  .cpanel .slbox input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+  .cpanel .ft{
+    display:flex;align-items:center;gap:10px;padding:11px 18px;background:var(--card);
+    border-top:1px solid var(--line);flex-wrap:wrap;
+  }
+  .cpanel .seg2{display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:3px}
+  .cpanel .seg2 button{border:0;background:transparent;font:inherit;font-size:12px;font-weight:700;color:var(--muted);padding:6px 13px;border-radius:7px;cursor:pointer}
+  .cpanel .seg2 button.on{background:var(--brand);color:#fff}
+  .cpanel .ft .plink{margin-left:auto;font-size:12px;font-weight:700;color:var(--brand);text-decoration:none}
+  .cpanel .ft .plink:hover{text-decoration:underline}
+
   @media (max-width:560px){
+    .cpanel .sheet{inset:0;border-radius:0}
+    .cpanel .stage{gap:10px;padding:10px}
+    .cpanel .hd{padding:11px 12px}
+    .cpanel .hd .ttl{font-size:14px}
     .wrap{padding:18px 14px 60px}
     .head{padding:26px 22px}
     .head h1{font-size:25px}
@@ -178,14 +259,18 @@
       <span class="pill"><span class="dot"></span><span id="pillCount">redesign cards</span></span>
       <span class="pill" id="pillStages">journey stages</span>
       <span class="pill">Updated 2026-07-07</span>
-      <a class="maplink" href="full-map.html">See the full screen map <span class="arr">&rarr;</span></a>
+      <a class="maplink" href="full-map.html">Status map &middot; what's left + customer app <span class="arr">&rarr;</span></a>
     </div>
   </header>
 
   <nav class="jumpbar" id="jumpbar" aria-label="Jump to a journey stage"></nav>
 
   <div class="controls">
-    <span class="lede"><strong>Live now</strong> on the left, the <strong>approved redesign</strong> on the right. A dashed slot means the screen is net-new, with nothing live to replace.</span>
+    <span class="lede" id="ledecopy"><strong>Live now</strong> on the left, the <strong>approved redesign</strong> on the right. A dashed slot means the screen is net-new, with nothing live to replace.</span>
+    <div class="seg" id="viewseg">
+      <button data-v="cards" class="on">Compare cards</button>
+      <button data-v="gallery">Gallery</button>
+    </div>
   </div>
 
   <!-- ============ STAGE 1 ============ -->
@@ -269,11 +354,41 @@
 
   <p class="foot">
     Build handoff for the founder + Hafiz. Thumbnails are the actual rendered new mocks (light hero state, 1:1 device geometry).<br>
-    Looking for everything else? <a href="full-map.html">Open the full screen status map &rarr;</a>
+    Progress, pending screens, retiring screens and the customer app live on the <a href="full-map.html">status map &rarr;</a>
   </p>
 
 </div>
 
+<!-- in-page compare panel -->
+<div class="cpanel" id="cpanel">
+  <div class="bg" id="cpbg"></div>
+  <div class="sheet">
+    <div class="hd">
+      <button class="navbtn" id="cpprev">&larr; Prev screen</button>
+      <span class="ttl" id="cpttl"></span>
+      <button class="navbtn" id="cpnext">Next screen &rarr;</button>
+      <button class="x" id="cpx" title="Close (Esc)">&#10005;</button>
+    </div>
+    <div class="tabs" id="cptabs"></div>
+    <div class="stage" id="cpstage">
+      <div class="col" id="cpbefore"></div>
+      <div class="col">
+        <span class="clbl new">New</span>
+        <div class="ph"><img id="cpafter" alt="New design"></div>
+      </div>
+      <div class="slwrap" id="cpslwrap"></div>
+    </div>
+    <div class="ft">
+      <div class="seg2" id="cpmode">
+        <button data-m="side" class="on">Side by side</button>
+        <button data-m="slider">Slider</button>
+      </div>
+      <a class="plink" id="cpfull" target="_blank" rel="noopener">Open in full viewer &nearr;</a>
+    </div>
+  </div>
+</div>
+
+<script src="compare-data.js"></script>
 <script src="tutor-thumbs.js"></script>
 <script>
   // ---- data: the 13 approved redesigns ----
@@ -506,12 +621,12 @@
     const cmpBtn = cmp ? `<a class="cmp" href="${cmp}" target="_blank" rel="noopener">Compare &harr;</a>` : '';
     return `
       <div class="card">
-        <a class="framewrap" href="${s.mock}" target="_blank" rel="noopener">
+        <div class="framewrap">
           ${beforeSlot}
           <span class="cmp-arr">&rarr;</span>
           <div class="slot"><span class="lbl new">New</span><div class="phone"><img src="${T}${s.after}.png" alt="${s.name}, new design" loading="lazy"></div></div>
           ${p0}
-        </a>
+        </div>
         <div class="body">
           <div class="nm">${s.name}</div>
           <div class="chg">${s.chg}</div>
@@ -533,6 +648,128 @@
   };
   // defensive: a card whose stage has no grid is skipped (never crashes the whole render)
   SCREENS.forEach(s => { const g = grids[s.stage]; if (g) g.insertAdjacentHTML('beforeend', cardHTML(s)); else console.warn('no grid for stage', s.stage, s.name); });
+
+  // ---- gallery view: every approved frame, one flat scan per stage ----
+  Object.entries(grids).forEach(([stage, g]) => {
+    if (!g) return;
+    const gal = document.createElement('div');
+    gal.className = 'gallery';
+    const seenFiles = new Set(); // two cards can share one mock file (e.g. UpdateProfile + ConsentGate)
+    SCREENS.filter(s => s.stage === stage).forEach(s => {
+      if (seenFiles.has(s.mock)) return;
+      seenFiles.add(s.mock);
+      const entries = (window.COMPARE_DATA || {})[s.mock] || [];
+      entries.forEach(en => {
+        gal.insertAdjacentHTML('beforeend', `
+          <div class="gtile" data-card="${s.name.replace(/"/g,'')}" data-entry="${en.n}">
+            <img src="${en.a}" alt="${s.name} · ${en.l}" loading="lazy">
+            <div class="gcap"><b>${s.name}</b> · ${en.l}</div>
+          </div>`);
+      });
+    });
+    g.after(gal);
+  });
+  const viewseg = document.getElementById('viewseg');
+  viewseg.querySelectorAll('button').forEach(b => {
+    b.addEventListener('click', () => {
+      viewseg.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+      document.body.classList.toggle('galmode', b.dataset.v === 'gallery');
+      document.getElementById('ledecopy').innerHTML = b.dataset.v === 'gallery'
+        ? 'Every <strong>approved screen and state</strong> in one scan, journey-ordered. Tap any screen to compare it with live.'
+        : '<strong>Live now</strong> on the left, the <strong>approved redesign</strong> on the right. A dashed slot means the screen is net-new, with nothing live to replace.';
+    });
+  });
+
+  // ---- in-page compare panel ----
+  const CP = {
+    el: document.getElementById('cpanel'), ttl: document.getElementById('cpttl'),
+    tabs: document.getElementById('cptabs'), before: document.getElementById('cpbefore'),
+    after: document.getElementById('cpafter'), slwrap: document.getElementById('cpslwrap'),
+    full: document.getElementById('cpfull'),
+    cards: [],          // [{name, file}] in page order
+    idx: -1, mode: 'side',
+  };
+  SCREENS.forEach(s => { if (window.COMPARE_DATA && window.COMPARE_DATA[s.mock]) CP.cards.push({ name: s.name, file: s.mock, hero: CMP[s.after] }); });
+
+  function cpRenderState(entry){
+    CP.before.innerHTML = entry.b
+      ? `<span class="clbl live">Live now</span><div class="ph"><img src="${entry.b}" alt="Live screen"></div>`
+      : `<span class="clbl live">Live now</span><div class="ghostbox">Net-new or no live capture<br>nothing live to compare</div>`;
+    CP.after.src = entry.a;
+    // slider (only when a before exists)
+    if (entry.b) {
+      CP.slwrap.innerHTML = `
+        <div class="slbox">
+          <img src="${entry.b}" alt="Live">
+          <div class="top" id="cpsltop"><img src="${entry.a}" alt="New"></div>
+          <div class="bar" id="cpslbar"></div>
+          <input type="range" min="0" max="100" value="50" id="cpslrange">
+        </div>`;
+      const top = document.getElementById('cpsltop'), bar = document.getElementById('cpslbar'),
+            range = document.getElementById('cpslrange');
+      const set = v => { top.style.clipPath = `inset(0 0 0 ${v}%)`; bar.style.left = v + '%'; };
+      range.addEventListener('input', () => set(range.value));
+      set(50);
+    } else {
+      CP.slwrap.innerHTML = `<div class="ghostbox" style="align-self:center">No live capture, so no slider<br>see the new design on the left mode</div>`;
+    }
+    const isNew = ['acquire-Splash','activate-SetHomeLocationPin','activate-SetTeachingArea'].some(n => entry.n === n || entry.n.startsWith(n + '--'));
+    CP.full.href = `compare/index.html?id=${entry.b ? 'changed' : 'new'}-${entry.n}.png`;
+  }
+  function cpOpen(i, activeName){
+    CP.idx = i;
+    const card = CP.cards[i];
+    const entries = window.COMPARE_DATA[card.file];
+    CP.ttl.textContent = card.name;
+    CP.tabs.innerHTML = '';
+    entries.forEach(e => {
+      const b = document.createElement('button');
+      b.textContent = e.l;
+      b.className = (e.n === (activeName || card.hero)) ? 'on' : '';
+      b.onclick = () => { CP.tabs.querySelectorAll('button').forEach(x => x.classList.remove('on')); b.classList.add('on'); cpRenderState(e); };
+      CP.tabs.appendChild(b);
+    });
+    const active = entries.find(e => e.n === (activeName || card.hero)) || entries[0];
+    cpRenderState(active);
+    CP.el.classList.add('on');
+    document.body.style.overflow = 'hidden';
+  }
+  function cpClose(){ CP.el.classList.remove('on'); document.body.style.overflow = ''; }
+  document.getElementById('cpx').onclick = cpClose;
+  document.getElementById('cpbg').onclick = cpClose;
+  document.addEventListener('keydown', e => {
+    if (!CP.el.classList.contains('on')) return;
+    if (e.key === 'Escape') cpClose();
+    if (e.key === 'ArrowRight') document.getElementById('cpnext').click();
+    if (e.key === 'ArrowLeft') document.getElementById('cpprev').click();
+  });
+  document.getElementById('cpprev').onclick = () => { if (CP.idx > 0) cpOpen(CP.idx - 1); };
+  document.getElementById('cpnext').onclick = () => { if (CP.idx < CP.cards.length - 1) cpOpen(CP.idx + 1); };
+  document.getElementById('cpmode').querySelectorAll('button').forEach(b => {
+    b.onclick = () => {
+      document.getElementById('cpmode').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+      CP.el.classList.toggle('slider', b.dataset.m === 'slider');
+    };
+  });
+  // Compare buttons open the panel instead of navigating
+  document.addEventListener('click', e => {
+    const a = e.target.closest('.actions a.cmp');
+    if (a) {
+      const card = a.closest('.card');
+      const nm = card.querySelector('.nm').textContent.trim();
+      const i = CP.cards.findIndex(c => c.name === nm);
+      if (i === -1) return; // fall through to the full viewer link
+      e.preventDefault();
+      cpOpen(i);
+      return;
+    }
+    // gallery tiles open the panel on that exact state
+    const t = e.target.closest('.gtile');
+    if (t) {
+      const i = CP.cards.findIndex(c => c.name === t.dataset.card);
+      if (i !== -1) cpOpen(i, t.dataset.entry);
+    }
+  });
 
   // sticky stage jump chips, built from the rendered sections
   const jb = document.getElementById('jumpbar');

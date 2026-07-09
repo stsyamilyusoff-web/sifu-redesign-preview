@@ -944,3 +944,10 @@ window.COMPARE_DATA = {
   }
  ]
 };
+// Per mock file: decision record (ADAPT reference board + honest headline).
+window.COMPARE_DECISIONS = {
+ "deliver-active-class.html": {
+  "board": "refboards/teaching-now.html",
+  "headline": "No whole-screen precedent exists; about half this screen is Sifututor-original."
+ }
+};

@@ -192,6 +192,13 @@
   .cpanel .navbtn:hover{border-color:var(--brand-line);color:var(--brand)}
   .cpanel .hd .x{margin-left:auto;font-size:20px;line-height:1;border:0;background:transparent;color:var(--muted);cursor:pointer;padding:4px 8px}
   .cpanel .hd .x:hover{color:var(--ink)}
+  .cpanel .decbtn{background:var(--brand-soft);border-color:var(--brand-line);color:var(--brand);text-decoration:none}
+  .cpanel .decbtn:hover{background:#DFE4FD}
+  .cpanel .dhl{
+    padding:8px 18px;background:var(--brand-soft);border-bottom:1px solid var(--brand-line);
+    font-size:12.5px;font-weight:600;color:var(--ink-2);
+  }
+  .cpanel .dhl b{color:var(--brand)}
   .cpanel .tabs{display:flex;gap:7px;overflow-x:auto;padding:10px 18px;background:var(--card);border-bottom:1px solid var(--line);scrollbar-width:none}
   .cpanel .tabs::-webkit-scrollbar{display:none}
   .cpanel .tabs button{
@@ -367,8 +374,10 @@
       <button class="navbtn" id="cpprev">&larr; Prev screen</button>
       <span class="ttl" id="cpttl"></span>
       <button class="navbtn" id="cpnext">Next screen &rarr;</button>
+      <a class="navbtn decbtn" id="cpdec" target="_blank" rel="noopener" style="display:none">Decision record &nearr;</a>
       <button class="x" id="cpx" title="Close (Esc)">&#10005;</button>
     </div>
+    <div class="dhl" id="cpdhl" style="display:none"></div>
     <div class="tabs" id="cptabs"></div>
     <div class="stage" id="cpstage">
       <div class="col" id="cpbefore"></div>
@@ -731,6 +740,18 @@
     });
     const active = entries.find(e => e.n === (activeName || card.hero)) || entries[0];
     cpRenderState(active);
+    // decision record (ADAPT reference board), when this screen has one
+    const dec = (window.COMPARE_DECISIONS || {})[card.file];
+    const decBtn = document.getElementById('cpdec'), dhl = document.getElementById('cpdhl');
+    if (dec) {
+      decBtn.href = dec.board;
+      decBtn.style.display = 'inline-flex';
+      dhl.innerHTML = '<b>Design provenance:</b> ' + dec.headline;
+      dhl.style.display = 'block';
+    } else {
+      decBtn.style.display = 'none';
+      dhl.style.display = 'none';
+    }
     CP.el.classList.add('on');
     document.body.style.overflow = 'hidden';
   }

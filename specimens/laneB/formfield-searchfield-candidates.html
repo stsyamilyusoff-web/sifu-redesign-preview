@@ -1,0 +1,203 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+:root{
+  --brand:#243cb3;        /* indigo, locked */
+  --canvas:#F5F9FF;
+  --card:#FFFFFF;
+  --hairline:#E7EBF0;
+  --ink:#0b0b0c;
+  --ink2:#4a4a52;
+  --ink3:#787882;
+  --placeholder:#9aa0aa;
+  --error:#F14336;
+  --errortext:#991b1b;
+  --fill:#EEF1F6;
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:var(--canvas);color:var(--ink);padding:28px 34px;width:680px}
+h1{font-size:22px;font-weight:500}
+h2{font-size:17px;font-weight:500;margin:26px 0 4px}
+.sub{font-size:13px;color:var(--ink2);margin:4px 0 18px}
+.note{font-size:12px;color:var(--ink3);margin:2px 0 12px}
+.card{background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:22px}
+.cols{display:flex;gap:28px}
+.col{flex:1;min-width:0}
+.colhead{font-size:12px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+.state{font-size:11px;color:var(--ink3);margin-top:6px}
+.block{margin-bottom:16px}
+/* FormField anatomy (locked outlined input) */
+.label{font-size:13px;font-weight:500;color:var(--ink2);margin-bottom:6px}
+.label .req{color:var(--error)}
+.label .opt{color:var(--ink3);font-weight:400}
+.input{height:52px;border-radius:14px;padding:0 16px;font-size:16px;color:var(--ink);display:flex;align-items:center;background:var(--card);border:1.5px solid var(--hairline)}
+.input .ph{color:var(--placeholder)}
+.input.focus{border-color:var(--brand)}
+.input.err{border-color:var(--error)}
+.input.disabled{opacity:.5}
+.input.area{height:auto;min-height:96px;align-items:flex-start;padding:14px 16px;line-height:1.4}
+.help{font-size:12px;color:var(--ink3);margin-top:6px}
+.errmsg{font-size:12px;color:var(--errortext);margin-top:5px;display:flex;align-items:center;gap:5px}
+.errmsg svg{flex:none}
+.counter{font-size:12px;color:var(--ink3);margin-top:6px;text-align:right}
+.helprow{display:flex;justify-content:space-between;gap:12px}
+/* SearchField */
+.search{height:52px;border-radius:14px;padding:0 14px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--hairline)}
+.search.pill{border-radius:26px;padding:0 18px}
+.search .ph{color:var(--placeholder);flex:1}
+.search .val{flex:1}
+.search.focus{border-color:var(--brand)}
+.icn{width:20px;height:20px;color:var(--ink3);flex:none}
+.clear{width:20px;height:20px;color:var(--placeholder);flex:none}
+.caret{display:inline-block;width:1.5px;height:20px;background:var(--brand);vertical-align:middle;margin-left:1px}
+.evidence{font-size:12px;color:var(--ink2);line-height:1.55}
+.evidence b{font-weight:500;color:var(--ink)}
+.fork{margin-top:18px}
+.forkhead{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
+</style></head><body>
+
+<h1>FormField + SearchField</h1>
+<div class="sub">Lane B P1. Composed on the locked outlined input (height 52, radius 14, hairline border, indigo focus). Label + input + help/error, and the search adaptation with leading Phosphor magnifying glass. Circular Std.</div>
+
+<h2>FormField, composed states</h2>
+<div class="note">Anatomy: label 13 medium, 6 gap, locked input, help or error 12 below. Keeps everything the live InputText + AttachmentField already carry: required mark, help text, error, disabled, character count.</div>
+<div class="card cols">
+  <div class="col">
+    <div class="colhead">Core</div>
+    <div class="block">
+      <div class="label">Display name</div>
+      <div class="input"><span class="ph">Shown to parents</span></div>
+      <div class="state">default</div>
+    </div>
+    <div class="block">
+      <div class="label">Display name</div>
+      <div class="input focus">Cikgu Nur<span class="caret"></span></div>
+      <div class="state">focus, typing</div>
+    </div>
+    <div class="block">
+      <div class="label">Display name</div>
+      <div class="input">Cikgu Nurul</div>
+      <div class="state">filled</div>
+    </div>
+    <div class="block">
+      <div class="label">Display name</div>
+      <div class="input disabled">Cikgu Nurul</div>
+      <div class="state">disabled</div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="colhead">With messaging</div>
+    <div class="block">
+      <div class="label">WhatsApp number</div>
+      <div class="input"><span class="ph">01X XXX XXXX</span></div>
+      <div class="help">Parents contact you here after a match</div>
+      <div class="state">with help text</div>
+    </div>
+    <div class="block">
+      <div class="label">WhatsApp number</div>
+      <div class="input err">0123</div>
+      <div class="errmsg">Enter a full mobile number</div>
+      <div class="state">error</div>
+    </div>
+    <div class="block">
+      <div class="label">About you</div>
+      <div class="input area">I have taught SPM Add Maths for 6 years, focusing on exam technique.</div>
+      <div class="helprow"><div class="help">Shown on your profile</div><div class="counter">84/300</div></div>
+      <div class="state">multiline, help + character count</div>
+    </div>
+  </div>
+</div>
+
+<div class="fork">
+  <div class="forkhead">Fork A. Error anatomy · DECIDED: A1 plain text (founder, 02-Jul-2026)</div>
+  <div class="note">Live app: plain red text. References: Airbnb and Fresha use plain text; an icon adds a second colour-independent cue.</div>
+  <div class="card cols">
+    <div class="col">
+      <div class="colhead">A1 plain text</div>
+      <div class="block">
+        <div class="label">WhatsApp number</div>
+        <div class="input err">0123</div>
+        <div class="errmsg">Enter a full mobile number</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="colhead">A2 icon + text</div>
+      <div class="block">
+        <div class="label">WhatsApp number</div>
+        <div class="input err">0123</div>
+        <div class="errmsg"><svg class="icn" style="width:14px;height:14px;color:var(--errortext)" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z"/></svg>Enter a full mobile number</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fork">
+  <div class="forkhead">Fork B. Required marking · DECIDED: B2 "(optional)" suffix (founder, 02-Jul-2026)</div>
+  <div class="note">Live app: red asterisk on required labels. Airbnb and Fresha mark nothing and rely on validation; a quiet "optional" suffix flips the default so most labels stay clean.</div>
+  <div class="card cols">
+    <div class="col">
+      <div class="colhead">B1 red asterisk on required</div>
+      <div class="block">
+        <div class="label">Full name <span class="req">*</span></div>
+        <div class="input"><span class="ph">As per IC</span></div>
+      </div>
+      <div class="block">
+        <div class="label">Nickname</div>
+        <div class="input"><span class="ph">What students call you</span></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="colhead">B2 "optional" suffix on optional</div>
+      <div class="block">
+        <div class="label">Full name</div>
+        <div class="input"><span class="ph">As per IC</span></div>
+      </div>
+      <div class="block">
+        <div class="label">Nickname <span class="opt">(optional)</span></div>
+        <div class="input"><span class="ph">What students call you</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>SearchField, states</h2>
+<div class="note">The locked input adapted for search: leading Phosphor magnifying glass 20, clear button (Phosphor x circle fill) once text exists. Replaces the live SearchBar's trailing EvilIcons search on a 60 high shadow card.</div>
+<div class="card cols">
+  <div class="col">
+    <div class="colhead">States</div>
+    <div class="block">
+      <div class="search"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg><span class="ph">Search requests</span></div>
+      <div class="state">default</div>
+    </div>
+    <div class="block">
+      <div class="search focus"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg><span class="val">Add Maths<span class="caret"></span></span><svg class="clear" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm37.66,130.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></div>
+      <div class="state">focus + typed, clear button</div>
+    </div>
+    <div class="block">
+      <div class="search"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg><span class="val">Add Maths</span><svg class="clear" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm37.66,130.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></div>
+      <div class="state">filled, blurred</div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="colhead">Fork C. Resting shape · DECIDED: C1 radius 14 (founder, 02-Jul-2026)</div>
+    <div class="block">
+      <div class="search"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg><span class="ph">Search requests</span></div>
+      <div class="state">C1 radius 14, matches every input (Fresha, Urban Company)</div>
+    </div>
+    <div class="block">
+      <div class="search pill"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg><span class="ph">Search requests</span></div>
+      <div class="state">C2 pill, search reads as its own thing (Airbnb)</div>
+    </div>
+  </div>
+</div>
+
+<h2>Reference evidence</h2>
+<div class="card evidence">
+  <b>Airbnb (Jun 2025):</b> label above as a bold section heading, outlined fields 58pt, grey helper text under each field group; active search is 52pt, near pill, trailing clear x in a grey circle, border darkens on focus.<br>
+  <b>Fresha (Oct 2024):</b> label 15 medium above, 9pt gap, outlined field 48pt with hairline border; search is the same outlined field with a leading 20pt magnifying glass, no pill.<br>
+  <b>Urban Company (May 2026):</b> search 48pt outlined, very light hairline, leading grey magnifying glass; on focus the leading icon swaps to a back arrow, border stays hairline.<br>
+  <b>Held from the lock:</b> height 52 and radius 14 and indigo focus come from the locked input atom and are not reopened here. All three references sit at 48 to 58pt heights with label above and outlined fields, so the locked values are inside the reference band.<br>
+  <b>Grounding, live app:</b> InputText (label + red asterisk + error text + disabled grey + trim on blur), SearchBar (trailing EvilIcons search, 60pt shadow card, no clear button), AttachmentField (help text below field). Nothing dropped: required mark, help, error, disabled, maxLength/count all have homes above.
+</div>
+
+</body></html>

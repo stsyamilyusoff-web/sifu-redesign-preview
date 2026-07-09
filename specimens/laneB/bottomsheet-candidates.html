@@ -1,0 +1,230 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+:root{
+  --brand:#243cb3;        /* indigo, locked */
+  --canvas:#F5F9FF;
+  --card:#FFFFFF;
+  --hairline:#E7EBF0;
+  --ink:#0b0b0c;
+  --ink2:#4a4a52;
+  --ink3:#787882;
+  --placeholder:#9aa0aa;
+  --fill:#EEF1F6;
+  --error:#F14336;
+  --on-brand:#FFFFFF;
+  --backdrop:rgba(11,11,12,.5);
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:var(--canvas);color:var(--ink);padding:28px 34px;width:900px}
+h1{font-size:22px;font-weight:500}
+h2{font-size:17px;font-weight:500;margin:26px 0 4px}
+.sub{font-size:13px;color:var(--ink2);margin:4px 0 18px}
+.note{font-size:12px;color:var(--ink3);margin:2px 0 12px}
+.cols{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap}
+.col{flex:0 0 393px;min-width:0}
+.colhead{font-size:12px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.state{font-size:11px;color:var(--ink3);margin-top:8px}
+.evidence{background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:22px;font-size:12px;color:var(--ink2);line-height:1.55}
+.evidence b{font-weight:500;color:var(--ink)}
+.fork{margin-top:18px}
+.forkhead{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
+/* phone frame with backdrop + sheet */
+.phone{width:393px;height:420px;border:1px solid var(--hairline);border-radius:20px;overflow:hidden;position:relative;background:var(--canvas)}
+.phone.short{height:330px}
+.backdrop{position:absolute;inset:0;background:var(--backdrop)}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--card);border-radius:16px 16px 0 0;display:flex;flex-direction:column}
+.grabber{width:36px;height:4px;border-radius:2px;background:var(--hairline);margin:8px auto 0}
+.shead{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px}
+.shead .stitle{font-size:17px;font-weight:500}
+.shead .sx{width:30px;height:30px;border-radius:15px;background:var(--fill);display:flex;align-items:center;justify-content:center}
+.shead .sx svg{width:15px;height:15px;color:var(--ink)}
+.shead .sdone{font-size:15px;font-weight:500;color:var(--brand)}
+.sbody{padding:0 16px 16px;overflow:hidden}
+.srow{display:flex;align-items:center;gap:12px;min-height:52px;border-bottom:1px solid var(--hairline)}
+.srow:last-child{border-bottom:0}
+.srow .rlabel{flex:1;font-size:16px}
+.srow .rvalue{font-size:15px;color:var(--ink3)}
+.srow.destructive .rlabel{color:var(--error)}
+.radio{width:22px;height:22px;border-radius:11px;border:1.5px solid var(--hairline);flex:none}
+.radio.on{border-color:var(--brand);border-width:6.5px}
+.checkbox{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--hairline);flex:none;display:flex;align-items:center;justify-content:center}
+.checkbox.on{background:var(--brand);border-color:var(--brand)}
+.checkbox.on svg{width:13px;height:13px;color:var(--on-brand)}
+.chev{width:16px;height:16px;color:var(--ink3);flex:none}
+.sdock{border-top:1px solid var(--hairline);padding:12px 16px 14px;display:flex;gap:12px;align-items:center}
+.btn{height:48px;border-radius:14px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;font-size:15px;font-weight:500}
+.btn.primary{background:var(--brand);color:var(--on-brand)}
+.btn.neutral{background:var(--ink);color:var(--on-brand)}
+.btn.full{flex:1}
+.docklink{font-size:15px;font-weight:500;color:var(--ink);text-decoration:underline;flex:1}
+.search{height:44px;border-radius:14px;padding:0 14px;font-size:15px;display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--hairline);color:var(--placeholder);margin-bottom:4px}
+.search svg{width:18px;height:18px;color:var(--ink3)}
+/* centered dialog for fork P */
+.dialog{position:absolute;left:36px;right:36px;top:90px;background:var(--card);border-radius:16px;padding:22px;text-align:center}
+.dialog .dtitle{font-size:17px;font-weight:500}
+.dialog .dbody{font-size:13.5px;color:var(--ink2);margin-top:6px;line-height:1.45}
+.dialog .dbtns{display:flex;gap:10px;margin-top:18px}
+.dialog .dbtns .btn{flex:1;height:44px}
+.btn.ghost{background:var(--fill);color:var(--ink)}
+.btn.danger{background:var(--error);color:var(--on-brand)}
+</style></head><body>
+
+<h1>BottomSheet system</h1>
+<div class="sub">Lane B P1, the last piece. One canonical sheet replaces the 27 inline modals' chrome: top radius 16 (locked), one backdrop token at 50% ink, header = title 17 medium + close, scrollable content, optional dock reusing the locked StickyBottomBar layouts (N1 flat). Today's chaos: radius 8 to 20, backdrop 0.5 to 1.0, three different header patterns, one grabber in the whole app.</div>
+
+<h2>Canonical anatomy + the content variants</h2>
+<div class="note">Chrome is identical everywhere; only content changes. Commit rules held from platform canon: single-select commits on tap (sheet closes), multi-select commits with Done, X always dismisses without saving. Rows are the locked ListRow; search is the locked SearchField; buttons are the locked atom.</div>
+
+<div class="cols">
+  <div class="col">
+    <div class="colhead">Picker (single-select)</div>
+    <div class="phone short">
+      <div class="backdrop"></div>
+      <div class="sheet">
+        <div class="grabber"></div>
+        <div class="shead"><span class="stitle">Subject</span><span class="sx"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></span></div>
+        <div class="sbody">
+          <div class="srow"><div class="radio on"></div><div class="rlabel">Add Maths</div></div>
+          <div class="srow"><div class="radio"></div><div class="rlabel">Physics</div></div>
+          <div class="srow"><div class="radio"></div><div class="rlabel">Bahasa Melayu</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="state">tap commits + closes · no Done needed</div>
+  </div>
+
+  <div class="col">
+    <div class="colhead">Multi-select + search</div>
+    <div class="phone short">
+      <div class="backdrop"></div>
+      <div class="sheet">
+        <div class="grabber"></div>
+        <div class="shead"><span class="stitle">Areas you teach</span><span class="sdone">Done</span></div>
+        <div class="sbody">
+          <div class="search"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>Search areas</div>
+          <div class="srow"><div class="checkbox on"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></div><div class="rlabel">Kepong</div></div>
+          <div class="srow"><div class="checkbox"></div><div class="rlabel">Setapak</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="state">Done commits · X abandons · ChipMultiSelect's picker lives here</div>
+  </div>
+
+  <div class="col">
+    <div class="colhead">The G4 request filter sheet</div>
+    <div class="phone">
+      <div class="backdrop"></div>
+      <div class="sheet">
+        <div class="grabber"></div>
+        <div class="shead"><span class="stitle">Filters</span><span class="sx"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></span></div>
+        <div class="sbody">
+          <div class="srow"><div class="rlabel">Subject</div><span class="rvalue">Add Maths</span><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div>
+          <div class="srow"><div class="rlabel">Level</div><span class="rvalue">Any</span><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div>
+          <div class="srow"><div class="rlabel">State</div><span class="rvalue">Selangor</span><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div>
+          <div class="srow"><div class="rlabel">City</div><span class="rvalue">Any</span><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div>
+          <div class="srow"><div class="rlabel">Mode</div><span class="rvalue">Online</span><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div>
+          <div class="srow"><div class="rlabel">Request ID</div><span class="rvalue">Any</span><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div>
+        </div>
+        <div class="sdock"><span class="docklink">Clear all</span><span class="btn neutral">Show requests</span></div>
+      </div>
+    </div>
+    <div class="state">all 6 live filter dimensions kept · link + button dock (locked layout)</div>
+  </div>
+
+  <div class="col">
+    <div class="colhead">Action sheet</div>
+    <div class="phone short">
+      <div class="backdrop"></div>
+      <div class="sheet">
+        <div class="grabber"></div>
+        <div class="shead"><span class="stitle">Tue, 07-Jul-2026, 4:00 PM</span><span class="sx"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></span></div>
+        <div class="sbody">
+          <div class="srow"><div class="rlabel">Clock in</div></div>
+          <div class="srow"><div class="rlabel">Move to a new date</div></div>
+          <div class="srow destructive"><div class="rlabel">Report an issue</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="state">ClassActionSheet pattern · destructive rows in red</div>
+  </div>
+</div>
+
+<div class="fork">
+  <div class="forkhead">Fork P. Where do confirmations live? · DECIDED: P1 everything is a sheet (founder, 02-Jul-2026). All 13 centered dialogs migrate to sheet chrome; the type-to-confirm gate survives as sheet content.</div>
+  <div class="note">13 of the 27 modals are centered confirm dialogs (delete account, withdraw consent, remove class, resign with type-to-confirm). Urban Company confirms in bottom sheets; Airbnb and stock iOS keep centered dialogs for destructive confirms. Either way the type-to-confirm gate survives as content.</div>
+  <div class="cols">
+    <div class="col">
+      <div class="colhead">P1 everything is a sheet</div>
+      <div class="phone short">
+        <div class="backdrop"></div>
+        <div class="sheet">
+          <div class="grabber"></div>
+          <div class="shead"><span class="stitle">Remove this class?</span></div>
+          <div class="sbody" style="padding-bottom:0"><div style="font-size:13.5px;color:var(--ink2);line-height:1.45">The parent is notified and the slot opens up for other bookings.</div></div>
+          <div class="sdock" style="border-top:0"><span class="btn ghost full">Keep it</span><span class="btn danger full">Remove</span></div>
+        </div>
+      </div>
+      <div class="state">one pattern app-wide, thumb reachable (Urban Company)</div>
+    </div>
+    <div class="col">
+      <div class="colhead">P2 sheets + centered dialog for confirms</div>
+      <div class="phone short">
+        <div class="backdrop"></div>
+        <div class="dialog">
+          <div class="dtitle">Remove this class?</div>
+          <div class="dbody">The parent is notified and the slot opens up for other bookings.</div>
+          <div class="dbtns"><span class="btn ghost">Keep it</span><span class="btn danger">Remove</span></div>
+        </div>
+      </div>
+      <div class="state">destructive stops feel like stops (Airbnb, stock iOS)</div>
+    </div>
+  </div>
+</div>
+
+<div class="fork">
+  <div class="forkhead">Fork Q. Grabber + dismissal · DECIDED: Q1 grabber + swipe + backdrop tap (founder, 02-Jul-2026). X/Done appear only where an abandon or commit must be explicit (multi-select, forms, destructive confirms).</div>
+  <div class="note">The live app has one grabber in 27 modals; sheets mostly need an explicit X or Done. Urban Company floats a close above the sheet; Fresha uses an X; many modern apps use a grabber + swipe-down + backdrop tap.</div>
+  <div class="cols">
+    <div class="col">
+      <div class="colhead">Q1 grabber + swipe + backdrop tap</div>
+      <div class="phone short">
+        <div class="backdrop"></div>
+        <div class="sheet">
+          <div class="grabber"></div>
+          <div class="shead"><span class="stitle">Subject</span></div>
+          <div class="sbody">
+            <div class="srow"><div class="radio on"></div><div class="rlabel">Add Maths</div></div>
+            <div class="srow"><div class="radio"></div><div class="rlabel">Physics</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="state">gesture-first, cleaner header; X appears only where an abandon needs to be explicit (multi-select, forms)</div>
+    </div>
+    <div class="col">
+      <div class="colhead">Q2 no grabber, explicit X or Done only</div>
+      <div class="phone short">
+        <div class="backdrop"></div>
+        <div class="sheet">
+          <div class="shead" style="padding-top:16px"><span class="stitle">Subject</span><span class="sx"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></span></div>
+          <div class="sbody">
+            <div class="srow"><div class="radio on"></div><div class="rlabel">Add Maths</div></div>
+            <div class="srow"><div class="radio"></div><div class="rlabel">Physics</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="state">every exit is a visible button (closest to the live app)</div>
+    </div>
+  </div>
+</div>
+
+<h2>Reference evidence + consolidation map</h2>
+<div class="evidence">
+  <b>Urban Company (May 2026):</b> sheets with top radius about 16, dimmed backdrop, floating close above the sheet, 24 bold title, radio lists, CTA docked in the sheet; confirms happen in sheets too (delete address).<br>
+  <b>Fresha (Oct 2024):</b> taller sheets with X top-left, option lists, "Add to booking" docked; date sheets with Cancel/Done.<br>
+  <b>Airbnb (Jun 2025):</b> sort/filter sheets with radio lists + Save; destructive confirms stay centered dialogs.<br>
+  <b>Held from the lock:</b> top radius 16, one backdrop token (50% ink), rows = locked ListRow (52pt, inset separators), search = locked SearchField, docks = locked StickyBottomBar layouts (N1 flat), buttons = locked atom, destructive = red. DateTimePickerModal library stays, wrapped in this chrome. CustomLoader (blocking spinner) and the TicketDetail full-screen image preview are not sheets and stay separate; BannerPopupCarousel is a marketing surface, kept out of this system.<br>
+  <b>Grounding, live app (27 modals consolidated):</b> 11 slide-ups (DropDownModalView, ChipMultiSelect picker, PaymentBreakdownModal, ClassActionSheet, ClassRecordFilter calendar, the 5 SubmitRequest pickers) become canonical-sheet content; 13 centered confirms (ConfirmationPopup, ResponsePopup, ConfirmDialog with its type-to-confirm gate, GlobalPopupContext, the inline removes/deletes) land wherever Fork P decides; date/time = 8+ DateTimePickerModal call sites in sheet chrome. Nothing dropped: search-in-sheet, tabs-in-sheet, calendar range, type-to-confirm, loading/error states inside pickers, Done/X/backdrop dismissal all have homes above. Radius 8/10/15/18/20 and backdrops 0.5/0.6/0.7/0.9/1.0 collapse to the two tokens.
+</div>
+
+</body></html>

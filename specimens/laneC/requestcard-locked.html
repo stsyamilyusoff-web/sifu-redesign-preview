@@ -1,0 +1,34 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:#F5F9FF;color:#0b0b0c;padding:26px 30px;width:820px}
+h1{font-size:22px;font-weight:700}
+.sub{font-size:13px;color:#4a4a52;margin:4px 0 6px;line-height:1.45}
+h2{font-size:12px;font-weight:700;color:#787882;text-transform:uppercase;letter-spacing:.06em;margin:26px 0 10px}
+.ground{font-size:12px;color:#4a4a52;background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:12px 16px;margin-top:12px;line-height:1.55}
+.holdbar{background:#92400e;color:#fff;border-radius:16px;padding:12px 16px;font-size:13px;line-height:1.5;margin-top:10px}
+code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:rgba(120,120,128,.10);border-radius:5px;padding:1px 5px}
+</style>
+</head><body>
+
+<h1>RequestCard · DEFERRED (D0 stands)</h1>
+<div class="sub">Status changed 02-Jul-2026, superseding the same-day D1 lock. Founder direction: reverse to D0, the LIVE card ships unchanged for now; the card and its content get properly enhanced in a dedicated future session. Reason on record: D1 felt too FLAT to eyeball the data; the live card's large bold values are what make it scannable, and the compression flattened that hierarchy.</div>
+
+<div class="holdbar"><b>DEFERRED RequestCard</b> = D0, the live card as it is at origin/main, no card-level changes ship now. The D1 polish, the 8 data revisions AS APPLIED TO THIS CARD, and the MatchLine placement on it all move to the dedicated card-enhancement session. Nothing here is discarded; it is all staged input for that session.</div>
+
+<h2>What this defers (and where it waits)</h2>
+<div class="ground">
+<b>Inputs staged for the card session:</b> the measured density ladder D0 to D3 (<code>requestcard-density-ladder.html</code>, with real px heights + cards-per-screen) · the enhancement candidates + 8-item data-revision list (<code>requestcard-candidates.html</code>) · the field-home table proving no rung drops a field.<br>
+<b>The design brief that session must honour:</b> more cards per screen AND eyeballable data, meaning density work preserves the live card's value-weight contrast (big bold values) instead of flattening everything to one small size, D1's recorded failure.<br>
+<b>Not deferred:</b> the six component locks (Trust, MatchLine, Headshot, SubjectTile, FactChip, MoneyAnchor) stand as the enhancement kit. They apply to other surfaces now; their application to THIS card lands with the card session.<br>
+<b>Also waiting on:</b> Hafiz's <code>display_commission</code> semantics (money qualifier), the gender-filter gap (DR-007), the feed-level revisions (social proof, "For me").
+</div>
+
+<h2>For the integrator</h2>
+<div class="ground">
+Do not restyle, re-order, or re-label anything on the live requests feed card. The card is byte-for-byte the origin/main rendering until the card-enhancement session locks its successor. If a kit component ships elsewhere first (e.g. Headshot on Profile), that does not license touching this card.
+</div>
+
+</body></html>

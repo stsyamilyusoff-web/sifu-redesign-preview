@@ -1,0 +1,200 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:#F5F9FF;color:#0b0b0c;padding:26px 30px;width:900px}
+h1{font-size:22px;font-weight:700}
+.sub{font-size:13px;color:#4a4a52;margin:4px 0 6px;line-height:1.45}
+h2{font-size:12px;font-weight:700;color:#787882;text-transform:uppercase;letter-spacing:.06em;margin:26px 0 10px}
+.card{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:16px 18px}
+.opt-label{font-size:11px;font-weight:700;color:#243cb3;text-transform:uppercase;letter-spacing:.05em}
+table{border-collapse:collapse;width:100%;font-size:12px;background:#fff;border:1px solid #E7EBF0;border-radius:16px;overflow:hidden}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:#787882;padding:9px 12px;border-bottom:1px solid #E7EBF0;background:#fff}
+td{padding:8px 12px;border-bottom:1px solid #E7EBF0;vertical-align:top;line-height:1.4;color:#0b0b0c}
+tr:last-child td{border-bottom:none}
+.ground{font-size:12px;color:#4a4a52;background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:12px 16px;margin-top:12px;line-height:1.55}
+.pivot{background:rgba(36,60,179,.08);color:#243cb3;border-radius:16px;padding:12px 16px;font-size:12.5px;line-height:1.5;margin-top:10px;font-weight:500}
+code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:rgba(120,120,128,.10);border-radius:5px;padding:1px 5px}
+.g{display:inline-block;vertical-align:-3px}
+.frame{width:402px}
+.metric{font-size:12px;font-weight:700;color:#243cb3;margin-top:8px}
+.mnote{font-size:11px;color:#787882;line-height:1.4;margin-top:3px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.kv{display:flex;justify-content:space-between;align-items:center}
+.kl{display:flex;align-items:center;gap:9px;font-size:13px;color:#787882;font-weight:500}
+.ifr{display:flex;flex-wrap:wrap;gap:3px 10px;align-items:center;font-size:12px;font-weight:500;color:#4a4a52}
+.match{font-size:12px;color:#166534;font-weight:700;display:flex;align-items:center;gap:5px}
+.ridc{display:inline-flex;gap:4px;align-items:center;font-family:ui-monospace,monospace;font-size:11px;font-weight:500;color:#243cb3;background:rgba(36,60,179,.09);border-radius:6px;padding:2px 7px}
+</style>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+<g id="s-house"><path d="M6 20V11l6-6 6 6v9h-4v-6h-4v6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-cal"><rect x="4.5" y="5.5" width="15" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 9.5h15M9 3.5v3M15 3.5v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
+<g id="s-repeat"><path d="M7 8h9a3 3 0 013 3v1M17 16H8a3 3 0 01-3-3v-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M14.5 5.5L17 8l-2.5 2.5M9.5 13.5L7 16l2.5 2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-pin"><path d="M12 21s-6.5-5.5-6.5-10.5a6.5 6.5 0 0113 0C18.5 15.5 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.8"/></g>
+<g id="s-female"><circle cx="12" cy="9" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 14v7M9 18h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
+<g id="s-book"><path d="M4 6a2 2 0 012-2h13a1 1 0 011 1v14a1 1 0 01-1 1H6a2 2 0 00-2 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 18a2 2 0 012-2h14" fill="none" stroke="currentColor" stroke-width="1.8"/></g>
+<g id="s-level"><path d="M4 20h4v-6H4zM10 20h4V9h-4zM16 20h4V4h-4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></g>
+<g id="s-check"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-copy"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 15V6a2 2 0 012-2h9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
+<g id="s-clock"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+</defs></svg>
+
+</head><body>
+
+<h1>RequestCard · the density ladder (measured)</h1>
+<div class="sub">The founder's question: how does the ENHANCED card get SHORTER than the live one, so more requests fit per screen, while following our principles? Answer: skin polish cannot shrink the live card, its height is structural (three label-value rows + a padded chip row + double dividers). The principles we locked already prescribe the fix: DR-002 "density scales with item count, lean on many-item screens, ONE hero value" + DR-004 "rich complete rows in fixed scan zones" + the compact triage-density rule. Below: the same request, every field kept, four rungs, each height MEASURED in this render at true 402px.</div>
+
+<div class="pivot"><b>Pivot reconciliation:</b> "enhance the live app" holds at the APP level: same screen, same flow, same API, same fields, no rebuild. But on THIS card slot-preservation and density are in direct conflict. The ladder below is FIELD-preserving, not slot-preserving: all 10 live facts keep a visible home on the card, only their rendering compresses. Nothing moves to the detail screen; nothing is dropped.</div>
+
+<h2>The ladder · same data, 10 facts on every rung</h2>
+<div class="grid2">
+
+<div>
+<div class="opt-label" style="color:#787882">D0 · live today (faithful)</div>
+<div class="frame" style="margin-top:8px">
+<div class="mcard" style="border:1px solid #D9D9DE;border-radius:20px;padding:18px;background:#fff">
+<div class="kv" style="align-items:flex-start">
+<div>
+<div style="font-size:15px;font-weight:700">TREQ-859807</div>
+<div style="font-size:20px;font-weight:500;margin-top:3px">RM94.00</div>
+</div>
+<span style="background:#D9F2E5;color:#1FC07D;font-size:12.5px;font-weight:500;border-radius:30px;padding:5px 0;width:92px;text-align:center">In-person</span>
+</div>
+<div style="display:flex;gap:5px;align-items:center;margin-top:8px;color:#003E9C;font-size:12.5px;font-weight:500">
+<svg class="g" width="15" height="15" viewBox="0 0 24 24" style="color:#003E9C"><use href="#s-pin"/></svg>Bangsar, Kuala Lumpur
+</div>
+<div style="border-bottom:2px solid #EFEFF2;margin:13px 0"></div>
+<div class="kv"><span class="kl"><svg class="g" width="16" height="16" viewBox="0 0 24 24" style="color:#787882"><use href="#s-book"/></svg>Subject</span><span style="font-size:19px;font-weight:700">Physics</span></div>
+<div class="kv" style="margin-top:9px"><span class="kl"><svg class="g" width="16" height="16" viewBox="0 0 24 24" style="color:#787882"><use href="#s-female"/></svg>Class</span><span style="font-size:19px;font-weight:700">Female</span></div>
+<div class="kv" style="margin-top:9px"><span class="kl"><svg class="g" width="16" height="16" viewBox="0 0 24 24" style="color:#787882"><use href="#s-level"/></svg>Level</span><span style="font-size:19px;font-weight:700">Form 4</span></div>
+<div style="border-bottom:2px solid #EFEFF2;margin:13px 0"></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="background:#E6F2FF;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:500;color:#4a4a52;display:inline-flex;gap:7px;align-items:center"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-cal"/></svg>Monday</span>
+<span style="background:#E6F2FF;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:500;color:#4a4a52;display:inline-flex;gap:7px;align-items:center"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-clock"/></svg>20:00</span>
+<span style="background:#E6F2FF;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:500;color:#4a4a52;display:inline-flex;gap:7px;align-items:center"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-repeat"/></svg>Regular</span>
+</div>
+</div>
+<div class="metric" data-metric></div>
+<div class="mnote">No fit signal on this rung; everything else identical to origin/main.</div>
+</div>
+</div>
+
+<div>
+<div class="opt-label">D1 · slot-preserving polish (the "did not land" ceiling)</div>
+<div class="frame" style="margin-top:8px">
+<div class="mcard" style="border:1px solid #E7EBF0;border-radius:16px;padding:14px;background:#fff">
+<div class="kv" style="align-items:flex-start">
+<div>
+<span class="ridc">TREQ-859807 <svg class="g" width="11" height="11" viewBox="0 0 24 24" style="color:#243cb3"><use href="#s-copy"/></svg></span>
+<div style="font-size:18px;font-weight:700;margin-top:4px"><span style="font-size:10px;color:#787882">RM</span> 94</div>
+</div>
+<span style="background:rgba(120,120,128,.10);color:#0b0b0c;font-size:12px;font-weight:700;border-radius:999px;padding:4px 0;width:86px;text-align:center">In-person</span>
+</div>
+<div style="display:flex;gap:5px;align-items:center;margin-top:6px;color:#4a4a52;font-size:12px;font-weight:500">
+<svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#787882"><use href="#s-pin"/></svg>Bangsar, Kuala Lumpur
+</div>
+<div style="border-bottom:1px solid #E7EBF0;margin:10px 0"></div>
+<div class="kv"><span class="kl" style="font-size:12px"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#787882"><use href="#s-book"/></svg>Subject</span><span style="font-size:15px;font-weight:700">Physics</span></div>
+<div class="kv" style="margin-top:6px"><span class="kl" style="font-size:12px"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#787882"><use href="#s-female"/></svg>Tutor preferred</span><span style="font-size:15px;font-weight:700">Female tutor</span></div>
+<div class="kv" style="margin-top:6px"><span class="kl" style="font-size:12px"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#787882"><use href="#s-level"/></svg>Level</span><span style="font-size:15px;font-weight:700">Form 4</span></div>
+<div style="border-bottom:1px solid #E7EBF0;margin:10px 0"></div>
+<div class="ifr">
+<span style="white-space:nowrap"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-cal"/></svg> Mon 8:00 PM</span>
+<span style="white-space:nowrap"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-repeat"/></svg> Regular</span>
+</div>
+<div class="match" style="margin-top:8px"><svg class="g" width="12" height="12" viewBox="0 0 24 24" style="color:#166534"><use href="#s-check"/></svg>Matches your subject &amp; level</div>
+</div>
+<div class="metric" data-metric></div>
+<div class="mnote">Every slot where it was; tighter type, one hairline, chips become the icon row. This is as short as slot-preservation gets.</div>
+</div>
+</div>
+
+<div>
+<div class="opt-label">D2 · the grammar card (DR-002/DR-004 applied)</div>
+<div class="frame" style="margin-top:8px">
+<div class="mcard" style="border:1px solid #E7EBF0;border-radius:16px;padding:14px;background:#fff">
+<div class="kv">
+<span style="font-size:16px;font-weight:700">Physics <span style="font-weight:400;color:#787882;font-size:13px">· Form 4</span></span>
+<span style="font-size:17px;font-weight:700;white-space:nowrap"><span style="font-size:10px;color:#787882">RM</span> 94</span>
+</div>
+<div class="ifr" style="margin-top:7px">
+<span style="white-space:nowrap"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-house"/></svg> In-person</span>
+<span style="white-space:nowrap"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-female"/></svg> Female tutor</span>
+<span style="white-space:nowrap"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-cal"/></svg> Mon 8:00 PM</span>
+<span style="white-space:nowrap"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-repeat"/></svg> Regular</span>
+<span style="white-space:nowrap"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-pin"/></svg> Bangsar, KL</span>
+</div>
+<div class="match" style="margin-top:8px"><svg class="g" width="12" height="12" viewBox="0 0 24 24" style="color:#166534"><use href="#s-check"/></svg>Matches your subject &amp; level</div>
+<div style="margin-top:8px"><span class="ridc">TREQ-859807 <svg class="g" width="11" height="11" viewBox="0 0 24 24" style="color:#243cb3"><use href="#s-copy"/></svg></span></div>
+</div>
+<div class="metric" data-metric></div>
+<div class="mnote">Labels collapse: subject + level become the title (a value self-describes), facts become the F1b icon row, RM is the one hero value on the right. All 10 facts visible.</div>
+</div>
+</div>
+
+<div>
+<div class="opt-label">D3 · the triage row (aggressive end)</div>
+<div class="frame" style="margin-top:8px">
+<div class="mcard" style="border:1px solid #E7EBF0;border-radius:16px;padding:12px 14px;background:#fff">
+<div class="kv">
+<span style="font-size:15px;font-weight:700">Physics <span style="font-weight:400;color:#787882;font-size:12.5px">· Form 4</span></span>
+<span style="font-size:16px;font-weight:700;white-space:nowrap"><span style="font-size:9.5px;color:#787882">RM</span> 94</span>
+</div>
+<div class="ifr" style="margin-top:5px;font-size:11.5px">
+<span style="white-space:nowrap">In-person</span><span style="color:#C7C7CC">·</span>
+<span style="white-space:nowrap">Female tutor</span><span style="color:#C7C7CC">·</span>
+<span style="white-space:nowrap">Mon 8:00 PM</span><span style="color:#C7C7CC">·</span>
+<span style="white-space:nowrap">Regular</span><span style="color:#C7C7CC">·</span>
+<span style="white-space:nowrap">Bangsar, KL</span>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+<span class="match" style="font-size:11.5px"><svg class="g" width="11" height="11" viewBox="0 0 24 24" style="color:#166534"><use href="#s-check"/></svg>Matches your subject &amp; level</span>
+<span style="font-family:ui-monospace,monospace;font-size:10px;font-weight:500;color:#787882">TREQ-859807 ⧉</span>
+</div>
+</div>
+<div class="metric" data-metric></div>
+<div class="mnote">Same 10 facts, no icons in the row (text middots), ID demoted to quiet meta. Below this rung density starts costing scannability and tap-target comfort.</div>
+</div>
+</div>
+
+</div>
+
+<h2>Every field, every rung (nothing dropped anywhere)</h2>
+<table>
+<tr><th>Field</th><th>D0 live</th><th>D1 polish</th><th>D2 grammar</th><th>D3 row</th></tr>
+<tr><td><code>request_uid</code></td><td>bold text, top</td><td>copy chip, top</td><td>copy chip, meta line</td><td>quiet mono, meta line</td></tr>
+<tr><td><code>display_commission</code></td><td>raw, top-left</td><td>RM 94, top-left</td><td>RM 94, hero right</td><td>RM 94, hero right</td></tr>
+<tr><td><code>mode</code></td><td>coloured pill</td><td>neutral pill</td><td>icon fact, first</td><td>text fact, first</td></tr>
+<tr><td><code>area + city</code></td><td>blue line</td><td>neutral line</td><td>icon fact, last</td><td>text fact, last</td></tr>
+<tr><td><code>subject_name</code></td><td>label row</td><td>label row</td><td>title, lead</td><td>title, lead</td></tr>
+<tr><td><code>tutor_preference</code></td><td>label row ("Class: Female")</td><td>label row (fixed)</td><td>icon fact ("Female tutor")</td><td>text fact ("Female tutor")</td></tr>
+<tr><td><code>level</code></td><td>label row</td><td>label row</td><td>title, after subject</td><td>title, after subject</td></tr>
+<tr><td><code>class_day + class_time</code></td><td>2 blue chips, 24h</td><td>icon fact, 12h</td><td>icon fact, 12h</td><td>text fact, 12h</td></tr>
+<tr><td><code>request_type</code></td><td>blue chip</td><td>icon fact</td><td>icon fact</td><td>text fact</td></tr>
+<tr><td>MatchLine (added)</td><td>none</td><td>bottom</td><td>bottom</td><td>bottom-left</td></tr>
+</table>
+
+<h2>Principles check</h2>
+<div class="ground">
+<b>DR-002 density grammar:</b> D2/D3 give the feed ONE hero value (RM) and lean rows on the many-item screen; the DETAIL screen keeps the rich label-value treatment (density scales with item count), so nothing is lost, richness just lives where there is one item.<br>
+<b>DR-004 rich triage:</b> all 10 facts stay in fixed scan zones (title · fact row · verdict · meta), rows-not-cards philosophy.<br>
+<b>Never-drop rule:</b> the table above is the proof, every field has a visible home on every rung.<br>
+<b>Locked kit:</b> D1 to D3 all use the locked MatchLine, the F1b icon row (D3 trades icons for middots, a deliberate deviation to buy the last ~10px, flag it if it bothers you), the MoneyAnchor format, and the copyable-ID revision.
+</div>
+
+<script>
+(function(){
+  var VIEW = 640;
+  var GAP = 10;
+  document.querySelectorAll('.mcard').forEach(function(el){
+    var h = Math.round(el.getBoundingClientRect().height);
+    var per = (VIEW / (h + GAP));
+    var m = el.parentElement.parentElement.querySelector('[data-metric]');
+    if (m) m.textContent = 'Measured: ' + h + 'px tall · ' + per.toFixed(1) + ' cards per screen (640px list viewport)';
+  });
+})();
+</script>
+
+</body></html>

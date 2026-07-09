@@ -1,0 +1,52 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+*{box-sizing:border-box;margin:0} body{font-family:'Circular Std',sans-serif;background:#F5F9FF;color:#0b0b0c;padding:26px 30px;width:840px}
+h1{font-size:22px;font-weight:700} .sub{font-size:13px;color:#4a4a52;margin:4px 0 16px}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.cell{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:14px;overflow:hidden}
+.t{font-size:12px;font-weight:700;margin-bottom:2px} .m{font-size:10.5px;color:#787882;margin-bottom:10px;font-family:ui-monospace,monospace}
+.stage{position:relative;height:150px;background:#F5F9FF;border-radius:10px;overflow:hidden}
+
+/* 1 sheetPull: 300ms emphasized, scrim keeps context */
+@keyframes sheet{0%,15%{transform:translateY(100%)}45%,70%{transform:translateY(0)}95%,100%{transform:translateY(100%)}}
+@keyframes scrim{0%,15%{opacity:0}45%,70%{opacity:1}95%,100%{opacity:0}}
+.sheet{position:absolute;left:8%;right:8%;bottom:0;height:62%;background:#fff;border-radius:14px 14px 0 0;box-shadow:0 -6px 20px rgba(0,0,0,.12);animation:sheet 3.2s cubic-bezier(.3,0,0,1) infinite;padding:12px}
+.scrimm{position:absolute;inset:0;background:rgba(0,0,0,.28);animation:scrim 3.2s linear infinite}
+
+/* 2 press: 200ms standard scale */
+@keyframes press{0%,55%,100%{transform:scale(1)}70%{transform:scale(.96)}}
+.pressbtn{position:absolute;left:14%;right:14%;top:38%;height:44px;border-radius:14px;background:#243cb3;color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;animation:press 2.2s cubic-bezier(.2,0,0,1) infinite}
+
+/* 3 celebrate: 500ms pop + ring */
+@keyframes pop{0%,20%{transform:scale(0);opacity:0}38%{transform:scale(1.12);opacity:1}48%,80%{transform:scale(1)}100%{transform:scale(1);opacity:0}}
+@keyframes ring{0%,30%{transform:scale(.4);opacity:.6}60%{transform:scale(1.5);opacity:0}100%{opacity:0}}
+.celewrap{position:absolute;inset:0;background:linear-gradient(160deg,#243cb3,#3145BC);border-radius:10px;display:flex;align-items:center;justify-content:center}
+.cele{width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;animation:pop 3s cubic-bezier(.3,0,0,1) infinite}
+.celering{position:absolute;width:62px;height:62px;border-radius:50%;border:2px solid rgba(255,255,255,.7);animation:ring 3s ease-out infinite}
+
+/* 4 toastSlide: 200ms standard */
+@keyframes toast{0%,12%{transform:translateY(-140%)}30%,75%{transform:translateY(0)}92%,100%{transform:translateY(-140%)}}
+.toast{position:absolute;top:10px;left:10%;right:10%;background:#0b0b0c;color:#fff;border-radius:12px;padding:11px 14px;font-size:12.5px;font-weight:500;animation:toast 3s cubic-bezier(.2,0,0,1) infinite}
+
+/* 5 heroShared: avatar grows into header spot */
+@keyframes hero{0%,18%{transform:translate(0,0) scale(1)}45%,75%{transform:translate(52px,-52px) scale(1.8)}100%{transform:translate(0,0) scale(1)}}
+.heroava{position:absolute;left:30px;bottom:26px;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#c9b8a8,#3a3a3a);color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;animation:hero 3.4s cubic-bezier(.3,0,0,1) infinite}
+
+/* 6 shimmer: skeleton 1200ms */
+@keyframes shim{0%{background-position:-200px 0}100%{background-position:200px 0}}
+.shimline{height:13px;border-radius:6px;margin:10px 14px;background:linear-gradient(90deg,#EAEAEF 25%,#f6f7fa 50%,#EAEAEF 75%);background-size:400px 100%;animation:shim 1.2s linear infinite}
+</style></head><body>
+<h1>Motion system · the presets, live</h1>
+<div class="sub">Durations + easings inherited from the app's tokens (consistent, kept): fast 200 · normal 300 · slow 500 · deliberate 700; standard (0.2,0,0,1) + emphasized (0.3,0,0,1). The Decision-6 moments are added. Everything below loops with its real physics.</div>
+<div class="grid">
+<div class="cell"><div class="t">1 · sheetPull (kept)</div><div class="m">normal 300 · emphasized · scrim keeps context</div><div class="stage"><div style="padding:10px;font-size:11px;color:#787882">screen stays behind</div><div class="scrimm"></div><div class="sheet"><div style="width:36px;height:4px;background:#E7EBF0;border-radius:99px;margin:0 auto 8px"></div><div style="font-size:12px;font-weight:700">Select time</div></div></div></div>
+<div class="cell"><div class="t">2 · buttonPress</div><div class="m">fast 200 · standard · scale .96</div><div class="stage"><div class="pressbtn">Apply now</div></div></div>
+<div class="cell"><div class="t">3 · celebrate (new)</div><div class="m">slow 500 · emphasized · key wins ONLY</div><div class="stage"><div class="celewrap"><div class="celering"></div><div class="cele"><svg fill="currentColor" style="width:30px;height:30px;color:#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></div></div></div></div>
+<div class="cell"><div class="t">4 · toastSlide (kept)</div><div class="m">fast 200 · standard</div><div class="stage"><div class="toast">Request saved</div></div></div>
+<div class="cell"><div class="t">5 · heroShared (new)</div><div class="m">normal 300 · emphasized · list &rarr; detail</div><div class="stage"><div style="padding:10px;font-size:11px;color:#787882">card avatar grows into the detail hero</div><div class="heroava">N</div></div></div>
+<div class="cell"><div class="t">6 · skeleton shimmer (kept)</div><div class="m">1200ms linear loop</div><div class="stage"><div style="height:14px"></div><div class="shimline" style="width:65%"></div><div class="shimline" style="width:85%"></div><div class="shimline" style="width:45%"></div></div></div>
+</div>
+<div style="background:#EDEFFA;border:1px solid #D6DBF2;border-radius:12px;padding:12px 15px;font-size:13px;color:#4a4a52;margin-top:16px"><b style="color:#0b0b0c">Rules:</b> sheets always keep context (scrim, never full-screen replace) · celebrate fires ONLY on key wins (application won, verification approved), everything else stays quiet · one physics system, no screen invents its own timing · respect reduced-motion (fall back to fades).</div>
+</body></html>

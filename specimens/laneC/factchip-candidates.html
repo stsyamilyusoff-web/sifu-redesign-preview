@@ -1,0 +1,149 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:#F5F9FF;color:#0b0b0c;padding:26px 30px;width:820px}
+h1{font-size:22px;font-weight:700}
+.sub{font-size:13px;color:#4a4a52;margin:4px 0 6px;line-height:1.45}
+h2{font-size:12px;font-weight:700;color:#787882;text-transform:uppercase;letter-spacing:.06em;margin:26px 0 10px}
+.card{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:16px 18px}
+.opt-label{font-size:11px;font-weight:700;color:#243cb3;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.opt-note{font-size:12px;color:#787882;line-height:1.4;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+table{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff;border:1px solid #E7EBF0;border-radius:16px;overflow:hidden}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#787882;padding:10px 14px;border-bottom:1px solid #E7EBF0;background:#fff}
+td{padding:9px 14px;border-bottom:1px solid #E7EBF0;vertical-align:middle;line-height:1.45;color:#0b0b0c}
+tr:last-child td{border-bottom:none}
+.ground{font-size:12px;color:#4a4a52;background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:12px 16px;margin-top:12px;line-height:1.55}
+code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:rgba(120,120,128,.10);border-radius:5px;padding:1px 5px}
+.chip{font-size:12px;font-weight:500;color:#0b0b0c;background:rgba(120,120,128,.10);border-radius:999px;padding:6px 12px;display:inline-flex;gap:6px;align-items:center}
+.chipb{font-size:12px;font-weight:500;color:#0b0b0c;background:#F2F2F7;border:1px solid rgba(0,0,0,.05);border-radius:999px;padding:6px 12px;display:inline-flex;gap:6px;align-items:center}
+.icons{font-size:12px;font-weight:500;color:#4a4a52}
+.g{display:inline-block;vertical-align:-3px}
+.match{font-size:12.5px;color:#166534;font-weight:700;display:flex;align-items:center;gap:5px}
+.rcard{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.anchor{width:78px;flex-shrink:0;border-radius:14px;background:#EAEAEF;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:11px 5px}
+</style>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+<g id="s-house"><path d="M6 20V11l6-6 6 6v9h-4v-6h-4v6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-laptop"><rect x="5" y="6" width="14" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
+<g id="s-cal"><rect x="4.5" y="5.5" width="15" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 9.5h15M9 3.5v3M15 3.5v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
+<g id="s-clock"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-repeat"><path d="M7 8h9a3 3 0 013 3v1M17 16H8a3 3 0 01-3-3v-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M14.5 5.5L17 8l-2.5 2.5M9.5 13.5L7 16l2.5 2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-pin"><path d="M12 21s-6.5-5.5-6.5-10.5a6.5 6.5 0 0113 0C18.5 15.5 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.8"/></g>
+<g id="s-female"><circle cx="12" cy="9" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 14v7M9 18h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
+<g id="s-male"><circle cx="10" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M14 10l6-6M15 4h5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-check"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+</defs></svg>
+
+</head><body>
+
+<h1>FactChip / IconFactRow · the icon-fact vocabulary</h1>
+<div class="sub">Lane C candidate set. DR-007 Decision 3 (ACCEPTED) already locked the system: ONE icon-fact set, two weights, chips on detail heroes (cap 4), inline on cards; colour never rides on facts. What remains: the Phosphor glyph mapping (the table below), one contradiction to resolve (the vocabulary says cards get an inline ICON row, but the LOCKED Wave 1 feed mock renders text-only middots), and the chip skin under the new atom layer. Glyphs here are stand-in strokes; build uses the named Phosphor icons.</div>
+
+<div class="ground"><b>Grounded in origin/main + the locked mocks:</b> fields = <code>mode</code> (online / in-person) · <code>request_type</code> (Regular / Trial) + <code>number_of_classes</code> · <code>class_day</code> + <code>class_time</code> · <code>class_duration</code> · <code>area</code>/<code>city</code> · <code>tutor_preference</code>. Wave 1 hero chips today: grey pill <code>#F2F2F7</code> + hairline + EMOJI (🏠 🔁 📅 ♀), cap 4. Wave 1 feed row today: text-only "Female tutor · Tue 8:00 PM · 1.5h · 12 sessions". The locked Chip atom (atoms-batch) = tint fill <code>rgba(120,120,128,.10)</code>, radius 999, NO border.</div>
+
+<h2>The glyph mapping (ratify · Phosphor outline, 2px on the 24 grid)</h2>
+<table>
+<tr><th style="width:120px">Fact</th><th style="width:170px">Value(s)</th><th style="width:200px">Phosphor name</th><th>Preview (stand-in)</th></tr>
+<tr><td><b>Mode</b></td><td>In-person / Online</td><td><code>house</code> / <code>laptop</code></td><td><svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-house"/></svg> &nbsp; <svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-laptop"/></svg></td></tr>
+<tr><td><b>Type + sessions</b></td><td>Long-term / Trial · "12 sessions"</td><td><code>arrows-clockwise</code></td><td><svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-repeat"/></svg></td></tr>
+<tr><td><b>Schedule</b></td><td>"Mon 2:30 PM"</td><td><code>calendar-blank</code></td><td><svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-cal"/></svg></td></tr>
+<tr><td><b>Duration</b></td><td>"1.5h"</td><td><code>clock</code></td><td><svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-clock"/></svg></td></tr>
+<tr><td><b>Location</b></td><td>"Bangsar" (in-person only)</td><td><code>map-pin</code></td><td><svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-pin"/></svg></td></tr>
+<tr><td><b>Tutor gender</b></td><td>"Female tutor" / "Male tutor"</td><td><code>gender-female</code> / <code>gender-male</code></td><td><svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-female"/></svg> &nbsp; <svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-male"/></svg></td></tr>
+</table>
+
+<h2>Fork F1 · the card row (the contradiction to resolve)</h2>
+<div class="grid2">
+<div class="card">
+<div class="opt-label">F1a · text-only middots (Wave 1 as locked)</div>
+<div class="opt-note">The row the founder approved on the feed benchmark. Least ink; 50 cards stay whisper-quiet; icons live only in detail-hero chips.</div>
+<div class="rcard" style="border-radius:14px;padding:12px 14px">
+<div style="flex:1;min-width:0">
+<div style="font-size:15px;font-weight:700">Physics <span style="font-weight:400;color:#787882;font-size:12.5px">· Form 4</span></div>
+<div class="icons" style="margin-top:6px">Male tutor · Mon 5:00 PM · 2h · Bangsar</div>
+<div class="match" style="margin-top:6px;font-size:12px"><svg class="g" width="12" height="12" viewBox="0 0 24 24" style="color:#166534"><use href="#s-check"/></svg>Matches your subject &amp; level</div>
+</div>
+<div class="anchor" style="width:70px;padding:9px 4px"><div style="font-size:10px;font-weight:700;color:#18181b">IN-PERSON</div><div style="font-size:16px;font-weight:700;color:#18181b"><span style="font-size:9px;color:#787882">RM</span> 120</div></div>
+</div>
+</div>
+<div class="card">
+<div class="opt-label">F1b · icon + text row (the vocabulary as written)</div>
+<div class="opt-note">Tiny glyphs anchor each fact; easier to find "the schedule" when comparing cards vertically, but 4-5 glyphs × 50 cards adds texture.</div>
+<div class="rcard" style="border-radius:14px;padding:12px 14px">
+<div style="flex:1;min-width:0">
+<div style="font-size:15px;font-weight:700">Physics <span style="font-weight:400;color:#787882;font-size:12.5px">· Form 4</span></div>
+<div class="icons" style="margin-top:6px;display:flex;flex-wrap:wrap;gap:3px 10px;align-items:center">
+<span><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-male"/></svg> Male tutor</span>
+<span><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-cal"/></svg> Mon 5:00 PM</span>
+<span><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-clock"/></svg> 2h</span>
+<span><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-pin"/></svg> Bangsar</span>
+</div>
+<div class="match" style="margin-top:6px;font-size:12px"><svg class="g" width="12" height="12" viewBox="0 0 24 24" style="color:#166534"><use href="#s-check"/></svg>Matches your subject &amp; level</div>
+</div>
+<div class="anchor" style="width:70px;padding:9px 4px"><div style="font-size:10px;font-weight:700;color:#18181b">IN-PERSON</div><div style="font-size:16px;font-weight:700;color:#18181b"><span style="font-size:9px;color:#787882">RM</span> 120</div></div>
+</div>
+</div>
+</div>
+
+<h2>Fork F2 · the chip skin (detail heroes)</h2>
+<div class="grid2">
+<div class="card">
+<div class="opt-label">F2a · tint fill, no border (locked Chip atom grammar)</div>
+<div class="opt-note">Matches atoms-batch exactly; one chip skin across the app.</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px">
+<span class="chip"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-house"/></svg>In-person</span>
+<span class="chip"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-repeat"/></svg>Long-term</span>
+<span class="chip"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-cal"/></svg>Mon 2:30 PM</span>
+<span class="chip"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-female"/></svg>Female tutor</span>
+</div>
+</div>
+<div class="card">
+<div class="opt-label">F2b · fill + hairline (Wave 1 as drawn)</div>
+<div class="opt-note">The mock's original skin; the hairline adds an edge the locked Chip atom deliberately dropped.</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px">
+<span class="chipb"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-house"/></svg>In-person</span>
+<span class="chipb"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-repeat"/></svg>Long-term</span>
+<span class="chipb"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-cal"/></svg>Mon 2:30 PM</span>
+<span class="chipb"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-female"/></svg>Female tutor</span>
+</div>
+</div>
+</div>
+
+<h2>In context · the Direction-C hero, re-skinned (chips + money line + MatchLine compose)</h2>
+<div class="card" style="max-width:420px">
+<div style="margin-bottom:9px"><span style="font-family:ui-monospace,monospace;font-size:11px;font-weight:500;color:#243cb3;background:rgba(36,60,179,.09);border-radius:7px;padding:4px 9px">TREQ-859807 ⧉</span></div>
+<div style="font-size:19px;font-weight:700">Physics <span style="font-weight:400;color:#787882;font-size:15px">· Form 4</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:11px">
+<span class="chip"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-house"/></svg>In-person</span>
+<span class="chip"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-repeat"/></svg>Long-term</span>
+<span class="chip"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-cal"/></svg>Mon 2:30 PM</span>
+<span class="chip"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-female"/></svg>Female tutor</span>
+</div>
+<div style="margin-top:14px;padding-top:12px;border-top:1px solid #E7EBF0">
+<span style="font-size:20px;font-weight:700"><span style="font-size:11px;color:#787882">RM</span> 450</span> <span style="font-size:11px;color:#787882">· 12 sessions · 2.5h</span>
+</div>
+<div class="match" style="margin-top:9px"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#166534"><use href="#s-check"/></svg>Matches your subject, level &amp; area</div>
+</div>
+
+<h2>Rules to ratify (say if any feels wrong)</h2>
+<div class="ground">
+<b>1 · Two weights only.</b> Chip (detail hero, cap 4) and card row (feed/lists). No third rendering; icons never colour-code (DR-007: neutral facts, colour = fit green + flag amber only).<br>
+<b>2 · Hero chip order.</b> Mode → type → schedule → gender. Location replaces type when in-person and space allows; the cap stays 4.<br>
+<b>3 · Card row order.</b> Gender → schedule → duration → sessions (online) or location (in-person), exactly the Wave 1 benchmark.<br>
+<b>4 · Label whose attribute it is.</b> Always "Female tutor", never "Female" (it is the parent's preference, not the student). Trial requests say "Trial", never a colour.<br>
+<b>5 · Duration + sessions in the hero live in the money line</b> ("RM 450 · 12 sessions · 2.5h"), owned by MoneyAnchor; chips never duplicate what the money line already says (no duplication within a screen).<br>
+<b>6 · Build glyphs are Phosphor</b> by the names in the mapping table, outline weight, 14px in chips, 13px inline if F1b wins. Stand-ins in this sheet define slot + size only.
+</div>
+
+<h2>Trade-offs</h2>
+<table>
+<tr><th style="width:150px">Fork</th><th>Recommendation</th><th>Why</th></tr>
+<tr><td><b>F1</b> card row</td><td>F1a text-only</td><td>It is the founder-approved Wave 1 benchmark and the quietest at 50-card scale; the vocabulary table updates to "icons live in chips" rather than the mock regressing</td></tr>
+<tr><td><b>F2</b> chip skin</td><td>F2a tint, no border</td><td>One chip grammar app-wide; the locked Chip atom already dropped the hairline</td></tr>
+</table>
+
+</body></html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:#F5F9FF;color:#0b0b0c;padding:26px 30px;width:820px}
+h1{font-size:22px;font-weight:700}
+.sub{font-size:13px;color:#4a4a52;margin:4px 0 6px;line-height:1.45}
+h2{font-size:12px;font-weight:700;color:#787882;text-transform:uppercase;letter-spacing:.06em;margin:26px 0 10px}
+.card{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:16px 18px}
+.opt-label{font-size:11px;font-weight:700;color:#243cb3;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.opt-note{font-size:12px;color:#787882;line-height:1.4;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+table{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff;border:1px solid #E7EBF0;border-radius:16px;overflow:hidden}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#787882;padding:10px 14px;border-bottom:1px solid #E7EBF0;background:#fff}
+td{padding:9px 14px;border-bottom:1px solid #E7EBF0;vertical-align:top;line-height:1.45;color:#0b0b0c}
+tr:last-child td{border-bottom:none}
+.ground{font-size:12px;color:#4a4a52;background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:12px 16px;margin-top:12px;line-height:1.55}
+.pivot{background:rgba(36,60,179,.08);color:#243cb3;border-radius:16px;padding:12px 16px;font-size:12.5px;line-height:1.5;margin-top:10px;font-weight:500}
+code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:rgba(120,120,128,.10);border-radius:5px;padding:1px 5px}
+.g{display:inline-block;vertical-align:-3px}
+.match{font-size:12.5px;color:#166534;font-weight:700;display:flex;align-items:center;gap:5px}
+.kv{display:flex;justify-content:space-between;align-items:center}
+.kl{display:flex;align-items:center;gap:9px;font-size:13px;color:#787882;font-weight:500}
+.chiprow{display:flex;gap:8px;flex-wrap:wrap}
+</style>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+<g id="s-cal"><rect x="4.5" y="5.5" width="15" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 9.5h15M9 3.5v3M15 3.5v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
+<g id="s-clock"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-repeat"><path d="M7 8h9a3 3 0 013 3v1M17 16H8a3 3 0 01-3-3v-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M14.5 5.5L17 8l-2.5 2.5M9.5 13.5L7 16l2.5 2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-pin"><path d="M12 21s-6.5-5.5-6.5-10.5a6.5 6.5 0 0113 0C18.5 15.5 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.8"/></g>
+<g id="s-female"><circle cx="12" cy="9" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 14v7M9 18h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
+<g id="s-book"><path d="M4 6a2 2 0 012-2h13a1 1 0 011 1v14a1 1 0 01-1 1H6a2 2 0 00-2 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 18a2 2 0 012-2h14" fill="none" stroke="currentColor" stroke-width="1.8"/></g>
+<g id="s-level"><path d="M4 20h4v-6H4zM10 20h4V9h-4zM16 20h4V4h-4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></g>
+<g id="s-check"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-copy"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 15V6a2 2 0 012-2h9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
+</defs></svg>
+
+</head><body>
+
+<h1>RequestCard · the live card, enhanced (the North Star surface)</h1>
+<div class="sub">Lane C candidate set. Under the 02-Jul pivot the card STRUCTURE is the live app's: same slots, same order, nothing moved. This sheet applies three layers onto it: (1) the locked atom skin, (2) the data revisions, (3) the locked enhancement kit (MatchLine + FactChip glyphs + MoneyAnchor format). Two forks + a revision list to ratify.</div>
+
+<div class="pivot"><b>Pivot note (02-Jul-2026):</b> this replaces the "assemble the new Wave 1 card" scope. Every change below is slot-preserving; a tutor who knows today's card finds everything where it was.</div>
+
+<div class="ground"><b>Grounded in origin/main (<code>renderTicketData</code>), issues the locks already govern:</b> (a) <code>tutor_preference</code> renders under the label "Class" as bare "Female", breaking label-whose-attribute · (b) the in-person mode pill is GREEN (<code>Theme.lightGreen</code> + <code>#1FC07D</code>), colliding with the locked green = fit budget, and online is a blue tint · (c) money renders raw ("RM94.00") · (d) <code>class_time.slice(0,5)</code> gives 24-hour "20:00" · (e) four icon libraries on one card (Feather + FontAwesome + AntDesign + Ionicons) · (f) schedule/time/type chips are blue <code>#E6F2FF</code>, another colour-budget spend · (g) no fit signal, no social proof, request ID is not copyable.</div>
+
+<h2>Before → after (same slots throughout)</h2>
+<div class="grid2">
+
+<div class="card" style="padding:0;overflow:hidden">
+<div style="padding:12px 16px 0"><span class="opt-label" style="color:#787882">Live today (faithful)</span></div>
+<div style="margin:10px 14px 14px;border:1px solid #D9D9DE;border-radius:20px;padding:18px;background:#fff">
+<div class="kv" style="align-items:flex-start">
+<div>
+<div style="font-size:15px;font-weight:700">TREQ-859807</div>
+<div style="font-size:20px;font-weight:500;margin-top:3px">RM94.00</div>
+</div>
+<span style="background:#D9F2E5;color:#1FC07D;font-size:12.5px;font-weight:500;border-radius:30px;padding:5px 0;width:92px;text-align:center">In-person</span>
+</div>
+<div style="display:flex;gap:5px;align-items:center;margin-top:8px;color:#003E9C;font-size:12.5px;font-weight:500">
+<svg class="g" width="15" height="15" viewBox="0 0 24 24" style="color:#003E9C"><use href="#s-pin"/></svg>Bangsar, Kuala Lumpur
+</div>
+<div style="border-bottom:2px solid #EFEFF2;margin:13px 0"></div>
+<div class="kv"><span class="kl"><svg class="g" width="16" height="16" viewBox="0 0 24 24" style="color:#787882"><use href="#s-book"/></svg>Subject</span><span style="font-size:19px;font-weight:700">Physics</span></div>
+<div class="kv" style="margin-top:9px"><span class="kl"><svg class="g" width="16" height="16" viewBox="0 0 24 24" style="color:#787882"><use href="#s-female"/></svg>Class</span><span style="font-size:19px;font-weight:700">Female</span></div>
+<div class="kv" style="margin-top:9px"><span class="kl"><svg class="g" width="16" height="16" viewBox="0 0 24 24" style="color:#787882"><use href="#s-level"/></svg>Level</span><span style="font-size:19px;font-weight:700">Form 4</span></div>
+<div style="border-bottom:2px solid #EFEFF2;margin:13px 0"></div>
+<div class="chiprow">
+<span style="background:#E6F2FF;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:500;color:#4a4a52;display:inline-flex;gap:7px;align-items:center"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-cal"/></svg>Monday</span>
+<span style="background:#E6F2FF;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:500;color:#4a4a52;display:inline-flex;gap:7px;align-items:center"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-clock"/></svg>20:00</span>
+<span style="background:#E6F2FF;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:500;color:#4a4a52;display:inline-flex;gap:7px;align-items:center"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-repeat"/></svg>Regular</span>
+</div>
+</div>
+</div>
+
+<div class="card" style="padding:0;overflow:hidden">
+<div style="padding:12px 16px 0"><span class="opt-label">Enhanced (same slots + kit + data revisions)</span></div>
+<div style="margin:10px 14px 14px;border:1px solid #E7EBF0;border-radius:16px;padding:18px;background:#fff">
+<div class="kv" style="align-items:flex-start">
+<div>
+<div style="display:inline-flex;gap:5px;align-items:center;font-family:ui-monospace,monospace;font-size:12px;font-weight:500;color:#243cb3;background:rgba(36,60,179,.09);border-radius:7px;padding:3px 8px">TREQ-859807 <svg class="g" width="12" height="12" viewBox="0 0 24 24" style="color:#243cb3"><use href="#s-copy"/></svg></div>
+<div style="font-size:20px;font-weight:700;margin-top:5px"><span style="font-size:11px;color:#787882">RM</span> 94</div>
+</div>
+<span style="background:rgba(120,120,128,.10);color:#0b0b0c;font-size:12.5px;font-weight:700;border-radius:999px;padding:5px 0;width:92px;text-align:center">In-person</span>
+</div>
+<div style="display:flex;gap:5px;align-items:center;margin-top:8px;color:#4a4a52;font-size:12.5px;font-weight:500">
+<svg class="g" width="15" height="15" viewBox="0 0 24 24" style="color:#787882"><use href="#s-pin"/></svg>Bangsar, Kuala Lumpur
+</div>
+<div style="border-bottom:1px solid #E7EBF0;margin:13px 0"></div>
+<div class="kv"><span class="kl"><svg class="g" width="16" height="16" viewBox="0 0 24 24" style="color:#787882"><use href="#s-book"/></svg>Subject</span><span style="font-size:19px;font-weight:700">Physics</span></div>
+<div class="kv" style="margin-top:9px"><span class="kl"><svg class="g" width="16" height="16" viewBox="0 0 24 24" style="color:#787882"><use href="#s-female"/></svg>Tutor preferred</span><span style="font-size:19px;font-weight:700">Female tutor</span></div>
+<div class="kv" style="margin-top:9px"><span class="kl"><svg class="g" width="16" height="16" viewBox="0 0 24 24" style="color:#787882"><use href="#s-level"/></svg>Level</span><span style="font-size:19px;font-weight:700">Form 4</span></div>
+<div style="border-bottom:1px solid #E7EBF0;margin:13px 0"></div>
+<div class="chiprow">
+<span style="background:rgba(120,120,128,.10);border-radius:999px;padding:7px 11px;font-size:12px;font-weight:500;color:#0b0b0c;display:inline-flex;gap:6px;align-items:center"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-cal"/></svg>Monday</span>
+<span style="background:rgba(120,120,128,.10);border-radius:999px;padding:7px 11px;font-size:12px;font-weight:500;color:#0b0b0c;display:inline-flex;gap:6px;align-items:center"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-clock"/></svg>8:00 PM</span>
+<span style="background:rgba(120,120,128,.10);border-radius:999px;padding:7px 11px;font-size:12px;font-weight:500;color:#0b0b0c;display:inline-flex;gap:6px;align-items:center"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-repeat"/></svg>Regular</span>
+</div>
+<div class="match" style="margin-top:12px"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#166534"><use href="#s-check"/></svg>Matches your subject &amp; level</div>
+</div>
+</div>
+
+</div>
+
+<h2>The data-revision list (ratify · each is slot-preserving)</h2>
+<table>
+<tr><th style="width:36px">#</th><th style="width:230px">Revision</th><th>From → to</th></tr>
+<tr><td>1</td><td><b>Label-whose-attribute fix</b></td><td>label "Class" + value "Female" → label "Tutor preferred" + value "Female tutor"</td></tr>
+<tr><td>2</td><td><b>Money format</b> (MoneyAnchor lock)</td><td>"RM94.00" → "RM 94" (whole-RM, bold, quiet prefix)</td></tr>
+<tr><td>3</td><td><b>Mode pill off the colour budget</b></td><td>green/blue pills → neutral tint pill; green returns to fit-only (fork R1 decides how far)</td></tr>
+<tr><td>4</td><td><b>12-hour time</b></td><td>"20:00" → "8:00 PM"</td></tr>
+<tr><td>5</td><td><b>One icon set</b></td><td>Feather + FontAwesome + AntDesign + Ionicons → Phosphor (FactChip glyph mapping)</td></tr>
+<tr><td>6</td><td><b>Copyable request ID</b></td><td>plain bold text → mono tint chip + copy glyph (the comms key)</td></tr>
+<tr><td>7</td><td><b>MatchLine added</b> (the North Star signal)</td><td>none → the locked green line, bottom of card (fork R2 confirms placement)</td></tr>
+<tr><td>8</td><td><b>Chips to atom skin</b></td><td>blue #E6F2FF radius 10 → neutral tint pills (F2a grammar); card hairline + radius 16</td></tr>
+</table>
+
+<h2>Fork R1 · the mode pill under the colour budget</h2>
+<div class="grid2">
+<div class="card">
+<div class="opt-label">R1a · neutral pill, both modes</div>
+<div class="opt-note">One grey tint pill; the WORD carries the mode (DR-007: colour never the only signal, and here colour goes entirely).</div>
+<div style="display:flex;gap:8px">
+<span style="background:rgba(120,120,128,.10);color:#0b0b0c;font-size:12.5px;font-weight:700;border-radius:999px;padding:5px 16px">In-person</span>
+<span style="background:rgba(120,120,128,.10);color:#0b0b0c;font-size:12.5px;font-weight:700;border-radius:999px;padding:5px 16px">Online</span>
+</div>
+</div>
+<div class="card">
+<div class="opt-label">R1b · CVD-safe mode colours (DR-006 revived)</div>
+<div class="opt-note">Blue online / orange in-person, the shelved DR-006 pair. Eyeballable at scan speed, but spends the colour budget DR-007 rationed.</div>
+<div style="display:flex;gap:8px">
+<span style="background:rgba(234,88,12,.12);color:#9A3412;font-size:12.5px;font-weight:700;border-radius:999px;padding:5px 16px">In-person</span>
+<span style="background:rgba(29,78,216,.10);color:#1D4ED8;font-size:12.5px;font-weight:700;border-radius:999px;padding:5px 16px">Online</span>
+</div>
+</div>
+</div>
+
+<h2>Fork R2 · MatchLine placement on the live layout</h2>
+<div class="grid2">
+<div class="card">
+<div class="opt-label">R2a · bottom of card, full width</div>
+<div class="opt-note">The last thing read before the tap, the "should I apply" verdict. Sits after the chips row, as shown in the enhanced card above.</div>
+</div>
+<div class="card">
+<div class="opt-label">R2b · top, under the RM</div>
+<div class="opt-note">First thing scanned, next to the money. Stronger, but crowds the card's densest corner and pushes the mode pill area.</div>
+<div style="margin-top:4px">
+<div style="font-size:20px;font-weight:700"><span style="font-size:11px;color:#787882">RM</span> 94</div>
+<div class="match" style="margin-top:5px;font-size:12px"><svg class="g" width="12" height="12" viewBox="0 0 24 24" style="color:#166534"><use href="#s-check"/></svg>Matches your subject &amp; level</div>
+</div>
+</div>
+</div>
+
+<h2>Rules to ratify (say if any feels wrong)</h2>
+<div class="ground">
+<b>1 · Slot-preserving.</b> No slot moves, merges, or disappears; a tutor who knows today's card finds everything where it was. Additions (MatchLine, copy glyph) are additive only.<br>
+<b>2 · The kit applies as locked.</b> MatchLine rules (subject anchor, cap 3, relationship override), FactChip glyph mapping + F2a chip skin, MoneyAnchor format + disciplines, all unchanged.<br>
+<b>3 · Colour budget on the card:</b> green = MatchLine only · amber = the one flag (when the flag hierarchy lands) · indigo = the request-ID chip + actions. Everything else neutral.<br>
+<b>4 · Social proof + fit filters</b> (adaptive applied-count, "For me") stay approved concepts but are FEED-level revisions, not card slots; they land with the feed enhancement pass, not this lock.<br>
+<b>5 · Applied tab</b> reuses this card + the live StatusPill grammar (Pending/Approved/Unsuccessful); no separate applied card.<br>
+<b>6 · Detail screens</b> get the same data revisions (1, 2, 4, 5, 6) wherever the same fields render; nothing on detail is restructured under the pivot.
+</div>
+
+<h2>Trade-offs</h2>
+<table>
+<tr><th style="width:150px">Fork</th><th>Recommendation</th><th>Why</th></tr>
+<tr><td><b>R1</b> mode pill</td><td>R1a neutral</td><td>DR-007 rationed colour to 2 meanings and the live green pill collides with fit green; the word + the location line already disambiguate mode</td></tr>
+<tr><td><b>R2</b> MatchLine placement</td><td>R2a bottom</td><td>The verdict line reads best after the facts; the top corner is already the card's densest zone (ID chip + RM + mode pill)</td></tr>
+</table>
+
+</body></html>

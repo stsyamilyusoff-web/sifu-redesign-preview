@@ -1,0 +1,105 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+*{box-sizing:border-box;margin:0} body{margin:0;padding:24px;background:#E9E9EE;font-family:'Circular Std',-apple-system,sans-serif;color:#0b0b0c;display:flex;justify-content:center;gap:24px;flex-wrap:wrap}
+.ph{width:402px;min-height:874px;background:#F5F9FF;border-radius:34px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.18);display:flex;flex-direction:column;position:relative;flex:none}
+.framelabel{position:absolute;left:-9999px}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 34px 34px;display:flex;flex-direction:column;flex:none}
+.grab{width:36px;height:5px;background:#E7EBF0;border-radius:99px;margin:8px auto 4px}
+.shead{text-align:center;position:relative;padding:0 0 8px;border-bottom:1px solid #E7EBF0}
+.shead b{font-size:16px;font-weight:700}
+.shead .x{position:absolute;right:20px;top:-2px;font-size:16px;color:#787882}
+.sec{font-size:12px;font-weight:500;color:#787882;margin:12px 0 8px}
+.hint{font-weight:400;color:#9aa0aa;font-size:12px}
+.ch0{font-size:12px;font-weight:500;background:#E9EBF2;border-radius:999px;padding:8px 16px;color:#0b0b0c;display:inline-block;margin:0 4px 8px 0}
+.ch1{font-size:12px;font-weight:500;background:#0b0b0c;color:#fff;border-radius:999px;padding:8px 16px;display:inline-block;margin:0 4px 8px 0}
+.pre{display:flex;justify-content:space-between;align-items:center;background:#F5F9FF;border:1px solid #E7EBF0;border-radius:12px;padding:8px 12px}
+.pre b{font-size:14px;font-weight:500}
+.pre span{font-size:12px;color:#243cb3;font-weight:500}
+.dock{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #E7EBF0;padding:12px 20px 24px;background:#fff;border-radius:0 0 34px 34px}
+.dock u{font-size:14px;font-weight:500}
+.dock .cta{background:#243cb3;color:#fff;font-size:16px;font-weight:700;border-radius:12px;padding:12px 20px}
+.prow{display:flex;justify-content:space-between;align-items:center;padding:12px 2px;border-bottom:1px solid #E7EBF0;font-size:16px}
+.cbx{width:22px;height:22px;border-radius:6px;background:#0b0b0c;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:12px}
+.cb0{width:22px;height:22px;border-radius:6px;border:1.5px solid #d8dae0;display:inline-block}
+
+.row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #EEEFF2}
+.row .lb{font-size:12px;font-weight:500;color:#9aa0aa}
+.row .vl{font-size:14px;font-weight:500;color:#0b0b0c}
+.row .vl small{color:#9aa0aa;font-weight:400;font-size:14px}
+.row .cv{color:#c0c3c9;margin-left:8px;font-size:12px}
+.k1{font-size:12px;font-weight:500;background:#0b0b0c;color:#fff;border-radius:999px;padding:8px 16px;display:inline-block;margin:0 4px 8px 0}
+.k0{font-size:12px;font-weight:500;border:1px solid #d8dae0;border-radius:999px;padding:8px 16px;color:#4a4a52;display:inline-block;margin:0 4px 8px 0}
+.cap{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.cap span:first-child{font-size:12px;color:#787882}
+.cap span:last-child{font-size:12px;color:#0b0b0c;font-weight:500;text-decoration:underline}
+.lnk{font-size:14px;color:#0b0b0c;font-weight:500;text-decoration:underline}
+</style></head><body>
+
+<span class="framelabel">filter-collapsed</span>
+<div class="ph"><div style="padding:60px 20px;filter:blur(1px);opacity:.5"><div style="font-size:24px;line-height:32px;font-weight:700">Student Request</div></div><div style="position:absolute;inset:0;background:rgba(0,0,0,.30);border-radius:34px"></div><div class="sheet"><div style="width:36px;height:5px;background:#E7EBF0;border-radius:99px;margin:8px auto 4px"></div><div style="text-align:center;position:relative;padding:0 0 8px;border-bottom:1px solid #EEEFF2"><b style="font-size:16px;font-weight:700">Filters</b><span style="position:absolute;right:20px;top:-1px;font-size:16px;color:#9aa0aa">&#10005;</span></div><div style="padding:0 20px 4px"><div class="row" style="padding:16px 0"><span class="lb">Sort</span><span class="vl">Newest<span class="cv">&#8964;</span></span></div><div class="row" style="padding:16px 0"><span class="lb">Mode</span><span class="vl">In-person<span class="cv">&#8964;</span></span></div><div class="row" style="padding:16px 0"><span class="lb">Subject</span><span class="vl">Add Maths, Physics<span class="cv">&#8964;</span></span></div><div class="row" style="padding:16px 0"><span class="lb">Level</span><span class="vl">SPM<span class="cv">&#8964;</span></span></div><div class="row" style="padding:16px 0"><span class="lb">Location</span><span class="vl">Near you · 10 km<span class="cv">&#8964;</span></span></div><div class="row" style="padding:16px 0;border-bottom:none"><span class="lb">Request ID</span><span class="vl"><small>Any</small><span class="cv">&#8964;</span></span></div></div><div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #EEEFF2;padding:12px 20px 24px;background:#fff;border-radius:0 0 34px 34px"><span style="font-size:14px;font-weight:500;text-decoration:underline">Clear all</span><span style="background:#243cb3;color:#fff;font-size:16px;font-weight:700;border-radius:12px;padding:12px 20px">Show 8 requests</span></div></div></div>
+<span class="framelabel">filter-subject-open</span>
+<div class="ph"><div style="padding:60px 20px;filter:blur(1px);opacity:.5"><div style="font-size:24px;line-height:32px;font-weight:700">Student Request</div></div><div style="position:absolute;inset:0;background:rgba(0,0,0,.30);border-radius:34px"></div><div class="sheet"><div style="width:36px;height:5px;background:#E7EBF0;border-radius:99px;margin:8px auto 4px"></div><div style="text-align:center;position:relative;padding:0 0 8px;border-bottom:1px solid #EEEFF2"><b style="font-size:16px;font-weight:700">Filters</b><span style="position:absolute;right:20px;top:-1px;font-size:16px;color:#9aa0aa">&#10005;</span></div><div style="padding:0 20px 4px"><div class="row" style="padding:16px 0"><span class="lb">Sort</span><span class="vl">Newest<span class="cv">&#8964;</span></span></div><div class="row" style="padding:16px 0"><span class="lb">Mode</span><span class="vl">In-person<span class="cv">&#8964;</span></span></div><div class="row" style="border-bottom:none"><span class="lb">Subject</span><span class="vl"><span class="cv">&#8963;</span></span></div><div style="padding:0 0 16px;border-bottom:1px solid #EEEFF2"><div class="cap"><span>Your subjects</span><span>Select all 5</span></div><span class="k1">Add Maths &#10005;</span><span class="k1">Physics &#10005;</span><span class="k0">Mathematics</span><span class="k0">Science</span><span class="k0">Chemistry</span><div style="margin-top:4px"><span class="lnk">Other subject</span></div></div><div class="row" style="padding:16px 0"><span class="lb">Level</span><span class="vl">SPM<span class="cv">&#8964;</span></span></div><div class="row" style="padding:16px 0"><span class="lb">Location</span><span class="vl">Near you · 10 km<span class="cv">&#8964;</span></span></div><div class="row" style="padding:16px 0;border-bottom:none"><span class="lb">Request ID</span><span class="vl"><small>Any</small><span class="cv">&#8964;</span></span></div></div><div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #EEEFF2;padding:12px 20px 24px;background:#fff;border-radius:0 0 34px 34px"><span style="font-size:14px;font-weight:500;text-decoration:underline">Clear all</span><span style="background:#243cb3;color:#fff;font-size:16px;font-weight:700;border-radius:12px;padding:12px 20px">Show 8 requests</span></div></div></div>
+<span class="framelabel">filter-location-open</span>
+<div class="ph"><div style="padding:60px 20px;filter:blur(1px);opacity:.5"><div style="font-size:24px;line-height:32px;font-weight:700">Student Request</div></div><div style="position:absolute;inset:0;background:rgba(0,0,0,.30);border-radius:34px"></div><div class="sheet"><div style="width:36px;height:5px;background:#E7EBF0;border-radius:99px;margin:8px auto 4px"></div><div style="text-align:center;position:relative;padding:0 0 8px;border-bottom:1px solid #EEEFF2"><b style="font-size:16px;font-weight:700">Filters</b><span style="position:absolute;right:20px;top:-1px;font-size:16px;color:#9aa0aa">&#10005;</span></div><div style="padding:0 20px 4px"><div class="row" style="padding:16px 0"><span class="lb">Sort</span><span class="vl">Newest<span class="cv">&#8964;</span></span></div><div class="row" style="padding:16px 0"><span class="lb">Mode</span><span class="vl">In-person<span class="cv">&#8964;</span></span></div><div class="row" style="padding:16px 0"><span class="lb">Subject</span><span class="vl">Add Maths, Physics<span class="cv">&#8964;</span></span></div><div class="row" style="padding:16px 0"><span class="lb">Level</span><span class="vl">SPM<span class="cv">&#8964;</span></span></div><div class="row" style="border-bottom:none"><span class="lb">Location</span><span class="vl"><span class="cv">&#8963;</span></span></div><div style="padding:0 0 16px;border-bottom:1px solid #EEEFF2"><div class="cap"><span><svg fill="currentColor" style="width:14px;height:14px;color:#243cb3;vertical-align:-2px" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg> Near you · Bangsar</span><span>Move pin</span></div><div style="display:flex;align-items:center;gap:8px;margin-top:4px"><span style="font-size:12px;color:#787882">Radius</span><div style="flex:1;height:4px;background:#EEEFF2;border-radius:2px;position:relative"><div style="width:40%;height:4px;background:#0b0b0c;border-radius:2px"></div><span style="position:absolute;left:40%;top:-6px;width:16px;height:16px;background:#0b0b0c;border-radius:50%;margin-left:-8px"></span></div><span style="font-size:14px;font-weight:500">10 km</span></div><div style="margin-top:8px"><span class="lnk">Or choose state &amp; city</span></div></div><div class="row" style="padding:16px 0;border-bottom:none"><span class="lb">Request ID</span><span class="vl"><small>Any</small><span class="cv">&#8964;</span></span></div></div><div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #EEEFF2;padding:12px 20px 24px;background:#fff;border-radius:0 0 34px 34px"><span style="font-size:14px;font-weight:500;text-decoration:underline">Clear all</span><span style="background:#243cb3;color:#fff;font-size:16px;font-weight:700;border-radius:12px;padding:12px 20px">Show 8 requests</span></div></div></div>
+<span class="framelabel">filter-subject-picker</span>
+<div class="ph">
+<div style="padding:60px 20px;filter:blur(1px);opacity:.5"><div style="font-size:24px;line-height:32px;font-weight:700">Student Request</div></div>
+<div style="position:absolute;inset:0;background:rgba(0,0,0,.30);border-radius:34px"></div>
+<div class="sheet">
+<div class="grab"></div>
+<div class="shead"><b>Subject</b><span class="x">&#10005;</span></div>
+<div style="padding:0 20px 8px">
+<div style="display:flex;align-items:center;gap:8px;border:1.5px solid #E7EBF0;background:#F5F9FF;border-radius:12px;height:46px;padding:0 16px;margin-top:16px">
+<svg fill="currentColor" style="width:18px;height:18px;color:#787882" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+<span style="color:#9aa0aa;font-size:14px">Search subjects</span></div>
+<div class="sec">Your subjects</div>
+<div class="prow"><span>Add Maths <span class="hint">· yours</span></span><span class="cbx">&#10003;</span></div>
+<div class="prow"><span>Physics <span class="hint">· yours</span></span><span class="cbx">&#10003;</span></div>
+<div class="prow"><span>Mathematics <span class="hint">· yours</span></span><span class="cb0"></span></div>
+<div class="prow"><span>Science <span class="hint">· yours</span></span><span class="cb0"></span></div>
+<div class="prow" style="border-bottom:none"><span>Chemistry <span class="hint">· yours</span></span><span class="cb0"></span></div>
+<div class="sec">All subjects <span class="hint">· 135</span></div>
+<div class="prow"><span>Account</span><span class="cb0"></span></div>
+<div class="prow"><span>Anatomy</span><span class="cb0"></span></div>
+<div class="prow"><span>Bahasa Malaysia</span><span class="cb0"></span></div>
+<div class="prow"><span>Biology</span><span class="cb0"></span></div>
+<div class="prow" style="border-bottom:none"><span>Calculus</span><span class="cb0"></span></div>
+</div>
+<div class="dock"><u>Clear</u><span class="cta">Done · 2 selected</span></div>
+</div>
+</div>
+
+<span class="framelabel">filter-location-pin</span>
+<div class="ph">
+<div style="padding:60px 20px;filter:blur(1px);opacity:.5"><div style="font-size:24px;line-height:32px;font-weight:700">Student Request</div></div>
+<div style="position:absolute;inset:0;background:rgba(0,0,0,.30);border-radius:34px"></div>
+<div class="sheet">
+<div class="grab"></div>
+<div class="shead"><b>Your area</b><span class="x">&#10005;</span><span style="position:absolute;left:20px;top:-2px;font-size:16px;color:#787882">&#8592;</span></div>
+<div style="height:300px;background:#E8EFE4;position:relative;overflow:hidden">
+<div style="position:absolute;left:8%;top:18%;width:90%;height:4px;background:#fff;transform:rotate(12deg)"></div>
+<div style="position:absolute;left:-6%;top:56%;width:112%;height:6px;background:#fff;transform:rotate(-7deg)"></div>
+<div style="position:absolute;left:42%;top:4%;width:4px;height:95%;background:#fff;transform:rotate(18deg)"></div>
+<div style="position:absolute;left:12%;top:70%;width:60%;height:3px;background:#fff;transform:rotate(4deg)"></div>
+<div style="position:absolute;left:50%;top:50%;width:210px;height:210px;border:2px solid #243cb3;background:rgba(36,60,179,.10);border-radius:50%;transform:translate(-50%,-50%)"></div>
+<svg fill="currentColor" style="width:38px;height:38px;color:#243cb3;position:absolute;left:50%;top:50%;transform:translate(-50%,-92%)" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,16a88.1,88.1,0,0,0-88,88c0,75.3,80,132.17,83.41,134.55a8,8,0,0,0,9.18,0C136,236.17,216,179.3,216,104A88.1,88.1,0,0,0,128,16Zm0,56a32,32,0,1,1-32,32A32,32,0,0,1,128,72Z"/></svg>
+<span style="position:absolute;right:12px;bottom:12px;background:#fff;border-radius:10px;padding:8px 12px;font-size:12px;font-weight:500;color:#0b0b0c;box-shadow:0 2px 8px rgba(0,0,0,.12)"><svg fill="currentColor" style="width:14px;height:14px;color:#0b0b0c;vertical-align:-2px" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M240,120h-8.31A104.19,104.19,0,0,0,136,24.31V16a8,8,0,0,0-16,0v8.31A104.19,104.19,0,0,0,24.31,120H16a8,8,0,0,0,0,16h8.31A104.19,104.19,0,0,0,120,231.69V240a8,8,0,0,0,16,0v-8.31A104.19,104.19,0,0,0,231.69,136H240a8,8,0,0,0,0-16ZM128,216a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm0-128a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152Z"/></svg> Use my location</span>
+</div>
+<div style="padding:16px 20px 8px">
+<div style="font-size:14px;color:#4a4a52">Drag the pin or search an area</div>
+<div style="display:flex;align-items:center;gap:8px;border:1.5px solid #E7EBF0;border-radius:12px;height:44px;padding:0 16px;margin-top:8px">
+<svg fill="currentColor" style="width:17px;height:17px;color:#787882" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+<span style="font-size:14px">Bangsar, Kuala Lumpur</span></div>
+<div style="display:flex;align-items:center;gap:8px;margin-top:12px">
+<span style="font-size:12px;color:#787882">Radius</span>
+<div style="flex:1;height:4px;background:#E7EBF0;border-radius:2px;position:relative"><div style="width:40%;height:4px;background:#0b0b0c;border-radius:2px"></div><span style="position:absolute;left:40%;top:-6px;width:16px;height:16px;background:#0b0b0c;border-radius:50%;margin-left:-8px"></span></div>
+<span style="font-size:14px;font-weight:500">10 km</span></div>
+<div style="margin-top:8px"><span class="ch0">5 km</span><span class="ch1">&#10003; 10 km</span><span class="ch0">20 km</span><span class="ch0">50 km</span></div>
+</div>
+<div style="padding:8px 20px 24px"><div style="background:#243cb3;color:#fff;border-radius:12px;text-align:center;padding:16px 0;font-size:16px;font-weight:700">Save area · 8 requests nearby</div></div>
+</div>
+</div>
+
+</body></html>

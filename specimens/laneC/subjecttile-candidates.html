@@ -1,0 +1,161 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:#F5F9FF;color:#0b0b0c;padding:26px 30px;width:820px}
+h1{font-size:22px;font-weight:700}
+.sub{font-size:13px;color:#4a4a52;margin:4px 0 6px;line-height:1.45}
+h2{font-size:12px;font-weight:700;color:#787882;text-transform:uppercase;letter-spacing:.06em;margin:26px 0 10px}
+.card{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:16px 18px}
+.opt-label{font-size:11px;font-weight:700;color:#243cb3;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.opt-note{font-size:12px;color:#787882;line-height:1.4;margin-bottom:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.refbar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+.refbar .card{padding:12px 14px}
+.refbar b{font-size:13px}
+.refbar p{font-size:12px;color:#4a4a52;line-height:1.4;margin-top:3px}
+table{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff;border:1px solid #E7EBF0;border-radius:16px;overflow:hidden}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#787882;padding:10px 14px;border-bottom:1px solid #E7EBF0;background:#fff}
+td{padding:10px 14px;border-bottom:1px solid #E7EBF0;vertical-align:top;line-height:1.45;color:#0b0b0c}
+tr:last-child td{border-bottom:none}
+.ground{font-size:12px;color:#4a4a52;background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:12px 16px;margin-top:12px;line-height:1.55}
+code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:rgba(120,120,128,.10);border-radius:5px;padding:1px 5px}
+.tile{width:64px;height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none}
+.tlabel{font-size:11px;color:#4a4a52;text-align:center;margin-top:6px;line-height:1.25;max-width:72px}
+.tilecol{display:flex;flex-direction:column;align-items:center}
+.tilerow{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;padding:4px 0 2px}
+.mono{font-weight:700;font-size:20px;letter-spacing:.02em}
+.sw{width:26px;height:26px;border-radius:8px;display:inline-block;vertical-align:-8px}
+</style>
+</head><body>
+
+<h1>SubjectTile · the illustrated subject-colour tile</h1>
+<div class="sub">Lane C candidate set. The hub already locked the imagery direction: real photography for PEOPLE, illustrated colour tiles for SUBJECTS (adapted from Urban Company), and subject tiles sit OUTSIDE the Phosphor icon tiers. DR-005's gates survive re-skinning: monogram whenever an icon would be unclear, colliding, or culturally loaded; religious and moral subjects are ALWAYS a monogram, never a symbol. This sheet decides the illustration-to-monogram balance, the colour mapping, and the tile ground.</div>
+
+<div class="ground"><b>Grounded in origin/main of sifututor_tutor:</b> subjects are backend-owned, fetched at runtime from <code>tutor/curricula</code> → <code>subjects[] {id, name}</code>, English-first, deduped by name (per-level join). There is no hardcoded list; the tile map keys off <code>subject_id</code> with a never-blank fallback. The only live glyph is one generic <code>SubjectIcon</code>, greenfield otherwise. Illustrations in this sheet are simple flat stand-ins; final art is one commissioned set drawn to one weight.</div>
+
+<h2>How the references do it</h2>
+<div class="refbar">
+<div class="card"><b>Urban Company</b><p>Category tiles carry imagery on a soft ground; the grid is the browsing surface. The adapted source for our tiles (hub lock).</p></div>
+<div class="card"><b>Fresha</b><p>Frame #52: category tiles are full-bleed REAL photos with the label overlaid. Photography is reserved for people in our system, so the register transfers but the medium becomes illustration.</p></div>
+<div class="card"><b>Airbnb</b><p>Category icons are a monochrome outline row (top of search). Too quiet for a curriculum of 25+ subjects that must be told apart fast.</p></div>
+</div>
+
+<h2>Fork S1 · what goes in the tile</h2>
+<div class="grid2">
+<div class="card">
+<div class="opt-label">S1a · illustration-first (DR-005 gate decides)</div>
+<div class="opt-note">Every subject that passes the gate (clear + distinguishable + culturally neutral) gets a drawn object; the rest get a monogram. One system, two renderings.</div>
+<div class="tilerow">
+<div class="tilecol"><div class="tile" style="background:rgba(109,40,217,.10)"><span style="color:#6D28D9;font-weight:700;font-size:26px">π</span></div><div class="tlabel">Mathematics</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(15,118,110,.10)"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="#0F766E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M26 8h12M30 8v14L17 44a5 5 0 004.5 8h21a5 5 0 004.5-8L34 22V8"/><path d="M22 38h20"/></svg></div><div class="tlabel">Chemistry</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(15,118,110,.10)"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="#0F766E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6C12 18 14 42 32 56 50 42 52 18 32 6Z"/><path d="M32 18v30"/></svg></div><div class="tlabel">Biology</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(190,18,60,.08)"><span class="mono" style="color:#BE123C">BM</span></div><div class="tlabel">Bahasa Melayu</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(180,83,9,.10)"><span class="mono" style="color:#B45309">SJ</span></div><div class="tlabel">Sejarah</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(71,85,105,.10)"><span class="mono" style="color:#475569">PI</span></div><div class="tlabel">Pendidikan Islam</div></div>
+</div>
+</div>
+<div class="card">
+<div class="opt-label">S1b · monogram-first (typographic system)</div>
+<div class="opt-note">Every subject is a 1-2 letter monogram; illustration never appears. Boldest simplicity, zero art budget, but the grid reads as a spreadsheet and spends the hub's "illustrated" promise.</div>
+<div class="tilerow">
+<div class="tilecol"><div class="tile" style="background:rgba(109,40,217,.10)"><span class="mono" style="color:#6D28D9">MT</span></div><div class="tlabel">Mathematics</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(15,118,110,.10)"><span class="mono" style="color:#0F766E">CH</span></div><div class="tlabel">Chemistry</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(15,118,110,.10)"><span class="mono" style="color:#0F766E">BI</span></div><div class="tlabel">Biology</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(190,18,60,.08)"><span class="mono" style="color:#BE123C">BM</span></div><div class="tlabel">Bahasa Melayu</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(180,83,9,.10)"><span class="mono" style="color:#B45309">SJ</span></div><div class="tlabel">Sejarah</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(71,85,105,.10)"><span class="mono" style="color:#475569">PI</span></div><div class="tlabel">Pendidikan Islam</div></div>
+</div>
+</div>
+</div>
+
+<h2>Fork S2 · colour mapping</h2>
+<div class="grid2">
+<div class="card">
+<div class="opt-label">S2a · one colour per curriculum FAMILY</div>
+<div class="opt-note">Seven families, every subject inherits its family colour. Physics and Chemistry read as siblings; 25+ subjects never become 25 colours.</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px 16px;font-size:12.5px">
+<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap"><span class="sw" style="background:rgba(109,40,217,.14)"></span><b style="color:#6D28D9">Maths &amp; Computing</b></span>
+<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap"><span class="sw" style="background:rgba(15,118,110,.14)"></span><b style="color:#0F766E">Sciences</b></span>
+<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap"><span class="sw" style="background:rgba(190,18,60,.11)"></span><b style="color:#BE123C">Languages</b></span>
+<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap"><span class="sw" style="background:rgba(180,83,9,.13)"></span><b style="color:#B45309">Humanities</b></span>
+<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap"><span class="sw" style="background:rgba(14,116,144,.13)"></span><b style="color:#0E7490">Commerce</b></span>
+<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap"><span class="sw" style="background:rgba(162,28,175,.10)"></span><b style="color:#A21CAF">Arts, Tech &amp; PE</b></span>
+<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap"><span class="sw" style="background:rgba(71,85,105,.11)"></span><b style="color:#475569">Religious &amp; Moral (quiet slate)</b></span>
+</div>
+<div class="opt-note" style="margin:10px 0 0">Exact hexes are Lane A token work later; the decision here is the MAPPING. None of these are the rationed status colours (fit green, flag amber, action indigo).</div>
+</div>
+<div class="card">
+<div class="opt-label">S2b · one indigo tint for every subject</div>
+<div class="opt-note">Every tile is the brand tint. Calmest and cheapest, but a picker grid of 25 identical-colour tiles loses the at-a-glance grouping, and subjects lean entirely on the mark.</div>
+<div class="tilerow">
+<div class="tilecol"><div class="tile" style="background:rgba(36,60,179,.08)"><span style="color:#243cb3;font-weight:700;font-size:26px">π</span></div><div class="tlabel">Mathematics</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(36,60,179,.08)"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="#243cb3" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M26 8h12M30 8v14L17 44a5 5 0 004.5 8h21a5 5 0 004.5-8L34 22V8"/><path d="M22 38h20"/></svg></div><div class="tlabel">Chemistry</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(36,60,179,.08)"><span class="mono" style="color:#243cb3">BM</span></div><div class="tlabel">Bahasa Melayu</div></div>
+</div>
+</div>
+</div>
+
+<h2>Fork S3 · the tile ground</h2>
+<div class="card">
+<div class="tilerow" style="gap:44px">
+<div class="tilecol">
+<div class="tile" style="background:rgba(15,118,110,.10)"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="#0F766E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M26 8h12M30 8v14L17 44a5 5 0 004.5 8h21a5 5 0 004.5-8L34 22V8"/><path d="M22 38h20"/></svg></div>
+<div class="tlabel">S3a · family tint ground<br>+ family ink mark<br>(the tint grammar the pills use)</div>
+</div>
+<div class="tilecol">
+<div class="tile" style="background:#0F766E"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M26 8h12M30 8v14L17 44a5 5 0 004.5 8h21a5 5 0 004.5-8L34 22V8"/><path d="M22 38h20"/></svg></div>
+<div class="tlabel">S3b · solid family ground<br>+ white mark<br>(UC-loud, 25 saturated squares)</div>
+</div>
+<div class="tilecol">
+<div class="tile" style="background:#fff;border:1px solid #E7EBF0"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="#0F766E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M26 8h12M30 8v14L17 44a5 5 0 004.5 8h21a5 5 0 004.5-8L34 22V8"/><path d="M22 38h20"/></svg></div>
+<div class="tlabel">S3c · white ground + hairline<br>+ family ink mark<br>(flattest, melts into white cards)</div>
+</div>
+</div>
+</div>
+
+<h2>In context</h2>
+<div class="grid2">
+<div class="card">
+<div class="opt-label" style="color:#787882">Picker grid (ServicePreference · 64 tile)</div>
+<div class="tilerow" style="margin-top:10px">
+<div class="tilecol"><div class="tile" style="background:rgba(109,40,217,.10)"><span style="color:#6D28D9;font-weight:700;font-size:26px">π</span></div><div class="tlabel">Mathematics</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(109,40,217,.10)"><span style="color:#6D28D9;font-weight:700;font-size:19px">ƒ(x)</span></div><div class="tlabel">Add Maths</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(190,18,60,.08)"><span class="mono" style="color:#BE123C">EN</span></div><div class="tlabel">English</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(180,83,9,.10)"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="#B45309" stroke-width="3.5" stroke-linecap="round"><circle cx="32" cy="32" r="22"/><ellipse cx="32" cy="32" rx="10" ry="22"/><path d="M11 32h42"/></svg></div><div class="tlabel">Geography</div></div>
+</div>
+</div>
+<div class="card">
+<div class="opt-label" style="color:#787882">Inline row (class card · 40 tile)</div>
+<div style="display:flex;gap:12px;align-items:center;margin-top:14px;background:#fff;border:1px solid #E7EBF0;border-radius:14px;padding:12px 14px">
+<div class="tile" style="width:40px;height:40px;border-radius:10px;background:rgba(109,40,217,.10)"><span style="color:#6D28D9;font-weight:700;font-size:17px">π</span></div>
+<div style="flex:1">
+<div style="font-size:15px;font-weight:700">Mathematics <span style="font-weight:400;color:#787882;font-size:12.5px">· Form 4</span></div>
+<div style="font-size:12px;color:#4a4a52;margin-top:2px">Tue 8:00 PM · 1.5h · Aiman</div>
+</div>
+</div>
+<div class="opt-note" style="margin:10px 0 0">The tile gives every class row an instant subject anchor; the DR-004 grey anchor watermark stays a separate, MoneyAnchor-owned rule.</div>
+</div>
+</div>
+
+<h2>Rules to ratify (say if any feels wrong)</h2>
+<div class="ground">
+<b>1 · The DR-005 gate survives.</b> Icon only when clear + distinguishable from siblings + culturally neutral; when in doubt, monogram. Pendidikan Islam, Pendidikan Moral, Tasawwur Islam, Sejarah, Sivik and all languages are monograms; never a religious or cultural symbol.<br>
+<b>2 · Keyed by <code>subject_id</code>,</b> never the name string (names vary EN/BM). Unmapped id → fallback tile (open-book mark, neutral slate family), so a new backend subject never renders blank.<br>
+<b>3 · Sizes.</b> 64 picker grid (label below, outside the tile) · 40 inline row · radius 14 (matches buttons/inputs). No other sizes.<br>
+<b>4 · One commissioned art set.</b> All illustrations drawn to one stroke weight and corner language; the flat stand-ins in this sheet define composition, not final art.<br>
+<b>5 · Colour discipline.</b> Family colours live ONLY inside the tile (ground + mark). They never colour text, pills, or buttons; fit green, flag amber, and action indigo remain the only UI status colours.<br>
+<b>6 · One map everywhere.</b> The same tile renders on picker, class cards, records, reports; no surface invents its own subject art.
+</div>
+
+<h2>Trade-offs</h2>
+<table>
+<tr><th style="width:150px">Fork</th><th>Recommendation</th><th>Why</th></tr>
+<tr><td><b>S1</b> tile content</td><td>S1a illustration-first</td><td>Delivers the hub's locked "illustrated" imagery promise; the DR-005 gate already protects every subject an icon would fail</td></tr>
+<tr><td><b>S2</b> colour mapping</td><td>S2a family colours</td><td>Grouping is free information at scan speed; 7 families stay governable where 25 per-subject colours or 1 indigo both fail the picker grid</td></tr>
+<tr><td><b>S3</b> ground</td><td>S3a family tint</td><td>Same tint grammar as the locked tier pills, quiet on white cards; solid UC squares are louder than our register</td></tr>
+</table>
+
+</body></html>

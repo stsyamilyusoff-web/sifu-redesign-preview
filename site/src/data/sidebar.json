@@ -13,6 +13,126 @@
   ]
  },
  {
+  "label": "Brand",
+  "collapsed": true,
+  "items": [
+   {
+    "label": "The two layers",
+    "slug": "brand"
+   },
+   {
+    "label": "Wordmark and logo",
+    "slug": "brand/wordmark"
+   },
+   {
+    "label": "Colour",
+    "slug": "brand/colour"
+   },
+   {
+    "label": "Typography",
+    "slug": "brand/typography"
+   },
+   {
+    "label": "Photography",
+    "slug": "brand/photography"
+   },
+   {
+    "label": "Voice and copy",
+    "slug": "brand/voice"
+   }
+  ]
+ },
+ {
+  "label": "Foundations",
+  "collapsed": true,
+  "items": [
+   {
+    "label": "Colour tokens",
+    "slug": "foundations/colour-tokens"
+   },
+   {
+    "label": "Type-scale law",
+    "slug": "foundations/type-scale"
+   },
+   {
+    "label": "Density grammar",
+    "slug": "foundations/density"
+   },
+   {
+    "label": "Motion",
+    "slug": "foundations/motion"
+   },
+   {
+    "label": "Iconography",
+    "slug": "foundations/iconography"
+   },
+   {
+    "label": "Spacing and radius",
+    "slug": "foundations/spacing"
+   }
+  ]
+ },
+ {
+  "label": "Components",
+  "collapsed": true,
+  "items": [
+   {
+    "label": "The kit model",
+    "slug": "components"
+   },
+   {
+    "label": "DNA components",
+    "slug": "components/dna"
+   },
+   {
+    "label": "Forms and containers",
+    "slug": "components/forms-containers"
+   },
+   {
+    "label": "Reuse registry",
+    "slug": "components/registry"
+   }
+  ]
+ },
+ {
+  "label": "Patterns",
+  "collapsed": true,
+  "items": [
+   {
+    "label": "About patterns",
+    "slug": "patterns"
+   },
+   {
+    "label": "Tap affordance",
+    "slug": "patterns/tap-affordance"
+   },
+   {
+    "label": "Focus-first screens",
+    "slug": "patterns/focus-first"
+   },
+   {
+    "label": "Triage feeds",
+    "slug": "patterns/triage"
+   },
+   {
+    "label": "Success screens",
+    "slug": "patterns/success-screens"
+   },
+   {
+    "label": "Empty states",
+    "slug": "patterns/empty-states"
+   },
+   {
+    "label": "No duplication",
+    "slug": "patterns/no-duplication"
+   },
+   {
+    "label": "Interactivity",
+    "slug": "patterns/interactivity"
+   }
+  ]
+ },
+ {
   "label": "Tutor app · journey",
   "items": [
    {
@@ -271,32 +391,19 @@
   ]
  },
  {
-  "label": "Foundations",
-  "items": [
-   {
-    "label": "Colour",
-    "slug": "foundations/colour"
-   },
-   {
-    "label": "Fonts",
-    "slug": "foundations/fonts"
-   },
-   {
-    "label": "Type-scale law",
-    "slug": "foundations/type-scale"
-   },
-   {
-    "label": "Tap-affordance law",
-    "slug": "foundations/tap-affordance"
-   }
-  ]
- },
- {
   "label": "Program",
   "items": [
    {
     "label": "Status",
     "slug": "program/status"
+   },
+   {
+    "label": "Decision records",
+    "slug": "program/decisions"
+   },
+   {
+    "label": "Contributing",
+    "slug": "program/contributing"
    }
   ]
  }

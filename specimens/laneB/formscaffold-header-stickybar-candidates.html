@@ -1,0 +1,169 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+:root{
+  --brand:#243cb3;        /* indigo, locked */
+  --canvas:#F5F9FF;
+  --card:#FFFFFF;
+  --hairline:#E7EBF0;
+  --ink:#0b0b0c;
+  --ink2:#4a4a52;
+  --ink3:#787882;
+  --placeholder:#9aa0aa;
+  --fill:#EEF1F6;
+  --on-brand:#FFFFFF;
+  --dockshadow:rgba(11,11,12,.08);
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:var(--canvas);color:var(--ink);padding:28px 34px;width:900px}
+h1{font-size:22px;font-weight:500}
+h2{font-size:17px;font-weight:500;margin:26px 0 4px}
+.sub{font-size:13px;color:var(--ink2);margin:4px 0 18px}
+.note{font-size:12px;color:var(--ink3);margin:2px 0 12px}
+.cols{display:flex;gap:24px;align-items:flex-start}
+.col{flex:1;min-width:0}
+.colhead{font-size:12px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.state{font-size:11px;color:var(--ink3);margin-top:8px}
+.evidence{background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:22px;font-size:12px;color:var(--ink2);line-height:1.55}
+.evidence b{font-weight:500;color:var(--ink)}
+.fork{margin-top:18px}
+.forkhead{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
+/* frame */
+.frame{width:393px;background:var(--canvas);border:1px solid var(--hairline);border-radius:20px;overflow:hidden}
+.framebody{padding:0 16px 14px}
+/* headers */
+.hbar{display:flex;align-items:center;gap:10px;height:56px;padding:0 16px}
+.hback{width:36px;height:36px;border-radius:18px;background:var(--fill);display:flex;align-items:center;justify-content:center;flex:none}
+.hback svg{width:18px;height:18px;color:var(--ink)}
+.hbar .htitle{font-size:20px;font-weight:500}
+.hbig{font-size:26px;font-weight:500;margin:4px 0 16px}
+.hsub{font-size:14px;color:var(--ink3);margin:-10px 0 16px}
+/* form bits (locked FormField) */
+.label{font-size:13px;font-weight:500;color:var(--ink2);margin-bottom:6px}
+.label .opt{color:var(--ink3);font-weight:400}
+.input{height:52px;border-radius:14px;padding:0 16px;font-size:16px;display:flex;align-items:center;background:var(--card);border:1.5px solid var(--hairline)}
+.input .ph{color:var(--placeholder)}
+.input.area{height:auto;min-height:84px;align-items:flex-start;padding:14px 16px;color:var(--ink)}
+.sect{margin-bottom:16px}
+.row2{display:flex;gap:12px}.row2>.sect{flex:1}
+.help{font-size:12px;color:var(--ink3);margin-top:6px}
+/* dock */
+.dock{background:var(--card);border-top:1px solid var(--hairline);padding:14px 16px 18px;display:flex;gap:12px;align-items:center}
+.dock.shadow{box-shadow:0 -2px 6px var(--dockshadow)}
+.btn{height:48px;border-radius:14px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;font-size:15px;font-weight:500}
+.btn.primary{background:var(--brand);color:var(--on-brand)}
+.btn.full{flex:1}
+.btn.neutral{background:var(--ink);color:var(--on-brand)}
+.docklink{font-size:15px;font-weight:500;color:var(--ink);text-decoration:underline;flex:1}
+.docksum{flex:1}
+.docksum .dprice{font-size:17px;font-weight:500}
+.docksum .dmeta{font-size:12px;color:var(--ink3);margin-top:2px}
+.minidock{width:100%}
+</style></head><body>
+
+<h1>FormScaffold + Header + StickyBottomBar</h1>
+<div class="sub">Lane B P1. FormScaffold and StickyBottomBar already exist as shared components in the live app (4 form screens migrated); this spec confirms them as canonical, migrates the 20+ hand-rolled footers and 15 legacy scroll forms onto them, and re-skins with the locked atoms. Headers are 100% custom in the live app (no native navigation headers), so the Header pattern is ours to set.</div>
+
+<h2>FormScaffold, canonical form screen</h2>
+<div class="note">Anatomy held from the live component: header slot · keyboard-aware scroll (canvas background, content padding 16, extra bottom room above the dock) · optional banner slot (the L2 StatusBanner) · sections of locked FormFields, 16 apart · StickyBottomBar with one full-width primary CTA. Submit is ALWAYS pinned; the legacy inline-in-scroll submit buttons migrate here.</div>
+<div class="cols">
+  <div>
+    <div class="frame">
+      <div class="hbar"><div class="hback"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg></div><div class="htitle">Extra class</div></div>
+      <div class="framebody">
+        <div class="sect">
+          <div class="label">Student</div>
+          <div class="input">Aliya Lim</div>
+        </div>
+        <div class="row2">
+          <div class="sect">
+            <div class="label">Date</div>
+            <div class="input"><span class="ph">Pick a date</span></div>
+          </div>
+          <div class="sect">
+            <div class="label">Time</div>
+            <div class="input"><span class="ph">4:00 PM</span></div>
+          </div>
+        </div>
+        <div class="sect">
+          <div class="label">Note to parent <span class="opt">(optional)</span></div>
+          <div class="input area">Extra revision before the topical test on Friday.</div>
+          <div class="help">The parent sees this with the request</div>
+        </div>
+      </div>
+      <div class="dock"><span class="btn primary full">Submit request</span></div>
+    </div>
+    <div class="state">true 393pt · locked FormField (B2 optional suffix) · dock carries the only primary action on screen</div>
+  </div>
+</div>
+
+<h2>StickyBottomBar, the three layouts</h2>
+<div class="note">White dock, hairline top border, padding 16, safe-area aware, buttons on the locked atom (48 high, radius 14). All three reference apps pin their decisive action in a dock like this. One dock, three content layouts; no other bottom-bar variants.</div>
+<div class="cols">
+  <div class="col">
+    <div class="colhead">Full-width CTA (forms)</div>
+    <div class="minidock"><div class="dock" style="border:1px solid var(--hairline);border-radius:14px"><span class="btn primary full">Submit request</span></div></div>
+    <div class="state">FormScaffold default (Urban Company)</div>
+  </div>
+  <div class="col">
+    <div class="colhead">Summary + button (apply, checkout)</div>
+    <div class="minidock"><div class="dock" style="border:1px solid var(--hairline);border-radius:14px"><div class="docksum"><div class="dprice">RM 65 per hour</div><div class="dmeta">2 hours weekly · Kepong</div></div><span class="btn primary">Apply</span></div></div>
+    <div class="state">request detail apply bar (Fresha)</div>
+  </div>
+  <div class="col">
+    <div class="colhead">Link + button (filter sheet)</div>
+    <div class="minidock"><div class="dock" style="border:1px solid var(--hairline);border-radius:14px"><span class="docklink">Clear all</span><span class="btn neutral">Show requests</span></div></div>
+    <div class="state">the G4 filter sheet's dock (Airbnb)</div>
+  </div>
+</div>
+
+<div class="fork">
+  <div class="forkhead">Fork N. Dock separation · DECIDED: N1 hairline only (founder, 02-Jul-2026). The live bar's 8% shadow is retired.</div>
+  <div class="note">The live StickyBottomBar adds a soft upward shadow on top of the hairline. The foundation elsewhere is flat (cards lost their shadow). The dock floats over scrolling content, so it has a stronger case for a shadow than cards do.</div>
+  <div class="cols">
+    <div class="col">
+      <div class="colhead">N1 hairline only (flat)</div>
+      <div class="minidock"><div class="dock" style="border:1px solid var(--hairline);border-radius:14px"><span class="btn primary full">Submit request</span></div></div>
+      <div class="state">consistent with the flat foundation</div>
+    </div>
+    <div class="col">
+      <div class="colhead">N2 hairline + soft shadow (live app)</div>
+      <div class="minidock"><div class="dock shadow" style="border:1px solid var(--hairline);border-radius:14px"><span class="btn primary full">Submit request</span></div></div>
+      <div class="state">8% upward shadow; the dock reads as floating over content</div>
+    </div>
+  </div>
+</div>
+
+<div class="fork">
+  <div class="forkhead">Fork O. Header pattern (every screen) · DECIDED: O1 title in the bar (founder, 02-Jul-2026). Top-level tab screens use the same bar without the back button. The large in-content titles shown in the FilterChips G-frames were illustrative only. RECONCILED by the integrator (hub v0.17): the back glyph is the Phosphor ARROW (arrow-left) app-wide; the caret drawn in the frames below is superseded.</div>
+  <div class="note">Live app: one 60pt custom bar, back chevron + 24 bold title inline, grey circular icon buttons on the right. Fresha and Airbnb keep the bar minimal (just back/close + actions) and put a large title in the content, which is also what the earlier Requests frames assumed. The Entypo chevron is retired by the icon lock; per hub v0.17 the replacement is the Phosphor arrow-left, not the caret.</div>
+  <div class="cols">
+    <div class="col">
+      <div class="colhead">O1 title in the bar (live app)</div>
+      <div class="frame" style="height:150px">
+        <div class="hbar"><div class="hback"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg></div><div class="htitle">Payment</div></div>
+        <div class="framebody"><div class="input" style="margin-top:6px"><span class="ph">Content starts here</span></div></div>
+      </div>
+      <div class="state">compact · title always visible · one bar does everything</div>
+    </div>
+    <div class="col">
+      <div class="colhead">O2 minimal bar + large title in content</div>
+      <div class="frame" style="height:150px">
+        <div class="hbar"><div class="hback"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg></div></div>
+        <div class="framebody"><div class="hbig">Payment</div><div class="input"><span class="ph">Content starts here</span></div></div>
+      </div>
+      <div class="state">calmer bar · big scannable title (Fresha, Airbnb) · title scrolls away with content</div>
+    </div>
+  </div>
+</div>
+
+<h2>Reference evidence + consolidation map</h2>
+<div class="evidence">
+  <b>Airbnb (Jun 2025, listing wizard + filters):</b> minimal top bar (text actions "Save &amp; exit / Questions?"), titles live in content; docks are white with hairline top, link left + dark button right (filters) or Back/Next pair (wizard).<br>
+  <b>Fresha (Oct 2024, checkout):</b> minimal bar (X close), large titles in content; confirm dock = summary left (price bold + grey meta) + dark 48pt button right, hairline top.<br>
+  <b>Urban Company (May 2026, checkout):</b> back-arrow bar with inline title; docks = full-width filled 48pt CTA over a hairline, sometimes with a context line above.<br>
+  <b>Held from the lock:</b> button atom (48/14, indigo primary, black neutral) in every dock; locked FormField anatomy inside FormScaffold; Phosphor arrow-left replaces the Entypo chevron (reconciled hub v0.17; the caret first drawn here is superseded); DR-002 paddings; the L2 banner drops into FormScaffold's banner slot.<br>
+  <b>Grounding, live app:</b> FormScaffold (4 screens) + StickyBottomBar (safe-area aware, hairline + 8% shadow) already canonical; Header shared across 70+ screens (60pt, title 24 bold, grey circular right actions); ScreenStateHeader (title + subtitle block) stays for in-content headings; ActiveClassScaffold keeps its own footer (class-mode DNA). Migrating in: 20+ hand-rolled footers (RequestDetails apply bars, AddClassSchedule dual-button rows) and 15 legacy scroll forms. Dual-button rows map to the link + button dock layout. Nothing dropped: banner slot, identity summary slot, helper text above the CTA, dual actions, safe-area handling and keyboard behaviour all have homes above.
+</div>
+
+</body></html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+:root{
+  --brand:#243cb3;        /* indigo, locked */
+  --canvas:#F5F9FF;
+  --card:#FFFFFF;
+  --hairline:#E7EBF0;
+  --ink:#0b0b0c;
+  --ink2:#4a4a52;
+  --ink3:#787882;
+  --success:#1a9e6b;
+  --success-tint:#e2f5ec;
+  --error:#F14336;
+  --fill:#EEF1F6;
+  --tile:#EEF1F6;
+  --brand-tint:#e3e8fa;
+  --on-brand:#FFFFFF;
+  --toggle-off:#D6DCE5;
+  --shadow:rgba(11,11,12,.15);
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:var(--canvas);color:var(--ink);padding:28px 34px;width:760px}
+h1{font-size:22px;font-weight:500}
+h2{font-size:17px;font-weight:500;margin:26px 0 4px}
+.sub{font-size:13px;color:var(--ink2);margin:4px 0 18px}
+.note{font-size:12px;color:var(--ink3);margin:2px 0 12px}
+.cols{display:flex;gap:24px}
+.col{flex:1;min-width:0}
+.colhead{font-size:12px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.state{font-size:11px;color:var(--ink3);margin-top:6px}
+.evidence{background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:22px;font-size:12px;color:var(--ink2);line-height:1.55}
+.evidence b{font-weight:500;color:var(--ink)}
+.fork{margin-top:18px}
+.forkhead{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
+/* ListSection */
+.sechead{font-size:13px;font-weight:500;color:var(--ink3);margin:0 4px 8px}
+.secfoot{font-size:12px;color:var(--ink3);margin:8px 4px 0;line-height:1.45}
+.group{background:var(--card);border:1px solid var(--hairline);border-radius:16px;overflow:hidden}
+/* ListRow anatomy */
+.row{display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 16px;background:var(--card);position:relative}
+.row.h56{min-height:56px}
+.group .row:not(:last-child)::after{content:"";position:absolute;left:48px;right:0;bottom:0;height:1px;background:var(--hairline)}
+.group.fullsep .row:not(:last-child)::after{left:0}
+.group.nosep .row::after{display:none}
+.icn{width:22px;height:22px;color:var(--ink2);flex:none}
+.tile{width:28px;height:28px;border-radius:8px;background:var(--tile);display:flex;align-items:center;justify-content:center;flex:none}
+.tile .icn{width:18px;height:18px}
+.tile.brand{background:var(--brand-tint)}.tile.brand .icn{color:var(--brand)}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--brand-tint);color:var(--brand);font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;flex:none}
+.txt{flex:1;min-width:0;padding:6px 0}
+.title{font-size:16px;font-weight:500;color:var(--ink);line-height:1.25}
+.subtitle{font-size:12.5px;color:var(--ink3);margin-top:3px;line-height:1.35}
+.trail{display:flex;align-items:center;gap:8px;flex:none}
+.value{font-size:15px;color:var(--ink3)}
+.chev{width:16px;height:16px;color:var(--ink3);flex:none}
+.count{min-width:22px;height:22px;border-radius:11px;background:var(--brand);color:var(--on-brand);font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;padding:0 7px}
+.pill{font-size:12px;font-weight:500;padding:3px 10px;border-radius:999px}
+.pill.ok{background:var(--success-tint);color:var(--success)}
+.action{font-size:15px;font-weight:500;color:var(--brand)}
+.row.destructive .title{color:var(--error)}
+.row.destructive .icn{color:var(--error)}
+.row.disabled{opacity:.5}
+.toggle{width:46px;height:28px;border-radius:14px;background:var(--toggle-off);position:relative;flex:none}
+.toggle.on{background:var(--brand)}
+.toggle::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--on-brand);box-shadow:0 1px 2px var(--shadow)}
+.toggle.on::after{left:auto;right:3px}
+</style></head><body>
+
+<h1>ListRow + ListSection</h1>
+<div class="sub">Lane B P1, both custom. One canonical row consolidates the 9 implementations found in the live app (GroupedCardItem + 6 inline patterns + ProfileStrengthSection gap rows + FAQ accordion). Phosphor icons, Circular Std, locked palette.</div>
+
+<h2>ListRow, composed states</h2>
+<div class="note">Anatomy: leading slot (icon, tile, or avatar) · title 16 medium + optional subtitle 12.5 · trailing slot (chevron, value, toggle, count, pill, action, or nothing). Every affordance in the live app keeps a home. Rows sit inside a ListSection (grouped white card, radius 16, hairline separators inset to the text edge).</div>
+
+<div class="cols">
+  <div class="col">
+    <div class="colhead">Core</div>
+    <div class="group">
+      <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"/></svg><div class="txt"><div class="title">My students</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+      <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></svg><div class="txt"><div class="title">Class schedule</div><div class="subtitle">Next class Fri, 27-Mar-2026, 4:00 PM</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+      <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"/></svg><div class="txt"><div class="title">Language</div></div><div class="trail"><span class="value">English</span><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+    </div>
+    <div class="state">icon only · icon + subtitle · trailing value + chevron</div>
+
+    <div style="height:16px"></div>
+    <div class="group">
+      <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"/></svg><div class="txt"><div class="title">New request alerts</div><div class="subtitle">Get notified when a request fits you</div></div><div class="trail"><div class="toggle on"></div></div></div>
+      <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Z"/></svg><div class="txt"><div class="title">Messages</div></div><div class="trail"><span class="count">2</span><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+      <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm12-40a12,12,0,1,1-12-12A12,12,0,0,1,140,176Zm24-72c0,17.38-13.76,31.93-32,35.28V140a8,8,0,0,1-16,0v-8a8,8,0,0,1,8-8c13.23,0,24-9,24-20s-10.77-20-24-20-24,9-24,20v4a8,8,0,0,1-16,0v-4c0-19.85,17.94-36,40-36S164,84.15,164,104Z"/></svg><div class="txt"><div class="title">IC verification</div></div><div class="trail"><span class="action">Verify</span></div></div>
+    </div>
+    <div class="state">trailing toggle · unread count + chevron · trailing action</div>
+  </div>
+
+  <div class="col">
+    <div class="colhead">Edge + status</div>
+    <div class="group">
+      <div class="row"><div class="avatar">AL</div><div class="txt"><div class="title">Aliya Lim</div><div class="subtitle">Form 4 · Add Maths · 2 classes left</div></div><div class="trail"><span class="pill ok">Verified</span><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+      <div class="row disabled"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"/></svg><div class="txt"><div class="title">Payout account</div><div class="subtitle">Available after verification</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+      <div class="row destructive"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M124,216a8,8,0,0,1-8,8H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32h68a8,8,0,0,1,0,16H48V208h68A8,8,0,0,1,124,216Zm108.31-93.66-40-40a8,8,0,0,0-11.32,11.32L207.31,120H112a8,8,0,0,0,0,16h95.31l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,232.34,122.34Z"/></svg><div class="txt"><div class="title">Log out</div></div></div>
+    </div>
+    <div class="state">avatar + pill · disabled · destructive</div>
+
+    <div style="height:16px"></div>
+    <div class="colhead">ListSection anatomy</div>
+    <div class="sechead">Support</div>
+    <div class="group">
+      <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm12-40a12,12,0,1,1-12-12A12,12,0,0,1,140,176Zm24-72c0,17.38-13.76,31.93-32,35.28V140a8,8,0,0,1-16,0v-8a8,8,0,0,1,8-8c13.23,0,24-9,24-20s-10.77-20-24-20-24,9-24,20v4a8,8,0,0,1-16,0v-4c0-19.85,17.94-36,40-36S164,84.15,164,104Z"/></svg><div class="txt"><div class="title">FAQs</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+      <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Z"/></svg><div class="txt"><div class="title">Send a ticket</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+    </div>
+    <div class="secfoot">Tickets are answered within 1 working day.</div>
+    <div class="state">header 13 medium grey · grouped card · optional footer note</div>
+  </div>
+</div>
+
+<div class="fork">
+  <div class="forkhead">Fork D. Row height (single-line) · DECIDED: D1 52pt (founder, 02-Jul-2026)</div>
+  <div class="note">Urban Company 48pt, live app GroupedCardItem 52pt, Airbnb 56pt, Fresha 60pt. The locked input atom is 52. Rows with subtitles grow automatically in both options.</div>
+  <div class="cols">
+    <div class="col">
+      <div class="colhead">D1 · 52pt, matches the input atom</div>
+      <div class="group">
+        <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"/></svg><div class="txt"><div class="title">My students</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+        <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"/></svg><div class="txt"><div class="title">Notifications</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="colhead">D2 · 56pt, airier (Airbnb)</div>
+      <div class="group">
+        <div class="row h56"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"/></svg><div class="txt"><div class="title">My students</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+        <div class="row h56"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"/></svg><div class="txt"><div class="title">Notifications</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fork">
+  <div class="forkhead">Fork E. Leading icon treatment · DECIDED: E1 bare Phosphor 22 (founder, 02-Jul-2026)</div>
+  <div class="note">All 3 references use a bare grey icon. The live app's GroupedCardItem wraps it in a 28pt tinted tile, radius 8 (iOS Settings style). Tiles add colour coding per row; bare icons are quieter.</div>
+  <div class="cols">
+    <div class="col">
+      <div class="colhead">E1 · bare Phosphor 22 (all 3 refs)</div>
+      <div class="group">
+        <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"/></svg><div class="txt"><div class="title">Payment methods</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+        <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"/></svg><div class="txt"><div class="title">Notification preferences</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="colhead">E2 · tinted tile 28, radius 8 (live app)</div>
+      <div class="group">
+        <div class="row"><div class="tile brand"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"/></svg></div><div class="txt"><div class="title">Payment methods</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+        <div class="row"><div class="tile brand"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"/></svg></div><div class="txt"><div class="title">Notification preferences</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fork">
+  <div class="forkhead">Fork F. Grouping + separators · DECIDED: F1 grouped card, inset separators (founder, 02-Jul-2026)</div>
+  <div class="note">References split three ways: Fresha = full-bleed rows with full-width hairlines; Airbnb = full-bleed with no separators (spacing only); Urban Company = plain rows, no separators. Our locked foundation is flat white cards, radius 16, on the #F5F9FF canvas, which favours F1.</div>
+  <div class="cols">
+    <div class="col">
+      <div class="colhead">F1 · grouped card, inset separators</div>
+      <div class="group">
+        <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"/></svg><div class="txt"><div class="title">Profile</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+        <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"/></svg><div class="txt"><div class="title">Notifications</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+        <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"/></svg><div class="txt"><div class="title">Payment</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="colhead">F2 · full-width separators (Fresha)</div>
+      <div class="group fullsep">
+        <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"/></svg><div class="txt"><div class="title">Profile</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+        <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"/></svg><div class="txt"><div class="title">Notifications</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+        <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"/></svg><div class="txt"><div class="title">Payment</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="colhead">F3 · no separators (Airbnb, UC)</div>
+      <div class="group nosep">
+        <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"/></svg><div class="txt"><div class="title">Profile</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+        <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"/></svg><div class="txt"><div class="title">Notifications</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+        <div class="row"><svg class="icn" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"/></svg><div class="txt"><div class="title">Payment</div></div><div class="trail"><svg class="chev" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Reference evidence (measured, 1179px = 393pt at 3px/pt)</h2>
+<div class="evidence">
+  <b>Airbnb (Jun 2025, Account settings + Payments):</b> row pitch 56pt, no separators between rows; bare icon 24 at left inset 26pt, text starts 65pt, thin chevron at right inset 26pt; section headers ("Traveling", "Hosting") between groups.<br>
+  <b>Fresha (Oct 2024, Profile + Settings):</b> row height 60pt with full-width hairlines; bare icon 26 at left 21pt, text at 60pt, chevron inset 29pt. Two-line rows (appointment detail) run 77pt pitch.<br>
+  <b>Urban Company (May 2026, Account):</b> row pitch 48pt, no separators; icon at left 18pt, text at 48pt, chevron inset 20pt. Two-line booking-detail rows 53pt.<br>
+  <b>Grounding, live app (9 implementations consolidated):</b> GroupedCardItem (icon tile 28 r8, minHeight 52, title 16 medium, subtitle 12.5, chevron 20, per-row hairline), ProfileMenu 14 inline rows in 5 sections, NotificationPreferences toggle cards, ConsentSettings cards, Payment cards, StudentList cards, HelpCentre + FAQs accordions, ProfileStrengthSection gap rows. Nothing dropped: leading icon/tile/avatar, title, subtitle, meta, chevron, toggle, count badge, status pill, action text/button, disabled, destructive, accordion behaviour all have homes above. RequestCard and the other DNA cards stay separate P1 pieces per the inventory.<br>
+  <b>Held from the lock:</b> Circular Std scale, Phosphor icons, hairline #E7EBF0 via token, white card radius 16, indigo only on interactive accents (count badge, action text, toggle on).
+</div>
+
+</body></html>

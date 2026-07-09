@@ -1,0 +1,51 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:#F5F9FF;color:#0b0b0c;padding:26px 30px;width:820px}
+h1{font-size:22px;font-weight:700}
+.sub{font-size:13px;color:#4a4a52;margin:4px 0 6px;line-height:1.45}
+h2{font-size:12px;font-weight:700;color:#787882;text-transform:uppercase;letter-spacing:.06em;margin:26px 0 10px}
+.card{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:16px 18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ground{font-size:12px;color:#4a4a52;background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:12px 16px;margin-top:12px;line-height:1.55}
+.lockbar{background:#243cb3;color:#fff;border-radius:16px;padding:12px 16px;font-size:13px;line-height:1.5;margin-top:10px}
+code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:rgba(120,120,128,.10);border-radius:5px;padding:1px 5px}
+</style>
+</head><body>
+
+<h1>MoneyAnchor · LOCKED</h1>
+<div class="sub">Locked 02-Jul-2026 (founder approved the enhanced money slot inside the D1 RequestCard lock). Re-grounded on the live card under the pivot; the v1 Wave 1 anchor-box forks are parked, the disciplines carry unchanged.</div>
+
+<div class="lockbar"><b>LOCKED MoneyAnchor</b> = the live slot (top-left, under the request ID) + whole-RM format (strip .00, keep real cents) + bold hero weight + quiet grey "RM" prefix + M2a bare number (the per-unit qualifier waits for Hafiz's <code>display_commission</code> semantics) · disciplines 1 to 6 ratified</div>
+
+<h2>The lock, before → after</h2>
+<div class="grid2">
+<div class="card">
+<div style="font-size:11px;font-weight:700;color:#787882;text-transform:uppercase;letter-spacing:.05em">Live today</div>
+<div style="margin-top:8px">
+<div style="font-size:15px;font-weight:700">TREQ-859807</div>
+<div style="font-size:20px;font-weight:500;margin-top:4px">RM94.00</div>
+</div>
+</div>
+<div class="card">
+<div style="font-size:11px;font-weight:700;color:#243cb3;text-transform:uppercase;letter-spacing:.05em">Locked</div>
+<div style="margin-top:8px">
+<div style="font-size:15px;font-weight:700">TREQ-859807</div>
+<div style="font-size:20px;font-weight:700;margin-top:4px"><span style="font-size:11px;color:#787882;font-weight:700">RM</span> 94</div>
+</div>
+</div>
+</div>
+
+<h2>Disciplines for the integrator (ratified 02-Jul-2026)</h2>
+<div class="ground">
+<b>1 · Whole-RM on scan cards.</b> "RM 94"; strip a trailing .00, keep real cents ("RM 94.50"). Financial screens (invoices, payouts, ledger) keep 2dp.<br>
+<b>2 · Framing.</b> RM is the tutor's earning shown as motivation. Never "take-home", never a labelled take-home box, no hype copy around money.<br>
+<b>3 · Position.</b> The live slot stays: top-left under the request ID. One money element per card.<br>
+<b>4 · Semantics gate (Hafiz).</b> What <code>display_commission</code> is per (class / month) is unstated in client code. The M2b qualifier ("/ class") is pre-designed in <code>moneyanchor-candidates.html</code> and renders only once confirmed.<br>
+<b>5 · Detail screens.</b> The same format pass (whole-RM + bold + quiet prefix) applies to the live detail's money rendering; per-class breakdown rows (before/after 8 hours) stay in the detail body. The Direction-C hero money line stays parked with the pivot.<br>
+<b>6 · Trial requests</b> show money exactly the same way; "Trial" is a FactChip word, never a money treatment.
+</div>
+
+</body></html>

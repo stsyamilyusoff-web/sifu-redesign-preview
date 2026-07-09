@@ -1,0 +1,175 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+:root{
+  --brand:#243cb3;          /* indigo, locked */
+  --brand-tint:#e3e8fa;     /* info re-grounded on indigo */
+  --brand-border:#c9d2f0;
+  --canvas:#F5F9FF;
+  --card:#FFFFFF;
+  --hairline:#E7EBF0;
+  --ink:#0b0b0c;
+  --ink2:#4a4a52;
+  --ink3:#787882;
+  --on-brand:#FFFFFF;
+  --warn-bg:#FEF3C7;--warn-border:#FDE68A;--warn-fg:#92400E;
+  --error-bg:#FEE2E2;--error-border:#FECACA;--error-fg:#991B1B;--error:#F14336;
+  --success-bg:#DCFCE7;--success-border:#BBF7D0;--success-fg:#166534;
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:var(--canvas);color:var(--ink);padding:28px 34px;width:760px}
+h1{font-size:22px;font-weight:500}
+h2{font-size:17px;font-weight:500;margin:26px 0 4px}
+.sub{font-size:13px;color:var(--ink2);margin:4px 0 18px}
+.note{font-size:12px;color:var(--ink3);margin:2px 0 12px}
+.cols{display:flex;gap:24px}
+.col{flex:1;min-width:0}
+.colhead{font-size:12px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.state{font-size:11px;color:var(--ink3);margin-top:8px}
+.evidence{background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:22px;font-size:12px;color:var(--ink2);line-height:1.55}
+.evidence b{font-weight:500;color:var(--ink)}
+.fork{margin-top:18px}
+.forkhead{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
+/* StatusBanner */
+.banner{display:flex;gap:12px;border-radius:16px;border:1px solid;padding:14px 16px;align-items:flex-start;margin-bottom:12px}
+.banner .bicon{width:24px;height:24px;flex:none;margin-top:1px}
+.banner .btxt{flex:1;min-width:0}
+.banner .btitle{font-size:15px;font-weight:500}
+.banner .bbody{font-size:13px;color:var(--ink2);margin-top:3px;line-height:1.45}
+.banner .baction{font-size:14px;font-weight:500;margin-top:8px;display:inline-block}
+.banner .bx{width:18px;height:18px;color:var(--ink3);flex:none}
+.banner.info{background:var(--brand-tint);border-color:var(--brand-border)}
+.banner.info .btitle,.banner.info .bicon,.banner.info .baction{color:var(--brand)}
+.banner.warn{background:var(--warn-bg);border-color:var(--warn-border)}
+.banner.warn .btitle,.banner.warn .bicon,.banner.warn .baction{color:var(--warn-fg)}
+.banner.err{background:var(--error-bg);border-color:var(--error-border)}
+.banner.err .btitle,.banner.err .bicon,.banner.err .baction{color:var(--error-fg)}
+.banner.ok{background:var(--success-bg);border-color:var(--success-border)}
+.banner.ok .btitle,.banner.ok .bicon{color:var(--success-fg)}
+/* fork L2: white banner */
+.banner.white{background:var(--card);border-color:var(--hairline)}
+.banner.white .iconbub{width:40px;height:40px;border-radius:20px;display:flex;align-items:center;justify-content:center;flex:none}
+.banner.white .iconbub svg{width:22px;height:22px;color:var(--on-brand)}
+.banner.white .btitle{color:var(--ink)}
+.bub-info{background:var(--brand)}
+.bub-warn{background:var(--warn-fg)}
+/* Empty / Error state */
+.statebox{background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.statebox .sicon{width:44px;height:44px;color:var(--ink3);margin-bottom:14px}
+.statebox .illus{width:110px;height:82px;border-radius:12px;background:var(--brand-tint);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.statebox .illus svg{width:40px;height:40px;color:var(--brand)}
+.statebox .stitle{font-size:18px;font-weight:500}
+.statebox .sbody{font-size:14px;color:var(--ink2);margin-top:6px;line-height:1.5;max-width:280px}
+.btn{height:48px;border-radius:14px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;margin-top:18px}
+.btn.primary{background:var(--brand);color:var(--on-brand)}
+.btn.neutral{background:var(--ink);color:var(--on-brand)}
+</style></head><body>
+
+<h1>StatusBanner + EmptyState + ErrorState</h1>
+<div class="sub">Lane B P1. The live app is already consistent here: one statusStyles tint quartet + shared StatusBanner, EmptyState and ErrorState components. This spec keeps those shapes, re-grounds the info tint on the locked indigo (the old #034BD9 blue is retired), and folds the stray inline variants in. Green = fit/verified only, amber = the one flag, per the locked principles.</div>
+
+<h2>StatusBanner, composed states · SUPERSEDED by L2 (kept for record)</h2>
+<div class="note">Anatomy: leading icon 24 · title 15 medium + body 13 · optional action link · optional dismiss x. Radius 16. Consolidates StatusBanner, NotificationPermissionBanner, DripPromptBanner, DemandSummaryCard chrome, the form warning boxes and the retry chip family. The tinted surfaces below predate the L2 decision; the canonical banner is the white card + tone icon bubble (Fork L). Tint tokens survive in the locked StatusPill atom and the M2 illustration plates.</div>
+
+<div class="banner info">
+  <svg class="bicon" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"/></svg>
+  <div class="btxt"><div class="btitle">Verification in progress</div><div class="bbody">We are checking your documents. You can keep applying to requests while you wait.</div></div>
+  <svg class="bx" viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg>
+</div>
+<div class="banner warn">
+  <svg class="bicon" viewBox="0 0 256 256" fill="currentColor"><path d="M236.8,188.09,149.35,36.22a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z"/></svg>
+  <div class="btxt"><div class="btitle">Complete your profile to apply</div><div class="bbody">Parents see complete profiles first. Two fields left.</div><span class="baction">Complete profile</span></div>
+</div>
+<div class="banner err">
+  <svg class="bicon" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z"/></svg>
+  <div class="btxt"><div class="btitle">Account suspended</div><div class="bbody">Applying is paused while we review a report. Contact support for details.</div><span class="baction">Contact support</span></div>
+</div>
+<div class="banner ok">
+  <svg class="bicon" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+  <div class="btxt"><div class="btitle">You are visible to parents</div><div class="bbody">Verification complete. Your profile now appears in matching.</div></div>
+</div>
+<div class="state">info (indigo, re-grounded) · warning + action · error + action · success · dismiss x only on dismissible promos</div>
+
+<h2>EmptyState + ErrorState, composed</h2>
+<div class="note">Shared anatomy, centred: visual · title 18 medium · body 14 grey (max 280) · optional CTA. The CTA uses the locked button atom (48 high, radius 14): primary indigo when it starts a journey, black neutral for retry (Decision 1: primary = indigo, lesser = black; the live red retry button is retired since retrying is not destructive).</div>
+<div class="cols">
+  <div class="col">
+    <div class="colhead">EmptyState, with CTA</div>
+    <div class="statebox">
+      <svg class="sicon" viewBox="0 0 256 256" fill="currentColor"><path d="M216,72H184V64a32,32,0,0,0-32-32H104A32,32,0,0,0,72,64v8H40A16,16,0,0,0,24,88V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V88A16,16,0,0,0,216,72ZM88,64a16,16,0,0,1,16-16h48a16,16,0,0,1,16,16v8H88Zm128,24v32H40V88ZM40,200V136H216v64Z"/></svg>
+      <div class="stitle">No requests yet</div>
+      <div class="sbody">New requests that fit your subjects will appear here.</div>
+      <span class="btn primary">Browse requests</span>
+    </div>
+    <div class="state">first-time empty · CTA starts the journey</div>
+  </div>
+  <div class="col">
+    <div class="colhead">ErrorState, with retry</div>
+    <div class="statebox">
+      <svg class="sicon" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z"/></svg>
+      <div class="stitle">Something went wrong</div>
+      <div class="sbody">We could not load your requests. Check your connection and try again.</div>
+      <span class="btn neutral">Try again</span>
+    </div>
+    <div class="state">load failure · retry = neutral black, not red</div>
+  </div>
+</div>
+
+<div class="fork">
+  <div class="forkhead">Fork L. Banner surface · DECIDED: L2 white card + tone icon bubble (founder, 02-Jul-2026). Bubbles per tone: indigo info, amber warning, red error, green success; title stays ink.</div>
+  <div class="note">The live app tints the whole banner card (statusStyles). Airbnb keeps the card white with a solid coloured icon bubble carrying the tone. Urban Company uses quiet grey rows. Same anatomy either way.</div>
+  <div class="cols">
+    <div class="col">
+      <div class="colhead">L1 tinted card (live app)</div>
+      <div class="banner info">
+        <svg class="bicon" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"/></svg>
+        <div class="btxt"><div class="btitle">Verification in progress</div><div class="bbody">We are checking your documents.</div></div>
+      </div>
+      <div class="state">tone reads at a glance, louder on the canvas</div>
+    </div>
+    <div class="col">
+      <div class="colhead">L2 white card + icon bubble (Airbnb)</div>
+      <div class="banner white">
+        <div class="iconbub bub-info"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216Z"/></svg></div>
+        <div class="btxt"><div class="btitle">Verification in progress</div><div class="bbody">We are checking your documents.</div></div>
+      </div>
+      <div class="state">quieter, matches the flat white card family</div>
+    </div>
+  </div>
+</div>
+
+<div class="fork">
+  <div class="forkhead">Fork M. Empty-state visual · DECIDED: M2 small illustration (founder, 02-Jul-2026). One on-brand plate per context; ErrorState keeps the plain icon (load failures are transient, not illustrated).</div>
+  <div class="note">The shared EmptyState uses a plain icon. The live Requests tabs use 83pt illustration images instead, and Fresha and Urban Company also lean on small illustrations. One policy for every empty state in the app.</div>
+  <div class="cols">
+    <div class="col">
+      <div class="colhead">M1 icon only</div>
+      <div class="statebox">
+        <svg class="sicon" viewBox="0 0 256 256" fill="currentColor"><path d="M216,72H184V64a32,32,0,0,0-32-32H104A32,32,0,0,0,72,64v8H40A16,16,0,0,0,24,88V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V88A16,16,0,0,0,216,72ZM88,64a16,16,0,0,1,16-16h48a16,16,0,0,1,16,16v8H88Zm128,24v32H40V88ZM40,200V136H216v64Z"/></svg>
+        <div class="stitle">No requests yet</div>
+        <div class="sbody">New requests that fit your subjects will appear here.</div>
+      </div>
+      <div class="state">quiet, zero asset upkeep, consistent by default</div>
+    </div>
+    <div class="col">
+      <div class="colhead">M2 small illustration</div>
+      <div class="statebox">
+        <div class="illus"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,72H184V64a32,32,0,0,0-32-32H104A32,32,0,0,0,72,64v8H40A16,16,0,0,0,24,88V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V88A16,16,0,0,0,216,72ZM88,64a16,16,0,0,1,16-16h48a16,16,0,0,1,16,16v8H88Zm128,24v32H40V88ZM40,200V136H216v64Z"/></svg></div>
+        <div class="stitle">No requests yet</div>
+        <div class="sbody">New requests that fit your subjects will appear here.</div>
+      </div>
+      <div class="state">warmer and richer; needs one illustration per context, kept on-brand (indigo tint plate shown as the placeholder style)</div>
+    </div>
+  </div>
+</div>
+
+<h2>Reference evidence + consolidation map</h2>
+<div class="evidence">
+  <b>Airbnb (Jun 2025, Trips):</b> banner = white outlined card, radius ~12, solid blue circular icon bubble 44pt, bold title + grey body, no background tint. Empty states: bold title + body + outlined CTA.<br>
+  <b>Fresha (Oct 2024):</b> empty states inside hairline cards: title 22, grey body, outlined pill CTA; favourites variant adds a small illustration. Status markers are filled amber pills (our locked StatusPill atom's job, not banners).<br>
+  <b>Urban Company (May 2026):</b> prompts are quiet grey rows with a trailing action button (WhatsApp alerts row); empty results = icon + text, minimal.<br>
+  <b>Held from the lock:</b> radius 16 cards, locked button atom for CTAs (48/14, indigo primary, black neutral), amber = the one flag, green = fit/verified only, Phosphor icons, statusStyles amber/red/green tints kept as tokens. Re-grounded: info tint moves from the old #034BD9 blue to locked indigo. Retired: red retry button (retry is not destructive), the DripPromptBanner's PattensBlue, the retry chip's one-off #B45309 ambers (fold into the warning tokens).<br>
+  <b>Grounding, live app:</b> shared StatusBanner (4 states), NotificationPermissionBanner, DripPromptBanner (dismiss x + CTA), InlineTip (kept as the quiet form-level cousin, icon 14 + bodySmall), DemandSummaryCard (chrome joins the info banner family; its content stays a Home DNA piece), EmptyState (~6 screens), ErrorState (~6 screens), TutorRequests illustrated empties, form warning boxes and retry chips, toast.ts (kept as the transient layer; visual pass later, not P1). Nothing dropped: dismiss x, action link, retry, illustration, inline tip and toast affordances all have homes above.
+</div>
+
+</body></html>

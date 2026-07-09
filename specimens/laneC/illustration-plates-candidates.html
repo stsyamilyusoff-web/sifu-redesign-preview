@@ -1,0 +1,143 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:#F5F9FF;color:#0b0b0c;padding:26px 30px;width:880px}
+h1{font-size:22px;font-weight:700}
+.sub{font-size:13px;color:#4a4a52;margin:4px 0 6px;line-height:1.45}
+h2{font-size:12px;font-weight:700;color:#787882;text-transform:uppercase;letter-spacing:.06em;margin:26px 0 10px}
+.card{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:16px 18px}
+.opt-label{font-size:11px;font-weight:700;color:#243cb3;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.opt-note{font-size:12px;color:#787882;line-height:1.4;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.refbar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+.refbar .card{padding:12px 14px}
+.refbar b{font-size:13px}
+.refbar p{font-size:12px;color:#4a4a52;line-height:1.4;margin-top:3px}
+table{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff;border:1px solid #E7EBF0;border-radius:16px;overflow:hidden}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#787882;padding:10px 14px;border-bottom:1px solid #E7EBF0;background:#fff}
+td{padding:9px 14px;border-bottom:1px solid #E7EBF0;vertical-align:middle;line-height:1.45;color:#0b0b0c}
+tr:last-child td{border-bottom:none}
+.ground{font-size:12px;color:#4a4a52;background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:12px 16px;margin-top:12px;line-height:1.55}
+code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:rgba(120,120,128,.10);border-radius:5px;padding:1px 5px}
+.plate{width:96px;height:96px;border-radius:28px;background:rgba(36,60,179,.08);display:flex;align-items:center;justify-content:center;flex:none}
+.pcol{display:flex;flex-direction:column;align-items:center}
+.plabel{font-size:11px;color:#4a4a52;text-align:center;margin-top:7px;line-height:1.3;max-width:110px}
+.prow{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;padding:4px 0}
+.ink{stroke:#243cb3;stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tint{fill:rgba(36,60,179,.16)}
+.spark{fill:#8fa2e8}
+</style>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+<g id="m-inbox"><path class="ink" d="M20 50h16l7 10h10l7-10h16"/><path class="ink" d="M20 50v16a6 6 0 006 6h44a6 6 0 006-6V50"/><path class="ink" d="M48 20v18M39 30l9 9 9-9"/></g>
+<g id="m-cap"><path class="ink" d="M48 26L16 40l32 14 32-14z"/><path class="ink" d="M31 47v13c0 5 34 5 34 0V47"/><path class="ink" d="M74 43v13"/><circle class="ink" cx="74" cy="60" r="3"/></g>
+<g id="m-cal"><rect class="ink" x="20" y="26" width="50" height="46" rx="7"/><path class="ink" d="M20 40h50M33 19v10M57 19v10"/><circle class="ink" cx="62" cy="62" r="13" style="fill:#F5F9FF"/><path class="ink" d="M62 56v6l5 3"/></g>
+<g id="m-chat"><path class="ink" d="M20 30a7 7 0 017-7h26a7 7 0 017 7v12a7 7 0 01-7 7H34l-9 8v-8h-5z" transform="translate(0 -2)"/><path class="ink" d="M76 46a6 6 0 00-6-6H48a6 6 0 00-6 6v10a6 6 0 006 6h18l8 7v-7a6 6 0 002-4z" transform="translate(0 4)"/></g>
+<g id="m-wallet"><rect class="ink" x="18" y="32" width="60" height="42" rx="8"/><path class="ink" d="M18 44h60"/><circle class="ink" cx="66" cy="59" r="9"/><path class="ink" d="M66 55v8M63 59h6"/></g>
+<g id="m-bell"><path class="ink" d="M48 22a19 19 0 0119 19v11l6 9H23l6-9V41a19 19 0 0119-19z"/><path class="ink" d="M42 68a6 6 0 0012 0"/></g>
+<g id="d-inbox"><path class="tint" d="M20 50h16l7 10h10l7-10h16v16a6 6 0 01-6 6H26a6 6 0 01-6-6z"/><use href="#m-inbox"/><path class="spark" d="M72 22l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></g>
+<g id="d-cap"><path class="tint" d="M48 26L16 40l32 14 32-14z"/><use href="#m-cap"/><path class="spark" d="M22 22l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/></g>
+<g id="d-cal"><path class="tint" d="M20 26h50v14H20z" style="rx:7"/><use href="#m-cal"/><path class="spark" d="M78 24l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/></g>
+<g id="d-chat"><path class="tint" d="M76 50a6 6 0 00-6-6H48a6 6 0 00-6 6v10a6 6 0 006 6h18l8 7v-7a6 6 0 002-4z"/><use href="#m-chat"/><path class="spark" d="M78 22l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/></g>
+<g id="d-wallet"><path class="tint" d="M18 44h60v22a8 8 0 01-8 8H26a8 8 0 01-8-8z"/><use href="#m-wallet"/><path class="spark" d="M26 20l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/></g>
+<g id="d-bell"><path class="tint" d="M48 22a19 19 0 0119 19v11l6 9H23l6-9V41a19 19 0 0119-19z"/><use href="#m-bell"/><path class="spark" d="M74 20l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/></g>
+</defs></svg>
+
+</head><body>
+
+<h1>Illustration plates · the empty-state set</h1>
+<div class="sub">Lane C candidate set, piece 8 (added 02-Jul from Lane B's EmptyState lock). Lane B locked the SHAPE (M2: small illustration plate + bold title + grey body + one CTA, and StatusBanner retired tinted cards so TINTS LIVE HERE); Lane C designs the PLATES: one small on-brand illustration per empty context, six contexts. ErrorState keeps the plain icon (Lane B lock, not reopened). Style sits on the illustration side of the photography boundary: people = photos, functional/data-viz = illustration. All drawings below are composition stand-ins; final art is one commissioned set.</div>
+
+<div class="ground"><b>Grounded in origin/main:</b> live empty states are text-only or a bare list gap: Requests has filter-aware copy ("No requests for this filter" vs "No request matches your filter. Try changing or clearing it."), News = "No News, Yet", Notifications = plain ListEmptyComponent, PaymentLedger = "No class breakdown available." No illustration exists anywhere in the live app. Copy itself belongs to the state-system + Lane B locks; this sheet only adds the plate. The six contexts from the brief: requests · students · bookings · messages · payments · notifications.</div>
+
+<h2>How the references do it</h2>
+<div class="refbar">
+<div class="card"><b>Airbnb</b><p>Empty Trips uses a real illustration image above bold title + body + outlined CTA (Lane B's evidence). Confirms illustration-over-icon for empty moments.</p></div>
+<div class="card"><b>Fresha</b><p>Leans on small illustrations for empty and info moments (Lane B's evidence). Compact, contained, quiet.</p></div>
+<div class="card"><b>Urban Company</b><p>Small illustrations in empty and success moments (Lane B's evidence). The plate-on-tint register below matches this scale.</p></div>
+</div>
+
+<h2>Fork P1 · style register (shown on the requests motif)</h2>
+<div class="grid3">
+<div class="card">
+<div class="opt-label">P1a · monoline on tint plate</div>
+<div class="opt-note">Indigo line drawing, same 2px-family weight as Phosphor. Quietest, cheapest to commission, risks reading as "just a big icon".</div>
+<div class="prow"><div class="pcol"><div class="plate"><svg width="64" height="64" viewBox="0 0 96 96"><use href="#m-inbox"/></svg></div></div></div>
+</div>
+<div class="card">
+<div class="opt-label">P1b · duotone + sparkle</div>
+<div class="opt-note">Same line, one tint fill inside the motif, one quiet sparkle. Reads as crafted illustration, still a single-colour system.</div>
+<div class="prow"><div class="pcol"><div class="plate"><svg width="64" height="64" viewBox="0 0 96 96"><use href="#d-inbox"/></svg></div></div></div>
+</div>
+<div class="card">
+<div class="opt-label">P1c · mini scene</div>
+<div class="opt-note">Duotone plus background shapes (dots, ground line). Warmest, most Airbnb; biggest art budget and busiest at 96px.</div>
+<div class="prow"><div class="pcol"><div class="plate" style="position:relative;overflow:hidden"><svg width="76" height="76" viewBox="0 0 96 96"><circle cx="18" cy="72" r="5" fill="rgba(36,60,179,.12)"/><circle cx="82" cy="64" r="4" fill="rgba(36,60,179,.12)"/><path d="M14 84h68" stroke="rgba(36,60,179,.25)" stroke-width="3" stroke-linecap="round"/><use href="#d-inbox"/></svg></div></div></div>
+</div>
+</div>
+
+<h2>The six motifs (drawn in P1b for comparison, composition stand-ins)</h2>
+<div class="card">
+<div class="prow">
+<div class="pcol"><div class="plate"><svg width="64" height="64" viewBox="0 0 96 96"><use href="#d-inbox"/></svg></div><div class="plabel">Requests<br>inbox awaiting work</div></div>
+<div class="pcol"><div class="plate"><svg width="64" height="64" viewBox="0 0 96 96"><use href="#d-cap"/></svg></div><div class="plabel">Students<br>mortarboard</div></div>
+<div class="pcol"><div class="plate"><svg width="64" height="64" viewBox="0 0 96 96"><use href="#d-cal"/></svg></div><div class="plabel">Bookings<br>calendar + clock</div></div>
+<div class="pcol"><div class="plate"><svg width="64" height="64" viewBox="0 0 96 96"><use href="#d-chat"/></svg></div><div class="plabel">Messages<br>bubble pair</div></div>
+<div class="pcol"><div class="plate"><svg width="64" height="64" viewBox="0 0 96 96"><use href="#d-wallet"/></svg></div><div class="plabel">Payments<br>wallet + coin</div></div>
+<div class="pcol"><div class="plate"><svg width="64" height="64" viewBox="0 0 96 96"><use href="#d-bell"/></svg></div><div class="plabel">Notifications<br>resting bell</div></div>
+</div>
+</div>
+
+<h2>Fork P2 · colour policy</h2>
+<div class="grid2">
+<div class="card">
+<div class="opt-label">P2a · one indigo family for all six</div>
+<div class="opt-note">Every plate = indigo tint ground + indigo ink. One voice, zero governance load, the brand carries the moment.</div>
+<div class="prow">
+<div class="plate" style="width:72px;height:72px;border-radius:22px"><svg width="48" height="48" viewBox="0 0 96 96"><use href="#d-inbox"/></svg></div>
+<div class="plate" style="width:72px;height:72px;border-radius:22px"><svg width="48" height="48" viewBox="0 0 96 96"><use href="#d-wallet"/></svg></div>
+<div class="plate" style="width:72px;height:72px;border-radius:22px"><svg width="48" height="48" viewBox="0 0 96 96"><use href="#d-bell"/></svg></div>
+</div>
+</div>
+<div class="card">
+<div class="opt-label">P2b · per-context tints (governed set)</div>
+<div class="opt-note">Each context borrows a tint from the already-locked families (SubjectTile palette). Warmer variety; six more colour decisions to police, and empty states are rare surfaces.</div>
+<div class="prow">
+<div class="plate" style="width:72px;height:72px;border-radius:22px;background:rgba(36,60,179,.08)"><svg width="48" height="48" viewBox="0 0 96 96"><use href="#d-inbox"/></svg></div>
+<div class="plate" style="width:72px;height:72px;border-radius:22px;background:rgba(15,118,110,.10)"><svg width="48" height="48" viewBox="0 0 96 96" style="filter:hue-rotate(115deg) saturate(.8)"><use href="#d-wallet"/></svg></div>
+<div class="plate" style="width:72px;height:72px;border-radius:22px;background:rgba(180,83,9,.10)"><svg width="48" height="48" viewBox="0 0 96 96" style="filter:hue-rotate(190deg) saturate(.9)"><use href="#d-bell"/></svg></div>
+</div>
+</div>
+</div>
+
+<h2>In context · Lane B's locked EmptyState shape, plate dropped in</h2>
+<div class="card" style="max-width:402px">
+<div style="text-align:center;padding:18px 10px 10px">
+<div class="plate" style="margin:0 auto"><svg width="64" height="64" viewBox="0 0 96 96"><use href="#d-inbox"/></svg></div>
+<div style="font-size:16px;font-weight:700;margin-top:14px">No requests yet</div>
+<div style="font-size:12.5px;color:#4a4a52;margin-top:5px;line-height:1.45">New requests that fit your subjects will appear here.</div>
+<div style="display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 22px;background:#243cb3;color:#fff;font-size:14px;font-weight:500;border-radius:14px;margin-top:14px">Set your subjects</div>
+</div>
+</div>
+
+<h2>Rules to ratify (say if any feels wrong)</h2>
+<div class="ground">
+<b>1 · Geometry.</b> Plate = 96px, radius 28 squircle, tint ground; motif ≈ 64px inside. One size everywhere (the Lane B EmptyState slot).<br>
+<b>2 · Scope.</b> Plates appear ONLY in empty states. ErrorState keeps the plain icon (Lane B lock). Never on banners, cards, or success screens (success has its own varied designs).<br>
+<b>3 · One commissioned set.</b> Six plates drawn together, one stroke weight and corner language, shared with the SubjectTile art set so the app has ONE illustration voice. The drawings above define motif + composition only.<br>
+<b>4 · The tint home.</b> StatusBanner retired tinted cards; the plate ground is where tint lives. Fit green and flag amber never appear in plates.<br>
+<b>5 · Copy stays locked elsewhere.</b> Titles, bodies, CTAs, and the filter-aware requests copy belong to the state-system + Lane B locks; contexts with sub-states (requests: no-supply vs filtered-empty) reuse ONE plate per context.<br>
+<b>6 · Fallback.</b> A generic plate (the inbox motif, neutral) for any future context until its plate is commissioned; never an empty gap.
+</div>
+
+<h2>Trade-offs</h2>
+<table>
+<tr><th style="width:150px">Fork</th><th>Recommendation</th><th>Why</th></tr>
+<tr><td><b>P1</b> style register</td><td>P1b duotone + sparkle</td><td>Reads as illustration (the Lane B lock's intent, matching Fresha/UC scale) without P1c's art budget; P1a is too close to "a big Phosphor icon" to justify commissioning</td></tr>
+<tr><td><b>P2</b> colour policy</td><td>P2a one indigo family</td><td>Empty states are rare, one-at-a-time surfaces; variety buys little, and the restraint rule + "tints live here" both point at one governed brand tint</td></tr>
+</table>
+
+</body></html>

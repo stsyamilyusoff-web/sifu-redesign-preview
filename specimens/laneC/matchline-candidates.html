@@ -1,0 +1,173 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:#F5F9FF;color:#0b0b0c;padding:26px 30px;width:820px}
+h1{font-size:22px;font-weight:700}
+.sub{font-size:13px;color:#4a4a52;margin:4px 0 6px;line-height:1.45}
+h2{font-size:12px;font-weight:700;color:#787882;text-transform:uppercase;letter-spacing:.06em;margin:26px 0 10px}
+.card{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:16px 18px}
+.opt-label{font-size:11px;font-weight:700;color:#243cb3;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.opt-note{font-size:12px;color:#787882;line-height:1.4;margin-bottom:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.refbar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+.refbar .card{padding:12px 14px}
+.refbar b{font-size:13px}
+.refbar p{font-size:12px;color:#4a4a52;line-height:1.4;margin-top:3px}
+table{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff;border:1px solid #E7EBF0;border-radius:16px;overflow:hidden}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#787882;padding:10px 14px;border-bottom:1px solid #E7EBF0;background:#fff}
+td{padding:10px 14px;border-bottom:1px solid #E7EBF0;vertical-align:top;line-height:1.45;color:#0b0b0c}
+tr:last-child td{border-bottom:none}
+.ic{display:inline-block;vertical-align:-2px}
+.ground{font-size:12px;color:#4a4a52;background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:12px 16px;margin-top:12px;line-height:1.55}
+code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:rgba(120,120,128,.10);border-radius:5px;padding:1px 5px}
+.match{font-size:12.5px;color:#166534;font-weight:700;display:flex;align-items:center;gap:5px}
+.mrow{padding:9px 0;border-bottom:1px solid #E7EBF0}
+.mrow:last-child{border-bottom:none}
+.rcard{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.l1{font-size:16px;font-weight:700}.lvl{font-size:13px;font-weight:400;color:#787882}
+.icons{font-size:12px;font-weight:500;color:#4a4a52;margin-top:6px}
+.apps{font-size:12px;color:#787882;margin-top:6px}
+.anchor{width:78px;flex-shrink:0;border-radius:14px;background:#EAEAEF;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:11px 5px}
+.mode{font-size:11px;font-weight:700;letter-spacing:.2px;color:#18181b}
+.money{font-size:18px;font-weight:700;color:#18181b;line-height:1}.cur{font-size:10px;font-weight:700;color:#787882}
+</style>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="check" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></symbol>
+</defs></svg>
+
+</head><body>
+
+<h1>MatchLine · the green fit signal</h1>
+<div class="sub">Lane C candidate set. The base is already locked by Wave 1 + DR-007 and is NOT re-opened here: a quiet green text line (no fill) on the request card, always a SPECIFIC reason, never a generic "matches you"; green is rationed to fit only; colour always rides on icon + word. This sheet decides the four remaining forks: reason order, separator grammar, the check glyph, and the known-family wording.</div>
+
+<div class="ground"><b>Grounded in origin/main of sifututor_tutor (ca46f83, 01-Jul-2026):</b> reasons the data can power TODAY: <b>subject</b> = <code>subjects_taught</code> vs <code>subject_id</code> (EDC flag) · <b>schedule</b> = <code>availability_slots</code> (weekday/weekend × morning/afternoon/evening) vs <code>class_day</code> + <code>class_time</code> · <b>known family</b> = the live "Recommended" logic (<code>SameParent · SameStudent · SameLevel · SameSubject</code> against the tutor's student list). <b>Gated reasons:</b> "area" has NO tutor-side preferred-cities field yet (Hafiz Q11) · "level" is only derivable from teaching history, no levels-taught field (Hafiz). <b>Filter, not reason:</b> gender (<code>tutor_preference</code> vs tutor <code>gender</code>) and mode are hidden by filters per DR-007, never celebrated as a match; note the live feed does not filter gender yet (integrator flag). No match signal exists on the live card today.</div>
+
+<h2>How the references do it</h2>
+<div class="refbar">
+<div class="card"><b>Airbnb</b><p>No personalized fit signal. Closest: "Guest favorite" / "Popular", a quiet white pill of aggregate social proof on the photo. Lesson: quiet and wordy beats a shouty badge.</p></div>
+<div class="card"><b>Urban Company</b><p>No fit, match, or recommendation signal on any list card in the sample. Rating + price only.</p></div>
+<div class="card"><b>Fresha</b><p>No per-card signal. Personalizes by SECTION ("Book again", "Trending"), which validates our "For me" filter chip as the complement, not the substitute.</p></div>
+</div>
+<div class="ground">Verdict: no reference app has this component. MatchLine is Sifututor DNA; the design authority is our own Wave 1 lock (<code>.preview/wave1-requests-feed.html</code>) + DR-007.</div>
+
+<h2>In context · the locked Wave 1 card (fork samples below drop into this slot)</h2>
+<div class="rcard">
+<div style="flex:1;min-width:0">
+<div class="l1">Mathematics <span class="lvl">· Form 4</span></div>
+<div class="icons">Female tutor · Tue 8:00 PM · 1.5h · 12 sessions</div>
+<div class="match" style="margin-top:7px"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>Matches your subject, level &amp; area</div>
+<div class="apps">TREQ-859807 ⧉ · <span style="color:#166534;font-weight:700">Be the first to apply</span></div>
+</div>
+<div class="anchor"><div class="mode">ONLINE</div><div class="money"><span class="cur">RM</span> 94</div></div>
+</div>
+
+<h2>Fork A · reason order</h2>
+<div class="grid2">
+<div class="card">
+<div class="opt-label">A1 · fixed canonical order</div>
+<div class="opt-note">Always subject → level → schedule → area. The eye learns one shape; every card scans the same.</div>
+<div class="mrow match"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>Matches your subject, level &amp; area</div>
+<div class="mrow match"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>Matches your subject &amp; schedule</div>
+<div class="mrow match"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>Matches your subject</div>
+</div>
+<div class="card">
+<div class="opt-label">A2 · strongest reason first</div>
+<div class="opt-note">The rarest or most valuable reason leads (area first on in-person, schedule first on a tight week). Wave 1's mock had one card like this.</div>
+<div class="mrow match"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>Matches your area, subject &amp; level</div>
+<div class="mrow match"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>Matches your schedule &amp; subject</div>
+<div class="mrow match"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>Matches your subject</div>
+</div>
+</div>
+
+<h2>Fork B · separator grammar</h2>
+<div class="card">
+<div class="mrow" style="display:flex;align-items:center;gap:16px">
+<span class="opt-label" style="margin:0;width:210px;flex:none">B1 · comma + ampersand (Wave 1)</span>
+<span class="match"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>Matches your subject, level &amp; area</span>
+<span style="font-size:12px;color:#787882;margin-left:auto;text-align:right">reads as a sentence, approved 22-Jun</span>
+</div>
+<div class="mrow" style="display:flex;align-items:center;gap:16px">
+<span class="opt-label" style="margin:0;width:210px;flex:none">B2 · middot list</span>
+<span class="match"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>Matches your subject · level · area</span>
+<span style="font-size:12px;color:#787882;margin-left:auto;text-align:right">rhymes with the icon row above it</span>
+</div>
+<div class="mrow" style="display:flex;align-items:center;gap:16px">
+<span class="opt-label" style="margin:0;width:210px;flex:none">B3 · spelled-out "and"</span>
+<span class="match"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>Matches your subject, level and area</span>
+<span style="font-size:12px;color:#787882;margin-left:auto;text-align:right">longest string, wrap risk on small phones</span>
+</div>
+</div>
+
+<h2>Fork C · the check glyph</h2>
+<div class="grid3">
+<div class="card">
+<div class="opt-label">C1 · text check (Wave 1 as approved)</div>
+<div class="mrow match"><span style="font-weight:800">✓</span>Matches your subject &amp; level</div>
+<div class="opt-note" style="margin:10px 0 0">A typed character. Free, but the only non-Phosphor glyph left in the system.</div>
+</div>
+<div class="card">
+<div class="opt-label">C2 · Phosphor check</div>
+<div class="mrow match"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>Matches your subject &amp; level</div>
+<div class="opt-note" style="margin:10px 0 0">Same weight as every other icon in the app. Consistent with the locked atom layer (icons = Phosphor).</div>
+</div>
+<div class="card">
+<div class="opt-label">C3 · check in a filled circle</div>
+<div class="mrow match"><span style="width:15px;height:15px;border-radius:50%;background:#16A34A;display:inline-flex;align-items:center;justify-content:center;flex:none"><svg width="9" height="9" viewBox="0 0 256 256" fill="#fff"><use href="#check"/></svg></span>Matches your subject &amp; level</div>
+<div class="opt-note" style="margin:10px 0 0">Louder anchor, easier to spot when scanning fast. Spends more green per card.</div>
+</div>
+</div>
+
+<h2>Fork D · the known-family match (the live "Recommended" logic)</h2>
+<div class="grid2">
+<div class="card">
+<div class="opt-label">D1 · same attribute wording</div>
+<div class="opt-note">A request from a family you already teach gets the normal attribute line. One grammar everywhere.</div>
+<div class="rcard" style="border-radius:14px;padding:12px 14px">
+<div style="flex:1;min-width:0">
+<div class="l1" style="font-size:15px">Add Maths <span class="lvl">· Form 5</span></div>
+<div class="icons" style="font-size:11.5px">Female tutor · Wed 8:30 PM · 1.5h · Weekly</div>
+<div class="match" style="margin-top:6px;font-size:12px"><svg class="ic" width="12" height="12" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>Matches your subject &amp; level</div>
+</div>
+<div class="anchor" style="width:70px;padding:9px 4px"><div class="mode" style="font-size:10px">ONLINE</div><div class="money" style="font-size:16px"><span class="cur">RM</span> 105</div></div>
+</div>
+</div>
+<div class="card">
+<div class="opt-label">D2 · relationship wording</div>
+<div class="opt-note">The strongest signal the data has gets its own sentence. A returning family is the highest-intent application a tutor can make.</div>
+<div class="rcard" style="border-radius:14px;padding:12px 14px">
+<div style="flex:1;min-width:0">
+<div class="l1" style="font-size:15px">Add Maths <span class="lvl">· Form 5</span></div>
+<div class="icons" style="font-size:11.5px">Female tutor · Wed 8:30 PM · 1.5h · Weekly</div>
+<div class="match" style="margin-top:6px;font-size:12px"><svg class="ic" width="12" height="12" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>You already teach this family</div>
+</div>
+<div class="anchor" style="width:70px;padding:9px 4px"><div class="mode" style="font-size:10px">ONLINE</div><div class="money" style="font-size:16px"><span class="cur">RM</span> 105</div></div>
+</div>
+</div>
+</div>
+
+<h2>Rules to ratify (not visual forks, say if any feels wrong)</h2>
+<div class="ground">
+<b>1 · Subject is the anchor.</b> The line renders only when the SUBJECT matches; other reasons append to it. A schedule-only or area-only coincidence is noise, no line.<br>
+<b>2 · Cap at 3 reasons.</b> More reads as bragging and risks wrapping. Priority when trimming: subject, then level, then area, then schedule.<br>
+<b>3 · Gender and mode are never reasons.</b> DR-007: what you can never take is hidden by a filter, not celebrated. Integrator flag: the live feed does not filter gender yet.<br>
+<b>4 · Gated reasons ship dark.</b> "Area" waits for the tutor-side preferred-cities field (Hafiz Q11); "level" rides the teaching-history rule (SameLevel) until a levels-taught field exists. The component accepts them as data, the feed just cannot send them yet.<br>
+<b>5 · One MatchLine per card, one line tall.</b> Truncate never; trim reasons instead (rule 2).<br>
+<b>6 · Colour.</b> Text + glyph <code>#166534</code> on the white card, no fill, no border. Green stays rationed: on one card you can see at most the MatchLine, the seal (if a person shows), and "Be the first to apply".
+</div>
+
+<h2>Trade-offs</h2>
+<table>
+<tr><th style="width:150px">Fork</th><th>Recommendation</th><th>Why</th></tr>
+<tr><td><b>A</b> reason order</td><td>A1 fixed canonical</td><td>One learnable shape; A2's cleverness is invisible to the tutor and produced the Wave 1 inconsistency</td></tr>
+<tr><td><b>B</b> separator</td><td>B1 comma + ampersand</td><td>It is the approved Wave 1 copy verbatim; change only if you prefer the icon-row rhyme of B2</td></tr>
+<tr><td><b>C</b> glyph</td><td>C2 Phosphor check</td><td>The atom layer locked Phosphor for every icon; a typed ✓ would be the lone stray</td></tr>
+<tr><td><b>D</b> known family</td><td>D2 relationship wording</td><td>"You already teach this family" is the intelligent-applications North Star in one sentence; D1 wastes the strongest signal the backend already computes</td></tr>
+</table>
+
+<div class="ground" style="margin-top:14px"><b>Notes:</b> sample data mirrors the live fields (<code>subject_name</code>, <code>level</code>, <code>tutor_preference</code>, <code>class_day</code>, <code>class_time</code>, <code>display_commission</code>). RM is whole-RM per the scan-card money rule. The full RequestCard (piece 7) will consume this component; this sheet only locks the line itself.</div>
+
+</body></html>

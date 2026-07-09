@@ -1,0 +1,207 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+:root{
+  --brand:#243cb3;        /* indigo, locked */
+  --canvas:#F5F9FF;
+  --card:#FFFFFF;
+  --hairline:#E7EBF0;
+  --ink:#0b0b0c;
+  --ink2:#4a4a52;
+  --ink3:#787882;
+  --chip-fill:rgba(120,120,128,.10);
+  --on-brand:#FFFFFF;
+  --fade:rgba(245,249,255,0);
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:var(--canvas);color:var(--ink);padding:28px 34px;width:760px}
+h1{font-size:22px;font-weight:500}
+h2{font-size:17px;font-weight:500;margin:26px 0 4px}
+.sub{font-size:13px;color:var(--ink2);margin:4px 0 18px}
+.note{font-size:12px;color:var(--ink3);margin:2px 0 12px}
+.card{background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:18px}
+.cols{display:flex;gap:24px}
+.col{flex:1;min-width:0}
+.colhead{font-size:12px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.state{font-size:11px;color:var(--ink3);margin-top:8px}
+.evidence{background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:22px;font-size:12px;color:var(--ink2);line-height:1.55}
+.evidence b{font-weight:500;color:var(--ink)}
+.fork{margin-top:18px}
+.forkhead{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
+/* chips: the LOCKED atom (pill 999, 13 medium, 7x14, indigo fill selected w/ check, grey fill unselected) */
+.chiprow{display:flex;gap:8px;align-items:center}
+.chiprow.scroll{overflow:hidden;position:relative;flex-wrap:nowrap;white-space:nowrap}
+.chiprow.wrap{flex-wrap:wrap}
+.chip{background:var(--chip-fill);color:var(--ink);font-size:13px;font-weight:500;border-radius:999px;padding:7px 14px;display:inline-flex;gap:6px;align-items:center;flex:none}
+.chip.sel{background:var(--brand);color:var(--on-brand)}
+.chip svg{width:15px;height:15px;flex:none}
+.fadeR{position:absolute;top:0;right:0;bottom:0;width:44px;background:linear-gradient(90deg,var(--fade),var(--canvas))}
+.oncard .fadeR{background:linear-gradient(90deg,var(--fade),var(--card))}
+/* in-context frames, true 393pt */
+.frames{display:flex;flex-direction:column;gap:26px}
+.frame{width:393px;background:var(--canvas);border:1px solid var(--hairline);border-radius:20px;padding:16px;overflow:hidden}
+.frame .chiprow{margin-bottom:14px}
+.frame .fadeR{background:linear-gradient(90deg,var(--fade),var(--canvas))}
+.ltitle{font-size:26px;font-weight:500;margin:2px 0 14px;display:flex;align-items:center;justify-content:space-between}
+.filterbtn{width:36px;height:36px;border-radius:18px;background:var(--chip-fill);display:inline-flex;align-items:center;justify-content:center}
+.filterbtn svg{width:18px;height:18px;color:var(--ink)}
+.chip.filterentry{background:var(--card);border:1.5px solid var(--brand);color:var(--brand)}
+.chip.filterentry svg{width:14px;height:14px}
+.demorows{display:flex;flex-direction:column;gap:10px}
+.demorow{background:var(--card);border:1px solid var(--hairline);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:9px}
+.demoline{height:11px;border-radius:6px;background:var(--chip-fill)}
+.demoline.dim{opacity:.55}
+.w60{width:60%}.w70{width:70%}.w55{width:55%}.w65{width:65%}.w40{width:40%}.w35{width:35%}.w45{width:45%}.w30{width:30%}
+</style></head><body>
+
+<h1>FilterChips</h1>
+<div class="sub">Lane B P1, reskin. The chip ATOM is locked in the hub (pill 999, 13 medium, 7 by 14 padding, selected = indigo fill + check, unselected = quiet grey fill) and is not reopened. SCOPE AFTER G4 (02-Jul-2026): chips are a FORM organism (wrapped multi-select pickers, removable picker-sourced chips). List filtering has no chip row; it goes through a Filters button into the filter sheet (BottomSheet piece carries Subject, Level, State, City, Mode, Request ID). Consolidates 7 tappable implementations in the live app.</div>
+
+<h2>Composed states</h2>
+<div class="note">One canonical chip, two row contexts. Filter row = single-select, sits above a list (requests, bookings). Form picker = multi-select, wraps, chips are removable when they came from a search picker (ChipMultiSelect today).</div>
+
+<div class="cols">
+  <div class="col">
+    <div class="colhead">Filter row above a list · SUPERSEDED by G4 (kept for record)</div>
+    <div class="chiprow scroll">
+      <span class="chip sel"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>All</span>
+      <span class="chip">Add Maths</span>
+      <span class="chip">Physics</span>
+      <span class="chip">Bahasa Melayu</span>
+      <span class="chip">Sejarah</span>
+      <span class="chip">Chemistry</span>
+      <div class="fadeR"></div>
+    </div>
+    <div class="state">single-select · scrolls horizontally · right fade hints more</div>
+
+    <div style="height:18px"></div>
+    <div class="colhead">Selected mid-row</div>
+    <div class="chiprow scroll">
+      <span class="chip">All</span>
+      <span class="chip sel"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Physics</span>
+      <span class="chip">Add Maths</span>
+      <span class="chip">Bahasa Melayu</span>
+      <span class="chip">Sejarah</span>
+      <div class="fadeR"></div>
+    </div>
+    <div class="state">tapping a subject deselects All</div>
+  </div>
+
+  <div class="col">
+    <div class="colhead">Form picker, wrapped multi-select</div>
+    <div class="card oncard">
+      <div class="chiprow wrap">
+        <span class="chip sel"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Add Maths</span>
+        <span class="chip sel"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Physics</span>
+        <span class="chip">Biology</span>
+        <span class="chip">Chemistry</span>
+        <span class="chip">Sejarah</span>
+      </div>
+    </div>
+    <div class="state">multi-select · wraps · no scroll inside forms</div>
+
+    <div style="height:18px"></div>
+    <div class="colhead">Removable (picker-sourced)</div>
+    <div class="card oncard">
+      <div class="chiprow wrap">
+        <span class="chip sel">Kepong<svg viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></span>
+        <span class="chip sel">Setapak<svg viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></span>
+      </div>
+    </div>
+    <div class="state">trailing x replaces the check when chips come from a search picker</div>
+  </div>
+</div>
+
+<div class="fork">
+  <div class="forkhead">Fork G, revisited. The whole filter system on a real Requests header · DECIDED: G4 sheet only on the request list (founder, 02-Jul-2026)</div>
+  <div class="note">Grounding: the live Requests screen has a quick subject row (3 to 10 chips, derived from the feed) PLUS a deep filter modal (Level, Subject, State, City, Mode, Request ID) that must never be dropped. Each frame below is true 393pt wide with the same 8 subjects and the same list, so the header cost is honest. Deep filters land in the BottomSheet piece either way.</div>
+
+  <div class="frames">
+    <div>
+      <div class="colhead">G3 · chips + Filters entry (Urban Company)</div>
+      <div class="frame">
+        <div class="ltitle">Requests</div>
+        <div class="chiprow scroll">
+          <span class="chip filterentry"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M32,80a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,80Zm40,40H184a8,8,0,0,0,0-16H72a8,8,0,0,0,0,16Zm32,32h48a8,8,0,0,0,0-16H104a8,8,0,0,0,0,16Z" transform="translate(0,32)"/></svg>Filters · 2</span>
+          <span class="chip sel"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Add Maths</span>
+          <span class="chip">Physics</span><span class="chip">Chemistry</span><span class="chip">Biology</span><span class="chip">Bahasa Melayu</span><span class="chip">Sejarah</span><span class="chip">English</span><span class="chip">Ekonomi</span>
+          <div class="fadeR"></div>
+        </div>
+        <div class="demorows">
+          <div class="demorow"><div class="demoline w60"></div><div class="demoline w40 dim"></div></div>
+          <div class="demorow"><div class="demoline w70"></div><div class="demoline w35 dim"></div></div>
+          <div class="demorow"><div class="demoline w55"></div><div class="demoline w45 dim"></div></div>
+          <div class="demorow"><div class="demoline w65"></div><div class="demoline w30 dim"></div></div>
+        </div>
+      </div>
+      <div class="state">header cost 45pt · common filter 1 tap · deep filter 2 taps via the Filters chip, count badge keeps hidden filters honest · 4 requests above the fold</div>
+    </div>
+
+    <div>
+      <div class="colhead">G4 · sheet only (Airbnb)</div>
+      <div class="frame">
+        <div class="ltitle">Requests <span class="filterbtn"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M32,80a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,80Zm40,40H184a8,8,0,0,0,0-16H72a8,8,0,0,0,0,16Zm32,32h48a8,8,0,0,0,0-16H104a8,8,0,0,0,0,16Z" transform="translate(0,32)"/></svg></span></div>
+        <div class="demorows">
+          <div class="demorow"><div class="demoline w60"></div><div class="demoline w40 dim"></div></div>
+          <div class="demorow"><div class="demoline w70"></div><div class="demoline w35 dim"></div></div>
+          <div class="demorow"><div class="demoline w55"></div><div class="demoline w45 dim"></div></div>
+          <div class="demorow"><div class="demoline w65"></div><div class="demoline w30 dim"></div></div>
+          <div class="demorow"><div class="demoline w60 "></div><div class="demoline w40 dim"></div></div>
+        </div>
+      </div>
+      <div class="state">header cost 0pt · EVERY filter is 3 taps (open sheet, pick, apply), even filtering to one subject · 5 requests above the fold</div>
+    </div>
+
+    <div>
+      <div class="colhead">G2 · wrap all quick chips (Airbnb grids)</div>
+      <div class="frame">
+        <div class="ltitle">Requests</div>
+        <div class="chiprow wrap">
+          <span class="chip sel"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Add Maths</span>
+          <span class="chip">Physics</span><span class="chip">Chemistry</span><span class="chip">Biology</span><span class="chip">Bahasa Melayu</span><span class="chip">Sejarah</span><span class="chip">English</span><span class="chip">Ekonomi</span>
+          <span class="chip filterentry"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M32,80a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,80Zm40,40H184a8,8,0,0,0,0-16H72a8,8,0,0,0,0,16Zm32,32h48a8,8,0,0,0,0-16H104a8,8,0,0,0,0,16Z" transform="translate(0,32)"/></svg>Filters · 2</span>
+        </div>
+        <div class="demorows">
+          <div class="demorow"><div class="demoline w60"></div><div class="demoline w40 dim"></div></div>
+          <div class="demorow"><div class="demoline w70"></div><div class="demoline w35 dim"></div></div>
+        </div>
+      </div>
+      <div class="state">header cost 125pt at 8 subjects (3 chip lines) · everything visible, no horizontal scroll · only 2 requests above the fold, and the deep sheet is still needed</div>
+    </div>
+  </div>
+</div>
+
+<div class="fork">
+  <div class="forkhead">Fork H. The "All" chip · NOT APPLICABLE under G4 (no chip row above lists; closed 02-Jul-2026)</div>
+  <div class="note">The live app's request list leads with an All tab. Airbnb, Fresha and Urban Company have no All chip: nothing selected means everything shows (UC), or a default chip plays the role (Fresha's Featured). With G4 there is no filter chip row, so this fork closes without a decision.</div>
+  <div class="cols">
+    <div class="col">
+      <div class="colhead">H1 explicit All chip (live app)</div>
+      <div class="chiprow scroll">
+        <span class="chip sel"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>All</span>
+        <span class="chip">Add Maths</span><span class="chip">Physics</span><span class="chip">Bahasa Melayu</span>
+        <div class="fadeR"></div>
+      </div>
+      <div class="state">current filter always visible as a selected chip</div>
+    </div>
+    <div class="col">
+      <div class="colhead">H2 no All; empty = everything (all 3 refs)</div>
+      <div class="chiprow scroll">
+        <span class="chip">Add Maths</span><span class="chip">Physics</span><span class="chip">Bahasa Melayu</span><span class="chip">Sejarah</span>
+        <div class="fadeR"></div>
+      </div>
+      <div class="state">tap a selected chip again to clear it</div>
+    </div>
+  </div>
+</div>
+
+<h2>Reference evidence (measured, 1179px = 393pt at 3px/pt)</h2>
+<div class="evidence">
+  <b>Airbnb (Jun 2025, interests + filter sheets):</b> interest chips 51pt tall pills with leading icon, selected = ink fill + white text, unselected = outlined; chip grids wrap; filter sheets use ~40pt outlined chips, also wrapped.<br>
+  <b>Fresha (Oct 2024, select services):</b> 36pt row, single line, scrolls; selected = ink filled pill, unselected = plain text with no container at all.<br>
+  <b>Urban Company (May 2026, previous bookings):</b> 37pt rounded-rect outlined chips, radius well under pill; selected = darker border + subtle grey fill; single line, scrolls. Reviews list adds a separate "Filter (N)" entry point for a full sheet.<br>
+  <b>Held from the lock:</b> the chip atom itself (pill 999, 13 medium, 7 by 14, indigo selected fill + check, grey unselected fill) comes from atoms-batch.html and is not reopened. Reference heights run 36 to 51pt; the locked chip sits at 33pt, just under the band, held as locked.<br>
+  <b>Grounding, live app (7 tappable implementations consolidated):</b> ChipMultiSelect (shared, removable chips + searchable picker), TutorRequests subject tabs (underline style, has All), QuickNotes topic tags (radius 12, tint selected) + engagement 3-column chips, ServicePreference Step1 proficiency pills, ExtendClass duration chips (hardcoded colours, radius 10), Step3 availability presets. Nothing dropped: the All chip, remove x, searchable picker and wrap behaviour all have homes above; the engagement 3-way choice maps to the locked SegmentedControl atom; Step3's checkbox + title + subtitle presets map to ListRow + checkbox, not chips. Radius 0/10/12/999 and the hardcoded #004AAD all collapse into the one locked chip.
+</div>
+
+</body></html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:#F5F9FF;color:#0b0b0c;padding:26px 30px;width:820px}
+h1{font-size:22px;font-weight:700}
+.sub{font-size:13px;color:#4a4a52;margin:4px 0 6px;line-height:1.45}
+h2{font-size:12px;font-weight:700;color:#787882;text-transform:uppercase;letter-spacing:.06em;margin:26px 0 10px}
+.card{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:16px 18px}
+table{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff;border:1px solid #E7EBF0;border-radius:16px;overflow:hidden}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#787882;padding:10px 14px;border-bottom:1px solid #E7EBF0;background:#fff}
+td{padding:9px 14px;border-bottom:1px solid #E7EBF0;vertical-align:middle;line-height:1.45;color:#0b0b0c}
+tr:last-child td{border-bottom:none}
+.ground{font-size:12px;color:#4a4a52;background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:12px 16px;margin-top:12px;line-height:1.55}
+.lockbar{background:#243cb3;color:#fff;border-radius:16px;padding:12px 16px;font-size:13px;line-height:1.5;margin-top:10px}
+code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:rgba(120,120,128,.10);border-radius:5px;padding:1px 5px}
+.tile{width:64px;height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none}
+.tlabel{font-size:11px;color:#4a4a52;text-align:center;margin-top:6px;line-height:1.25;max-width:72px}
+.tilecol{display:flex;flex-direction:column;align-items:center}
+.tilerow{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;padding:4px 0 2px}
+.mono{font-weight:700;font-size:20px;letter-spacing:.02em}
+.fam{font-weight:700;white-space:nowrap}
+</style>
+</head><body>
+
+<h1>SubjectTile · LOCKED</h1>
+<div class="sub">Locked 02-Jul-2026 (founder accepted the recommended defaults from <code>subjecttile-candidates.html</code>). The illustrated subject-colour tile, adapted from Urban Company's category tiles, outside the Phosphor icon tiers.</div>
+
+<div class="lockbar"><b>LOCKED SubjectTile</b> = S1a illustration-first with the DR-005 gate deciding icon vs monogram per subject + S2a one colour per curriculum FAMILY (7 families) + S3a family-tint ground with family-ink mark · sizes 64 picker / 40 inline · radius 14 · rules 1 to 6 ratified</div>
+
+<h2>The look (locked combination)</h2>
+<div class="card">
+<div class="tilerow">
+<div class="tilecol"><div class="tile" style="background:rgba(109,40,217,.10)"><span style="color:#6D28D9;font-weight:700;font-size:26px">π</span></div><div class="tlabel">Mathematics</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(109,40,217,.10)"><span style="color:#6D28D9;font-weight:700;font-size:19px">ƒ(x)</span></div><div class="tlabel">Add Maths</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(15,118,110,.10)"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="#0F766E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M26 8h12M30 8v14L17 44a5 5 0 004.5 8h21a5 5 0 004.5-8L34 22V8"/><path d="M22 38h20"/></svg></div><div class="tlabel">Chemistry</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(190,18,60,.08)"><span class="mono" style="color:#BE123C">BM</span></div><div class="tlabel">Bahasa Melayu</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(180,83,9,.10)"><span class="mono" style="color:#B45309">SJ</span></div><div class="tlabel">Sejarah</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(71,85,105,.10)"><span class="mono" style="color:#475569">PI</span></div><div class="tlabel">Pendidikan Islam</div></div>
+<div class="tilecol"><div class="tile" style="background:rgba(71,85,105,.10)"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="#475569" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M32 14C26 9 16 9 10 13v38c6-4 16-4 22 1 6-5 16-5 22-1V13c-6-4-16-4-22 1z"/><path d="M32 14v38"/></svg></div><div class="tlabel">Fallback (unmapped)</div></div>
+</div>
+</div>
+
+<h2>The catalog · family → subject → mark (keyed by subject_id at build)</h2>
+<table>
+<tr><th style="width:190px">Family (colour)</th><th>Subject</th><th>Mark (icon = commissioned illustration · letters = monogram)</th></tr>
+<tr><td class="fam" style="color:#6D28D9">Maths &amp; Computing</td><td>Mathematics · Additional Mathematics · ICT / Computer Science</td><td>π · ƒ(x) · laptop</td></tr>
+<tr><td class="fam" style="color:#0F766E">Sciences</td><td>Science · Physics · Chemistry · Biology</td><td>atom · bolt · flask · leaf</td></tr>
+<tr><td class="fam" style="color:#BE123C">Languages</td><td>Bahasa Melayu · English · Bahasa Arab · Bahasa Cina · Bahasa Tamil</td><td>BM · EN · BA · BC · BT (all monograms)</td></tr>
+<tr><td class="fam" style="color:#B45309">Humanities</td><td>Geography · Sejarah · Sivik</td><td>globe · SJ · SV</td></tr>
+<tr><td class="fam" style="color:#0E7490">Commerce</td><td>Accounting · Economics · Business</td><td>pie chart · trend line · briefcase</td></tr>
+<tr><td class="fam" style="color:#A21CAF">Arts, Tech &amp; PE</td><td>Visual Arts · Music · PE &amp; Health (PJK) · Design &amp; Tech (RBT)</td><td>brush · note · runner · wrench</td></tr>
+<tr><td class="fam" style="color:#475569">Religious &amp; Moral (quiet slate)</td><td>Pendidikan Islam · Pendidikan Moral · Tasawwur Islam</td><td>PI · PM · TI (ALWAYS monograms, never a symbol)</td></tr>
+<tr><td class="fam" style="color:#475569">Fallback</td><td>any unmapped <code>subject_id</code></td><td>open book, slate family, never blank</td></tr>
+</table>
+
+<h2>Rules for the integrator (ratified 02-Jul-2026)</h2>
+<div class="ground">
+<b>1 · The DR-005 gate.</b> Icon only when clear + distinguishable from siblings + culturally neutral; when in doubt, monogram. Religious, moral, and history subjects are always monograms; never a religious or cultural symbol.<br>
+<b>2 · Keying.</b> Map by <code>subject_id</code> (from <code>tutor/curricula</code> → <code>subjects[]</code>), never the name string. Unmapped id → the slate open-book fallback.<br>
+<b>3 · Geometry.</b> 64 tile in picker grids (label below, outside the tile, 2 lines max) · 40 tile inline on rows · radius 14 · mark ≈ 47% of tile.<br>
+<b>4 · Art.</b> One commissioned flat set, single stroke weight (~3.5 at 64), family-ink on family-tint. The stand-ins in the candidates sheet define composition, so build now and swap art without layout changes. Monograms: Circular Std Bold, ~31% of tile, max 2 letters.<br>
+<b>5 · Colour discipline.</b> Family colours exist ONLY inside the tile (ground + mark). Never on text, pills, buttons, or icons outside the tile; fit green, flag amber, and action indigo stay the only UI status colours. Exact family hexes finalize in Lane A's token pass; the MAPPING is what is locked.<br>
+<b>6 · One map everywhere.</b> Picker, class cards, records, reports all render the same tile; no surface invents its own subject art. The DR-004 grey anchor watermark is a separate MoneyAnchor-owned rule.
+</div>
+
+</body></html>

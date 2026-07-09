@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+*{box-sizing:border-box;margin:0} body{font-family:'Circular Std',sans-serif;background:#F5F9FF;color:#0b0b0c;padding:28px 34px;width:720px}
+h1{font-size:22px;font-weight:700} .sub{font-size:13px;color:#4a4a52;margin:4px 0 14px}
+h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#787882;margin:22px 0 6px}
+.card{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:18px 22px;margin-bottom:14px}
+@keyframes sp{to{transform:rotate(360deg)}} button span{animation:sp .8s linear infinite}
+.cap{font-size:11px;color:#787882;margin-top:4px}
+</style></head><body>
+<h1>Buttons</h1>
+<div class="sub">Height 48pt (references: 40-48). Decision 1: indigo = the one key action, black = lesser confirm. Circular Std, Phosphor icons.</div>
+
+<h3>Hierarchy (Decision 1)</h3>
+<div class="card">
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:6px 0 2px"><button style="height:48px;border-radius:14px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#243cb3;color:#fff;">Apply now</button><button style="height:48px;border-radius:14px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#0b0b0c;color:#fff;">Save</button><button style="height:48px;border-radius:14px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:rgba(36,60,179,.10);color:#243cb3;">Not now</button><button style="height:48px;border-radius:14px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;color:#243cb3;border:1.5px solid rgba(36,60,179,.35);">View</button></div>
+<div class="cap">primary (indigo, the ONE key action) · neutral confirm (black) · secondary (indigo tint) · outline</div>
+</div>
+
+<h3>Primary states</h3>
+<div class="card">
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:6px 0 2px"><button style="height:48px;border-radius:14px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#243cb3;color:#fff;">Apply now</button><button style="height:48px;border-radius:14px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#1d3092;color:#fff;">Apply now</button><button style="height:48px;border-radius:14px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#243cb3;color:#fff;opacity:.4;">Apply now</button><button style="height:48px;border-radius:14px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#243cb3;color:#fff;"><span style="width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;display:inline-block;margin-right:8px"></span>Applying</button><button style="height:48px;border-radius:14px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#243cb3;color:#fff;">Confirm</button></div>
+<div class="cap">default · pressed · disabled · busy · with icon</div>
+</div>
+
+<h3>Radius: rounded-rect vs pill</h3>
+<div class="card">
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:6px 0 2px"><button style="height:48px;border-radius:14px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#243cb3;color:#fff;">Apply now</button><button style="height:48px;border-radius:999px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#243cb3;color:#fff;">Apply now</button></div>
+<div class="cap">rounded-rect 14 (references lean this) · pill 999 (our current mocks)</div>
+</div>
+
+<h3>Sizes</h3>
+<div class="card">
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:6px 0 2px"><button style="height:48px;border-radius:14px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#243cb3;color:#fff;">Large 48</button><button style="height:44px;border-radius:14px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#243cb3;color:#fff;">Medium 44</button><button style="height:36px;border-radius:10px;border:none;font-family:'Circular Std';font-weight:700;font-size:16px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;background:#243cb3;color:#fff;">Small 36</button></div>
+</div>
+</body></html>

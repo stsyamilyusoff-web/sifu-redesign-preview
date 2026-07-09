@@ -1,0 +1,95 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:#F5F9FF;color:#0b0b0c;padding:26px 30px;width:820px}
+h1{font-size:22px;font-weight:700}
+.sub{font-size:13px;color:#4a4a52;margin:4px 0 6px;line-height:1.45}
+h2{font-size:12px;font-weight:700;color:#787882;text-transform:uppercase;letter-spacing:.06em;margin:26px 0 10px}
+.card{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:16px 18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+table{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff;border:1px solid #E7EBF0;border-radius:16px;overflow:hidden}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#787882;padding:10px 14px;border-bottom:1px solid #E7EBF0;background:#fff}
+td{padding:9px 14px;border-bottom:1px solid #E7EBF0;vertical-align:middle;line-height:1.45;color:#0b0b0c}
+tr:last-child td{border-bottom:none}
+.ground{font-size:12px;color:#4a4a52;background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:12px 16px;margin-top:12px;line-height:1.55}
+.lockbar{background:#243cb3;color:#fff;border-radius:16px;padding:12px 16px;font-size:13px;line-height:1.5;margin-top:10px}
+code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:rgba(120,120,128,.10);border-radius:5px;padding:1px 5px}
+.chip{font-size:12px;font-weight:500;color:#0b0b0c;background:rgba(120,120,128,.10);border-radius:999px;padding:6px 12px;display:inline-flex;gap:6px;align-items:center}
+.g{display:inline-block;vertical-align:-3px}
+.match{font-size:12.5px;color:#166534;font-weight:700;display:flex;align-items:center;gap:5px}
+.rcard{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.anchor{width:78px;flex-shrink:0;border-radius:14px;background:#EAEAEF;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:11px 5px}
+</style>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+<g id="s-house"><path d="M6 20V11l6-6 6 6v9h-4v-6h-4v6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-laptop"><rect x="5" y="6" width="14" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
+<g id="s-cal"><rect x="4.5" y="5.5" width="15" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 9.5h15M9 3.5v3M15 3.5v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
+<g id="s-clock"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-repeat"><path d="M7 8h9a3 3 0 013 3v1M17 16H8a3 3 0 01-3-3v-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M14.5 5.5L17 8l-2.5 2.5M9.5 13.5L7 16l2.5 2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-pin"><path d="M12 21s-6.5-5.5-6.5-10.5a6.5 6.5 0 0113 0C18.5 15.5 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.8"/></g>
+<g id="s-female"><circle cx="12" cy="9" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 14v7M9 18h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
+<g id="s-male"><circle cx="10" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M14 10l6-6M15 4h5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="s-check"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+</defs></svg>
+
+</head><body>
+
+<h1>FactChip / IconFactRow · LOCKED</h1>
+<div class="sub">Locked 02-Jul-2026 (founder chose F1b + F2a from <code>factchip-candidates.html</code>). One icon-fact set, two weights, both carrying Phosphor glyphs. Supersedes the text-only row drawn in the Wave 1 feed mock; DR-007's vocabulary table stands as written.</div>
+
+<div class="lockbar"><b>LOCKED FactChip / IconFactRow</b> = F1b icon + text row on feed and list cards (13px glyphs) + F2a chip skin on detail heroes (tint fill <code>rgba(120,120,128,.10)</code>, no border, 14px glyphs, cap 4) · glyph mapping ratified as below · rules 1 to 6 ratified · integrator note: the Wave 1 feed mock's text-only row is SUPERSEDED by this lock</div>
+
+<h2>The glyph mapping (ratified · Phosphor outline, 2px on the 24 grid)</h2>
+<table>
+<tr><th style="width:120px">Fact</th><th style="width:180px">Value(s)</th><th style="width:200px">Phosphor name</th><th>Stand-in</th></tr>
+<tr><td><b>Mode</b></td><td>In-person / Online</td><td><code>house</code> / <code>laptop</code></td><td><svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-house"/></svg> &nbsp; <svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-laptop"/></svg></td></tr>
+<tr><td><b>Type + sessions</b></td><td>Long-term / Trial · "12 sessions"</td><td><code>arrows-clockwise</code></td><td><svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-repeat"/></svg></td></tr>
+<tr><td><b>Schedule</b></td><td>"Mon 2:30 PM"</td><td><code>calendar-blank</code></td><td><svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-cal"/></svg></td></tr>
+<tr><td><b>Duration</b></td><td>"1.5h"</td><td><code>clock</code></td><td><svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-clock"/></svg></td></tr>
+<tr><td><b>Location</b></td><td>"Bangsar" (in-person only)</td><td><code>map-pin</code></td><td><svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-pin"/></svg></td></tr>
+<tr><td><b>Tutor gender</b></td><td>"Female tutor" / "Male tutor"</td><td><code>gender-female</code> / <code>gender-male</code></td><td><svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-female"/></svg> &nbsp; <svg class="g" width="18" height="18" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-male"/></svg></td></tr>
+</table>
+
+<h2>In context · both weights, locked</h2>
+<div class="grid2">
+<div class="rcard">
+<div style="flex:1;min-width:0">
+<div style="font-size:15px;font-weight:700">Physics <span style="font-weight:400;color:#787882;font-size:12.5px">· Form 4</span></div>
+<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:3px 10px;align-items:center;font-size:12px;font-weight:500;color:#4a4a52">
+<span style="white-space:nowrap"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-male"/></svg> Male tutor</span>
+<span style="white-space:nowrap"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-cal"/></svg> Mon 5:00 PM</span>
+<span style="white-space:nowrap"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-clock"/></svg> 2h</span>
+<span style="white-space:nowrap"><svg class="g" width="13" height="13" viewBox="0 0 24 24" style="color:#787882"><use href="#s-pin"/></svg> Bangsar</span>
+</div>
+<div class="match" style="margin-top:6px;font-size:12px"><svg class="g" width="12" height="12" viewBox="0 0 24 24" style="color:#166534"><use href="#s-check"/></svg>Matches your subject &amp; level</div>
+</div>
+<div class="anchor" style="width:70px;padding:9px 4px"><div style="font-size:10px;font-weight:700;color:#18181b">IN-PERSON</div><div style="font-size:16px;font-weight:700;color:#18181b"><span style="font-size:9px;color:#787882">RM</span> 120</div></div>
+</div>
+<div class="card">
+<div style="font-size:19px;font-weight:700">Physics <span style="font-weight:400;color:#787882;font-size:15px">· Form 4</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:11px">
+<span class="chip"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-house"/></svg>In-person</span>
+<span class="chip"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-repeat"/></svg>Long-term</span>
+<span class="chip"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-cal"/></svg>Mon 2:30 PM</span>
+<span class="chip"><svg class="g" width="14" height="14" viewBox="0 0 24 24" style="color:#4a4a52"><use href="#s-female"/></svg>Female tutor</span>
+</div>
+<div style="margin-top:14px;padding-top:12px;border-top:1px solid #E7EBF0">
+<span style="font-size:20px;font-weight:700"><span style="font-size:11px;color:#787882">RM</span> 450</span> <span style="font-size:11px;color:#787882">· 12 sessions · 2.5h</span>
+</div>
+</div>
+</div>
+
+<h2>Rules for the integrator (ratified 02-Jul-2026)</h2>
+<div class="ground">
+<b>1 · Two weights only.</b> Chip (detail hero, cap 4, 14px glyph) and icon + text row (feed/lists, 13px glyph, <code>#787882</code> glyph on <code>#4a4a52</code> text). No third rendering; facts never colour-code (DR-007: colour = fit green + flag amber only).<br>
+<b>2 · Hero chip order.</b> Mode → type → schedule → gender. Location replaces type when in-person and space allows; the cap stays 4.<br>
+<b>3 · Card row order.</b> Gender → schedule → duration → sessions (online) or location (in-person). Row wraps to a second line rather than truncating a fact.<br>
+<b>4 · Label whose attribute it is.</b> Always "Female tutor" / "Male tutor", never "Female" alone. Trial requests say "Trial" as the type word, never a colour.<br>
+<b>5 · Boundary with MoneyAnchor.</b> Duration + sessions in the detail hero live in the money line ("RM 450 · 12 sessions · 2.5h"); chips never duplicate what the money line says.<br>
+<b>6 · Build glyphs are Phosphor</b> by the mapping table names, outline weight. Stand-ins in the specimens define slot + size only. Integrator flag: update the DR-007 vocabulary note to "both weights carry icons"; the Wave 1 feed mock's text-only row is superseded.
+</div>
+
+</body></html>

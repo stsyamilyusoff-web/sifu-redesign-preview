@@ -1,0 +1,222 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf");font-weight:400}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf");font-weight:500}
+@font-face{font-family:'Circular Std';src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf");font-weight:700}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Circular Std',sans-serif;background:#F5F9FF;color:#0b0b0c;padding:26px 30px;width:820px}
+h1{font-size:22px;font-weight:700}
+.sub{font-size:13px;color:#4a4a52;margin:4px 0 6px;line-height:1.45}
+h2{font-size:12px;font-weight:700;color:#787882;text-transform:uppercase;letter-spacing:.06em;margin:26px 0 10px}
+.card{background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:16px 18px}
+.opt-label{font-size:11px;font-weight:700;color:#243cb3;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.opt-note{font-size:12px;color:#787882;line-height:1.4;margin-bottom:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.refbar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+.refbar .card{padding:12px 14px}
+.refbar b{font-size:13px}
+.refbar p{font-size:12px;color:#4a4a52;line-height:1.4;margin-top:3px}
+table{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff;border:1px solid #E7EBF0;border-radius:16px;overflow:hidden}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#787882;padding:10px 14px;border-bottom:1px solid #E7EBF0;background:#fff}
+td{padding:10px 14px;border-bottom:1px solid #E7EBF0;vertical-align:top;line-height:1.45;color:#0b0b0c}
+tr:last-child td{border-bottom:none}
+.ic{display:inline-block;vertical-align:-2px}
+.avatar{border-radius:50%;background:linear-gradient(135deg,#c9b8a8,#3a3a3a);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+.statrow{display:flex;border-top:1px solid #E7EBF0;margin-top:14px;padding-top:12px}
+.stat{flex:1;text-align:center}
+.stat+.stat{border-left:1px solid #E7EBF0}
+.stat .v{font-size:16px;font-weight:700;white-space:nowrap}
+.stat .k{font-size:11px;color:#787882;margin-top:2px}
+.ground{font-size:12px;color:#4a4a52;background:#fff;border:1px solid #E7EBF0;border-radius:16px;padding:12px 16px;margin-top:12px;line-height:1.55}
+code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:rgba(120,120,128,.10);border-radius:5px;padding:1px 5px}
+</style>
+
+<!-- Phosphor glyphs used (inlined). seal-check fill = verified badge · plant/leaf/star = tier glyphs · check = chip check -->
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="seal-check" viewBox="0 0 256 256"><path d="M225.86,102.82c-3.77-3.94-7.67-8-9.14-11.57-1.36-3.27-1.44-8.69-1.52-13.94-.15-9.76-.31-20.82-8-28.51s-18.75-7.85-28.51-8c-5.25-.08-10.67-.16-13.94-1.52-3.56-1.47-7.63-5.37-11.57-9.14C146.28,23.51,138.44,16,128,16s-18.27,7.51-25.18,14.14c-3.94,3.77-8,7.67-11.57,9.14C88,40.64,82.56,40.72,77.31,40.8c-9.76.15-20.82.31-28.51,8S41,67.55,40.8,77.31c-.08,5.25-.16,10.67-1.52,13.94-1.47,3.56-5.37,7.63-9.14,11.57C23.51,109.72,16,117.56,16,128s7.51,18.27,14.14,25.18c3.77,3.94,7.67,8,9.14,11.57,1.36,3.27,1.44,8.69,1.52,13.94.15,9.76.31,20.82,8,28.51s18.75,7.85,28.51,8c5.25.08,10.67.16,13.94,1.52,3.56,1.47,7.63,5.37,11.57,9.14C109.72,232.49,117.56,240,128,240s18.27-7.51,25.18-14.14c3.94-3.77,8-7.67,11.57-9.14,3.27-1.36,8.69-1.44,13.94-1.52,9.76-.15,20.82-.31,28.51-8s7.85-18.75,8-28.51c.08-5.25.16-10.67,1.52-13.94,1.47-3.56,5.37-7.63,9.14-11.57C232.49,146.28,240,138.44,240,128S232.49,109.73,225.86,102.82Zm-52.2,6.84-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></symbol>
+<symbol id="check" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></symbol>
+<symbol id="plant" viewBox="0 0 256 256"><path d="M247.63,47.89a8,8,0,0,0-7.52-7.52c-51.76-3-93.32,12.74-111.18,42.22-11.8,19.49-11.78,43.16-.16,65.74a71.34,71.34,0,0,0-14.17,27L98.33,159c7.82-16.33,7.52-33.35-1-47.49-13.2-21.79-43.67-33.47-81.5-31.25a8,8,0,0,0-7.52,7.52c-2.23,37.83,9.46,68.3,31.25,81.5A45.82,45.82,0,0,0,63.44,176,54.58,54.58,0,0,0,87,170.33l25,25V224a8,8,0,0,0,16,0V194.51a55.61,55.61,0,0,1,12.27-35,73.91,73.91,0,0,0,33.31,8.4,60.9,60.9,0,0,0,31.83-8.86C234.89,141.21,250.67,99.65,247.63,47.89ZM47.81,155.6C32.47,146.31,23.79,124.32,24,96c28.32-.24,50.31,8.47,59.6,23.81,4.85,8,5.64,17.33,2.46,26.94L61.65,122.34a8,8,0,0,0-11.31,11.31l24.41,24.41C65.14,161.24,55.82,160.45,47.81,155.6Zm149.31-10.22c-13.4,8.11-29.15,8.73-45.15,2l53.69-53.7a8,8,0,0,0-11.31-11.31L140.65,136c-6.76-16-6.15-31.76,2-45.15,13.94-23,47-35.82,89.33-34.83C232.94,98.34,220.14,131.44,197.12,145.38Z"/></symbol>
+<symbol id="leaf" viewBox="0 0 256 256"><path d="M223.45,40.07a8,8,0,0,0-7.52-7.52C139.8,28.08,78.82,51,52.82,94a87.09,87.09,0,0,0-12.76,49c.57,15.92,5.21,32,13.79,47.85l-19.51,19.5a8,8,0,0,0,11.32,11.32l19.5-19.51C81,210.73,97.09,215.37,113,215.94q1.67.06,3.33.06A86.93,86.93,0,0,0,162,203.18C205,177.18,227.93,116.21,223.45,40.07ZM153.75,189.5c-22.75,13.78-49.68,14-76.71.77l88.63-88.62a8,8,0,0,0-11.32-11.32L65.73,179c-13.19-27-13-54,.77-76.71,22.09-36.47,74.6-56.44,141.31-54.06C210.2,114.89,190.22,167.41,153.75,189.5Z"/></symbol>
+<symbol id="tree" viewBox="0 0 256 256"><path d="M198.1,62.59a76,76,0,0,0-140.2,0A71.71,71.71,0,0,0,16,127.8C15.9,166,48,199,86.14,200A72.09,72.09,0,0,0,120,192.47V232a8,8,0,0,0,16,0V192.47A72.17,72.17,0,0,0,168,200l1.82,0C208,199,240.11,166,240,127.8A71.71,71.71,0,0,0,198.1,62.59ZM169.45,184a56.08,56.08,0,0,1-33.45-10v-41l43.58-21.78a8,8,0,1,0-7.16-14.32L136,115.06V88a8,8,0,0,0-16,0v51.06L83.58,120.84a8,8,0,1,0-7.16,14.32L120,156.94v17a56,56,0,0,1-33.45,10C56.9,183.23,31.92,157.52,32,127.84A55.77,55.77,0,0,1,67.11,76a8,8,0,0,0,4.53-4.67,60,60,0,0,1,112.72,0A8,8,0,0,0,188.89,76,55.79,55.79,0,0,1,224,127.84C224.08,157.52,199.1,183.23,169.45,184Z"/></symbol>
+<symbol id="star-f" viewBox="0 0 256 256"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></symbol>
+</defs></svg>
+
+</head><body>
+
+<h1>Trust primitive · verified badge + tier standing</h1>
+<div class="sub">Lane C candidate set. Locked rule: <b>rich on the tutor's own profile, lean everywhere else</b>. No star rating exists in the data, so the standing is the tier system, never stars. Trust here is recognition and motivation for the tutor, not a sales badge.</div>
+
+<div class="ground"><b>Grounded in origin/main of sifututor_tutor:</b> verified = <code>tutorDetail.status === 'verified'</code> (today: plain text + icon next to the name in ProfileMenu) · standing = <code>profile_strength_score</code> (0 to 100) + <code>profile_strength_tier</code> (<code>beginner · intermediate · advanced · all_star</code>, labels Beginner / Intermediate / Advanced / All star, flag-gated by <code>enhanced_data_collection_v1</code>) · app tier accents kept: Beginner #F97316 · Intermediate #EAB308 · Advanced #22C55E · All star #D4AF37 · "Verified hours" already exists on the dashboard.</div>
+
+<h2>How the references do it</h2>
+<div class="refbar">
+<div class="card"><b>Airbnb</b><p>Verified = shield badge (brand-colour circle + white check) overlapping the avatar corner. Standing = "Superhost" as a quiet icon + text row, no fill. Frames #43, #190.</p></div>
+<div class="card"><b>Urban Company</b><p>Numeric only: rating + review count on the pro card, no verified badge. Frame #151. We have no rating, so only the layout rhythm carries over.</p></div>
+<div class="card"><b>Fresha</b><p>Numeric only: rating + count. No badge, no tier. Confirms the lean surfaces should stay quiet.</p></div>
+</div>
+
+<h2>Density 1 · lean (cards + lists, everywhere that is not the profile)</h2>
+<div class="grid3">
+
+<div class="card">
+<div class="opt-label">Lean 1 · icon by name + tier row</div>
+<div class="opt-note">Airbnb pattern: seal on the name line, tier as a quiet icon + text row. No fills, zero card bloat.</div>
+<div style="display:flex;gap:12px;align-items:center">
+<div class="avatar" style="width:44px;height:44px;font-size:17px">N</div>
+<div>
+<div style="font-size:16px;font-weight:700;display:flex;align-items:center;gap:5px">Nurul Aisyah
+<svg class="ic" width="16" height="16" viewBox="0 0 256 256" fill="#16A34A"><use href="#seal-check"/></svg></div>
+<div style="font-size:12.5px;color:#4a4a52;display:flex;align-items:center;gap:5px;margin-top:2px">
+<svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#D4AF37"><use href="#star-f"/></svg>All star tutor</div>
+</div></div>
+</div>
+
+<div class="card">
+<div class="opt-label">Lean 2 · verified chip + tier text</div>
+<div class="opt-note">Verified as a green tint chip (StatusPill grammar), tier stays plain text. Louder, uses one fill.</div>
+<div style="display:flex;gap:12px;align-items:center">
+<div class="avatar" style="width:44px;height:44px;font-size:17px">N</div>
+<div>
+<div style="font-size:16px;font-weight:700">Nurul Aisyah</div>
+<div style="display:flex;align-items:center;gap:7px;margin-top:4px">
+<span style="background:rgba(22,163,74,.12);color:#166534;font-size:11px;font-weight:700;border-radius:999px;padding:3px 9px;display:inline-flex;gap:4px;align-items:center">
+<svg class="ic" width="11" height="11" viewBox="0 0 256 256" fill="#166534"><use href="#check"/></svg>Verified</span>
+<span style="font-size:12.5px;color:#4a4a52">All star</span>
+</div>
+</div></div>
+</div>
+
+<div class="card">
+<div class="opt-label">Lean 3 · one trust line</div>
+<div class="opt-note">Single caption row: seal + "Verified · All star". Smallest footprint, one line covers both facts.</div>
+<div style="display:flex;gap:12px;align-items:center">
+<div class="avatar" style="width:44px;height:44px;font-size:17px">N</div>
+<div>
+<div style="font-size:16px;font-weight:700">Nurul Aisyah</div>
+<div style="font-size:12.5px;color:#4a4a52;display:flex;align-items:center;gap:5px;margin-top:2px">
+<svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#16A34A"><use href="#seal-check"/></svg>Verified · All star</div>
+</div></div>
+</div>
+
+</div>
+
+<h2>Density 2 · rich (the tutor's own profile header)</h2>
+<div class="grid3">
+
+<div class="card">
+<div class="opt-label">Rich 1 · badge on avatar (Airbnb)</div>
+<div class="opt-note">Seal overlaps the avatar corner with a white ring. Tier = quiet icon + text row. Stats strip below.</div>
+<div style="text-align:center;padding-top:4px">
+<div style="position:relative;width:76px;height:76px;margin:0 auto">
+<div class="avatar" style="width:76px;height:76px;font-size:28px">N</div>
+<div style="position:absolute;right:-3px;bottom:-3px;background:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center">
+<svg width="24" height="24" viewBox="0 0 256 256" fill="#16A34A"><use href="#seal-check"/></svg></div>
+</div>
+<div style="font-size:18px;font-weight:700;margin-top:10px">Nurul Aisyah</div>
+<div style="font-size:13px;color:#4a4a52;display:inline-flex;align-items:center;gap:5px;margin-top:3px">
+<svg class="ic" width="14" height="14" viewBox="0 0 256 256" fill="#D4AF37"><use href="#star-f"/></svg>All star tutor</div>
+</div>
+<div class="statrow">
+<div class="stat"><div class="v">82%</div><div class="k">Profile strength</div></div>
+<div class="stat"><div class="v">All star</div><div class="k">Tier</div></div>
+<div class="stat"><div class="v">120</div><div class="k">Verified hours</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="opt-label">Rich 2 · tier ring + badge</div>
+<div class="opt-note">The avatar sits inside a progress ring drawn at profile_strength_score, stroked in the tier accent. The ring makes the score visible without a bar.</div>
+<div style="text-align:center;padding-top:4px">
+<div style="position:relative;width:88px;height:88px;margin:0 auto">
+<svg width="88" height="88" viewBox="0 0 88 88" style="transform:rotate(-90deg);position:absolute;inset:0">
+<circle cx="44" cy="44" r="41" fill="none" stroke="rgba(60,60,67,.10)" stroke-width="4"/>
+<circle cx="44" cy="44" r="41" fill="none" stroke="#D4AF37" stroke-width="4" stroke-linecap="round" stroke-dasharray="257.6" stroke-dashoffset="46.4"/>
+</svg>
+<div class="avatar" style="width:72px;height:72px;font-size:26px;position:absolute;top:8px;left:8px">N</div>
+<div style="position:absolute;right:-1px;bottom:-1px;background:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center">
+<svg width="24" height="24" viewBox="0 0 256 256" fill="#16A34A"><use href="#seal-check"/></svg></div>
+</div>
+<div style="font-size:18px;font-weight:700;margin-top:10px">Nurul Aisyah</div>
+<div style="display:inline-flex;align-items:center;gap:5px;margin-top:5px;background:#FFFBEB;border-radius:999px;padding:4px 11px">
+<svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#D4AF37"><use href="#star-f"/></svg>
+<span style="font-size:12px;font-weight:700;color:#8a6d1a">All star · 82%</span></div>
+</div>
+<div class="statrow">
+<div class="stat"><div class="v">120</div><div class="k">Verified hours</div></div>
+<div class="stat"><div class="v">2 yrs</div><div class="k">On Sifututor</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="opt-label">Rich 3 · credential row (Airbnb #43)</div>
+<div class="opt-note">Left-aligned header, verified as a text row under the name (Airbnb host card rhythm), tier carried by the stats panel only. Quietest rich option.</div>
+<div style="display:flex;gap:14px;align-items:center;padding-top:4px">
+<div style="position:relative;width:64px;height:64px;flex:none">
+<div class="avatar" style="width:64px;height:64px;font-size:24px">N</div>
+<div style="position:absolute;right:-3px;bottom:-3px;background:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center">
+<svg width="20" height="20" viewBox="0 0 256 256" fill="#16A34A"><use href="#seal-check"/></svg></div>
+</div>
+<div>
+<div style="font-size:18px;font-weight:700">Nurul Aisyah</div>
+<div style="font-size:12.5px;color:#4a4a52;margin-top:2px">Identity verified tutor</div>
+</div>
+</div>
+<div class="statrow">
+<div class="stat"><div class="v" style="display:inline-flex;align-items:center;gap:4px"><svg class="ic" width="15" height="15" viewBox="0 0 256 256" fill="#D4AF37"><use href="#star-f"/></svg>All star</div><div class="k">Standing</div></div>
+<div class="stat"><div class="v">82%</div><div class="k">Profile strength</div></div>
+<div class="stat"><div class="v">120</div><div class="k">Verified hours</div></div>
+</div>
+</div>
+
+</div>
+
+<h2>Sub-decision A · seal colour</h2>
+<div class="grid2">
+<div class="card" style="display:flex;gap:18px;align-items:center">
+<svg width="30" height="30" viewBox="0 0 256 256" fill="#16A34A"><use href="#seal-check"/></svg>
+<div><b style="font-size:13.5px">Green seal</b><div style="font-size:12px;color:#4a4a52;margin-top:2px">Follows our own rule, green = verified / achieved only. Reads as a status, not a brand mark.</div></div>
+</div>
+<div class="card" style="display:flex;gap:18px;align-items:center">
+<svg width="30" height="30" viewBox="0 0 256 256" fill="#243cb3"><use href="#seal-check"/></svg>
+<div><b style="font-size:13.5px">Indigo seal</b><div style="font-size:12px;color:#4a4a52;margin-top:2px">What Airbnb does (badge in brand pink). Reads as "the platform vouches", but spends the indigo budget on a non-action.</div></div>
+</div>
+</div>
+
+<h2>Sub-decision B · tier glyphs + colours (all four tiers)</h2>
+<div class="grid2">
+<div class="card">
+<div class="opt-label" style="color:#787882">B1 · keep the app's gamification accents</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+<span style="background:#FFF4ED;color:#F97316;font-size:12px;font-weight:700;border-radius:999px;padding:4px 11px;display:inline-flex;gap:5px;align-items:center"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#F97316"><use href="#plant"/></svg>Beginner</span>
+<span style="background:#FEFCE8;color:#a07c08;font-size:12px;font-weight:700;border-radius:999px;padding:4px 11px;display:inline-flex;gap:5px;align-items:center"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#EAB308"><use href="#leaf"/></svg>Intermediate</span>
+<span style="background:#ECFDF5;color:#166534;font-size:12px;font-weight:700;border-radius:999px;padding:4px 11px;display:inline-flex;gap:5px;align-items:center"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#22C55E"><use href="#tree"/></svg>Advanced</span>
+<span style="background:#FFFBEB;color:#8a6d1a;font-size:12px;font-weight:700;border-radius:999px;padding:4px 11px;display:inline-flex;gap:5px;align-items:center"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#D4AF37"><use href="#star-f"/></svg>All star</span>
+</div>
+<div style="font-size:12px;color:#787882;margin-top:10px;line-height:1.4">Continuity with the live app (orange, yellow, green, gold). But Advanced green collides with the verified green.</div>
+</div>
+<div class="card">
+<div class="opt-label" style="color:#787882">B2 · restrained: neutral tiers, gold only at the top</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+<span style="background:rgba(120,120,128,.10);color:#4a4a52;font-size:12px;font-weight:700;border-radius:999px;padding:4px 11px;display:inline-flex;gap:5px;align-items:center"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#4a4a52"><use href="#plant"/></svg>Beginner</span>
+<span style="background:rgba(120,120,128,.10);color:#4a4a52;font-size:12px;font-weight:700;border-radius:999px;padding:4px 11px;display:inline-flex;gap:5px;align-items:center"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#4a4a52"><use href="#leaf"/></svg>Intermediate</span>
+<span style="background:rgba(36,60,179,.08);color:#243cb3;font-size:12px;font-weight:700;border-radius:999px;padding:4px 11px;display:inline-flex;gap:5px;align-items:center"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#243cb3"><use href="#tree"/></svg>Advanced</span>
+<span style="background:#FFFBEB;color:#8a6d1a;font-size:12px;font-weight:700;border-radius:999px;padding:4px 11px;display:inline-flex;gap:5px;align-items:center"><svg class="ic" width="13" height="13" viewBox="0 0 256 256" fill="#D4AF37"><use href="#star-f"/></svg>All star</span>
+</div>
+<div style="font-size:12px;color:#787882;margin-top:10px;line-height:1.4">Fits the locked colour budget (restrained accent). Gold stays special for the top tier, no green collision. Less playful than today.</div>
+</div>
+</div>
+
+<h2>Trade-offs</h2>
+<table>
+<tr><th style="width:130px">Option</th><th>Wins</th><th>Costs</th></tr>
+<tr><td><b>Lean 1</b> icon + tier row</td><td>Closest to Airbnb, zero fills so feed cards stay at locked scan density, both facts visible</td><td>Two lines of trust content on a compact card, seal by name can crowd long names</td></tr>
+<tr><td><b>Lean 2</b> chip + text</td><td>Verified is unmissable, reuses the locked StatusPill grammar</td><td>A fill on every card fights the compact-density rule and dilutes green across the feed</td></tr>
+<tr><td><b>Lean 3</b> one line</td><td>Smallest footprint, one line carries both facts</td><td>Verified and tier share one visual weight, tier loses its glyph</td></tr>
+<tr><td><b>Rich 1</b> badge on avatar</td><td>The Airbnb moment, instantly readable, stats strip gives the credential feel</td><td>Score only appears as a number, no sense of progress toward the next tier</td></tr>
+<tr><td><b>Rich 2</b> tier ring</td><td>Score becomes visible progress (motivation), tier accent gets a hero use, most gamified</td><td>Busiest option, ring + badge + chip on one avatar, ring can read as "incomplete" for low scores</td></tr>
+<tr><td><b>Rich 3</b> credential row</td><td>Quietest, matches the locked quiet-register profile typography, stats panel carries the standing</td><td>Tier only lives in the stats panel, weakest recognition moment</td></tr>
+</table>
+
+<div class="ground" style="margin-top:14px"><b>Notes:</b> avatars are labelled placeholders, the app uses real photos (Headshot piece, separate). "Verified hours" and "2 yrs" are sample values from real dashboard fields. The seal glyph is Phosphor seal-check (fill weight, per the locked status-icon tier). Tier glyphs are Phosphor plant / leaf / tree / star, mirroring the app's spa / eco / park / star MaterialIcons. ProfileStrengthSection (the gaps checklist) stays a separate organism, this primitive only displays standing.</div>
+
+</body></html>

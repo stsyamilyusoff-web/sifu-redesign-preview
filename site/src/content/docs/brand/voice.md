@@ -1,6 +1,7 @@
 ---
 title: Voice and copy
 description: The standing copy laws.
+next: false
 ---
 
 - **Neutral tone**: no negative or positive leading; ask plainly and let the data flag issues.

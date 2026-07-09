@@ -1,6 +1,7 @@
 ---
 title: Colour tokens
 description: The locked app ramp and the journey-state tint.
+prev: false
 ---
 
 The app accent ramp is **`#2B2FBE`** with **`#243cb3`** as the deep step. One accent per screen; the app is the calm layer of the brand.

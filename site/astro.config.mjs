@@ -11,6 +11,10 @@ export default defineConfig({
 		starlight({
 			title: 'Sifututor Design System',
 			customCss: ['./src/styles/sifu.css'],
+			components: {
+				ThemeSelect: './src/components/NoThemeSelect.astro',
+				ThemeProvider: './src/components/ForceLight.astro',
+			},
 			sidebar,
 		}),
 	],

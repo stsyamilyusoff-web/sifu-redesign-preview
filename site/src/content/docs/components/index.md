@@ -1,6 +1,7 @@
 ---
 title: Components
 description: One themed core serving the tutor, customer and admin surfaces.
+prev: false
 ---
 
 The component model is **one themed core, three apps** (the Grab pattern): a single kit of locked components consumed by every Sifututor surface. The base is the **live app enhanced**, never a greenfield: locked components are the enhancement kit applied on top of real structure.

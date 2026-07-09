@@ -1,6 +1,8 @@
 ---
 title: Customer app
 description: All parent-app screens, linking to their before/after pages on the customer hub.
+prev: false
+next: false
 ---
 
 All customer screens are designed; each links to its before/after page (with the comment box) on the customer hub.

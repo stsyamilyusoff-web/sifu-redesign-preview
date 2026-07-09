@@ -1,6 +1,7 @@
 ---
 title: Status
 description: How far along the redesign is, in plain words.
+prev: false
 ---
 
 ## 78 of 101 tutor screens are ready to build.

@@ -1,0 +1,19 @@
+---
+// The locked status-pill grammar: pill radius, 800 weight, uppercase, semantic tint.
+interface Props { status: string; label: string }
+const { status, label } = Astro.props;
+const tone =
+	status === 'pass' ? 'ok' :
+	['briefed', 'floored', 'baseline'].includes(status) ? 'warn' :
+	['deprecated', 'merged'].includes(status) ? 'idle' : 'idle';
+---
+<span class={`sp ${tone}`}>{label}</span>
+<style>
+	.sp {
+		display: inline-block; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.03em;
+		text-transform: uppercase; border-radius: 999px; padding: 0.18rem 0.6rem; white-space: nowrap;
+	}
+	.sp.ok { color: var(--sifu-ok); background: var(--sifu-ok-bg); }
+	.sp.warn { color: var(--sifu-warn); background: var(--sifu-warn-bg); }
+	.sp.idle { color: var(--sifu-idle); background: var(--sifu-idle-bg); }
+</style>

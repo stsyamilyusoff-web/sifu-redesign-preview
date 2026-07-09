@@ -1,11 +1,88 @@
-/* Sifututor brand accent for Starlight (locked ramp #2B2FBE) */
-:root {
-	--sl-color-accent-low: #eef0fe;
-	--sl-color-accent: #2b2fbe;
-	--sl-color-accent-high: #243cb3;
+/* Sifututor site skin: the site is the reference implementation of its own system.
+   Tokens sourced from Foundations (colour ramp #2B2FBE, ink/muted/line greys, status set).
+   Light-only: no dark design is locked in the system, so the site ships light until one is.
+   Typography: system fallback stack until the Circular Std web license (Lineto) is confirmed. */
+
+:root,
+:root[data-theme='light'] {
+	/* accent */
+	--sl-color-accent-low: #eef0fe;   /* brand-soft */
+	--sl-color-accent: #2b2fbe;       /* brand */
+	--sl-color-accent-high: #243cb3;  /* brand deep */
+
+	/* ink scale (Starlight is dark-first: "white" = strongest text) */
+	--sl-color-white: #15161c;        /* ink */
+	--sl-color-gray-1: #2a2d38;
+	--sl-color-gray-2: #3d414c;       /* ink-2 */
+	--sl-color-gray-3: #6b7280;       /* muted */
+	--sl-color-gray-4: #9aa0ac;       /* faint */
+	--sl-color-gray-5: #d7dafb;       /* brand-line, used on hover borders */
+	--sl-color-gray-6: #e5e8ef;       /* line */
+	--sl-color-gray-7: #eef1f6;       /* line-2 / soft fill */
+	--sl-color-black: #f5f7fb;        /* app bg */
+
+	/* surfaces */
+	--sl-color-bg: #f5f7fb;
+	--sl-color-bg-nav: #ffffff;
+	--sl-color-bg-sidebar: #ffffff;
+	--sl-color-bg-inline-code: #eef1f6;
+	--sl-color-hairline: #e5e8ef;
+	--sl-color-hairline-light: #eef1f6;
+	--sl-color-hairline-shade: #e5e8ef;
+	--sl-color-text: #3d414c;
+	--sl-color-text-accent: #2b2fbe;
+
+	/* status set (from the locked pill grammar) */
+	--sifu-ok: #1a5c38;    --sifu-ok-bg: #e8f5ee;
+	--sifu-warn: #9a3412;  --sifu-warn-bg: #fdf2e3;
+	--sifu-idle: #71717a;  --sifu-idle-bg: #f1f2f5;
+	--sifu-bad: #b91c1c;   --sifu-bad-bg: #fdeaea;
+
+	/* card grammar (hub-locked: radius 18, soft double shadow, hover lift) */
+	--sifu-radius: 18px;
+	--sifu-shadow: 0 1px 2px rgba(21, 22, 28, 0.04), 0 8px 24px rgba(21, 22, 28, 0.06);
+	--sifu-shadow-hover: 0 2px 6px rgba(43, 47, 190, 0.1), 0 18px 44px rgba(43, 47, 190, 0.16);
 }
-:root[data-theme='dark'] {
-	--sl-color-accent-low: #1c1e52;
-	--sl-color-accent: #7d86f0;
-	--sl-color-accent-high: #d7dafb;
+
+/* content width */
+.sl-container { max-width: 62rem; }
+
+/* Starlight home cards follow the ELEVATED card treatment */
+.card {
+	border-radius: var(--sifu-radius) !important;
+	border: 1px solid var(--sl-color-hairline) !important;
+	background: #fff !important;
+	box-shadow: var(--sifu-shadow);
+	transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
 }
+.card:hover { transform: translateY(-3px); box-shadow: var(--sifu-shadow-hover); border-color: var(--sl-color-gray-5) !important; }
+
+/* buttons follow the banked button grammar: pill, 700, brand fill / soft secondary */
+.sl-link-button.primary {
+	border-radius: 999px; font-weight: 700; background: var(--sl-color-accent);
+	box-shadow: 0 2px 8px rgba(43, 47, 190, 0.25); border: 0;
+}
+.sl-link-button.minimal { font-weight: 700; color: var(--sl-color-accent); }
+
+/* sidebar: quiet list-row grammar, indigo current row */
+.sidebar-content a { border-radius: 10px; font-weight: 500; }
+.sidebar-content a[aria-current='page'] { background: var(--sl-color-accent); color: #fff; font-weight: 700; }
+
+/* tables: soft header band, hairline rows (scan-zone grammar) */
+table { border-collapse: separate; border-spacing: 0; }
+thead th { background: var(--sl-color-gray-7); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--sl-color-gray-3); }
+tbody td { border-color: var(--sl-color-hairline-light) !important; }
+
+/* one accent per screen: card icon chips stay on the brand ramp */
+.card .icon, .card svg { color: var(--sl-color-accent) !important; }
+.card .title .icon { background: var(--sl-color-accent-low) !important; border: 1px solid var(--sl-color-gray-5) !important; border-radius: 10px; }
+
+/* prev/next pagination follows the elevated-card grammar */
+.pagination-links a {
+	border-radius: var(--sifu-radius) !important;
+	border: 1px solid var(--sl-color-hairline) !important;
+	background: #fff;
+	box-shadow: var(--sifu-shadow) !important;
+	transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+}
+.pagination-links a:hover { transform: translateY(-3px); box-shadow: var(--sifu-shadow-hover) !important; border-color: var(--sl-color-gray-5) !important; }

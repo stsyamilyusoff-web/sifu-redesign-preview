@@ -1,6 +1,7 @@
 ---
 title: Contributing
 description: The protocols that keep this system true.
+next: false
 ---
 
 - **Capture before design**: a screen's live capture must exist before its redesign starts.

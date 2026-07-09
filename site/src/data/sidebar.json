@@ -85,6 +85,10 @@
     "slug": "components/dna"
    },
    {
+    "label": "Element library",
+    "slug": "components/elements"
+   },
+   {
     "label": "Forms and containers",
     "slug": "components/forms-containers"
    },

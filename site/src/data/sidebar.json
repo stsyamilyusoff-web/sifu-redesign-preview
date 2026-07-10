@@ -69,6 +69,10 @@
    {
     "label": "Spacing and radius",
     "slug": "foundations/spacing"
+   },
+   {
+    "label": "Placement grammar",
+    "slug": "foundations/placement"
    }
   ]
  },

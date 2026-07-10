@@ -15,6 +15,18 @@ next: false
 
 Evidence: [Material 3 corner radius scale](https://m3.material.io/styles/shape/corner-radius-scale) · Material Components Shape.md · Apple WWDC25 session 356.
 
+## Refined grammar: the segmented ruling (10-Jul-2026, evening)
+
+The last open shape question - pill track vs rounded-rect for the segmented control - was ruled by evidence, and the answer sharpened the law's grammar into three clean cases:
+
+- **Single tappable object = pill.** Buttons, chips, count badges, a future toggle or switch. One thing you press, capsule shape.
+- **Container = cornered surface at its size tier, with concentric children** - even when the container is interactive. The segmented track is not a button; it is a small surface holding choices. It takes the compact tier (12px) and its cells sit concentric inside (9 = 12 minus 3 padding).
+- **Gauge = exempt.** The progress dial is SVG geometry, not a surface.
+
+**The evidence run:** a full-journey sweep of all five reference apps - 1,169 frames - found exactly **3 enclosed segmented tracks in total**. The one pill track is Airbnb's marquee search switcher (a brand moment, not a workhorse). Both job-matched precedents for a utility view-switcher run rounded-rect: Airbnb's filter segments (~12pt) and inDrive's form segments (6pt). Three of the five apps use no enclosed track at all. Stock iOS runs ~9px rect. The founder's own eyeball on Trip and Booking sits in the same utility camp - so the segmented is **rounded-rect**, and no exception clause was needed: the existing surface tiers already cover it.
+
+**Explicit non-extension:** this ruling covers containers-of-choices only. A future toggle/switch is a single tappable object and stays pill.
+
 ## Spacing
 
 The spacing scale keeps the live app's `tokens.ts` structure; a documented scale page is still pending extraction.

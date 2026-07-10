@@ -107,6 +107,10 @@
     "slug": "patterns"
    },
    {
+    "label": "Kit composition",
+    "slug": "patterns/kit-composition"
+   },
+   {
     "label": "Tap affordance",
     "slug": "patterns/tap-affordance"
    },

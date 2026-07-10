@@ -1,0 +1,139 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{font-family:'Circular Std';font-weight:400;src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Book.ttf")}
+@font-face{font-family:'Circular Std';font-weight:500;src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Medium.ttf")}
+@font-face{font-family:'Circular Std';font-weight:700;src:url("file:///Users/syamilyusoff/code/sifututor_tutor/android/app/src/main/assets/fonts/Circular Std Bold.ttf")}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+:root{
+ --indigo:#2B2FBE;--ink:#0B0B0C;--sec:#52525B;--meta:#787882;--green:#16A34A;
+ --canvas:#EDF0F9;--card:#FFFFFF;--pill:#E7EAFB;--hair:#EEF0F4;--track:#E7E7EC;
+ --badgeoff:#B4B4BC;--tabgrey:#8A8A8F;--cardborder:#ECEEF3;
+ --font:'Circular Std',-apple-system,'SF Pro Text',system-ui,sans-serif;
+}
+html,body{margin:0;padding:0;width:402px;overflow-x:hidden}
+body{background:#3a3a3c;font-family:var(--font)}
+.frame{width:402px;height:874px;background:var(--canvas);position:relative;overflow:hidden;display:flex;flex-direction:column}
+
+/* status bar */
+.status{height:54px;flex:none;display:flex;align-items:flex-end;justify-content:space-between;padding:0 24px 8px}
+.status .time{font-weight:700;font-size:16px;color:#000;letter-spacing:.2px}
+.status .sys{display:flex;align-items:center;gap:7px}
+
+/* header */
+.head{flex:none;display:flex;align-items:center;justify-content:space-between;padding:6px 16px 14px}
+.head h1{font-weight:700;font-size:30px;color:var(--ink);letter-spacing:-.6px}
+.chip{width:40px;height:40px;border-radius:999px;background:#fff;border:1px solid var(--hair);
+ box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center}
+
+/* segmented tabs (kit default — 2-3 fixed views) */
+.tabs{flex:none;margin:0 16px 14px;background:var(--track);border-radius:999px;padding:3px;display:flex;height:40px}
+.seg{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;font-weight:500;font-size:15px;color:var(--sec)}
+.seg.on{background:#fff;color:var(--indigo);font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.13)}
+.cbadge{min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:var(--badgeoff);color:#fff;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center}
+
+/* card list */
+.scroll{flex:1;overflow:hidden;padding:2px 16px 0}
+.card{background:var(--card);border:1px solid var(--cardborder);border-radius:16px;
+ box-shadow:0 2px 10px rgba(0,0,0,.05);padding:18px;margin-bottom:16px}
+.moneyrow{display:flex;align-items:flex-start;justify-content:space-between}
+.money{display:flex;align-items:baseline;gap:4px}
+.money .rm{font-weight:500;font-size:14px;color:var(--meta)}
+.money .val{font-weight:700;font-size:30px;color:var(--ink);letter-spacing:-.5px;line-height:1}
+.mode{display:inline-flex;align-items:center;gap:5px;background:var(--pill);color:var(--indigo);
+ border-radius:999px;padding:6px 12px 6px 10px;font-weight:500;font-size:14px}
+.loc{display:flex;align-items:center;gap:5px;margin-top:12px;color:var(--indigo);font-weight:500;font-size:15px}
+.hair{height:1px;background:var(--hair);margin:14px 0}
+.subj{font-weight:700;font-size:19px;color:var(--ink);letter-spacing:-.2px}
+.subj .lvl{font-weight:500;font-size:15px;color:var(--meta);letter-spacing:0}
+.meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;color:var(--meta);font-weight:500;font-size:14px;margin-top:10px}
+.meta.m2{margin-top:8px}
+.foot{display:flex;align-items:center;justify-content:space-between}
+.match{display:flex;align-items:center;gap:6px;color:var(--green);font-weight:700;font-size:14px}
+.treq{color:var(--meta);font-weight:500;font-size:13px;letter-spacing:.1px}
+
+/* tab bar */
+.tabbar{flex:none;height:88px;background:#fff;border-top:1px solid var(--cardborder);
+ display:flex;align-items:flex-start;justify-content:space-around;padding:9px 10px 0;position:relative}
+.tb{display:flex;flex-direction:column;align-items:center;gap:3px;width:60px}
+.tb .lb{font-weight:500;font-size:11px;color:var(--tabgrey)}
+.tb.on .lb{color:var(--indigo)}
+.tb.center{margin-top:-22px;gap:0}
+.fab{width:56px;height:56px;border-radius:999px;background:var(--indigo);
+ display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(43,47,190,.4)}
+.homebar{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#0B0B0C}
+svg{display:block}
+</style>
+
+<div class="frame">
+ <!-- STATUS -->
+ <div class="status">
+  <div class="time">9:41</div>
+  <div class="sys">
+   <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#000"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="#000"/><rect x="10" y="3" width="3" height="9" rx="1" fill="#000"/><rect x="15" y="0.5" width="3" height="11.5" rx="1" fill="#000"/></svg>
+   <svg width="17" height="12" viewBox="0 0 17 12"><circle cx="8.5" cy="10.2" r="1.3" fill="#000"/><path d="M8.5 5.4c1.7 0 3.3.66 4.5 1.8l-1.2 1.3A4.6 4.6 0 008.5 8.3c-1.2 0-2.35.47-3.25 1.2L4 8.5A6.5 6.5 0 018.5 5.4z" fill="#000"/><path d="M8.5 1.6c2.7 0 5.2 1.05 7.05 2.85l-1.2 1.3A8.3 8.3 0 008.5 3.5 8.3 8.3 0 002.65 5.75L1.45 4.45A9.9 9.9 0 018.5 1.6z" fill="#000"/></svg>
+   <svg width="27" height="13" viewBox="0 0 27 13"><rect x="1" y="1" width="22" height="11" rx="3.2" fill="none" stroke="#000" stroke-opacity=".38"/><rect x="2.6" y="2.6" width="17" height="7.8" rx="1.6" fill="#000"/><rect x="24" y="4.6" width="2" height="3.8" rx="1" fill="#000" fill-opacity=".4"/></svg>
+  </div>
+ </div>
+
+ <!-- HEADER -->
+ <div class="head">
+  <h1>Student Request</h1>
+  <div class="chip"><svg width="20" height="20" viewBox="0 0 256 256" style="color:var(--indigo)"><path fill="currentColor" d="M230.6 49.53A15.81 15.81 0 0 0 216 40H40a16 16 0 0 0-11.81 26.76l.08.09L96 139.17V216a16 16 0 0 0 24.87 13.32l32-21.34a16 16 0 0 0 7.13-13.32v-55.49l67.74-72.32l.08-.09a15.8 15.8 0 0 0 2.78-17.23m-84.42 81.05A8 8 0 0 0 144 136v58.66L112 216v-80a8 8 0 0 0-2.16-5.47L40 56h176Z"/></svg></div>
+ </div>
+
+ <!-- SEGMENTED TABS -->
+ <div class="tabs">
+  <div class="seg on">For me</div>
+  <div class="seg">Latest</div>
+  <div class="seg">Applied <span class="cbadge">2</span></div>
+ </div>
+
+ <!-- CARD LIST -->
+ <div class="scroll">
+  <!-- CARD 1 -->
+  <div class="card">
+   <div class="moneyrow">
+    <div class="money"><span class="rm">RM</span><span class="val">120</span></div>
+    <div class="mode"><svg width="15" height="15" viewBox="0 0 256 256"><path fill="currentColor" d="m219.31 108.68l-80-80a16 16 0 0 0-22.62 0l-80 80A15.87 15.87 0 0 0 32 120v96a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-56h32v56a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-96a15.87 15.87 0 0 0-4.69-11.32M208 208h-48v-56a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v56H48v-88l80-80l80 80Z"/></svg>In-person</div>
+   </div>
+   <div class="loc"><svg width="16" height="16" viewBox="0 0 256 256"><path fill="currentColor" d="M128 64a40 40 0 1 0 40 40a40 40 0 0 0-40-40m0 64a24 24 0 1 1 24-24a24 24 0 0 1-24 24m0-112a88.1 88.1 0 0 0-88 88c0 31.4 14.51 64.68 42 96.25a254.2 254.2 0 0 0 41.45 38.3a8 8 0 0 0 9.18 0a254.2 254.2 0 0 0 41.37-38.3c27.45-31.57 42-64.85 42-96.25a88.1 88.1 0 0 0-88-88m0 206c-16.53-13-72-60.75-72-118a72 72 0 0 1 144 0c0 57.23-55.47 105-72 118"/></svg>Bangsar, Kuala Lumpur</div>
+   <div class="hair"></div>
+   <div class="subj">Additional Mathematics<span class="lvl"> · Form 4</span></div>
+   <div class="meta"><svg width="15" height="15" viewBox="0 0 256 256" style="color:var(--indigo)"><path fill="currentColor" d="M208 32h-24v-8a8 8 0 0 0-16 0v8H88v-8a8 8 0 0 0-16 0v8H48a16 16 0 0 0-16 16v160a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16M72 48v8a8 8 0 0 0 16 0v-8h80v8a8 8 0 0 0 16 0v-8h24v32H48V48Zm136 160H48V96h160z"/></svg><span>Mon &amp; Thu · 5:00 PM</span></div>
+   <div class="meta m2"><svg width="15" height="15" viewBox="0 0 256 256" style="color:var(--indigo)"><path fill="currentColor" d="M208 96a80 80 0 1 0-88 79.6V200H88a8 8 0 0 0 0 16h32v24a8 8 0 0 0 16 0v-24h32a8 8 0 0 0 0-16h-32v-24.4A80.11 80.11 0 0 0 208 96M64 96a64 64 0 1 1 64 64a64.07 64.07 0 0 1-64-64"/></svg><span>Female tutor preferred</span></div>
+   <div class="hair"></div>
+   <div class="foot">
+    <div class="match"><svg width="16" height="16" viewBox="0 0 256 256"><path fill="currentColor" d="M173.66 98.34a8 8 0 0 1 0 11.32l-56 56a8 8 0 0 1-11.32 0l-24-24a8 8 0 0 1 11.32-11.32L112 148.69l50.34-50.35a8 8 0 0 1 11.32 0M232 128A104 104 0 1 1 128 24a104.11 104.11 0 0 1 104 104m-16 0a88 88 0 1 0-88 88a88.1 88.1 0 0 0 88-88"/></svg>Matches you</div>
+    <div class="treq">TREQ-859807 · 2h ago</div>
+   </div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card">
+   <div class="moneyrow">
+    <div class="money"><span class="rm">RM</span><span class="val">94.50</span></div>
+    <div class="mode"><svg width="15" height="15" viewBox="0 0 256 256"><path fill="currentColor" d="M208 40H48a24 24 0 0 0-24 24v112a24 24 0 0 0 24 24h160a24 24 0 0 0 24-24V64a24 24 0 0 0-24-24m8 136a8 8 0 0 1-8 8H48a8 8 0 0 1-8-8V64a8 8 0 0 1 8-8h160a8 8 0 0 1 8 8Zm-48 48a8 8 0 0 1-8 8H96a8 8 0 0 1 0-16h64a8 8 0 0 1 8 8"/></svg>Online</div>
+   </div>
+   <div class="loc"><svg width="16" height="16" viewBox="0 0 256 256"><path fill="currentColor" d="M128 64a40 40 0 1 0 40 40a40 40 0 0 0-40-40m0 64a24 24 0 1 1 24-24a24 24 0 0 1-24 24m0-112a88.1 88.1 0 0 0-88 88c0 31.4 14.51 64.68 42 96.25a254.2 254.2 0 0 0 41.45 38.3a8 8 0 0 0 9.18 0a254.2 254.2 0 0 0 41.37-38.3c27.45-31.57 42-64.85 42-96.25a88.1 88.1 0 0 0-88-88m0 206c-16.53-13-72-60.75-72-118a72 72 0 0 1 144 0c0 57.23-55.47 105-72 118"/></svg>Petaling Jaya, Selangor</div>
+   <div class="hair"></div>
+   <div class="subj">Bahasa Melayu<span class="lvl"> · Form 2</span></div>
+   <div class="meta"><svg width="15" height="15" viewBox="0 0 256 256" style="color:var(--indigo)"><path fill="currentColor" d="M208 32h-24v-8a8 8 0 0 0-16 0v8H88v-8a8 8 0 0 0-16 0v8H48a16 16 0 0 0-16 16v160a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16M72 48v8a8 8 0 0 0 16 0v-8h80v8a8 8 0 0 0 16 0v-8h24v32H48V48Zm136 160H48V96h160z"/></svg><span>Wed &amp; Sat · 2:00 PM</span></div>
+   <div class="meta m2"><svg width="15" height="15" viewBox="0 0 256 256" style="color:var(--indigo)"><path fill="currentColor" d="M208 96a80 80 0 1 0-88 79.6V200H88a8 8 0 0 0 0 16h32v24a8 8 0 0 0 16 0v-24h32a8 8 0 0 0 0-16h-32v-24.4A80.11 80.11 0 0 0 208 96M64 96a64 64 0 1 1 64 64a64.07 64.07 0 0 1-64-64"/></svg><span>Female tutor preferred</span></div>
+   <div class="hair"></div>
+   <div class="foot">
+    <div></div>
+    <div class="treq">TREQ-859812 · 5h ago</div>
+   </div>
+  </div>
+ </div>
+
+ <!-- TAB BAR -->
+ <div class="tabbar">
+  <div class="tb on"><svg width="25" height="25" viewBox="0 0 256 256" style="color:var(--indigo)"><path fill="currentColor" d="M232 104a8 8 0 0 0 8-8V64a16 16 0 0 0-16-16H32a16 16 0 0 0-16 16v32a8 8 0 0 0 8 8a24 24 0 0 1 0 48a8 8 0 0 0-8 8v32a16 16 0 0 0 16 16h192a16 16 0 0 0 16-16v-32a8 8 0 0 0-8-8a24 24 0 0 1 0-48M32 167.2a40 40 0 0 0 0-78.4V64h56v128H32Zm192 0V192H104V64h120v24.8a40 40 0 0 0 0 78.4"/></svg><span class="lb">Request</span></div>
+  <div class="tb"><svg width="25" height="25" viewBox="0 0 256 256" style="color:var(--tabgrey)"><path fill="currentColor" d="M208 32h-24v-8a8 8 0 0 0-16 0v8H88v-8a8 8 0 0 0-16 0v8H48a16 16 0 0 0-16 16v160a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16M72 48v8a8 8 0 0 0 16 0v-8h80v8a8 8 0 0 0 16 0v-8h24v32H48V48Zm136 160H48V96h160z"/></svg><span class="lb">Calendar</span></div>
+  <div class="tb center"><div class="fab"><svg width="26" height="26" viewBox="0 0 256 256" style="color:#fff"><path fill="currentColor" d="m219.31 108.68l-80-80a16 16 0 0 0-22.62 0l-80 80A15.87 15.87 0 0 0 32 120v96a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-56h32v56a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-96a15.87 15.87 0 0 0-4.69-11.32M208 208h-48v-56a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v56H48v-88l80-80l80 80Z"/></svg></div></div>
+  <div class="tb"><svg width="25" height="25" viewBox="0 0 256 256" style="color:var(--tabgrey)"><path fill="currentColor" d="M140 128a12 12 0 1 1-12-12a12 12 0 0 1 12 12m-56-12a12 12 0 1 0 12 12a12 12 0 0 0-12-12m88 0a12 12 0 1 0 12 12a12 12 0 0 0-12-12m60 12a104 104 0 0 1-152.88 91.82l-34.05 11.35a16 16 0 0 1-20.24-20.24l11.35-34.05A104 104 0 1 1 232 128m-16 0a88 88 0 1 0-164.19 44.06a8 8 0 0 1 .66 6.54L40 216l37.4-12.47a7.9 7.9 0 0 1 2.53-.42a8 8 0 0 1 4 1.08A88 88 0 0 0 216 128"/></svg><span class="lb">News</span></div>
+  <div class="tb"><svg width="25" height="25" viewBox="0 0 256 256" style="color:var(--tabgrey)"><path fill="currentColor" d="M230.92 212c-15.23-26.33-38.7-45.21-66.09-54.16a72 72 0 1 0-73.66 0c-27.39 8.94-50.86 27.82-66.09 54.16a8 8 0 1 0 13.85 8c18.84-32.56 52.14-52 89.07-52s70.23 19.44 89.07 52a8 8 0 1 0 13.85-8M72 96a56 56 0 1 1 56 56a56.06 56.06 0 0 1-56-56"/></svg><span class="lb">Profile</span></div>
+  <div class="homebar"></div>
+ </div>
+</div>

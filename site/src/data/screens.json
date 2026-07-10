@@ -316,27 +316,15 @@
   "slug": "tutorrequests",
   "stage": "participate",
   "name": "TutorRequests",
-  "mock": "requests-feed-r1.html",
+  "mock": "tutorrequests-kit.html",
   "hero": "requests-feed-r1",
-  "summary": "D0 locked card verbatim (hub v0.30): RM leads with no month qualifier, indigo mode pill + location, subject title, quiet glyph detail lines, green Matches-you only, ID + posted-ago footer. For me / Latest / Applied tabs; feed search gated out. New-requests floating chip above the tab bar (v0.33).",
+  "summary": "The composition pilot: the Student Request feed rebuilt 100% from the locked element kit (locked 10-Jul). Kit segmented control with count badge, elevated cards, money leads with the mode pill top-right, term/recurrence removed from feed cards (detail-only), green Matches-you, raised indigo create FAB. Supersedes the pre-kit feed; other participate screens reconcile in a dedicated session.",
   "states": [
    {
     "name": "participate-TutorRequests",
     "label": "Main",
     "before": "compare/before/participate-TutorRequests.png",
     "after": "compare/after/participate-TutorRequests.png"
-   },
-   {
-    "name": "participate-TutorRequests--scrolled",
-    "label": "scrolled",
-    "before": "compare/before/participate-TutorRequests--scrolled.png",
-    "after": "compare/after/participate-TutorRequests--scrolled.png"
-   },
-   {
-    "name": "participate-TutorRequests--new-chip",
-    "label": "new chip",
-    "before": "compare/before/participate-TutorRequests--new-chip.png",
-    "after": "compare/after/participate-TutorRequests--new-chip.png"
    }
   ],
   "decision": null

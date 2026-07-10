@@ -14,6 +14,7 @@
     "after": "compare/after/acquire-Splash.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -43,6 +44,7 @@
     "after": "compare/after/acquire-OnBoarding--slide-3.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -78,6 +80,7 @@
     "after": "compare/after/acquire-Login--login-mode.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -113,6 +116,7 @@
     "after": "compare/after/acquire-VerifyCode--verifying.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -142,6 +146,7 @@
     "after": "compare/after/activate-EmergencyContact.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -171,6 +176,7 @@
     "after": "compare/after/activate-SetHomeLocationPin--autofilled.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -206,6 +212,7 @@
     "after": "compare/after/activate-ServicePreferenceStep1--first-run.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -235,6 +242,7 @@
     "after": "compare/after/activate-SetTeachingArea--online.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -264,6 +272,7 @@
     "after": "compare/after/activate-TutorVerificationProcess--under-review.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -281,6 +290,7 @@
     "after": "compare/after/activate-VerificationSubmittedSuccess.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -310,6 +320,7 @@
     "after": "compare/after/activate-TutorVerificationProcess--complete.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -327,6 +338,7 @@
     "after": "compare/after/participate-TutorRequests.png"
    }
   ],
+  "preKit": false,
   "decision": null
  },
  {
@@ -362,6 +374,7 @@
     "after": "compare/after/participate-JTDetailByNotification.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -391,6 +404,7 @@
     "after": "compare/after/participate-TutorAppliedRequestDetails--unavailable.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -432,6 +446,7 @@
     "after": "compare/after/participate-RequestFilters--location-open.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -473,6 +488,7 @@
     "after": "compare/after/deliver-ClassSchedule--empty-day.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -526,6 +542,7 @@
     "after": "compare/after/deliver-AddClassSchedule--success.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -567,6 +584,7 @@
     "after": "compare/after/report-EvaluationReport--review.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -608,6 +626,7 @@
     "after": "compare/after/report-ProgressReport--parent-summary.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -631,6 +650,7 @@
     "after": "compare/after/students-StudentsDetails--online.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -648,6 +668,7 @@
     "after": "compare/after/deliver-ActiveClass.png"
    }
   ],
+  "preKit": false,
   "decision": null
  },
  {
@@ -665,6 +686,25 @@
     "after": "compare/after/deliver-ActiveClassClockOut.png"
    }
   ],
+  "preKit": false,
+  "decision": null
+ },
+ {
+  "slug": "class-recorded-done-moment",
+  "stage": "deliver",
+  "name": "Class recorded (done moment)",
+  "mock": "done-kit.html",
+  "hero": "deliver-ActiveClassDone",
+  "summary": "Teach-loop screen 3 (locked 11-Jul), founder ruling: NO dedicated done screen (Grab no-dead-end canon) - the moment is a transient rich toast over the Schedule landing with the truth visible: green Attended pill, payment truth (follows once the parent verifies - a real backend mechanic), journey temporal tint on the rows. Toast bottom/floats per the contrast table; backdrop = the EXISTING ClassSchedule anatomy with the pilot tab bar verbatim, no invented surfaces. Note echo relocates to the class card/detail (cross-screen contract). Supersedes the old done frame and the entire 5-board done exploration set (shown-and-marked).",
+  "states": [
+   {
+    "name": "deliver-ActiveClassDone",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassDone.png"
+   }
+  ],
+  "preKit": false,
   "decision": null
  },
  {
@@ -706,6 +746,7 @@
     "after": "compare/after/deliver-ClassRecords--filtered-empty.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -735,6 +776,7 @@
     "after": "compare/after/activate-ParentApprovalConfirmation.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -776,6 +818,7 @@
     "after": "compare/after/report-ProgressReportSuccess.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -829,6 +872,7 @@
     "after": "compare/after/participate-TutorTaskList--empty.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -852,6 +896,7 @@
     "after": "compare/after/deliver-CameraScreen.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -875,6 +920,7 @@
     "after": "compare/after/profile-ProfileMenu--new-tutor.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -904,6 +950,7 @@
     "after": "compare/after/activate-UpdateProfile--arrival.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -933,6 +980,7 @@
     "after": "compare/after/activate-UpdateProfile--arrival.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -974,6 +1022,7 @@
     "after": "compare/after/earn-Payment--filter-sheet.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -991,6 +1040,7 @@
     "after": "compare/after/earn-PaymentLedger.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1014,6 +1064,7 @@
     "after": "compare/after/earn-MyReferralEarnings.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1037,6 +1088,7 @@
     "after": "compare/after/support-SubmitRequestPicker--unverified.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1060,6 +1112,7 @@
     "after": "compare/after/participate-MyRequestsList--empty.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1083,6 +1136,7 @@
     "after": "compare/after/support-TicketDetail--approved.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1106,6 +1160,7 @@
     "after": "compare/after/support-ApplicationStatusDetail--suspended.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1129,6 +1184,7 @@
     "after": "compare/after/support-SubmitRequestGeneralComplaint--category-sheet.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1152,6 +1208,7 @@
     "after": "compare/after/support-SubmitRequestClassReschedule--request-sheet.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1181,6 +1238,7 @@
     "after": "compare/after/support-SubmitRequestResignation--guard.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1210,6 +1268,7 @@
     "after": "compare/after/support-Discouragement--delete-account.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1233,6 +1292,7 @@
     "after": "compare/after/profile-Status--reason-picker.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1256,6 +1316,7 @@
     "after": "compare/after/profile-Profile--complete.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1285,6 +1346,7 @@
     "after": "compare/after/news-NewsDetails.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1308,6 +1370,7 @@
     "after": "compare/after/news-Notifications.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1331,6 +1394,7 @@
     "after": "compare/after/static-FAQs.png"
    }
   ],
+  "preKit": true,
   "decision": null
  },
  {
@@ -1354,6 +1418,7 @@
     "after": "compare/after/static-TermAndConditions.png"
    }
   ],
+  "preKit": true,
   "decision": null
  }
 ]

@@ -278,6 +278,10 @@
       "slug": "tutor/deliver/wrap-up-clock-out"
      },
      {
+      "label": "Class recorded (done moment)",
+      "slug": "tutor/deliver/class-recorded-done-moment"
+     },
+     {
       "label": "Class records",
       "slug": "tutor/deliver/class-records"
      },

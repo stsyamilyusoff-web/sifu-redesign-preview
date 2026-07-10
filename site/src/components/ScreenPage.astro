@@ -14,6 +14,12 @@ const A = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
 
 <p class="lead">{s.summary}</p>
 
+{s.preKit && (
+	<aside class="prekit">
+		<b>PRE-KIT · reconciliation pending.</b> This mock predates the element library (locked 10-Jul-2026). It reconciles to the kit in the dedicated reconciliation session and does not represent current component direction - read it for structure and content decisions, not for visual grammar.
+	</aside>
+)}
+
 <p class="rowlinks">
 	<a class="pill solid" href={A + s.mock} target="_blank" rel="noopener">Open the full mock ↗</a>
 	{s.decision && <a class="pill" href={A + s.decision.board} target="_blank" rel="noopener">Decision record ↗</a>}
@@ -68,6 +74,10 @@ const A = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
 	.prov {
 		background: var(--sl-color-accent-low); border: 1px solid var(--sl-color-accent);
 		border-radius: 0.8rem; padding: 0.9rem 1.1rem; font-size: 0.92rem;
+	}
+	.prekit {
+		background: var(--sifu-amber-tint, #FEF3E2); border: 1px solid var(--sifu-amber, #b45309);
+		border-radius: 0.8rem; padding: 0.9rem 1.1rem; font-size: 0.92rem; margin: 0.8rem 0;
 	}
 	.prov h4 { margin: 0.7rem 0 0.2rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
 	.prov ul { margin: 0.2rem 0; padding-left: 1.1rem; }

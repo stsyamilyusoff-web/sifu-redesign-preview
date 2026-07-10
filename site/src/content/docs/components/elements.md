@@ -10,7 +10,7 @@ Each element went through a forensic craft pass: grounded in the five reference 
 | Button (primary) | [open board](/sifu-redesign-preview/elements/button-primary.html) |  |
 | Buttons (secondary + tertiary) | [open board](/sifu-redesign-preview/elements/buttons-secondary-tertiary.html) | Wave-1 revalidation pending: board carries pre-law spec debt (phantom w600s / off-token sizes flagged by the font-trust sweep). |
 | Circular icon-button (ring) | [open board](/sifu-redesign-preview/elements/icon-button-circular.html) |  |
-| Chips | [open board](/sifu-redesign-preview/elements/chips.html) | Wave-1 revalidation pending: board carries pre-law spec debt (phantom w600s / off-token sizes flagged by the font-trust sweep). |
+| Chips | [open board](/sifu-redesign-preview/elements/chips.html) | Wave-1 REVALIDATED 10-Jul-2026, design unchanged. Specimen fixes: 6 chip specimens w600->500 (chips family = Medium, founder-verified) + the Airbnb recreation made honest to its own 15/500 read. Board chrome: w800->700, half-px sizes normalized. Circular embedded base64. Open flags: 13px chip labels ride the open 13px-step decision; the Airbnb recreation keeps its measured 15px; uppercase board furniture = one consolidated decision across all boards, later. |
 | Status pills | [open board](/sifu-redesign-preview/elements/status-pills.html) |  |
 | List rows | [open board](/sifu-redesign-preview/elements/list-rows.html) |  |
 | Sheets | [open board](/sifu-redesign-preview/elements/sheets.html) |  |

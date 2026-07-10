@@ -19,3 +19,12 @@ The [kit-built live-class cockpit](https://stsyamilyusoff-web.github.io/sifu-red
 5. **Banners live at the top of the content flow** (under the header) - this is the banner element's own top/inline law applied at screen level. A low banner placement is a composition slip; every screen QA now checks placement against the owning element's law.
 6. **Write banner copy to one line.** Single-line banner = chip centers vertically; title + body = chip tops. (The banner board gains this clause at its next touch.)
 7. **State changes promote, they do not add.** In over-run, the quiet tertiary Extend promotes to an outline secondary - the same action gains weight instead of a new element appearing.
+
+## From Wrap up (locked 11-Jul-2026, teach-loop 2 of 4)
+
+The [kit-built clock-out capture](https://stsyamilyusoff-web.github.io/sifu-redesign-preview/wrapup-kit.html) ([filled state](https://stsyamilyusoff-web.github.io/sifu-redesign-preview/wrapup-kit--filled.html)) adapted the Grab end-of-trip canon:
+
+8. **Receipt first.** A wrap-up moment leads with the factual record (actual duration taught - which matches what the backend stores), not with the ask.
+9. **One optional capture sheet, never a stepper.** Optional post-work capture is a single calm surface; multi-step flows are for required work.
+10. **Pre-select the positive default.** "Well" arrives selected on the segmented (the Grab pre-filled-5-stars trick) - a normal class finishes in one tap; only exceptions cost more.
+11. **Never trap.** The finishing action stays enabled regardless of what was skipped; skipped capture becomes a follow-up affordance (the amber "Add class notes" chip on the class card - a cross-screen contract for the schedule/history surfaces), not a gate.

@@ -651,6 +651,23 @@
   "decision": null
  },
  {
+  "slug": "wrap-up-clock-out",
+  "stage": "deliver",
+  "name": "Wrap up (clock-out capture)",
+  "mock": "wrapup-kit.html",
+  "hero": "deliver-ActiveClassClockOut",
+  "summary": "Teach-loop screen 2 (locked 11-Jul), kit-composed on the Grab end-of-trip canon: receipt-first header with the ACTUAL duration taught (matches what the backend records - zero backend work), one optional capture sheet (never a stepper), Well pre-selected on the rect segmented so a normal class finishes in one tap, Grab dashed-frame photo row, Finish always enabled. Clock out navigates only; attendance + photo + notes all fire on Finish class. Supersedes the old clock-out frame and the HIG-era 3-options exploration.",
+  "states": [
+   {
+    "name": "deliver-ActiveClassClockOut",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockOut.png"
+   }
+  ],
+  "decision": null
+ },
+ {
   "slug": "class-records",
   "stage": "deliver",
   "name": "Class records",

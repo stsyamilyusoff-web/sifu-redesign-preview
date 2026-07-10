@@ -274,6 +274,10 @@
       "slug": "tutor/deliver/active-class-cockpit"
      },
      {
+      "label": "Wrap up (clock-out capture)",
+      "slug": "tutor/deliver/wrap-up-clock-out"
+     },
+     {
       "label": "Class records",
       "slug": "tutor/deliver/class-records"
      },

@@ -636,84 +636,19 @@
  {
   "slug": "active-class-cockpit",
   "stage": "deliver",
-  "name": "Active class cockpit",
-  "mock": "deliver-active-class.html",
+  "name": "Teaching now (live-class cockpit)",
+  "mock": "teachingnow-kit.html",
   "hero": "deliver-active-class",
-  "summary": "One screen, five states (pre-class, clock-in proof, live ring timer, clock-out proof, done summary). Replaces the context-free timer blob; adds who/what/where, the class earning, and a one-tap path to the report.",
+  "summary": "Teach-loop screen 1, rebuilt 100% from the locked kit (locked 10-Jul, first post-Wave-1 screen). Name-led context card, the registered progress dial at 150px hero, parent-notified banner at the top of flow, quiet Extend that promotes to outline in the over-run state (second file), docked Clock out. Contact-parent cut by founder earns-its-spot re-run. Supersedes the scrapped HIG-era cockpit and the parked pre-wave draft; the old five-state mock's other frames stay until their teach-loop screens land.",
   "states": [
    {
     "name": "deliver-ActiveClass",
     "label": "Main",
     "before": "compare/before/deliver-ActiveClass.png",
     "after": "compare/after/deliver-ActiveClass.png"
-   },
-   {
-    "name": "deliver-ActiveClassPreClass",
-    "label": "Main",
-    "before": null,
-    "after": "compare/after/deliver-ActiveClassPreClass.png"
-   },
-   {
-    "name": "deliver-ActiveClassClockIn",
-    "label": "Main",
-    "before": null,
-    "after": "compare/after/deliver-ActiveClassClockIn.png"
-   },
-   {
-    "name": "deliver-ActiveClassClockOut",
-    "label": "Main",
-    "before": null,
-    "after": "compare/after/deliver-ActiveClassClockOut.png"
-   },
-   {
-    "name": "deliver-ActiveClassDone",
-    "label": "Main",
-    "before": null,
-    "after": "compare/after/deliver-ActiveClassDone.png"
    }
   ],
-  "decision": {
-   "board": "refboards/teaching-now.html",
-   "headline": "No whole-screen precedent exists; about half this screen is Sifututor-original.",
-   "pinned": [
-    {
-     "ref": "Grab Driver #155",
-     "tier": "strong",
-     "why": "in-class comms pattern + the explicit-end principle"
-    },
-    {
-     "ref": "Grab Driver #154",
-     "tier": "strong",
-     "why": "comms entry point during an active job"
-    },
-    {
-     "ref": "inDrive #19",
-     "tier": "honest-analogy",
-     "why": "context discipline, from an arriving beat"
-    },
-    {
-     "ref": "inDrive #21",
-     "tier": "honest-analogy",
-     "why": "explicit-end principle, from a fare step"
-    },
-    {
-     "ref": "Airbnb #142",
-     "tier": "honest-analogy",
-     "why": "extend chip-picker, from a booking filter"
-    }
-   ],
-   "dropped": [
-    {
-     "ref": "Grab Driver #160",
-     "why": "reads as a \"Go Online\" start state - misleading for an in-class screen"
-    }
-   ],
-   "ours": [
-    "timed hero (elapsed vs planned + amber over-run)",
-    "focus-note slot",
-    "extend-a-live-class concept"
-   ]
-  }
+  "decision": null
  },
  {
   "slug": "class-records",

@@ -1,20 +1,19 @@
 ---
 title: Spacing and radius
-description: The radius ladder; spacing scale pending extraction.
+description: The radius law, final form; spacing scale pending extraction.
 next: false
 ---
 
-## The radius ladder
+## The radius law (final form, 10-Jul-2026)
 
-Founder-locked 10-Jul-2026 (evening): a role-based, reference-grounded ladder.
+1. **Surfaces = 16px** - card, **sheet** (16 top corners), dialog, input, any container roughly 80px and taller.
+2. **Compact surfaces = 12px** - any surface under ~80px tall: banner, toast (pill and rich). The founder's eye caught banners and toasts "feeling rounder"; the audit quantified it (16px consumes 47-62% of their half-height versus ~37% on cards); the study pass verified how the two published systems solve it - Material 3 runs a size ladder where the smallest surface takes the squarest tier (snackbar = 4dp; scale 4/8/12/16/28/full) and Apple runs concentricity. The founder ruled one compact rung at 12.
+3. **Controls = pill; the FAB centre-plus is a circle** - unchanged and production-validated (160 legacy call sites + the modern Button at r9999).
+4. **Concentric nesting** - for any rounded element inside another, inner radius = outer radius minus the padding between them (Apple WWDC25 rule). Circles and pills are exempt. Binds all compositions going forward.
 
-- **Sheets = 22px** top corners.
-- **Cards / surfaces = 16px**: card, banner, dialog, input, any container.
-- **Controls = pill**: buttons, chips, status pills, segmented, badges - and the FAB center-plus is a **circle**.
+**The day's full history, kept honestly:** the morning two-tier law ("surfaces 16, controls pill, nothing else") was superseded the same evening by a reference-grounded ladder with 22px sheet tops, after forensic reads showed every reference runs role-based radii. Hours later the founder closed the arc: **sheets maintained at 16** (reverting the 22 exploration), the compact-12 rung added for small surfaces, and concentric nesting adopted. Also for the record: the live app's own `tokens.ts` has shipped a Material-style scale (4/8/12/16/20/24/full) all along, unconsumed - the ladder existed in production code before it existed in the design system.
 
-**Supersession history, kept honestly:** earlier the same day a two-tier law ("surfaces sit at 16, controls are pills, nothing else exists") was locked as a deliberate simplification. It held for hours: the founder then asked whether the references themselves run one radius, and the forensic reads off the banked frames said no - every reference runs a role-based ladder (Airbnb alone: r8 buttons, pill chips, ~20-24 sheet tops, mid-radius cards), and the five apps do not even agree on buttons. The ladder replaces the two-tier; the sheets' 22px option, drawn on the sheets board all along, becomes the lock. The control-pill tier and the FAB circle ruling survive unchanged, as does their live-code evidence (160 call sites + Button r9999).
-
-The ladder runs as the radius test in every remaining Wave-1 pass: sheet-top to 22, container to 16, control to pill. Known strays: dialog 12/14 and inputs 12 pull to 16; card-type-system was already patched to 16 and is unaffected by the flip.
+Evidence: [Material 3 corner radius scale](https://m3.material.io/styles/shape/corner-radius-scale) · Material Components Shape.md · Apple WWDC25 session 356.
 
 ## Spacing
 

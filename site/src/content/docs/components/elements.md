@@ -8,15 +8,15 @@ Each element went through a forensic craft pass: grounded in the five reference 
 | Element | Decision record | Notes |
 |---|---|---|
 | Button (primary) | [open board](/sifu-redesign-preview/elements/button-primary.html) |  |
-| Buttons (secondary + tertiary) | [open board](/sifu-redesign-preview/elements/buttons-secondary-tertiary.html) |  |
+| Buttons (secondary + tertiary) | [open board](/sifu-redesign-preview/elements/buttons-secondary-tertiary.html) | Wave-1 revalidation pending: board carries pre-law spec debt (phantom w600s / off-token sizes flagged by the font-trust sweep). |
 | Circular icon-button (ring) | [open board](/sifu-redesign-preview/elements/icon-button-circular.html) |  |
-| Chips | [open board](/sifu-redesign-preview/elements/chips.html) |  |
+| Chips | [open board](/sifu-redesign-preview/elements/chips.html) | Wave-1 revalidation pending: board carries pre-law spec debt (phantom w600s / off-token sizes flagged by the font-trust sweep). |
 | Status pills | [open board](/sifu-redesign-preview/elements/status-pills.html) |  |
 | List rows | [open board](/sifu-redesign-preview/elements/list-rows.html) |  |
 | Sheets | [open board](/sifu-redesign-preview/elements/sheets.html) |  |
 | Avatars | [open board](/sifu-redesign-preview/elements/avatars.html) |  |
 | Icons (Phosphor outline) | [open board](/sifu-redesign-preview/elements/icons.html) | The live direction: Phosphor OUTLINE for feature/semantic icons; utility marks stay simple. A Solar bold-duotone alternative was explored (17-treatment survey) and DECLINED by the founder after a current-vs-proposed side-by-side on the real set - the exploration stays on record, the system is unchanged. |
-| Context card | [open board](/sifu-redesign-preview/elements/context-card.html) |  |
+| Context card | [open board](/sifu-redesign-preview/elements/context-card.html) | Wave-1 revalidation pending: board carries pre-law spec debt (phantom w600s / off-token sizes flagged by the font-trust sweep). |
 | Card type system (5 treatments + role map) | [open board](/sifu-redesign-preview/elements/card-type-system.html) |  |
 | Stat / metric card (earner-grounded) | [open board](/sifu-redesign-preview/elements/stat-card.html) | Earnings HERO deferred: none of the earner captures had one to pin. Capture real earner earnings screens (Grab Driver Earnings tab or a rider app) before the Home/earnings surface. No fabricated hero. |
 | Notification / reminder card (3 configs) | [open board](/sifu-redesign-preview/elements/reminder-card.html) | BRAND RULE: urgency = amber tint + the plain fact. Never red, never a countdown, never a pulse. One flexible card (type-slot), varying only fill tint + action slot; the 3 configs demonstrate all 3 action-slots. |
@@ -30,6 +30,6 @@ Each element went through a forensic craft pass: grounded in the five reference 
 | Dialog (modal confirm / alert) | [open board](/sifu-redesign-preview/elements/dialog.html) | Interrupts for a decision: centred alert for hard yes/no (dismiss-LEFT ghost, commit-RIGHT filled; indigo for non-destructive) · 3+ choices belong to the banked sheet · high-severity destruction = a GATED multi-step flow where friction is the design. FOUNDER-LOCKED red extension: the final destroy button is a red fill, ONLY at the point of no return - mid-flow steps and reversible confirms stay neutral ink. |
 | FAB / primary create (center-tab raised +) | [open board](/sifu-redesign-preview/elements/fab.html) | FOUNDER-CHOSEN center-tab raised + (indigo, white Phosphor plus) over header-+. Shadow discipline: the brand is flat - this is the ONE earned micro-shadow (restrained neutral lift, no coloured glow). Multi-type create opens the banked sheet as a picker, NEVER a speed-dial fan-out. Honest note: none of the 5 iOS references uses a center-+ (they use plain tab bars or a header-+); this is a deliberate house choice for Cigu-family cross-app consistency. Closes Wave 2c and the element library. |
 
-**The element library is complete: 22 elements**, every one reference-grounded, founder-eyeballed and self-contained. Next thread: Screen fold-in: teach-loop screens re-locked onto the kit (Teaching now first).
+**The element library is complete: 22 elements**, every one reference-grounded, founder-eyeballed and self-contained. Next thread: Wave 1 restart: element-set consistency validation (locked boards carry font/token spec debt; re-banks republish under the same slugs) -> Screen fold-in: teach-loop screens re-locked onto the kit (Teaching now first).
 
 Screens have not yet been re-folded onto this library; when that happens, the per-screen comparisons and decision records update through the usual frame manifests.

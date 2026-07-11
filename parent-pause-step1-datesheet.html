@@ -91,7 +91,8 @@ body{margin:0;padding:0;font-family:var(--font);background:#fff}
 .days{display:grid;grid-template-columns:repeat(7,1fr);row-gap:4px;text-align:center}
 .day{font-size:14px;color:var(--ink);padding:8px 0;position:relative}
 .day.dim{color:#C7C7C7}
-.day.sel{background:var(--primary);color:#fff;border-radius:999px;font-weight:700}
+.day.sel{font-weight:700;padding:0}
+.day.sel span{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;background:var(--primary);color:#fff}
 .sfoot{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
 .sclear{font-size:14px;font-weight:500;color:var(--inksoft)}
 .sdone{font-size:14px;font-weight:700;color:#fff;background:var(--primary);border-radius:999px;padding:12px 28px}
@@ -177,7 +178,7 @@ svg{display:block}
     <div class="day">21</div>
     <div class="day">22</div>
     <div class="day">23</div>
-    <div class="day sel">24</div>
+    <div class="day sel"><span>24</span></div>
     <div class="day">25</div>
     <div class="day">26</div>
     <div class="day">27</div>

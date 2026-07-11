@@ -329,7 +329,7 @@
   "name": "TutorRequests",
   "mock": "tutorrequests-kit.html",
   "hero": "requests-feed-r1",
-  "summary": "The composition pilot: the Student Request feed rebuilt 100% from the locked element kit (locked 10-Jul). Kit segmented control with count badge, elevated cards, money leads with the mode pill top-right, term/recurrence removed from feed cards (detail-only), green Matches-you, raised indigo create FAB. Supersedes the pre-kit feed; other participate screens reconcile in a dedicated session. CROSS-SCREEN CONTRACT (11-Jul ClassSchedule ruling d): picks up the HOME center tab at next touch.",
+  "summary": "The composition pilot: the Student Request feed rebuilt 100% from the locked element kit (locked 10-Jul). Kit segmented control with count badge, elevated cards, money leads with the mode pill top-right, term/recurrence removed from feed cards (detail-only), green Matches-you, raised indigo create FAB. Supersedes the pre-kit feed; other participate screens reconcile in a dedicated session. CROSS-SCREEN CONTRACT (11-Jul ClassSchedule ruling d): picks up the HOME center tab at next touch, PLUS the F1 fix: the Student Request title goes sentence-case and name-aligns with the Request tab label.",
   "states": [
    {
     "name": "participate-TutorRequests",
@@ -617,7 +617,7 @@
   "name": "Wrap up (clock-out capture)",
   "mock": "wrapup-kit.html",
   "hero": "deliver-ActiveClassClockOut",
-  "summary": "Teach-loop screen 2 (locked 11-Jul), kit-composed on the Grab end-of-trip canon: receipt-first header with the ACTUAL duration taught (matches what the backend records - zero backend work), one optional capture sheet (never a stepper), Well pre-selected on the rect segmented so a normal class finishes in one tap, Grab dashed-frame photo row, Finish always enabled. Clock out navigates only; attendance + photo + notes all fire on Finish class. Supersedes the old clock-out frame and the HIG-era 3-options exploration.",
+  "summary": "Teach-loop screen 2 (locked 11-Jul), kit-composed on the Grab end-of-trip canon: receipt-first header with the ACTUAL duration taught (matches what the backend records - zero backend work), one optional capture sheet (never a stepper), Well pre-selected on the rect segmented so a normal class finishes in one tap, Grab dashed-frame photo row, Finish always enabled. Clock out navigates only; attendance + photo + notes all fire on Finish class. Supersedes the old clock-out frame and the HIG-era 3-options exploration. NEXT-TOUCH (header canon 11-Jul): root-anatomy 30px header goes to arrow + centred compact 18/700.",
   "states": [
    {
     "name": "deliver-ActiveClassClockOut",
@@ -635,7 +635,7 @@
   "name": "Class recorded (done moment)",
   "mock": "done-kit.html",
   "hero": "deliver-ActiveClassDone",
-  "summary": "Teach-loop screen 3 (locked 11-Jul), founder ruling: NO dedicated done screen (Grab no-dead-end canon) - the moment is a transient rich toast over the Schedule landing with the truth visible: green Attended pill, payment truth (follows once the parent verifies - a real backend mechanic), journey temporal tint on the rows. Toast bottom/floats per the contrast table; backdrop = the EXISTING ClassSchedule anatomy with the pilot tab bar verbatim, no invented surfaces. Note echo relocates to the class card/detail (cross-screen contract). Supersedes the old done frame and the entire 5-board done exploration set (shown-and-marked). CROSS-SCREEN CONTRACT (11-Jul ClassSchedule ruling d): picks up the HOME center tab at next touch.",
+  "summary": "Teach-loop screen 3 (locked 11-Jul), founder ruling: NO dedicated done screen (Grab no-dead-end canon) - the moment is a transient rich toast over the Schedule landing with the truth visible: green Attended pill, payment truth (follows once the parent verifies - a real backend mechanic), journey temporal tint on the rows. Toast bottom/floats per the contrast table; backdrop = the EXISTING ClassSchedule anatomy with the pilot tab bar verbatim, no invented surfaces. Note echo relocates to the class card/detail (cross-screen contract). Supersedes the old done frame and the entire 5-board done exploration set (shown-and-marked). CROSS-SCREEN CONTRACT (11-Jul ClassSchedule ruling d): picks up the HOME center tab at next touch. PLUS the ONE-NAME ruling: the landing header retitles Schedule -> Calendar at the same touch.",
   "states": [
    {
     "name": "deliver-ActiveClassDone",
@@ -653,7 +653,7 @@
   "name": "Confirm classes (payment gate)",
   "mock": "confirm-kit.html",
   "hero": "participate-TutorTaskList",
-  "summary": "Teach-loop screen 4 (locked 11-Jul), completes the loop: the report backlog as a pre-checked deselectable ledger (checkboxes TRAIL per the revised placement grammar - ruled at this screen's eyeball), 3-line header (RM 580 pending · 8 classes; Confirm they ran. Payment follows once verified.), on-hold rows amber at compact-12 with the sheet-open review shipped as its own state (third file, founder-caught: one-bare-file-per-state applies to consumed components too), one bold total per the money law. PENDING AMENDMENT (founder D1): the date-aware revision is now PUBLISHED as the proposed replacement - confirm-kit--onhold-r2 (+ r2-sheet, resume-pending-r2, released-r2, in compare); founder eyeball on the published pair is the final lock, then r2 supersedes the banked --onhold. Type-law note: the banked board's off-canon 13/15/13.5px normalized to canon 12/14/16 in r2 (type law wins - the size-conflict record); the 2px row-gap + 18px sheet-pad idioms retained. Kit re-skin honoring the prior cycle's terminal layout; supersedes the 8-board confirm exploration set (shown-and-marked). Entry point/nav slot = open, owned by the Today/nav pitch.",
+  "summary": "Teach-loop screen 4 (locked 11-Jul), completes the loop: the report backlog as a pre-checked deselectable ledger (checkboxes TRAIL per the revised placement grammar - ruled at this screen's eyeball), 3-line header (RM 580 pending · 8 classes; Confirm they ran. Payment follows once verified.), on-hold rows amber at compact-12 with the sheet-open review shipped as its own state (third file, founder-caught: one-bare-file-per-state applies to consumed components too), one bold total per the money law. AMENDMENT CLOSED (founder lock, 11-Jul, after his own-browser eyeball on the published pair): confirm-kit--onhold-r2 IS the record - the original --onhold retired from compare, superseded, board kept; the r2 siblings (sheet / resume-pending / released) and the 7-board parent set ride the same lock. Type-law record stands: off-canon 13/15/13.5px normalized to canon 12/14/16 in r2; the 2px row-gap + 18px sheet-pad idioms retained. NEXT-TOUCH (header canon 11-Jul): the root-anatomy 30px header goes to arrow + centred compact 18/700 - applies to the r2 family too. Kit re-skin honoring the prior cycle's terminal layout; supersedes the 8-board confirm exploration set (shown-and-marked). Entry point/nav slot = open, owned by the Today/nav pitch.",
   "states": [
    {
     "name": "participate-TutorTaskList",

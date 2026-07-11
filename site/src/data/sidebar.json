@@ -306,6 +306,10 @@
       "slug": "tutor/deliver/students-tasks"
      },
      {
+      "label": "Clock in (arrival gate)",
+      "slug": "tutor/deliver/clock-in"
+     },
+     {
       "label": "Camera + demand card",
       "slug": "tutor/deliver/camera-demand-card"
      }

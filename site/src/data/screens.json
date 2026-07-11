@@ -828,19 +828,31 @@
   "decision": null
  },
  {
+  "slug": "clock-in",
+  "stage": "deliver",
+  "name": "Clock in (arrival gate)",
+  "mock": "clockin-kit.html",
+  "hero": "deliver-ActiveClassClockIn",
+  "summary": "Reconciliation screen 3 (locked 11-Jul), ten states - the stitch between the Calendar --now button and the locked Teaching-now cockpit (tap -> shutter -> teaching, two gestures). Draft C: the live map DNA demoted to a compact r16 map card over the identity dock, one filled tap pill, no slider (zero in 241 Grab frames), no CTA subtext (the law fired a third time, self-caught). POLICY A founder-ruled: GPS denied = warn-and-allow with the amber note - the start photo still proves presence; blocked clock-ins corrupt attendance truth (B kept compare-only on the board). Three deliberate non-inventions queued not drawn: too-far needs geocoding (PROPOSAL), offline queued-sync does not exist (honest-current state), online meet-link has no backend field (silent absence). Character pass: gendered stock photos replaced by initials avatars; the raw jtuid cut (demoted, recorded). Camera = the R10 start-photo moment.",
+  "states": [
+   {
+    "name": "deliver-ActiveClassClockIn",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
   "slug": "camera-demand-card",
   "stage": "deliver",
   "name": "Camera + demand card",
-  "mock": "deliver-camera-demand.html",
+  "mock": "clockin-kit--camera.html",
   "hero": "deliver-camera-demand",
-  "summary": "Stock proof-capture camera, plus the Home demand card turned tappable (surfaced demand now leads to the Job Ticket feed).",
+  "summary": "The proof-capture camera reconciled as the clock-in start-photo state (opaque chrome, viewfinder corners, one-photo copy, shutter into the cockpit). The old stock-camera + demand-card mock is superseded; the Home demand-card job rides the Today/nav pitch.",
   "states": [
-   {
-    "name": "engage-Home",
-    "label": "Main",
-    "before": "compare/before/engage-Home.png",
-    "after": "compare/after/engage-Home.png"
-   },
    {
     "name": "deliver-CameraScreen",
     "label": "Main",

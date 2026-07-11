@@ -713,7 +713,7 @@
   "name": "Confirm classes (payment gate)",
   "mock": "confirm-kit.html",
   "hero": "participate-TutorTaskList",
-  "summary": "Teach-loop screen 4 (locked 11-Jul), completes the loop: the report backlog as a pre-checked deselectable ledger (checkboxes TRAIL per the revised placement grammar - ruled at this screen's eyeball), 3-line header (RM 580 pending · 8 classes; Confirm they ran. Payment follows once verified.), on-hold rows amber at compact-12 consuming the sheets board's on-hold specimen, one bold total per the money law. Kit re-skin honoring the prior cycle's terminal layout; supersedes the 8-board confirm exploration set (shown-and-marked). Entry point/nav slot = open, owned by the Today/nav pitch.",
+  "summary": "Teach-loop screen 4 (locked 11-Jul), completes the loop: the report backlog as a pre-checked deselectable ledger (checkboxes TRAIL per the revised placement grammar - ruled at this screen's eyeball), 3-line header (RM 580 pending · 8 classes; Confirm they ran. Payment follows once verified.), on-hold rows amber at compact-12 with the sheet-open review shipped as its own state (third file, founder-caught: one-bare-file-per-state applies to consumed components too), one bold total per the money law. Kit re-skin honoring the prior cycle's terminal layout; supersedes the 8-board confirm exploration set (shown-and-marked). Entry point/nav slot = open, owned by the Today/nav pitch.",
   "states": [
    {
     "name": "participate-TutorTaskList",

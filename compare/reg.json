@@ -145,7 +145,8 @@
     "participate-ApplyConfirmSheet.png",
     "participate-LocationPinSheet.png",
     "participate-SubjectPicker.png",
-    "participate-TutorTaskList--deselected.png"
+    "participate-TutorTaskList--deselected.png",
+    "participate-TutorTaskList--onhold.png"
   ],
   "deletedItems": [],
   "passedItems": [],
@@ -376,6 +377,7 @@
     "participate-TutorRequests.png",
     "participate-TutorTaskList--deselected.png",
     "participate-TutorTaskList--empty.png",
+    "participate-TutorTaskList--onhold.png",
     "participate-TutorTaskList.png",
     "profile-Profile--complete.png",
     "profile-Profile.png",

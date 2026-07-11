@@ -29,6 +29,7 @@ All customer screens are designed; each links to its before/after page (with the
 | [GetTutorRequestPrice](https://stsyamilyusoff-web.github.io/sifu-customer-preview/request-flow.html) | Demoted (folded) |
 | [TutorRequestAppliedStatus](https://stsyamilyusoff-web.github.io/sifu-customer-preview/request-flow.html) | Demoted (folded) |
 | [RequestDetails](https://stsyamilyusoff-web.github.io/sifu-customer-preview/request-flow.html) | Cluster floor pass |
+| [RequestDetails / Manage & Pause](https://stsyamilyusoff-web.github.io/sifu-customer-preview/request-flow.html) | Cluster floor pass |
 | [RequestCompletedDetails](https://stsyamilyusoff-web.github.io/sifu-customer-preview/request-flow.html) | Demoted (folded) |
 | [Curated choice](https://stsyamilyusoff-web.github.io/sifu-customer-preview/request-flow.html) | Shared component |
 

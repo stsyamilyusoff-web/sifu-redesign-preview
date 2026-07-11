@@ -77,6 +77,11 @@
      "brief": "request-flow.html"
     },
     {
+     "name": "RequestDetails / Manage & Pause",
+     "status": "Cluster floor pass",
+     "brief": "request-flow.html"
+    },
+    {
      "name": "RequestCompletedDetails",
      "status": "Demoted (folded)",
      "brief": "request-flow.html"

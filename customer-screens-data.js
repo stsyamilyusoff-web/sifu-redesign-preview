@@ -41,6 +41,7 @@ window.CUSTOMER_CATS = [
       {n:"GetTutorRequestPrice", s:"demoted", d:"Folded into the schedule screen's inline price"},
       {n:"TutorRequestAppliedStatus", s:"demoted", d:"Became a success toast on request detail"},
       {n:"RequestDetails", s:"pass", d:"Request detail (state-adaptive)"},
+      {n:"RequestDetails / Manage & Pause", s:"pass", m:"parent-request-detail-manage.html", d:"HOLD-LIFECYCLE ENTRY POINT (banked 11-Jul, founder-picked 1A/2B/3A): Manage > Pause classes row on the normal detail opens the 2-step pause flow (reasons + retention gate + silently-bounded date sheet -> consequences ledger, 4 taps + date pick). Paused / pause-pending / resume states on the detail (UC #153 banner grammar) + the amber Paused chip in the list card STATUS slot. 7-board parent set; the paused amber is the kit pair on BOTH apps deliberately - one journey, one amber. Resume classes = display-truth until G6."},
       {n:"RequestCompletedDetails", s:"demoted", d:"Unified into RequestDetails"},
       {n:"Curated choice", s:"shared", d:"Curated shortlist (3-5 tutors) — gated on shortlist API"},
     ]},

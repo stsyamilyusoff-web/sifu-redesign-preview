@@ -950,43 +950,19 @@
  {
   "slug": "earnings-hub",
   "stage": "grow",
-  "name": "Earnings hub",
-  "mock": "earn-payment-hub.html",
+  "name": "Payments (money surface)",
+  "mock": "payment-kit.html",
   "hero": "earn-payment-hub",
-  "summary": "YTD \"Earned in 2026\" hero with a paid/pending split, a lean Awaiting-payout row, and the Pending earnings drill-in. Whole-RM, DD-MMM-YYYY, no promised payout date.",
+  "summary": "Reconciliation screen 4 (locked 12-Jul), six states, draft C records-first (the two-bucket rec declined, recorded). THE RULING THAT BINDS EVERY MONEY SURFACE: no commission mention, ever - tutors are paid their agreed rate; gross/net splits never surface tutor-side (the UC fee-transparency adaptation was caught serving the wrong audience; the what-is-commission sheet deleted). Payout rows lead under a calm In-progress card with the schedule coach-line; cycle buckets = awaiting NEUTRAL GREY (verifying is normal, not amber) / verified green; no withdraw CTA (business truth); class ledger rate-only with scheduled-vs-actual times; slip-share = trailing icon-button in the pushed header (canon extension). Bank-transfer receipt row removed (transfer_proof_url unconsumed tutor-side, recorded). Supersedes the pre-kit hub/ledger/pending trio.",
   "states": [
    {
     "name": "earn-Payment",
     "label": "Main",
     "before": "compare/before/earn-Payment.png",
     "after": "compare/after/earn-Payment.png"
-   },
-   {
-    "name": "earn-PendingEarningsDetail",
-    "label": "Main",
-    "before": "compare/before/earn-PendingEarningsDetail.png",
-    "after": "compare/after/earn-PendingEarningsDetail.png"
-   },
-   {
-    "name": "earn-Payment--history-month",
-    "label": "history month",
-    "before": "compare/before/earn-Payment--history-month.png",
-    "after": "compare/after/earn-Payment--history-month.png"
-   },
-   {
-    "name": "earn-Payment--awaiting",
-    "label": "awaiting",
-    "before": "compare/before/earn-Payment--awaiting.png",
-    "after": "compare/after/earn-Payment--awaiting.png"
-   },
-   {
-    "name": "earn-Payment--filter-sheet",
-    "label": "filter sheet",
-    "before": "compare/before/earn-Payment--filter-sheet.png",
-    "after": "compare/after/earn-Payment--filter-sheet.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -995,15 +971,8 @@
   "name": "Payment ledger (receipt)",
   "mock": "earn-payment-ledger.html",
   "hero": "earn-payment-ledger",
-  "summary": "One payout's shareable receipt: expandable per-request cards, tap-to-copy payout Ref and Request IDs, deductions shown neutral. The one 2dp screen (exact reconciliation).",
-  "states": [
-   {
-    "name": "earn-PaymentLedger",
-    "label": "Main",
-    "before": "compare/before/earn-PaymentLedger.png",
-    "after": "compare/after/earn-PaymentLedger.png"
-   }
-  ],
+  "summary": "ABSORBED into Payments (12-Jul): the payout detail is now payment-kit--payout.html - slip-share via the trailing header icon-button, deductions re-cased non-commission at payout level where TutorPayment addition/deduction live. This pre-kit receipt board is superseded, kept for history.",
+  "states": [],
   "preKit": true,
   "decision": null
  },

@@ -471,54 +471,18 @@
   "slug": "addclassschedule",
   "stage": "deliver",
   "name": "AddClassSchedule",
-  "mock": "deliver-add-class.html",
+  "mock": "addclass-kit.html",
   "hero": "deliver-add-class",
-  "summary": "Focus-first stepped create-class form for the new auto-invoice model. Keeps the backdate cliff, proof, and repeat-weekly.",
+  "summary": "Reconciliation screen 2 (locked 11-Jul), fifteen states - the Calendar plus and empty-state destination. Drill-in rows with slot cards under Slots · N, WHO -> WHEN, single scroll + sticky CTA. The When sheet runs the element-24 month grid + a wheel time picker (the honest pair: any minute is valid, no invented slot grid - the time-chips draft was reversed at founder challenge) + duration pills; clash is caught in-sheet with the earned crimson, the form-level clash state retired. Backdate three-tier family (14/180 ladder, per-tier proof sublabels, compulsory reason gate over 14d), paused-request freeze, three success moments at one quality floor (toast onto the reconciled Calendar / the done-moment toast verbatim / one full escalation recap). Mode is display-only from the request, stated in the UI.",
   "states": [
    {
     "name": "deliver-AddClassSchedule",
     "label": "Main",
     "before": "compare/before/deliver-AddClassSchedule.png",
     "after": "compare/after/deliver-AddClassSchedule.png"
-   },
-   {
-    "name": "deliver-AddClassSchedule--student-picker",
-    "label": "student picker",
-    "before": "compare/before/deliver-AddClassSchedule--student-picker.png",
-    "after": "compare/after/deliver-AddClassSchedule--student-picker.png"
-   },
-   {
-    "name": "deliver-AddClassSchedule--schedule-suggestion",
-    "label": "schedule suggestion",
-    "before": "compare/before/deliver-AddClassSchedule--schedule-suggestion.png",
-    "after": "compare/after/deliver-AddClassSchedule--schedule-suggestion.png"
-   },
-   {
-    "name": "deliver-AddClassSchedule--pattern-builder",
-    "label": "pattern builder",
-    "before": "compare/before/deliver-AddClassSchedule--pattern-builder.png",
-    "after": "compare/after/deliver-AddClassSchedule--pattern-builder.png"
-   },
-   {
-    "name": "deliver-AddClassSchedule--manual-dates",
-    "label": "manual dates",
-    "before": "compare/before/deliver-AddClassSchedule--manual-dates.png",
-    "after": "compare/after/deliver-AddClassSchedule--manual-dates.png"
-   },
-   {
-    "name": "deliver-AddClassSchedule--pattern-clash",
-    "label": "pattern clash",
-    "before": "compare/before/deliver-AddClassSchedule--pattern-clash.png",
-    "after": "compare/after/deliver-AddClassSchedule--pattern-clash.png"
-   },
-   {
-    "name": "deliver-AddClassSchedule--success",
-    "label": "success",
-    "before": "compare/before/deliver-AddClassSchedule--success.png",
-    "after": "compare/after/deliver-AddClassSchedule--success.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

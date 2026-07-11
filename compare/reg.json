@@ -144,7 +144,8 @@
     "deliver-CameraScreen.png",
     "participate-ApplyConfirmSheet.png",
     "participate-LocationPinSheet.png",
-    "participate-SubjectPicker.png"
+    "participate-SubjectPicker.png",
+    "participate-TutorTaskList--deselected.png"
   ],
   "deletedItems": [],
   "passedItems": [],
@@ -373,6 +374,7 @@
     "participate-TutorAppliedRequestDetails--unavailable.png",
     "participate-TutorAppliedRequestDetails.png",
     "participate-TutorRequests.png",
+    "participate-TutorTaskList--deselected.png",
     "participate-TutorTaskList--empty.png",
     "participate-TutorTaskList.png",
     "profile-Profile--complete.png",

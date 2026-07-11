@@ -286,6 +286,10 @@
       "slug": "tutor/deliver/class-recorded-done-moment"
      },
      {
+      "label": "Confirm classes (payment gate)",
+      "slug": "tutor/deliver/confirm-classes"
+     },
+     {
       "label": "Class records",
       "slug": "tutor/deliver/class-records"
      },

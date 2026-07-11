@@ -329,7 +329,7 @@
   "name": "TutorRequests",
   "mock": "tutorrequests-kit.html",
   "hero": "requests-feed-r1",
-  "summary": "The composition pilot: the Student Request feed rebuilt 100% from the locked element kit (locked 10-Jul). Kit segmented control with count badge, elevated cards, money leads with the mode pill top-right, term/recurrence removed from feed cards (detail-only), green Matches-you, raised indigo create FAB. Supersedes the pre-kit feed; other participate screens reconcile in a dedicated session.",
+  "summary": "The composition pilot: the Student Request feed rebuilt 100% from the locked element kit (locked 10-Jul). Kit segmented control with count badge, elevated cards, money leads with the mode pill top-right, term/recurrence removed from feed cards (detail-only), green Matches-you, raised indigo create FAB. Supersedes the pre-kit feed; other participate screens reconcile in a dedicated session. CROSS-SCREEN CONTRACT (11-Jul ClassSchedule ruling d): picks up the HOME center tab at next touch.",
   "states": [
    {
     "name": "participate-TutorRequests",
@@ -452,43 +452,19 @@
  {
   "slug": "classschedule",
   "stage": "deliver",
-  "name": "ClassSchedule",
-  "mock": "deliver-class-schedule.html",
-  "hero": "deliver-class-schedule",
-  "summary": "LOCKED v0.39: time-spine group headers, labeled cards with split action rows, exceptions-only status, expandable month with density dots. Earnings removed per founder verdict.",
+  "name": "Class schedule (calendar)",
+  "mock": "classschedule-kit.html",
+  "hero": "deliver-ClassSchedule",
+  "summary": "Reconciliation screen 1 (locked 11-Jul): the first pre-kit page re-cut to the validated 23-element system, ten states shipped. Chip week strip (harmonizes with the done-moment anatomy), the new calendar-drawer element (24) for month jumps, time-aware Next-up card (quiet -> Clock in appears in the silent 15-min grace window -> Teaching-now pill into the locked cockpit), sections only on today, cancelled stays hidden (grey-row proposal declined), clock-out cockpit-only. CENTER TAB = HOME GLYPH (founder-ruled here): the pilot plus is retired; create placement now owned by the Today/nav pitch. Decision arcs kept honestly on the board incl. two more draft-pick-is-not-a-lock reversals.",
   "states": [
    {
     "name": "deliver-ClassSchedule",
     "label": "Main",
     "before": "compare/before/deliver-ClassSchedule.png",
     "after": "compare/after/deliver-ClassSchedule.png"
-   },
-   {
-    "name": "deliver-ClassSchedule--day-with-class",
-    "label": "day with class",
-    "before": "compare/before/deliver-ClassSchedule--day-with-class.png",
-    "after": "compare/after/deliver-ClassSchedule--day-with-class.png"
-   },
-   {
-    "name": "deliver-ClassSchedule--past-day-done",
-    "label": "past day done",
-    "before": "compare/before/deliver-ClassSchedule--past-day-done.png",
-    "after": "compare/after/deliver-ClassSchedule--past-day-done.png"
-   },
-   {
-    "name": "deliver-ClassSchedule--month-expanded",
-    "label": "month expanded",
-    "before": "compare/before/deliver-ClassSchedule--month-expanded.png",
-    "after": "compare/after/deliver-ClassSchedule--month-expanded.png"
-   },
-   {
-    "name": "deliver-ClassSchedule--empty-day",
-    "label": "empty day",
-    "before": "compare/before/deliver-ClassSchedule--empty-day.png",
-    "after": "compare/after/deliver-ClassSchedule--empty-day.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -695,7 +671,7 @@
   "name": "Class recorded (done moment)",
   "mock": "done-kit.html",
   "hero": "deliver-ActiveClassDone",
-  "summary": "Teach-loop screen 3 (locked 11-Jul), founder ruling: NO dedicated done screen (Grab no-dead-end canon) - the moment is a transient rich toast over the Schedule landing with the truth visible: green Attended pill, payment truth (follows once the parent verifies - a real backend mechanic), journey temporal tint on the rows. Toast bottom/floats per the contrast table; backdrop = the EXISTING ClassSchedule anatomy with the pilot tab bar verbatim, no invented surfaces. Note echo relocates to the class card/detail (cross-screen contract). Supersedes the old done frame and the entire 5-board done exploration set (shown-and-marked).",
+  "summary": "Teach-loop screen 3 (locked 11-Jul), founder ruling: NO dedicated done screen (Grab no-dead-end canon) - the moment is a transient rich toast over the Schedule landing with the truth visible: green Attended pill, payment truth (follows once the parent verifies - a real backend mechanic), journey temporal tint on the rows. Toast bottom/floats per the contrast table; backdrop = the EXISTING ClassSchedule anatomy with the pilot tab bar verbatim, no invented surfaces. Note echo relocates to the class card/detail (cross-screen contract). Supersedes the old done frame and the entire 5-board done exploration set (shown-and-marked). CROSS-SCREEN CONTRACT (11-Jul ClassSchedule ruling d): picks up the HOME center tab at next touch.",
   "states": [
    {
     "name": "deliver-ActiveClassDone",

@@ -61,8 +61,10 @@ All customer screens are designed; each links to its before/after page (with the
 |---|---|
 | [Home](https://stsyamilyusoff-web.github.io/sifu-customer-preview/home.html) | Mocked (in brief) |
 | [StudentReport](https://stsyamilyusoff-web.github.io/sifu-customer-preview/reports-view.html) | Mocked (in brief) |
-| [EvaluationReport](https://stsyamilyusoff-web.github.io/sifu-customer-preview/reports-view.html) | Mocked (in brief) |
-| [ProgressReport](https://stsyamilyusoff-web.github.io/sifu-customer-preview/reports-view.html) | Mocked (in brief) |
+| [Journal](https://stsyamilyusoff-web.github.io/sifu-customer-preview/reports-view.html) | Cluster floor pass |
+| [ReportsHub](https://stsyamilyusoff-web.github.io/sifu-customer-preview/reports-view.html) | Cluster floor pass |
+| [EvaluationReport](https://stsyamilyusoff-web.github.io/sifu-customer-preview/reports-view.html) | Cluster floor pass |
+| [ProgressReport](https://stsyamilyusoff-web.github.io/sifu-customer-preview/reports-view.html) | Cluster floor pass |
 
 ## Account & More
 

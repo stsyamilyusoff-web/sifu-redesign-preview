@@ -262,6 +262,14 @@
       "slug": "tutor/deliver/addclassschedule"
      },
      {
+      "label": "Reports due (duty ledger)",
+      "slug": "tutor/deliver/reports-due"
+     },
+     {
+      "label": "Report writer (notes-fed)",
+      "slug": "tutor/deliver/report-writer"
+     },
+     {
       "label": "EvaluationReport",
       "slug": "tutor/deliver/evaluationreport"
      },

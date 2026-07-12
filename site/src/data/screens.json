@@ -486,6 +486,42 @@
   "decision": null
  },
  {
+  "slug": "reports-due",
+  "stage": "deliver",
+  "name": "Reports due (duty ledger)",
+  "mock": "tutor-reports-due.html",
+  "hero": "report-ReportsDue",
+  "summary": "Post-class report journey (locked 12-Jul, pick 3A): ledger-backed duty cards - amber due pill, milestone meter, coverage line - exactly ONE filled CTA per screen. Consumes the RD2 keep-and-wire ledger (producer + waive + expiry + pending-reads-ledger). Root large title per the header canon.",
+  "states": [
+   {
+    "name": "report-ReportsDue",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/report-ReportsDue.png"
+   }
+  ],
+  "preKit": true,
+  "decision": null
+ },
+ {
+  "slug": "report-writer",
+  "stage": "deliver",
+  "name": "Report writer (notes-fed)",
+  "mock": "tutor-report-writer.html",
+  "hero": "report-ReportWriter",
+  "summary": "Post-class report journey (locked 12-Jul): the notes box feeds the form (3 note rows + See all, the RD1 manual feed until Luna), 3 fields, and the concerns field carrying the RD3 copy law verbatim: Only Sifututor staff see this. Pushed header (arrow + centred 18/700) per the canon. Submit dock.",
+  "states": [
+   {
+    "name": "report-ReportWriter",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/report-ReportWriter.png"
+   }
+  ],
+  "preKit": true,
+  "decision": null
+ },
+ {
   "slug": "evaluationreport",
   "stage": "deliver",
   "name": "EvaluationReport",

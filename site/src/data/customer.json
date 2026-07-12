@@ -180,13 +180,23 @@
      "brief": "reports-view.html"
     },
     {
+     "name": "Journal",
+     "status": "Cluster floor pass",
+     "brief": "reports-view.html"
+    },
+    {
+     "name": "ReportsHub",
+     "status": "Cluster floor pass",
+     "brief": "reports-view.html"
+    },
+    {
      "name": "EvaluationReport",
-     "status": "Mocked (in brief)",
+     "status": "Cluster floor pass",
      "brief": "reports-view.html"
     },
     {
      "name": "ProgressReport",
-     "status": "Mocked (in brief)",
+     "status": "Cluster floor pass",
      "brief": "reports-view.html"
     }
    ]

@@ -69,8 +69,10 @@ window.CUSTOMER_CATS = [
     briefs:[{href:"reports-view.html", label:"Reports view"}],
     screens:[
       {n:"StudentReport", s:"briefed", d:"Per-student report hub"},
-      {n:"EvaluationReport", s:"briefed", d:"Parent-facing eval (first class, the aha)"},
-      {n:"ProgressReport", s:"briefed", d:"Parent-facing progress (recurring)"},
+      {n:"Journal", s:"pass", m:"parent-journal.html", d:"LOCKED 12-Jul (pick 1C): the learning journal - note timeline, engagement chips (canonical Well/Mixed/Struggled; parent display phrasing Went well), faded no-note gaps, coverage footer (Notes from 9 of 12 classes feed the next report - the RD1 honest-degradation law)."},
+      {n:"ReportsHub", s:"pass", m:"parent-reports-hub.html", d:"LOCKED 12-Jul: reports entry point - journal row with the 1-new pill + progress/eval report cards."},
+      {n:"EvaluationReport", s:"pass", m:"parent-report-eval.html", d:"LOCKED 12-Jul (pick 2 A+B, first-class variant): no picker, no tiles, one coaching row."},
+      {n:"ProgressReport", s:"pass", m:"parent-report-progress.html", d:"LOCKED 12-Jul (pick 2 A+B): period picker row, 2 stat tiles (Classes 12 of 12 / Class notes 9 fed), prose sections, 2 Focus-next coaching rows."},
     ]},
   { key:"profile", stage:"account", t:"Profile, Account & Students", tab:"Profile", desc:"Identity, account, your children",
     briefs:[{href:"profile-hub.html", label:"Profile hub"}],

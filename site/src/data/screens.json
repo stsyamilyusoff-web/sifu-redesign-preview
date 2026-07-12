@@ -1345,17 +1345,11 @@
  {
   "slug": "notifications",
   "stage": "tail",
-  "name": "Notifications",
-  "mock": "ref-notifications.html",
+  "name": "Notifications (connective tissue)",
+  "mock": "notifications-kit.html",
   "hero": "ref-notifications",
-  "summary": "Notification feed with Recent / Older sections, a per-sender icon chip, and chevron-less awareness rows. Rich empty state.",
+  "summary": "Reconciliation screen 6 (locked 12-Jul), four states - the feed collecting this wave's minted moments (7 real rows: payout, shortlisted, verified, extension, application update, payable, schedule). Draft A flat rows (my rec) built first, founder reversed at eyeball - B card rows ruled: every notification a kit card r16; Grab stays cited for row CONTENT anatomy only. Unread = indigo dot + bold (double channel); flat reverse-chronological (grouping found nowhere); rows deep-link, destinations act (no inline actions, no mark-all-read - tap-to-read consumes the existing markRead endpoint the live UI barely used; the Page-based deep-link architecture KEPT as the live screen best part). Specs recorded not drawn: entry badge = INDIGO numeric (red not adopted, red law); category icons neutral ink, colour only on the dot; badge host = the Today/nav pitch. Glyph flag: money wears the wallet (shares the Request tab glyph), distinct coins glyph = icons-board next touch.",
   "states": [
-   {
-    "name": "news-Notifications--empty",
-    "label": "empty",
-    "before": "compare/before/news-Notifications--empty.png",
-    "after": "compare/after/news-Notifications--empty.png"
-   },
    {
     "name": "news-Notifications",
     "label": "Main",
@@ -1363,7 +1357,7 @@
     "after": "compare/after/news-Notifications.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

@@ -1259,27 +1259,21 @@
   "decision": null
  },
  {
-  "slug": "profile",
+  "slug": "personal-info",
   "stage": "grow",
-  "name": "Profile",
-  "mock": "profile-view.html",
+  "name": "Personal info (identity view)",
+  "mock": "personalinfo-kit.html",
   "hero": "profile-view",
-  "summary": "Personal-details editor + a Compact-Ring tier card (Beginner to All-Star) and the recommended-next-steps gaps. Deduped: card name + classes-taught removed (the header + ring already carry them).",
+  "summary": "Profile family screen 2 (locked 12-Jul), seven states - CLOSES the P1 deletion-entry gap: the one earned crimson row at page bottom, the resign pre-flight dialog (active students; Talk to support ghost / Got it fill), then the existing Discouragement flow. Draft C identity-led on Airbnb 335 bones: label-over-value kit cards, masking (phone/email/NRIC last-4; emergency contact masked-in-view despite editable - consistent masking, edit reveals), locked rows = lock glyph + ONE section footnote covering exactly Full name + NRIC (home address founder-ruled EDITABLE, moved to Contact). Pushed compact header per law. The strength module is a FLAG-GATED VARIANT only - columns exist (score 0-100 + tier) but no code computes them and the flag defaults false; a score in main would be display-fiction, founder-agreed sequencing. Ratings escalated to a queued focus session; profile surfaces stay rating-READY; strength and ratings ruled SEPARATE signals.",
   "states": [
    {
     "name": "profile-Profile",
     "label": "Main",
     "before": "compare/before/profile-Profile.png",
     "after": "compare/after/profile-Profile.png"
-   },
-   {
-    "name": "profile-Profile--complete",
-    "label": "complete",
-    "before": "compare/before/profile-Profile--complete.png",
-    "after": "compare/after/profile-Profile--complete.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

@@ -392,8 +392,8 @@
       "slug": "tutor/grow/student-status"
      },
      {
-      "label": "Profile",
-      "slug": "tutor/grow/profile"
+      "label": "Personal info (identity view)",
+      "slug": "tutor/grow/personal-info"
      }
     ]
    },

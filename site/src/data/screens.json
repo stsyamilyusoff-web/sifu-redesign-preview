@@ -347,8 +347,14 @@
   "name": "Request detail (apply moment)",
   "mock": "requestdetail-kit.html",
   "hero": "participate-RequestDetailById",
-  "summary": "Reconciliation screen 5 (locked 12-Jul), thirteen states + the applications list - the North Star surface, richest arc of the wave (C picked -> reversed to A -> reversed again to the founder-preferred pre-kit enhanced mock, adapted to the kit). FIRST USE of the lawful Airbnb large-pushed header (arrow above, two plain trailing icon-buttons, info moved from card to header at founder challenge - transparency pre-apply). Money at the commit point: RM total underlined -> the How-it-adds-up sheet bridging to Payments truth; no-commission law holds (base_price + display_commission unconsumed tutor-side); the /week inference removed. THE FEE GATE, honest: picked = fee-pending (RM 100 from the live commitment_fee field, never hardcoded) -> the deliberately web-styled webview bridge -> confirmed; native fee payment handed to the E2E lane. Apply-then-wait: same screen flips; 4-state ladder (never red); withdraw ceremony scales with stakes (indigo commit, red-cancel not adopted). TREQ uid shown BY design (support reference) - contrast the clock-in jtuid cut, both recorded.",
+  "summary": "Reconciliation screen 5 (locked 12-Jul), thirteen states + the applications list - the North Star surface, richest arc of the wave (C picked -> reversed to A -> reversed again to the founder-preferred pre-kit enhanced mock, adapted to the kit). FIRST USE of the lawful Airbnb large-pushed header (arrow above, two plain trailing icon-buttons, info moved from card to header at founder challenge - transparency pre-apply). Money at the commit point: RM total underlined -> the How-it-adds-up sheet bridging to Payments truth; no-commission law holds (base_price + display_commission unconsumed tutor-side); the /week inference removed. THE FEE GATE, honest: picked = fee-pending (RM 100 from the live commitment_fee field, never hardcoded) -> the deliberately web-styled webview bridge -> confirmed; native fee payment handed to the E2E lane. Apply-then-wait: same screen flips; 4-state ladder (never red); withdraw ceremony scales with stakes (indigo commit, red-cancel not adopted). TREQ uid shown BY design (support reference) - contrast the clock-in jtuid cut, both recorded. ENTRY-POINT CONSOLIDATION (13-Jul, request-family retirement): RecommendedRequestDetail + JTDetailByNotification are the SAME detail view reached differently and now repoint here (JTDetail field-map flag: fires apply_job_ticket, not tutor/request/apply - same screen, different endpoint); TutorAppliedRequestDetails = the post-apply states (--applied/--shortlisted/--picked); ApplyConfirmSheet RETIRED (mock-only, redundant - the fee disclosure on the terms row + fee-pending picked state carry the consequence, no pre-apply confirm tap). PENDING (founder eyeball, phase 2): a recommended-requests inline list at the bottom of main (carries RequestDetails' block - founder said include), and the --unavailable calm request-closed state.",
   "states": [
+   {
+    "name": "participate-TutorAppliedRequestDetails",
+    "label": "Main",
+    "before": "compare/before/participate-TutorAppliedRequestDetails.png",
+    "after": "compare/after/participate-TutorAppliedRequestDetails.png"
+   },
    {
     "name": "participate-RequestDetailById",
     "label": "Main",
@@ -426,6 +432,18 @@
     "label": "loading",
     "before": null,
     "after": "compare/after/participate-RequestDetailById--loading.png"
+   },
+   {
+    "name": "participate-RecommendedRequestDetail",
+    "label": "Main",
+    "before": "compare/before/participate-RecommendedRequestDetail.png",
+    "after": "compare/after/participate-RecommendedRequestDetail.png"
+   },
+   {
+    "name": "participate-JTDetailByNotification",
+    "label": "Main",
+    "before": "compare/before/participate-JTDetailByNotification.png",
+    "after": "compare/after/participate-JTDetailByNotification.png"
    }
   ],
   "preKit": false,
@@ -462,18 +480,6 @@
     "label": "Main",
     "before": "compare/before/participate-RequestDetails.png",
     "after": "compare/after/participate-RequestDetails.png"
-   },
-   {
-    "name": "participate-RecommendedRequestDetail",
-    "label": "Main",
-    "before": "compare/before/participate-RecommendedRequestDetail.png",
-    "after": "compare/after/participate-RecommendedRequestDetail.png"
-   },
-   {
-    "name": "participate-JTDetailByNotification",
-    "label": "Main",
-    "before": "compare/before/participate-JTDetailByNotification.png",
-    "after": "compare/after/participate-JTDetailByNotification.png"
    }
   ],
   "preKit": true,
@@ -487,18 +493,6 @@
   "hero": "wave1-applied-detail",
   "summary": "B-final read-only variant: approved banner, name + address unlocked on approval, no apply/comment. The file also carries the unavailable state and the Apply confirm sheet.",
   "states": [
-   {
-    "name": "participate-TutorAppliedRequestDetails",
-    "label": "Main",
-    "before": "compare/before/participate-TutorAppliedRequestDetails.png",
-    "after": "compare/after/participate-TutorAppliedRequestDetails.png"
-   },
-   {
-    "name": "participate-ApplyConfirmSheet",
-    "label": "Main",
-    "before": null,
-    "after": "compare/after/participate-ApplyConfirmSheet.png"
-   },
    {
     "name": "participate-TutorAppliedRequestDetails--unavailable",
     "label": "unavailable",

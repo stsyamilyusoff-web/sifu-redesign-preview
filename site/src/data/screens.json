@@ -1277,6 +1277,24 @@
   "decision": null
  },
  {
+  "slug": "documents-kyc",
+  "stage": "grow",
+  "name": "Documents (KYC)",
+  "mock": "documents-kit.html",
+  "hero": "profile-Documents",
+  "summary": "Profile family screen 3 (locked 12-Jul), six states - CLOSES cluster-1 steady-state (hub + personal info + documents), the net-new reachable view of a tutor's KYC docs. Grab 42 dashed-tile rows in one grouped card (48px leading thumb: dashed-empty upload glyph / filled PDF chip or image thumb), N-of-4 progress bar (Airbnb 269 checklist header). THE LOAD-BEARING HONESTY CALL: the field map outranks the references per-slot verified tick - getTutorDocuments returns URL-or-null PER SLOT with no per-document status field, so Under-review and Verified are ACCOUNT-LEVEL banners (from tutor.status + application_submitted), never fabricated per-slot badges; server docs show Uploaded/View (only a URL is known, never a made-up filename/size), fresh onboarding picks show name+size + Replace. IC = one slot (identity_card_front) labelled Front and back per the live single-field reality.",
+  "states": [
+   {
+    "name": "profile-Documents",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/profile-Documents.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
   "slug": "news",
   "stage": "tail",
   "name": "News",

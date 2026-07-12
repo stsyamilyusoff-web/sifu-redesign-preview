@@ -394,6 +394,10 @@
      {
       "label": "Personal info (identity view)",
       "slug": "tutor/grow/personal-info"
+     },
+     {
+      "label": "Documents (KYC)",
+      "slug": "tutor/grow/documents-kyc"
      }
     ]
    },

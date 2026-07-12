@@ -342,24 +342,54 @@
   "decision": null
  },
  {
+  "slug": "request-detail-kit",
+  "stage": "participate",
+  "name": "Request detail (apply moment)",
+  "mock": "requestdetail-kit.html",
+  "hero": "participate-RequestDetailById",
+  "summary": "Reconciliation screen 5 (locked 12-Jul), thirteen states + the applications list - the North Star surface, richest arc of the wave (C picked -> reversed to A -> reversed again to the founder-preferred pre-kit enhanced mock, adapted to the kit). FIRST USE of the lawful Airbnb large-pushed header (arrow above, two plain trailing icon-buttons, info moved from card to header at founder challenge - transparency pre-apply). Money at the commit point: RM total underlined -> the How-it-adds-up sheet bridging to Payments truth; no-commission law holds (base_price + display_commission unconsumed tutor-side); the /week inference removed. THE FEE GATE, honest: picked = fee-pending (RM 100 from the live commitment_fee field, never hardcoded) -> the deliberately web-styled webview bridge -> confirmed; native fee payment handed to the E2E lane. Apply-then-wait: same screen flips; 4-state ladder (never red); withdraw ceremony scales with stakes (indigo commit, red-cancel not adopted). TREQ uid shown BY design (support reference) - contrast the clock-in jtuid cut, both recorded.",
+  "states": [
+   {
+    "name": "participate-RequestDetailById",
+    "label": "Main",
+    "before": "compare/before/participate-RequestDetailById.png",
+    "after": "compare/after/participate-RequestDetailById.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
+  "slug": "my-requests-kit",
+  "stage": "participate",
+  "name": "My requests (applications list)",
+  "mock": "myrequests-kit.html",
+  "hero": "participate-MyRequestsList",
+  "summary": "The applications list re-cut (locked 12-Jul) carrying the 4-state status ladder the live MyRequestsList ignores: Applied grey / Shortlisted indigo / Picked green / Not selected calm grey. Supersedes the pre-kit ticket-styled list; the empty state rides the old file until its re-cut.",
+  "states": [
+   {
+    "name": "participate-MyRequestsList",
+    "label": "Main",
+    "before": "compare/before/participate-MyRequestsList.png",
+    "after": "compare/after/participate-MyRequestsList.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
   "slug": "request-detail-apply",
   "stage": "participate",
   "name": "Request detail + apply",
   "mock": "wave1-apply-detail.html",
   "hero": "wave1-apply-detail",
-  "summary": "B-final (hub v0.29): subject + level lead, no student name pre-match, parent-ask quote card, Similar requests link, Airbnb dock with underlined RM + Apply. Comment lives in the Apply confirm sheet. Shared by RequestDetails, RequestDetailById, and RecommendedRequestDetail.",
+  "summary": "B-final (hub v0.29), now PARTLY SUPERSEDED: RequestDetailById has its kit re-cut (see Request detail - apply moment, locked 12-Jul, adapted FROM this design at founder direction); RequestDetails + RecommendedRequestDetail still read from this board until their re-cuts. Subject + level lead, parent-ask quote card, Airbnb dock with underlined RM + Apply.",
   "states": [
    {
     "name": "participate-RequestDetails",
     "label": "Main",
     "before": "compare/before/participate-RequestDetails.png",
     "after": "compare/after/participate-RequestDetails.png"
-   },
-   {
-    "name": "participate-RequestDetailById",
-    "label": "Main",
-    "before": "compare/before/participate-RequestDetailById.png",
-    "after": "compare/after/participate-RequestDetailById.png"
    },
    {
     "name": "participate-RecommendedRequestDetail",
@@ -1068,12 +1098,6 @@
   "hero": "support-my-tickets-list",
   "summary": "Active / History segmented control + lean StatusPill cards (de-striped). Naming standardized to \"tickets\".",
   "states": [
-   {
-    "name": "participate-MyRequestsList",
-    "label": "Main",
-    "before": "compare/before/participate-MyRequestsList.png",
-    "after": "compare/after/participate-MyRequestsList.png"
-   },
    {
     "name": "participate-MyRequestsList--empty",
     "label": "empty",

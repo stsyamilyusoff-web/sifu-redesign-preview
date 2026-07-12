@@ -232,6 +232,14 @@
       "slug": "tutor/participate/tutorrequests"
      },
      {
+      "label": "Request detail (apply moment)",
+      "slug": "tutor/participate/request-detail-kit"
+     },
+     {
+      "label": "My requests (applications li…",
+      "slug": "tutor/participate/my-requests-kit"
+     },
+     {
       "label": "Request detail + apply",
       "slug": "tutor/participate/request-detail-apply"
      },

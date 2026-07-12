@@ -8,7 +8,7 @@ prev: false
 
 **Still to design (7):** Home · ApplyConfirmSheet · ClockoutSuccessfully · EvaluationReportView · ProgressReportView · HelpCentre · ContactCentre
 
-**Comparisons live:** 189 frames across 114 mock files, every one side-by-side with its live capture where one exists.
+**Comparisons live:** 201 frames across 128 mock files, every one side-by-side with its live capture where one exists.
 
 Retiring screens fold into the new designs. The interactive per-stage map stays on the
 [status map](https://stsyamilyusoff-web.github.io/sifu-redesign-preview/full-map.html) until Phase 3.

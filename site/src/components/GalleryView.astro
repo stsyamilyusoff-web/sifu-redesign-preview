@@ -6,6 +6,7 @@ const A = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
 const groups = stages
 	.map((st) => ({ st, items: screens.filter((s) => s.stage === st.key) }))
 	.filter((gr) => gr.items.length);
+const IMGVER = '?v=13jul-vpfix';
 ---
 
 {groups.map(({ st, items }) => (
@@ -15,7 +16,7 @@ const groups = stages
 			{items.flatMap((s) =>
 				s.states.map((state) => (
 					<a class="tile" href={`${A}tutor/${s.stage}/${s.slug}/`}>
-						<img src={A + state.after} alt={`${s.name} · ${state.label}`} loading="lazy" />
+						<img src={A + state.after + IMGVER} alt={`${s.name} · ${state.label}`} loading="lazy" />
 						<span class="cap"><b>{s.name.length > 26 ? s.name.slice(0, 24) + '…' : s.name}</b> · {state.label}</span>
 					</a>
 				))

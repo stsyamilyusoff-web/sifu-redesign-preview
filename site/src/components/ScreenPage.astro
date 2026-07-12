@@ -10,6 +10,7 @@ if (!s) throw new Error(`no screen data for slug ${slug}`);
 
 // pilot serves from the pub-repo root, so pipeline assets resolve absolutely
 const A = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
+const IMGVER = '?v=13jul-vpfix';
 ---
 
 <p class="lead">{s.summary}</p>
@@ -51,13 +52,13 @@ const A = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
 			<figure>
 				<figcaption class="live">Live now</figcaption>
 				{st.before
-					? <img src={A + st.before} alt={`${s.name} · ${st.label} · live`} loading="lazy" />
+					? <img src={A + st.before + IMGVER} alt={`${s.name} · ${st.label} · live`} loading="lazy" />
 					: <div class="ghost">Net-new or no live capture</div>}
 			</figure>
 			<span class="arr">→</span>
 			<figure>
 				<figcaption class="new">New</figcaption>
-				<img src={A + st.after} alt={`${s.name} · ${st.label} · redesign`} loading="lazy" />
+				<img src={A + st.after + IMGVER} alt={`${s.name} · ${st.label} · redesign`} loading="lazy" />
 			</figure>
 		</div>
 	</section>

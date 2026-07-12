@@ -908,25 +908,19 @@
  {
   "slug": "profilemenu",
   "stage": "grow",
-  "name": "ProfileMenu",
-  "mock": "profile-menu-hub.html",
+  "name": "Profile hub",
+  "mock": "profilehub-kit.html",
   "hero": "profile-menu-hub",
-  "summary": "A clean one-liner navigation hub with a milestone progress card up top.",
+  "summary": "Profile family screen 1 (locked 12-Jul, zero reversals at eyeball), eight states - founder-picked draft C minus trailing meta (rows chevron-only). Fresha identity card with initials avatar + ONE status pill (green Verified / amber Incomplete with the trailing Complete button / amber In-review / amber Suspended / grey Ended - UC red overruled to amber per the colour law; pill sits identity-adjacent LEFT, flagged and founder-passed; consequence trails). Airbnb taxonomy: Records · Account and settings · Support · Legal · Log out last-neutral (no chevron - action, not drill-in) · version footer. Schedule section dead (Calendar owns it); FAQs promo absorbed by Support (consolidated, not dropped); the notification bell = header icon-button whose placement rides the Today/nav pitch; DELETE ACCOUNT deliberately not here - ships as the earned-crimson row on Personal info next. The live StatusBanner four application states absorb into the pill + banner cards.",
   "states": [
    {
     "name": "profile-ProfileMenu",
     "label": "Main",
     "before": "compare/before/profile-ProfileMenu.png",
     "after": "compare/after/profile-ProfileMenu.png"
-   },
-   {
-    "name": "profile-ProfileMenu--new-tutor",
-    "label": "new tutor",
-    "before": "compare/before/profile-ProfileMenu--new-tutor.png",
-    "after": "compare/after/profile-ProfileMenu--new-tutor.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

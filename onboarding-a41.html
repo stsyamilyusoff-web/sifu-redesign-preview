@@ -117,7 +117,7 @@
      FIXED-HEIGHT dock so the PRIMARY CTA BUTTON sits at the IDENTICAL Y on all 3 slides: the button is pinned to the
      bottom of a reserved zone, and the sign-in row (slide 3 only) lives in the reserved space BELOW the button, so it
      NEVER pushes the button up. On slides 1/2 that lower zone is simply empty (more photo shows through). */
-  .dock{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:0 22px 30px;display:flex;flex-direction:column;}
+  .dock{border-top:1px solid #E7EBF0;position:absolute;left:0;right:0;bottom:0;z-index:4;padding:0 22px 30px;display:flex;flex-direction:column;}
   /* reserve the sign-in-row height under the button on EVERY slide so the button's Y is constant */
   .dock::after{content:"";display:block;height:40px;flex-shrink:0;}
   .btn{height:52px;border-radius:14px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16.5px;font-weight:700;box-shadow:var(--shadow-cta);flex-shrink:0;}

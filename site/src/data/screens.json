@@ -365,7 +365,7 @@
   "name": "My requests (applications list)",
   "mock": "myrequests-kit.html",
   "hero": "participate-MyRequestsList",
-  "summary": "The applications list re-cut (locked 12-Jul) carrying the 4-state status ladder the live MyRequestsList ignores: Applied grey / Shortlisted indigo / Picked green / Not selected calm grey. Supersedes the pre-kit ticket-styled list; the empty state rides the old file until its re-cut.",
+  "summary": "The applications list re-cut (locked 12-Jul) carrying the 4-state status ladder the live MyRequestsList ignores: Applied grey / Shortlisted indigo / Picked green / Not selected calm grey. Supersedes the pre-kit ticket-styled list; the empty state rides the old file until its re-cut. PARKED FOUNDER CALL (12-Jul, from the Filters relocation): the live filter stub status job (Approved/Pending) relocates here as chips-as-tabs - open call.",
   "states": [
    {
     "name": "participate-MyRequestsList",
@@ -440,43 +440,19 @@
  {
   "slug": "request-filters",
   "stage": "participate",
-  "name": "Request filters",
-  "mock": "wave1-request-filters.html",
+  "name": "Request filters (feed modal)",
+  "mock": "filter-kit.html",
   "hero": "wave1-request-filters",
-  "summary": "Quiet accordion (hub v0.32): collapsed value-summary rows, one section open at a time; your-subjects + your-levels smart defaults, decoupled plain subject names, pin + radius flag-gated on the backend location model.",
+  "summary": "Reconciliation screen 7 (locked 12-Jul), seven states - the 92-line live stub and its Save/Reset placement violation both die here. Direction = the founder pre-kit enhanced filter mock adapted to system (second pre-kit design to survive into the kit era): drill-in summary rows with indigo count pills, the YOUR-AREAS map star (radius circles + draggable pins), dashed add-tile, live-count CTA (Show 31 requests). Adjusted: mode = rect segmented; full-height modal header (X + 18/700 + Clear all trailing, disabled when nothing set); Phosphor pins; the meta-note row dropped (documentation-inside-UI). PLACEMENT CORRECTION founder-caught: the levels picker shipped leading checkboxes citing a pre-revision references verdict - fixed to trailing; LESSON RECORDED: the law outranks a references citation when they conflict. Gender preference absent BY DESIGN (DR-004, parent-set hard filter). Radius filtering has ZERO backend support (verified) - map+radius is the founder-directed target, city-picker degrade until the lat/long distance query lands.",
   "states": [
    {
     "name": "participate-RequestFilters",
     "label": "Main",
     "before": "compare/before/participate-RequestFilters.png",
     "after": "compare/after/participate-RequestFilters.png"
-   },
-   {
-    "name": "participate-SubjectPicker",
-    "label": "Main",
-    "before": null,
-    "after": "compare/after/participate-SubjectPicker.png"
-   },
-   {
-    "name": "participate-LocationPinSheet",
-    "label": "Main",
-    "before": null,
-    "after": "compare/after/participate-LocationPinSheet.png"
-   },
-   {
-    "name": "participate-RequestFilters--subject-open",
-    "label": "subject open",
-    "before": "compare/before/participate-RequestFilters--subject-open.png",
-    "after": "compare/after/participate-RequestFilters--subject-open.png"
-   },
-   {
-    "name": "participate-RequestFilters--location-open",
-    "label": "location open",
-    "before": "compare/before/participate-RequestFilters--location-open.png",
-    "after": "compare/after/participate-RequestFilters--location-open.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

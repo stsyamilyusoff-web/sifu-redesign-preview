@@ -2,6 +2,7 @@
 // Mobbin-style flat scan of every approved frame, grouped by journey stage.
 import screens from '../data/screens.json';
 import stages from '../data/stages.json';
+import parentScreens from '../data/parent-screens.json';
 const A = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
 const groups = stages
 	.map((st) => ({ st, items: screens.filter((s) => s.stage === st.key) }))
@@ -24,6 +25,22 @@ const IMGVER = '?v=13jul-vpfix';
 		</div>
 	</section>
 ))}
+
+	{parentScreens.length > 0 && (
+		<section>
+			<h2>Parent app · approved journeys</h2>
+			<div class="grid">
+				{parentScreens.flatMap((s) =>
+					s.states.map((state) => (
+						<a class="tile" href={`${A}${state.after}${IMGVER}`} target="_blank" rel="noopener">
+							<img src={A + state.after + IMGVER} alt={`${s.name} · ${state.label}`} loading="lazy" />
+							<span class="cap"><b>{s.name.length > 26 ? s.name.slice(0, 24) + '…' : s.name}</b> · {state.label}</span>
+						</a>
+					))
+				)}
+			</div>
+		</section>
+	)}
 
 <style>
 	.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem 0.8rem; }

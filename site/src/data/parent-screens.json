@@ -1,0 +1,123 @@
+[
+ {
+  "name": "Request Detail Manage",
+  "slug": "parent-request-detail-manage",
+  "states": [
+   {
+    "name": "parent-RequestDetailManage",
+    "label": "Main",
+    "after": "compare/after/parent-RequestDetailManage.png"
+   }
+  ]
+ },
+ {
+  "name": "Pause Step 1",
+  "slug": "parent-pause-step1",
+  "states": [
+   {
+    "name": "parent-PauseStep1",
+    "label": "Main",
+    "after": "compare/after/parent-PauseStep1.png"
+   }
+  ]
+ },
+ {
+  "name": "Pause Step 1",
+  "slug": "parent-pause-step1-datesheet",
+  "states": [
+   {
+    "name": "parent-PauseStep1--datesheet",
+    "label": "datesheet",
+    "after": "compare/after/parent-PauseStep1--datesheet.png"
+   }
+  ]
+ },
+ {
+  "name": "Pause Step 2",
+  "slug": "parent-pause-step2",
+  "states": [
+   {
+    "name": "parent-PauseStep2",
+    "label": "Main",
+    "after": "compare/after/parent-PauseStep2.png"
+   }
+  ]
+ },
+ {
+  "name": "Requests Paused",
+  "slug": "parent-requests-paused",
+  "states": [
+   {
+    "name": "parent-RequestsPaused",
+    "label": "Main",
+    "after": "compare/after/parent-RequestsPaused.png"
+   }
+  ]
+ },
+ {
+  "name": "Request Detail Paused",
+  "slug": "parent-request-detail-paused",
+  "states": [
+   {
+    "name": "parent-RequestDetailPaused",
+    "label": "Main",
+    "after": "compare/after/parent-RequestDetailPaused.png"
+   }
+  ]
+ },
+ {
+  "name": "Request Detail Pause Pending",
+  "slug": "parent-request-detail-pause-pending",
+  "states": [
+   {
+    "name": "parent-RequestDetailPausePending",
+    "label": "Main",
+    "after": "compare/after/parent-RequestDetailPausePending.png"
+   }
+  ]
+ },
+ {
+  "name": "Journal",
+  "slug": "parent-journal",
+  "states": [
+   {
+    "name": "parent-Journal",
+    "label": "Main",
+    "after": "compare/after/parent-Journal.png"
+   }
+  ]
+ },
+ {
+  "name": "Reports Hub",
+  "slug": "parent-reports-hub",
+  "states": [
+   {
+    "name": "parent-ReportsHub",
+    "label": "Main",
+    "after": "compare/after/parent-ReportsHub.png"
+   }
+  ]
+ },
+ {
+  "name": "Report Progress",
+  "slug": "parent-report-progress",
+  "states": [
+   {
+    "name": "parent-ReportProgress",
+    "label": "Main",
+    "after": "compare/after/parent-ReportProgress.png"
+   }
+  ]
+ },
+ {
+  "name": "Report Eval",
+  "slug": "parent-report-eval",
+  "states": [
+   {
+    "name": "parent-ReportEval",
+    "label": "Main",
+    "after": "compare/after/parent-ReportEval.png"
+   }
+  ]
+ }
+]

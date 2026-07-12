@@ -354,6 +354,78 @@
     "label": "Main",
     "before": "compare/before/participate-RequestDetailById.png",
     "after": "compare/after/participate-RequestDetailById.png"
+   },
+   {
+    "name": "participate-RequestDetailById--ratebreakdown",
+    "label": "ratebreakdown",
+    "before": null,
+    "after": "compare/after/participate-RequestDetailById--ratebreakdown.png"
+   },
+   {
+    "name": "participate-RequestDetailById--appliedtoast",
+    "label": "appliedtoast",
+    "before": null,
+    "after": "compare/after/participate-RequestDetailById--appliedtoast.png"
+   },
+   {
+    "name": "participate-RequestDetailById--applied",
+    "label": "applied",
+    "before": null,
+    "after": "compare/after/participate-RequestDetailById--applied.png"
+   },
+   {
+    "name": "participate-RequestDetailById--selection",
+    "label": "selection",
+    "before": null,
+    "after": "compare/after/participate-RequestDetailById--selection.png"
+   },
+   {
+    "name": "participate-RequestDetailById--shortlisted",
+    "label": "shortlisted",
+    "before": null,
+    "after": "compare/after/participate-RequestDetailById--shortlisted.png"
+   },
+   {
+    "name": "participate-RequestDetailById--picked",
+    "label": "picked",
+    "before": null,
+    "after": "compare/after/participate-RequestDetailById--picked.png"
+   },
+   {
+    "name": "participate-RequestDetailById--feeweb",
+    "label": "feeweb",
+    "before": null,
+    "after": "compare/after/participate-RequestDetailById--feeweb.png"
+   },
+   {
+    "name": "participate-RequestDetailById--pickedpaid",
+    "label": "pickedpaid",
+    "before": null,
+    "after": "compare/after/participate-RequestDetailById--pickedpaid.png"
+   },
+   {
+    "name": "participate-RequestDetailById--notselected",
+    "label": "notselected",
+    "before": null,
+    "after": "compare/after/participate-RequestDetailById--notselected.png"
+   },
+   {
+    "name": "participate-RequestDetailById--withdraw",
+    "label": "withdraw",
+    "before": null,
+    "after": "compare/after/participate-RequestDetailById--withdraw.png"
+   },
+   {
+    "name": "participate-RequestDetailById--withdrawshortlisted",
+    "label": "withdrawshortlisted",
+    "before": null,
+    "after": "compare/after/participate-RequestDetailById--withdrawshortlisted.png"
+   },
+   {
+    "name": "participate-RequestDetailById--loading",
+    "label": "loading",
+    "before": null,
+    "after": "compare/after/participate-RequestDetailById--loading.png"
    }
   ],
   "preKit": false,
@@ -450,6 +522,42 @@
     "label": "Main",
     "before": "compare/before/participate-RequestFilters.png",
     "after": "compare/after/participate-RequestFilters.png"
+   },
+   {
+    "name": "participate-RequestFilters--levels",
+    "label": "levels",
+    "before": null,
+    "after": "compare/after/participate-RequestFilters--levels.png"
+   },
+   {
+    "name": "participate-RequestFilters--areaedit",
+    "label": "areaedit",
+    "before": null,
+    "after": "compare/after/participate-RequestFilters--areaedit.png"
+   },
+   {
+    "name": "participate-RequestFilters--nothingset",
+    "label": "nothingset",
+    "before": null,
+    "after": "compare/after/participate-RequestFilters--nothingset.png"
+   },
+   {
+    "name": "participate-RequestFilters--feedfiltered",
+    "label": "feedfiltered",
+    "before": null,
+    "after": "compare/after/participate-RequestFilters--feedfiltered.png"
+   },
+   {
+    "name": "participate-RequestFilters--noresults",
+    "label": "noresults",
+    "before": null,
+    "after": "compare/after/participate-RequestFilters--noresults.png"
+   },
+   {
+    "name": "participate-RequestFilters--loading",
+    "label": "loading",
+    "before": null,
+    "after": "compare/after/participate-RequestFilters--loading.png"
    }
   ],
   "preKit": false,
@@ -468,6 +576,60 @@
     "label": "Main",
     "before": "compare/before/deliver-ClassSchedule.png",
     "after": "compare/after/deliver-ClassSchedule.png"
+   },
+   {
+    "name": "deliver-ClassSchedule--soon",
+    "label": "soon",
+    "before": null,
+    "after": "compare/after/deliver-ClassSchedule--soon.png"
+   },
+   {
+    "name": "deliver-ClassSchedule--now",
+    "label": "now",
+    "before": null,
+    "after": "compare/after/deliver-ClassSchedule--now.png"
+   },
+   {
+    "name": "deliver-ClassSchedule--teaching",
+    "label": "teaching",
+    "before": null,
+    "after": "compare/after/deliver-ClassSchedule--teaching.png"
+   },
+   {
+    "name": "deliver-ClassSchedule--sheet",
+    "label": "sheet",
+    "before": null,
+    "after": "compare/after/deliver-ClassSchedule--sheet.png"
+   },
+   {
+    "name": "deliver-ClassSchedule--expanded",
+    "label": "expanded",
+    "before": null,
+    "after": "compare/after/deliver-ClassSchedule--expanded.png"
+   },
+   {
+    "name": "deliver-ClassSchedule--pastday",
+    "label": "pastday",
+    "before": null,
+    "after": "compare/after/deliver-ClassSchedule--pastday.png"
+   },
+   {
+    "name": "deliver-ClassSchedule--futureday",
+    "label": "futureday",
+    "before": null,
+    "after": "compare/after/deliver-ClassSchedule--futureday.png"
+   },
+   {
+    "name": "deliver-ClassSchedule--empty",
+    "label": "empty",
+    "before": null,
+    "after": "compare/after/deliver-ClassSchedule--empty.png"
+   },
+   {
+    "name": "deliver-ClassSchedule--loading",
+    "label": "loading",
+    "before": null,
+    "after": "compare/after/deliver-ClassSchedule--loading.png"
    }
   ],
   "preKit": false,
@@ -486,6 +648,90 @@
     "label": "Main",
     "before": "compare/before/deliver-AddClassSchedule.png",
     "after": "compare/after/deliver-AddClassSchedule.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--filled",
+    "label": "filled",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--filled.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--batch",
+    "label": "batch",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--batch.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--repeat",
+    "label": "repeat",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--repeat.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--studentsheet",
+    "label": "studentsheet",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--studentsheet.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--whensheet",
+    "label": "whensheet",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--whensheet.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--backdate",
+    "label": "backdate",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--backdate.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--escalate",
+    "label": "escalate",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--escalate.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--blocked",
+    "label": "blocked",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--blocked.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--clash",
+    "label": "clash",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--clash.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--frozen",
+    "label": "frozen",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--frozen.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--submitting",
+    "label": "submitting",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--submitting.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--success",
+    "label": "success",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--success.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--successbackdate",
+    "label": "successbackdate",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--successbackdate.png"
+   },
+   {
+    "name": "deliver-AddClassSchedule--successescalation",
+    "label": "successescalation",
+    "before": null,
+    "after": "compare/after/deliver-AddClassSchedule--successescalation.png"
    }
   ],
   "preKit": false,
@@ -648,6 +894,54 @@
     "label": "Main",
     "before": "compare/before/deliver-ActiveClass.png",
     "after": "compare/after/deliver-ActiveClass.png"
+   },
+   {
+    "name": "deliver-ActiveClass--overrun",
+    "label": "overrun",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClass--overrun.png"
+   },
+   {
+    "name": "deliver-ActiveClass--extend",
+    "label": "extend",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClass--extend.png"
+   },
+   {
+    "name": "deliver-ActiveClass--extendpaid",
+    "label": "extendpaid",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClass--extendpaid.png"
+   },
+   {
+    "name": "deliver-ActiveClass--extendfree",
+    "label": "extendfree",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClass--extendfree.png"
+   },
+   {
+    "name": "deliver-ActiveClass--extendmakeup",
+    "label": "extendmakeup",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClass--extendmakeup.png"
+   },
+   {
+    "name": "deliver-ActiveClass--sentpaid",
+    "label": "sentpaid",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClass--sentpaid.png"
+   },
+   {
+    "name": "deliver-ActiveClass--sentfree",
+    "label": "sentfree",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClass--sentfree.png"
+   },
+   {
+    "name": "deliver-ActiveClass--sentmakeup",
+    "label": "sentmakeup",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClass--sentmakeup.png"
    }
   ],
   "preKit": false,
@@ -666,6 +960,12 @@
     "label": "Main",
     "before": null,
     "after": "compare/after/deliver-ActiveClassClockOut.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockOut--filled",
+    "label": "filled",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockOut--filled.png"
    }
   ],
   "preKit": false,
@@ -684,6 +984,12 @@
     "label": "Main",
     "before": null,
     "after": "compare/after/deliver-ActiveClassDone.png"
+   },
+   {
+    "name": "deliver-ActiveClassDone--settled",
+    "label": "settled",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassDone--settled.png"
    }
   ],
   "preKit": false,
@@ -702,6 +1008,36 @@
     "label": "Main",
     "before": "compare/before/participate-TutorTaskList.png",
     "after": "compare/after/participate-TutorTaskList.png"
+   },
+   {
+    "name": "participate-TutorTaskList--deselected",
+    "label": "deselected",
+    "before": null,
+    "after": "compare/after/participate-TutorTaskList--deselected.png"
+   },
+   {
+    "name": "participate-TutorTaskList--onhold-r2",
+    "label": "onhold r2",
+    "before": null,
+    "after": "compare/after/participate-TutorTaskList--onhold-r2.png"
+   },
+   {
+    "name": "participate-TutorTaskList--onhold-r2-sheet",
+    "label": "onhold r2 sheet",
+    "before": null,
+    "after": "compare/after/participate-TutorTaskList--onhold-r2-sheet.png"
+   },
+   {
+    "name": "participate-TutorTaskList--resume-pending-r2",
+    "label": "resume pending r2",
+    "before": null,
+    "after": "compare/after/participate-TutorTaskList--resume-pending-r2.png"
+   },
+   {
+    "name": "participate-TutorTaskList--released-r2",
+    "label": "released r2",
+    "before": null,
+    "after": "compare/after/participate-TutorTaskList--released-r2.png"
    }
   ],
   "preKit": false,
@@ -882,6 +1218,60 @@
     "label": "Main",
     "before": null,
     "after": "compare/after/deliver-ActiveClassClockIn.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--locating",
+    "label": "locating",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--locating.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--online",
+    "label": "online",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--online.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--permission",
+    "label": "permission",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--permission.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--gpsdenied",
+    "label": "gpsdenied",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--gpsdenied.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--timeout",
+    "label": "timeout",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--timeout.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--toofar",
+    "label": "toofar",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--toofar.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--offline",
+    "label": "offline",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--offline.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--submitting",
+    "label": "submitting",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--submitting.png"
+   },
+   {
+    "name": "deliver-CameraScreen",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/deliver-CameraScreen.png"
    }
   ],
   "preKit": false,
@@ -895,6 +1285,60 @@
   "hero": "deliver-camera-demand",
   "summary": "The proof-capture camera reconciled as the clock-in start-photo state (opaque chrome, viewfinder corners, one-photo copy, shutter into the cockpit). The old stock-camera + demand-card mock is superseded; the Home demand-card job rides the Today/nav pitch.",
   "states": [
+   {
+    "name": "deliver-ActiveClassClockIn",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--locating",
+    "label": "locating",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--locating.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--online",
+    "label": "online",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--online.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--permission",
+    "label": "permission",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--permission.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--gpsdenied",
+    "label": "gpsdenied",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--gpsdenied.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--timeout",
+    "label": "timeout",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--timeout.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--toofar",
+    "label": "toofar",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--toofar.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--offline",
+    "label": "offline",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--offline.png"
+   },
+   {
+    "name": "deliver-ActiveClassClockIn--submitting",
+    "label": "submitting",
+    "before": null,
+    "after": "compare/after/deliver-ActiveClassClockIn--submitting.png"
+   },
    {
     "name": "deliver-CameraScreen",
     "label": "Main",
@@ -918,6 +1362,48 @@
     "label": "Main",
     "before": "compare/before/profile-ProfileMenu.png",
     "after": "compare/after/profile-ProfileMenu.png"
+   },
+   {
+    "name": "profile-ProfileMenu--scrolled",
+    "label": "scrolled",
+    "before": null,
+    "after": "compare/after/profile-ProfileMenu--scrolled.png"
+   },
+   {
+    "name": "profile-ProfileMenu--incomplete",
+    "label": "incomplete",
+    "before": "compare/before/profile-ProfileMenu--incomplete.png",
+    "after": "compare/after/profile-ProfileMenu--incomplete.png"
+   },
+   {
+    "name": "profile-ProfileMenu--inreview",
+    "label": "inreview",
+    "before": null,
+    "after": "compare/after/profile-ProfileMenu--inreview.png"
+   },
+   {
+    "name": "profile-ProfileMenu--suspended",
+    "label": "suspended",
+    "before": null,
+    "after": "compare/after/profile-ProfileMenu--suspended.png"
+   },
+   {
+    "name": "profile-ProfileMenu--terminated",
+    "label": "terminated",
+    "before": null,
+    "after": "compare/after/profile-ProfileMenu--terminated.png"
+   },
+   {
+    "name": "profile-ProfileMenu--logoutdialog",
+    "label": "logoutdialog",
+    "before": null,
+    "after": "compare/after/profile-ProfileMenu--logoutdialog.png"
+   },
+   {
+    "name": "profile-ProfileMenu--loading",
+    "label": "loading",
+    "before": null,
+    "after": "compare/after/profile-ProfileMenu--loading.png"
    }
   ],
   "preKit": false,
@@ -996,6 +1482,36 @@
     "label": "Main",
     "before": "compare/before/earn-Payment.png",
     "after": "compare/after/earn-Payment.png"
+   },
+   {
+    "name": "earn-PendingEarningsDetail",
+    "label": "Main",
+    "before": "compare/before/earn-PendingEarningsDetail.png",
+    "after": "compare/after/earn-PendingEarningsDetail.png"
+   },
+   {
+    "name": "earn-PaymentLedger",
+    "label": "Main",
+    "before": "compare/before/earn-PaymentLedger.png",
+    "after": "compare/after/earn-PaymentLedger.png"
+   },
+   {
+    "name": "earn-Payment--classdetail",
+    "label": "classdetail",
+    "before": null,
+    "after": "compare/after/earn-Payment--classdetail.png"
+   },
+   {
+    "name": "earn-Payment--empty",
+    "label": "empty",
+    "before": null,
+    "after": "compare/after/earn-Payment--empty.png"
+   },
+   {
+    "name": "earn-Payment--loading",
+    "label": "loading",
+    "before": null,
+    "after": "compare/after/earn-Payment--loading.png"
    }
   ],
   "preKit": false,
@@ -1271,6 +1787,42 @@
     "label": "Main",
     "before": "compare/before/profile-Profile.png",
     "after": "compare/after/profile-Profile.png"
+   },
+   {
+    "name": "profile-Profile--scrolled",
+    "label": "scrolled",
+    "before": "compare/before/profile-Profile--scrolled.png",
+    "after": "compare/after/profile-Profile--scrolled.png"
+   },
+   {
+    "name": "profile-Profile--strength",
+    "label": "strength",
+    "before": null,
+    "after": "compare/after/profile-Profile--strength.png"
+   },
+   {
+    "name": "profile-Profile--editname",
+    "label": "editname",
+    "before": null,
+    "after": "compare/after/profile-Profile--editname.png"
+   },
+   {
+    "name": "profile-Profile--photosheet",
+    "label": "photosheet",
+    "before": null,
+    "after": "compare/after/profile-Profile--photosheet.png"
+   },
+   {
+    "name": "profile-Profile--deleteblocked",
+    "label": "deleteblocked",
+    "before": null,
+    "after": "compare/after/profile-Profile--deleteblocked.png"
+   },
+   {
+    "name": "profile-Profile--loading",
+    "label": "loading",
+    "before": null,
+    "after": "compare/after/profile-Profile--loading.png"
    }
   ],
   "preKit": false,
@@ -1289,6 +1841,36 @@
     "label": "Main",
     "before": null,
     "after": "compare/after/profile-Documents.png"
+   },
+   {
+    "name": "profile-Documents--empty",
+    "label": "empty",
+    "before": null,
+    "after": "compare/after/profile-Documents--empty.png"
+   },
+   {
+    "name": "profile-Documents--review",
+    "label": "review",
+    "before": null,
+    "after": "compare/after/profile-Documents--review.png"
+   },
+   {
+    "name": "profile-Documents--verified",
+    "label": "verified",
+    "before": null,
+    "after": "compare/after/profile-Documents--verified.png"
+   },
+   {
+    "name": "profile-Documents--missing",
+    "label": "missing",
+    "before": null,
+    "after": "compare/after/profile-Documents--missing.png"
+   },
+   {
+    "name": "profile-Documents--loading",
+    "label": "loading",
+    "before": null,
+    "after": "compare/after/profile-Documents--loading.png"
    }
   ],
   "preKit": false,
@@ -1333,10 +1915,28 @@
   "summary": "Reconciliation screen 6 (locked 12-Jul), four states - the feed collecting this wave's minted moments (7 real rows: payout, shortlisted, verified, extension, application update, payable, schedule). Draft A flat rows (my rec) built first, founder reversed at eyeball - B card rows ruled: every notification a kit card r16; Grab stays cited for row CONTENT anatomy only. Unread = indigo dot + bold (double channel); flat reverse-chronological (grouping found nowhere); rows deep-link, destinations act (no inline actions, no mark-all-read - tap-to-read consumes the existing markRead endpoint the live UI barely used; the Page-based deep-link architecture KEPT as the live screen best part). Specs recorded not drawn: entry badge = INDIGO numeric (red not adopted, red law); category icons neutral ink, colour only on the dot; badge host = the Today/nav pitch. Glyph flag: money wears the wallet (shares the Request tab glyph), distinct coins glyph = icons-board next touch.",
   "states": [
    {
+    "name": "news-Notifications--empty",
+    "label": "empty",
+    "before": "compare/before/news-Notifications--empty.png",
+    "after": "compare/after/news-Notifications--empty.png"
+   },
+   {
     "name": "news-Notifications",
     "label": "Main",
     "before": "compare/before/news-Notifications.png",
     "after": "compare/after/news-Notifications.png"
+   },
+   {
+    "name": "news-Notifications--allread",
+    "label": "allread",
+    "before": null,
+    "after": "compare/after/news-Notifications--allread.png"
+   },
+   {
+    "name": "news-Notifications--loading",
+    "label": "loading",
+    "before": null,
+    "after": "compare/after/news-Notifications--loading.png"
    }
   ],
   "preKit": false,

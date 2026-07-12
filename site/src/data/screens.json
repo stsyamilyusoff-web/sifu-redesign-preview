@@ -326,10 +326,10 @@
  {
   "slug": "tutorrequests",
   "stage": "participate",
-  "name": "TutorRequests",
+  "name": "Requests",
   "mock": "tutorrequests-kit.html",
   "hero": "requests-feed-r1",
-  "summary": "The composition pilot: the Student Request feed rebuilt 100% from the locked element kit (locked 10-Jul). Kit segmented control with count badge, elevated cards, money leads with the mode pill top-right, term/recurrence removed from feed cards (detail-only), green Matches-you, raised indigo create FAB. Supersedes the pre-kit feed; other participate screens reconcile in a dedicated session. CROSS-SCREEN CONTRACT (11-Jul ClassSchedule ruling d): picks up the HOME center tab at next touch, PLUS the F1 fix: the Student Request title goes sentence-case and name-aligns with the Request tab label. RECONCILE-PENDING (12-Jul audit): fails the screen conformance spec on 5 clauses - pill tabs (should be rect-12), title-case title (should be sentence), In-person (should be In person), create-FAB centre (should be Home glyph), and the missing body-fill that renders it short; the pilot predates clauses 1/2/3/6/9. Full re-cut queued to the spec.",
+  "summary": "The composition pilot: the Student Request feed rebuilt 100% from the locked element kit (locked 10-Jul). Kit segmented control with count badge, elevated cards, money leads with the mode pill top-right, term/recurrence removed from feed cards (detail-only), green Matches-you, raised indigo create FAB. Supersedes the pre-kit feed; other participate screens reconcile in a dedicated session. CROSS-SCREEN CONTRACT (11-Jul ClassSchedule ruling d): picks up the HOME center tab at next touch, PLUS the F1 fix: the Student Request title goes sentence-case and name-aligns with the Request tab label. RECONCILED 12-Jul (exemplar of the conformance pass): all 5 stale clauses fixed - tabs rect-12/cells-9, title 'Requests' sentence-case (founder-ratified, aligned to the Request tab), 'In person', Home-glyph centre matching the reconciliation screens, body-fill so it renders full-frame. Surgically string-fixed from the compare board, zero feed content touched.",
   "states": [
    {
     "name": "participate-TutorRequests",

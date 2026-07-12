@@ -17,7 +17,10 @@ body{margin:0;padding:0;font-family:var(--font);background:var(--canvas)}
 .status{height:56px;flex:none;display:flex;align-items:flex-end;justify-content:space-between;padding:0 24px 8px}
 .status .time{font-weight:700;font-size:16px;color:#000;letter-spacing:.2px}
 .status .sys{display:flex;align-items:center;gap:8px}
-.head{flex:none;padding:8px 16px 12px}
+.phead{flex:none;display:flex;align-items:center;padding:10px 16px 14px}
+.pback{width:36px;display:flex}
+.ptitle{flex:1;text-align:center;font-size:18px;font-weight:700;color:var(--ink)}
+.pspacer{width:36px}
 .head h1{font-weight:700;font-size:30px;line-height:40px;color:var(--ink);letter-spacing:-.6px}
 .money{margin:0 16px 16px}
 .money .rm{font-size:14px;font-weight:500;color:var(--meta)}
@@ -79,8 +82,10 @@ svg{display:block}
   </div>
  </div>
 
- <div class="head">
-  <h1>Confirm classes</h1>
+ <div class="phead">
+  <span class="pback"><svg width="22" height="22" viewBox="0 0 256 256" style="color:#0B0B0C"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8H59.31l58.35 58.34a8 8 0 0 1-11.32 11.32l-72-72a8 8 0 0 1 0-11.32l72-72a8 8 0 0 1 11.32 11.32L59.31 120H216a8 8 0 0 1 8 8"/></svg></span>
+  <span class="ptitle">Confirm classes</span>
+  <span class="pspacer"></span>
  </div>
 
  <div class="money">

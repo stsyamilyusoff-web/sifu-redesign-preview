@@ -15,7 +15,7 @@ Every banked screen must satisfy every law below to count as **current**. A scre
 6. **Centre tab = the Home glyph.** The raised `+` create FAB is retired; create placement is owned by the Today/nav pitch. *(FAB/Home ruling, 11-Jul.)*
 7. **Type**: weights 400 / 500 / 700 only — no fake 600 or 800. No em-dashes in copy. Cards carry one bold anchor; rows are medium. *(Type law.)*
 8. **Radius law**: surfaces 16 (incl. sheet tops); compact surfaces under ~80px = 12; controls pill; FAB circle; concentric nesting. *(Radius law, final form.)*
-9. **Renders perfectly at 402×874**: the bare body sets a full-height background fill (`body { background: var(--canvas) }`) and min-height so the frame fills to 874 with no dark or empty gap below the content. Fonts are Circular base64-embedded (no `file://`). Light only. *(1:1 send spec.)*
+9. **Renders perfectly at 402×874**: the bare `<head>` MUST include `<meta name="viewport" content="width=device-width, initial-scale=1">` — without it, mobile rendering (and the full-page shooter) falls back to Chrome's 980px layout viewport and scales the 402px frame to a 2131px-tall capture, baking ~1250px of empty canvas below every screen. The `.frame` is a fixed `width:402px; height:874px; overflow:hidden` phone with a flex column (a flexed scroll area + the bottom dock pinned to 874), and the body sets `background: var(--canvas)` so the fill is the canvas, never dark. Fonts are Circular base64-embedded (no `file://`). Light only. *(1:1 send spec — the viewport-meta clause added 13-Jul after the empty-space audit.)*
 
 ## How a stale screen is handled
 

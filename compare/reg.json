@@ -280,6 +280,7 @@
     "report-ReportsList--search.png",
     "report-ReportsList.png",
     "report-WriterValidation.png",
+    "students-StudentsDetails--loading.png",
     "support-MyTickets--empty.png",
     "support-MyTickets.png"
   ],
@@ -672,6 +673,7 @@
     "static-TermAndConditions.png",
     "students-StudentList--empty.png",
     "students-StudentList.png",
+    "students-StudentsDetails--loading.png",
     "students-StudentsDetails--online.png",
     "students-StudentsDetails.png",
     "support-ApplicationStatusDetail--suspended.png",

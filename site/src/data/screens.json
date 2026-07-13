@@ -927,9 +927,9 @@
   "slug": "studentsdetails",
   "stage": "deliver",
   "name": "StudentsDetails",
-  "mock": "deliver-student-details.html",
-  "hero": "deliver-student-details",
-  "summary": "Identity hero + a compact 2x2 contact grid (Call / WhatsApp / Email / Directions). Admin field cut, registration demoted. [HOLD 13-Jul: the kit re-cut was founder-rejected (looks off, wants a proper visual redesign); Lane A reworking, pre-kit shown meanwhile.]",
+  "mock": "studentsdetails-kit.html",
+  "hero": "students-StudentsDetails",
+  "summary": "Kit re-cut v2, Direction C editorial (Lane A, founder-approved 13-Jul; replaces the rejected flat v1). One white surface with hairline dividers (not stacked cards on grey), 88px avatar + ring, type-scale-contrast stat row, one accent (WhatsApp filled green, Call/Directions outlined neutral). Online gates Directions + location off; loading = requests skeleton. Money = agreed rate only, no commission label.",
   "states": [
    {
     "name": "students-StudentsDetails",
@@ -942,9 +942,15 @@
     "label": "online",
     "before": "compare/before/students-StudentsDetails--online.png",
     "after": "compare/after/students-StudentsDetails--online.png"
+   },
+   {
+    "name": "students-StudentsDetails--loading",
+    "label": "loading",
+    "before": null,
+    "after": "compare/after/students-StudentsDetails--loading.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -1862,9 +1868,9 @@
   "slug": "student-status",
   "stage": "grow",
   "name": "Student status",
-  "mock": "profile-status.html",
-  "hero": "profile-status",
-  "summary": "Student-status re-skin: the binary toggle becomes a segmented control, with a reason picker + notes. Two live copy bugs fixed.",
+  "mock": "profile-status-kit.html",
+  "hero": "profile-Status",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). The tutor marks a student's roster status: segmented control + a reason picker sheet + counted notes + clause-10 dock. Two live copy bugs fixed (calss to class; deduped Select Status, empty reason reads Choose a reason). NB: the compare key profile-Status is a legacy misnomer - this is Student status, not a profile screen.",
   "states": [
    {
     "name": "profile-Status",
@@ -1879,7 +1885,7 @@
     "after": "compare/after/profile-Status--reason-picker.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

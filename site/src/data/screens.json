@@ -1626,17 +1626,6 @@
   "decision": null
  },
  {
-  "slug": "payment-ledger-receipt",
-  "stage": "grow",
-  "name": "Payment ledger (receipt)",
-  "mock": "earn-payment-ledger.html",
-  "hero": "earn-payment-ledger",
-  "summary": "ABSORBED into Payments (12-Jul): the payout detail is now payment-kit--payout.html - slip-share via the trailing header icon-button, deductions re-cased non-commission at payout level where TutorPayment addition/deduction live. This pre-kit receipt board is superseded, kept for history.",
-  "states": [],
-  "preKit": true,
-  "decision": null
- },
- {
   "slug": "refer-a-friend-referral-earnings",
   "stage": "grow",
   "name": "Refer a friend + Referral earnings",

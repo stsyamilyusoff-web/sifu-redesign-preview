@@ -927,9 +927,9 @@
   "slug": "studentsdetails",
   "stage": "deliver",
   "name": "StudentsDetails",
-  "mock": "studentsdetails-kit.html",
-  "hero": "students-StudentsDetails",
-  "summary": "Kit re-cut (Lane A, founder-approved 13-Jul). Identity hero + contact grid (Call / WhatsApp / Email / Directions); the online variant silently gates off Directions + location. Money = the tutor's agreed rate only, zero commission/take-home labels (no-commission-tutor-side law); green only on status (Active pill + WhatsApp). Hafiz Q: does display_commission = the tutor's earning?",
+  "mock": "deliver-student-details.html",
+  "hero": "deliver-student-details",
+  "summary": "Identity hero + a compact 2x2 contact grid (Call / WhatsApp / Email / Directions). Admin field cut, registration demoted. [HOLD 13-Jul: the kit re-cut was founder-rejected (looks off, wants a proper visual redesign); Lane A reworking, pre-kit shown meanwhile.]",
   "states": [
    {
     "name": "students-StudentsDetails",
@@ -944,7 +944,7 @@
     "after": "compare/after/students-StudentsDetails--online.png"
    }
   ],
-  "preKit": false,
+  "preKit": true,
   "decision": null
  },
  {
@@ -1802,9 +1802,9 @@
   "slug": "end-engagement",
   "stage": "grow",
   "name": "End engagement",
-  "mock": "support-form-resignation.html",
-  "hero": "support-form-resignation",
-  "summary": "Resignation as a 4-step wizard with a confirm alert and 3 guard states (suspended, ineligible, duplicate).",
+  "mock": "support-form-resignation-kit.html",
+  "hero": "support-SubmitRequestResignation",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). Resignation wizard + a confirm dialog (dismiss-left ghost / commit-right RED fill on Yes-submit - the ONE earned crimson in the whole exit-flow cluster, per the destructive-commit law) + a calm indigo guard state. Grounds: dialog law + Fresha #94 two-tier.",
   "states": [
    {
     "name": "support-SubmitRequestResignation",
@@ -1825,16 +1825,16 @@
     "after": "compare/after/support-SubmitRequestResignation--guard.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
   "slug": "discouragement",
   "stage": "grow",
   "name": "Discouragement",
-  "mock": "support-discouragement.html",
-  "hero": "support-discouragement",
-  "summary": "Lifecycle-aware deterrent (veteran stats / brand-new milestone / no-data) + an account-deletion loss-list. Exit de-emphasised, not blocked.",
+  "mock": "support-discouragement-kit.html",
+  "hero": "support-Discouragement",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). Lifecycle-aware deterrent (veteran value-reminder / brand-new milestone / no-data) + an account-deletion loss-list. NO red anywhere: the delete-account hero is AMBER, the No chip + wizard entry are indigo. Exit de-emphasised, never blocked.",
   "states": [
    {
     "name": "support-Discouragement",
@@ -1855,7 +1855,7 @@
     "after": "compare/after/support-Discouragement--delete-account.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

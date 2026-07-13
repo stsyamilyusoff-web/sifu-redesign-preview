@@ -270,7 +270,9 @@
     "report-ReportsList--picker.png",
     "report-ReportsList--search.png",
     "report-ReportsList.png",
-    "report-WriterValidation.png"
+    "report-WriterValidation.png",
+    "support-MyTickets--empty.png",
+    "support-MyTickets.png"
   ],
   "deletedItems": [],
   "passedItems": [],
@@ -659,6 +661,8 @@
     "support-Discouragement--brand-new.png",
     "support-Discouragement--delete-account.png",
     "support-Discouragement.png",
+    "support-MyTickets--empty.png",
+    "support-MyTickets.png",
     "support-SubmitRequestClassReschedule--request-sheet.png",
     "support-SubmitRequestClassReschedule.png",
     "support-SubmitRequestGeneralComplaint--category-sheet.png",

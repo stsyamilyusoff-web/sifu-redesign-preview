@@ -1646,9 +1646,9 @@
   "slug": "submit-a-ticket",
   "stage": "grow",
   "name": "Submit a ticket",
-  "mock": "support-ticket-picker.html",
-  "hero": "support-ticket-picker",
-  "summary": "Neutral ticket-type picker (extra class, reschedule, end engagement, something else) + a Track-your-tickets entry. Centered nav, canonical rebuild.",
+  "mock": "support-ticket-picker-kit.html",
+  "hero": "support-SubmitRequestPicker",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). Grouped ticket-type picker rows (extra class, reschedule, end engagement, something else) + a Track-your-tickets entry; unverified state gates the class rows behind a lock banner. Pushed nav, list-rows, no invented elements.",
   "states": [
    {
     "name": "support-SubmitRequestPicker",
@@ -1663,34 +1663,40 @@
     "after": "compare/after/support-SubmitRequestPicker--unverified.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
   "slug": "my-tickets",
   "stage": "grow",
   "name": "My tickets",
-  "mock": "support-my-tickets-list.html",
-  "hero": "support-my-tickets-list",
-  "summary": "Active / History segmented control + lean StatusPill cards (de-striped). Naming standardized to \"tickets\".",
+  "mock": "support-my-tickets-list-kit.html",
+  "hero": "support-MyTickets",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). Active / History kit segmented control + StatusPill cards (grey submitted / amber in-review / green approved, red-free); first-time empty = indigo icon + outline CTA. Naming standardized to tickets.",
   "states": [
    {
-    "name": "participate-MyRequestsList--empty",
+    "name": "support-MyTickets",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/support-MyTickets.png"
+   },
+   {
+    "name": "support-MyTickets--empty",
     "label": "empty",
-    "before": "compare/before/participate-MyRequestsList--empty.png",
-    "after": "compare/after/participate-MyRequestsList--empty.png"
+    "before": null,
+    "after": "compare/after/support-MyTickets--empty.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
   "slug": "ticket-detail",
   "stage": "grow",
   "name": "Ticket detail",
-  "mock": "support-ticket-detail.html",
-  "hero": "support-ticket-detail",
-  "summary": "Tap-to-copy ID chip + StatusBanner; the follow-up footer hides on approved or duplicate tickets.",
+  "mock": "support-ticket-detail-kit.html",
+  "hero": "support-TicketDetail",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). StatusBanner-first (amber in-review / green approved) + a tap-to-copy TKT id chip; static tracked-message block (one-way, not a live thread); the follow-up footer hides on approved tickets.",
   "states": [
    {
     "name": "support-TicketDetail",
@@ -1705,7 +1711,7 @@
     "after": "compare/after/support-TicketDetail--approved.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

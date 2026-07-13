@@ -51,9 +51,9 @@
   "slug": "login",
   "stage": "acquire",
   "name": "Login",
-  "mock": "login-a42.html",
-  "hero": "login-a42",
-  "summary": "Focus-first phone capture: brand mark, the international phone field as the hero, a pinned Continue. All 13 live fields kept.",
+  "mock": "login-kit.html",
+  "hero": "acquire-Login",
+  "summary": "Kit re-cut (Lane A, founder-approved 13-Jul). Pushed compact-centred header + instruction + MY-flag +60 phone field + Continue pill (pure re-skin, zero fields cut). States: base, loading (sending code, CTA busy), error (invalid phone, earned red #E11D48 on validation only). inDrive #2 grounding.",
   "states": [
    {
     "name": "acquire-Login",
@@ -62,34 +62,28 @@
     "after": "compare/after/acquire-Login.png"
    },
    {
-    "name": "acquire-Login--filled-busy",
-    "label": "filled busy",
-    "before": "compare/before/acquire-Login--filled-busy.png",
-    "after": "compare/after/acquire-Login--filled-busy.png"
+    "name": "acquire-Login--loading",
+    "label": "loading",
+    "before": null,
+    "after": "compare/after/acquire-Login--loading.png"
    },
    {
-    "name": "acquire-Login--invalid",
-    "label": "invalid",
-    "before": "compare/before/acquire-Login--invalid.png",
-    "after": "compare/after/acquire-Login--invalid.png"
-   },
-   {
-    "name": "acquire-Login--login-mode",
-    "label": "login mode",
-    "before": "compare/before/acquire-Login--login-mode.png",
-    "after": "compare/after/acquire-Login--login-mode.png"
+    "name": "acquire-Login--error",
+    "label": "error",
+    "before": null,
+    "after": "compare/after/acquire-Login--error.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
   "slug": "verifycode",
   "stage": "acquire",
   "name": "VerifyCode",
-  "mock": "verifycode-a43.html",
-  "hero": "verifycode-a43",
-  "summary": "Focus-first OTP with the resend copy fixed to \"Resend code in 0:59\" (was the broken \"Resend End in 59 Seconds\"), plus Edit-number recovery.",
+  "mock": "verifycode-kit.html",
+  "hero": "acquire-VerifyCode",
+  "summary": "Kit re-cut (Lane A, founder-approved 13-Jul). 5 boxed OTP cells (UC #203) with indigo focus border; Verify disabled until all 5 filled; countdown then active Resend code; centred Wrong number? Edit. States: base (countdown), error (wrong code, earned red), resend (ready), verifying (CTA busy). Auto-submit preserved.",
   "states": [
    {
     "name": "acquire-VerifyCode",
@@ -98,25 +92,43 @@
     "after": "compare/after/acquire-VerifyCode.png"
    },
    {
-    "name": "acquire-VerifyCode--counting",
-    "label": "counting",
-    "before": "compare/before/acquire-VerifyCode--counting.png",
-    "after": "compare/after/acquire-VerifyCode--counting.png"
+    "name": "acquire-VerifyCode--error",
+    "label": "error",
+    "before": null,
+    "after": "compare/after/acquire-VerifyCode--error.png"
    },
    {
-    "name": "acquire-VerifyCode--wrong-otp",
-    "label": "wrong otp",
-    "before": "compare/before/acquire-VerifyCode--wrong-otp.png",
-    "after": "compare/after/acquire-VerifyCode--wrong-otp.png"
+    "name": "acquire-VerifyCode--resend",
+    "label": "resend",
+    "before": null,
+    "after": "compare/after/acquire-VerifyCode--resend.png"
    },
    {
     "name": "acquire-VerifyCode--verifying",
     "label": "verifying",
-    "before": "compare/before/acquire-VerifyCode--verifying.png",
+    "before": null,
     "after": "compare/after/acquire-VerifyCode--verifying.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
+  "decision": null
+ },
+ {
+  "slug": "faceid",
+  "stage": "acquire",
+  "name": "Face ID",
+  "mock": "faceid-kit.html",
+  "hero": "acquire-FaceID",
+  "summary": "NEW funnel screen (founder-added 13-Jul), positioned after VerifyCode success before profile setup. One full-screen rationale prompt (Grab #227): indigo-tinted circle + system Face ID glyph + Sign in faster with Face ID + one benefit line + filled Enable Face ID pill + quiet Not now. Easily declined, no dark pattern. Greenfield: no biometric wiring today (Hafiz: native LocalAuthentication + stored preference + backend flag).",
+  "states": [
+   {
+    "name": "acquire-FaceID",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/acquire-FaceID.png"
+   }
+  ],
+  "preKit": false,
   "decision": null
  },
  {

@@ -126,7 +126,12 @@
     "support-TicketDetail.png"
   ],
   "newItems": [
+    "acquire-FaceID.png",
+    "acquire-Login--error.png",
+    "acquire-Login--loading.png",
     "acquire-Splash.png",
+    "acquire-VerifyCode--error.png",
+    "acquire-VerifyCode--resend.png",
     "activate-SetHomeLocationPin--autofilled.png",
     "activate-SetHomeLocationPin--picker.png",
     "activate-SetHomeLocationPin.png",
@@ -403,8 +408,11 @@
     "support-TicketDetail.png"
   ],
   "actualItems": [
+    "acquire-FaceID.png",
+    "acquire-Login--error.png",
     "acquire-Login--filled-busy.png",
     "acquire-Login--invalid.png",
+    "acquire-Login--loading.png",
     "acquire-Login--login-mode.png",
     "acquire-Login.png",
     "acquire-OnBoarding--slide-2.png",
@@ -412,6 +420,8 @@
     "acquire-OnBoarding.png",
     "acquire-Splash.png",
     "acquire-VerifyCode--counting.png",
+    "acquire-VerifyCode--error.png",
+    "acquire-VerifyCode--resend.png",
     "acquire-VerifyCode--verifying.png",
     "acquire-VerifyCode--wrong-otp.png",
     "acquire-VerifyCode.png",

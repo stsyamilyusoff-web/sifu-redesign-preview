@@ -170,6 +170,10 @@
      {
       "label": "VerifyCode",
       "slug": "tutor/acquire/verifycode"
+     },
+     {
+      "label": "Face ID",
+      "slug": "tutor/acquire/faceid"
      }
     ]
    },

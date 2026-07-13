@@ -927,9 +927,9 @@
   "slug": "studentsdetails",
   "stage": "deliver",
   "name": "StudentsDetails",
-  "mock": "deliver-student-details.html",
-  "hero": "deliver-student-details",
-  "summary": "Identity hero + a compact 2x2 contact grid (Call / WhatsApp / Email / Directions). Admin field cut, registration demoted.",
+  "mock": "studentsdetails-kit.html",
+  "hero": "students-StudentsDetails",
+  "summary": "Kit re-cut (Lane A, founder-approved 13-Jul). Identity hero + contact grid (Call / WhatsApp / Email / Directions); the online variant silently gates off Directions + location. Money = the tutor's agreed rate only, zero commission/take-home labels (no-commission-tutor-side law); green only on status (Active pill + WhatsApp). Hafiz Q: does display_commission = the tutor's earning?",
   "states": [
    {
     "name": "students-StudentsDetails",
@@ -944,7 +944,7 @@
     "after": "compare/after/students-StudentsDetails--online.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

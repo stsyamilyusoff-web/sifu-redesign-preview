@@ -21,9 +21,9 @@
   "slug": "onboarding",
   "stage": "acquire",
   "name": "OnBoarding",
-  "mock": "onboarding-a41.html",
-  "hero": "onboarding-a41",
-  "summary": "Three value slides re-grounded to real tutor jobs (matched students, billing handled, earn per class), with real-photography direction.",
+  "mock": "onboarding-kit.html",
+  "hero": "acquire-OnBoarding",
+  "summary": "Kit re-cut (Lane A, founder-approved 13-Jul), supersedes the 06-30 pre-kit a41. Three value slides (right fit / no paperwork / earn per class) on real Circular + canon weights and sizes; dots-only progress (the redundant N/3 counter dropped per the no-duplication law); the FOUNDER-PENDING stat chip dropped (no true number ships clean); CTA = kit pill PrimaryButton, eyebrow = kit chip. Every live element kept (3 slides, dots, Skip hidden on last, Get started, Log in); photography = sample-until-asset.",
   "states": [
    {
     "name": "acquire-OnBoarding",
@@ -44,7 +44,7 @@
     "after": "compare/after/acquire-OnBoarding--slide-3.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

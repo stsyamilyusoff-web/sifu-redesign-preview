@@ -281,6 +281,7 @@
     "report-ReportsList--search.png",
     "report-ReportsList.png",
     "report-WriterValidation.png",
+    "students-StudentList--noresults.png",
     "students-StudentsDetails--loading.png",
     "support-MyTickets--empty.png",
     "support-MyTickets.png"
@@ -674,6 +675,7 @@
     "static-PrivacyPolicy.png",
     "static-TermAndConditions.png",
     "students-StudentList--empty.png",
+    "students-StudentList--noresults.png",
     "students-StudentList.png",
     "students-StudentsDetails--loading.png",
     "students-StudentsDetails--online.png",

@@ -330,12 +330,12 @@
       "slug": "tutor/deliver/class-detail"
      },
      {
-      "label": "Class edit + parent gate",
-      "slug": "tutor/deliver/class-edit-parent-gate"
+      "label": "Student list",
+      "slug": "tutor/deliver/student-list"
      },
      {
-      "label": "Students + tasks",
-      "slug": "tutor/deliver/students-tasks"
+      "label": "Student report (tutor read-v…",
+      "slug": "tutor/deliver/student-report"
      },
      {
       "label": "Clock in (arrival gate)",
@@ -354,6 +354,10 @@
      {
       "label": "Stage overview",
       "slug": "tutor/grow"
+     },
+     {
+      "label": "Parent approval (confirm)",
+      "slug": "tutor/grow/parent-approval"
      },
      {
       "label": "Profile hub",

@@ -1164,25 +1164,13 @@
   "decision": null
  },
  {
-  "slug": "class-edit-parent-gate",
-  "stage": "deliver",
-  "name": "Class edit + parent gate",
+  "slug": "parent-approval",
+  "stage": "grow",
+  "name": "Parent approval (confirm)",
   "mock": "deliver-class-edit.html",
-  "hero": "deliver-class-edit",
-  "summary": "Class management trio: quick-pick Extend, a from-to Postpone comparison, and a neutral parent-approval gate where declining is as easy as confirming.",
+  "hero": "activate-ParentApprovalConfirmation",
+  "summary": "PRE-KIT, re-filed 14-Jul (founder-confirmed): the parent-approval friction gate reached from the support-ticket flow (SubmitRequestExtraClass / SubmitRequestClassReschedule to createTicket), NOT class edit (mis-filed originally). Belongs to the Help Centre / SubmitRequest tickets cluster; gets its kit re-cut when that cluster is designed. The class-edit bundle it was extracted from is retired (Extend to the Teaching-now sheet, Postpone to reschedule, both kit).",
   "states": [
-   {
-    "name": "deliver-ExtraClass",
-    "label": "Main",
-    "before": "compare/before/deliver-ExtraClass.png",
-    "after": "compare/after/deliver-ExtraClass.png"
-   },
-   {
-    "name": "deliver-EditPostponedClass",
-    "label": "Main",
-    "before": "compare/before/deliver-EditPostponedClass.png",
-    "after": "compare/after/deliver-EditPostponedClass.png"
-   },
    {
     "name": "activate-ParentApprovalConfirmation",
     "label": "Main",
@@ -1194,12 +1182,12 @@
   "decision": null
  },
  {
-  "slug": "students-tasks",
+  "slug": "student-list",
   "stage": "deliver",
-  "name": "Students + tasks",
-  "mock": "deliver-student-tasks.html",
-  "hero": "deliver-student-tasks",
-  "summary": "Students and submitted reports (with sort + filter). The pending-tasks job moved to Confirm classes (teach-loop 4, kit-composed); the empty state stays here until the reconciliation session.",
+  "name": "Student list",
+  "mock": "studentlist-kit.html",
+  "hero": "students-StudentList",
+  "summary": "Kit re-cut (Lane A, founder-approved 14-Jul; closes Lane A's original 11). The tutor's students list that drills into StudentsDetails; search no-results + first-time empty states. Split out of the old students+tasks bundle (TutorTaskList to the Confirm-classes / reports-due kit; the invented ReportsFilter dropped).",
   "states": [
    {
     "name": "students-StudentList",
@@ -1208,34 +1196,40 @@
     "after": "compare/after/students-StudentList.png"
    },
    {
-    "name": "report-StudentReport",
-    "label": "Main",
-    "before": "compare/before/report-StudentReport.png",
-    "after": "compare/after/report-StudentReport.png"
-   },
-   {
-    "name": "deliver-StudentTasks--reports-filter",
-    "label": "reports filter",
-    "before": "compare/before/deliver-StudentTasks--reports-filter.png",
-    "after": "compare/after/deliver-StudentTasks--reports-filter.png"
+    "name": "students-StudentList--noresults",
+    "label": "noresults",
+    "before": null,
+    "after": "compare/after/students-StudentList--noresults.png"
    },
    {
     "name": "students-StudentList--empty",
     "label": "empty",
     "before": "compare/before/students-StudentList--empty.png",
     "after": "compare/after/students-StudentList--empty.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
+  "slug": "student-report",
+  "stage": "deliver",
+  "name": "Student report (tutor read-view)",
+  "mock": "deliver-student-tasks.html",
+  "hero": "report-StudentReport",
+  "summary": "PRE-KIT (possible small gap, flagged 14-Jul): the tutor-side read-view of a submitted student report. The eval/progress report VIEWS are covered by the kit report family (tutor-eval-view / tutor-progress-view); this combined read-view may be redundant or a minor remaining screen, confirm coverage before a re-cut.",
+  "states": [
+   {
+    "name": "report-StudentReport",
+    "label": "Main",
+    "before": "compare/before/report-StudentReport.png",
+    "after": "compare/after/report-StudentReport.png"
    },
    {
     "name": "report-StudentReport--empty",
     "label": "empty",
     "before": "compare/before/report-StudentReport--empty.png",
     "after": "compare/after/report-StudentReport--empty.png"
-   },
-   {
-    "name": "participate-TutorTaskList--empty",
-    "label": "empty",
-    "before": "compare/before/participate-TutorTaskList--empty.png",
-    "after": "compare/after/participate-TutorTaskList--empty.png"
    }
   ],
   "preKit": true,

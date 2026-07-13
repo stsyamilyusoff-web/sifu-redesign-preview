@@ -1515,9 +1515,9 @@
   "slug": "updateprofile",
   "stage": "activate",
   "name": "UpdateProfile",
-  "mock": "updateprofile-a45.html",
-  "hero": "updateprofile-a45",
-  "summary": "Re-skinned as the real name + email screen (verified phone locked, optional referral). Dead date-of-birth field cut.",
+  "mock": "updateprofile-kit.html",
+  "hero": "activate-UpdateProfile",
+  "summary": "Kit re-cut (Lane A, founder-approved 13-Jul; split out of the shared a45). Real name + email screen (verified phone locked, optional referral); base + error (bad email, earned crimson #E11D48). Dead date-of-birth field cut. Hafiz: live support email .com to .my; referral input commented in live.",
   "states": [
    {
     "name": "activate-UpdateProfile",
@@ -1526,35 +1526,23 @@
     "after": "compare/after/activate-UpdateProfile.png"
    },
    {
-    "name": "activate-ConsentGate",
-    "label": "Main",
-    "before": "compare/before/activate-ConsentGate.png",
-    "after": "compare/after/activate-ConsentGate.png"
-   },
-   {
-    "name": "activate-UpdateProfile--arrival",
-    "label": "arrival",
-    "before": "compare/before/activate-UpdateProfile--arrival.png",
-    "after": "compare/after/activate-UpdateProfile--arrival.png"
+    "name": "activate-UpdateProfile--error",
+    "label": "error",
+    "before": null,
+    "after": "compare/after/activate-UpdateProfile--error.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
   "slug": "consentgate",
   "stage": "activate",
   "name": "ConsentGate",
-  "mock": "updateprofile-a45.html",
-  "hero": "consentgate-a45",
-  "summary": "Terms + a Privacy summary + a consent checkbox + \"Agree & continue\" where the save happens. Casing bug fixed.",
+  "mock": "consentgate-kit.html",
+  "hero": "activate-ConsentGate",
+  "summary": "Kit re-cut (Lane A, founder-approved 13-Jul); its OWN node now (split out of the shared a45 - this is the screen where the DB save fires). Terms + Privacy summary + consent checkbox + Agree and continue; 4 states: base, checked, submitting (save in flight), error (save error, earned crimson).",
   "states": [
-   {
-    "name": "activate-UpdateProfile",
-    "label": "Main",
-    "before": "compare/before/activate-UpdateProfile.png",
-    "after": "compare/after/activate-UpdateProfile.png"
-   },
    {
     "name": "activate-ConsentGate",
     "label": "Main",
@@ -1562,13 +1550,25 @@
     "after": "compare/after/activate-ConsentGate.png"
    },
    {
-    "name": "activate-UpdateProfile--arrival",
-    "label": "arrival",
-    "before": "compare/before/activate-UpdateProfile--arrival.png",
-    "after": "compare/after/activate-UpdateProfile--arrival.png"
+    "name": "activate-ConsentGate--checked",
+    "label": "checked",
+    "before": null,
+    "after": "compare/after/activate-ConsentGate--checked.png"
+   },
+   {
+    "name": "activate-ConsentGate--submitting",
+    "label": "submitting",
+    "before": null,
+    "after": "compare/after/activate-ConsentGate--submitting.png"
+   },
+   {
+    "name": "activate-ConsentGate--error",
+    "label": "error",
+    "before": null,
+    "after": "compare/after/activate-ConsentGate--error.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

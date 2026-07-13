@@ -1119,9 +1119,9 @@
   "slug": "class-records",
   "stage": "deliver",
   "name": "Class records",
-  "mock": "deliver-class-records.html",
-  "hero": "deliver-class-records",
-  "summary": "Lean history list on one shared class card (name, RM, subject, date, then ID + status), a single-class detail hero, and a grouped filter. No duplicated facts; scan-clean cards.",
+  "mock": "classrecords-kit.html",
+  "hero": "deliver-ClassRecords",
+  "summary": "Kit re-cut (Lane A, founder-approved 13-Jul). Ledger list on one shared class card (name, agreed rate, subject, date, ID + status pill) + a grouped filter sheet (canonical FUNNEL glyph). Status pills tinted on-law (green/amber/indigo/grey, never red); money = agreed rate, neutral trailing, no commission. Hafiz: the live dispute status renders here but is NOT in the ClassStatus.php enum.",
   "states": [
    {
     "name": "deliver-ClassRecords",
@@ -1134,7 +1134,19 @@
     "label": "Main",
     "before": "compare/before/deliver-ClassRecordFilter.png",
     "after": "compare/after/deliver-ClassRecordFilter.png"
-   },
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
+  "slug": "class-detail",
+  "stage": "deliver",
+  "name": "Class detail",
+  "mock": "classdetail-kit.html",
+  "hero": "deliver-ClassDetailByNotification",
+  "summary": "Kit re-cut (Lane A, founder-approved 13-Jul). Single-class detail: hero + a clock-in/out timeline, with a crash-guard not-found empty (ClassDetailByNotification is deep-linked, often to a stale/deleted class). Money = agreed rate, no commission.",
+  "states": [
    {
     "name": "deliver-ClassDetailByNotification",
     "label": "Main",
@@ -1142,19 +1154,13 @@
     "after": "compare/after/deliver-ClassDetailByNotification.png"
    },
    {
-    "name": "deliver-ClassRecords--not-found",
-    "label": "not found",
-    "before": "compare/before/deliver-ClassRecords--not-found.png",
-    "after": "compare/after/deliver-ClassRecords--not-found.png"
-   },
-   {
-    "name": "deliver-ClassRecords--filtered-empty",
-    "label": "filtered empty",
-    "before": "compare/before/deliver-ClassRecords--filtered-empty.png",
-    "after": "compare/after/deliver-ClassRecords--filtered-empty.png"
+    "name": "deliver-ClassDetailByNotification--notfound",
+    "label": "notfound",
+    "before": null,
+    "after": "compare/after/deliver-ClassDetailByNotification--notfound.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

@@ -326,6 +326,10 @@
       "slug": "tutor/deliver/class-records"
      },
      {
+      "label": "Class detail",
+      "slug": "tutor/deliver/class-detail"
+     },
+     {
       "label": "Class edit + parent gate",
       "slug": "tutor/deliver/class-edit-parent-gate"
      },

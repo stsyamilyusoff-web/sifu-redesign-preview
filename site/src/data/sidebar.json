@@ -274,12 +274,36 @@
       "slug": "tutor/deliver/report-writer"
      },
      {
-      "label": "EvaluationReport",
-      "slug": "tutor/deliver/evaluationreport"
+      "label": "Report writer (validation)",
+      "slug": "tutor/deliver/report-writer-validation"
      },
      {
-      "label": "ProgressReport",
-      "slug": "tutor/deliver/progressreport"
+      "label": "Report sent",
+      "slug": "tutor/deliver/report-sent"
+     },
+     {
+      "label": "Reports due (all caught up)",
+      "slug": "tutor/deliver/reports-due-empty"
+     },
+     {
+      "label": "Reports list (history)",
+      "slug": "tutor/deliver/reports-list"
+     },
+     {
+      "label": "Evaluation report (read-back)",
+      "slug": "tutor/deliver/eval-report-view"
+     },
+     {
+      "label": "Progress report (read-back)",
+      "slug": "tutor/deliver/progress-report-view"
+     },
+     {
+      "label": "Report notification",
+      "slug": "tutor/deliver/report-notification"
+     },
+     {
+      "label": "Learning ledger (notes loop)",
+      "slug": "tutor/deliver/learning-ledger"
      },
      {
       "label": "StudentsDetails",

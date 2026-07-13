@@ -726,6 +726,18 @@
     "label": "Main",
     "before": null,
     "after": "compare/after/report-ReportsDue.png"
+   },
+   {
+    "name": "report-ReportsDue--hero",
+    "label": "hero",
+    "before": null,
+    "after": "compare/after/report-ReportsDue--hero.png"
+   },
+   {
+    "name": "report-ReportsDue--eval",
+    "label": "eval",
+    "before": null,
+    "after": "compare/after/report-ReportsDue--eval.png"
    }
   ],
   "preKit": true,
@@ -744,90 +756,192 @@
     "label": "Main",
     "before": null,
     "after": "compare/after/report-ReportWriter.png"
+   },
+   {
+    "name": "report-ReportWriter--eval",
+    "label": "eval",
+    "before": null,
+    "after": "compare/after/report-ReportWriter--eval.png"
    }
   ],
   "preKit": true,
   "decision": null
  },
  {
-  "slug": "evaluationreport",
+  "slug": "report-writer-validation",
   "stage": "deliver",
-  "name": "EvaluationReport",
-  "mock": "deliver-evaluation-report.html",
-  "hero": "deliver-evaluation-report",
-  "summary": "First-class baseline form: full-bleed photo intro + baseline-score dial (no trend) + vertical-ladder rating. Absorbs two old screens.",
+  "name": "Report writer (validation)",
+  "mock": "writer-validation.html",
+  "hero": "report-WriterValidation",
+  "summary": "The writer's error state - ONE earned restrained-red #E11D48 inline error under an empty required field, the only red in the report family (per the one-red law). Everything else stays neutral ink.",
   "states": [
    {
-    "name": "report-EvaluationReport",
+    "name": "report-WriterValidation",
     "label": "Main",
-    "before": "compare/before/report-EvaluationReport.png",
-    "after": "compare/after/report-EvaluationReport.png"
-   },
-   {
-    "name": "report-EvaluationReport--step-1",
-    "label": "step 1",
-    "before": "compare/before/report-EvaluationReport--step-1.png",
-    "after": "compare/after/report-EvaluationReport--step-1.png"
-   },
-   {
-    "name": "report-EvaluationReport--step-2",
-    "label": "step 2",
-    "before": "compare/before/report-EvaluationReport--step-2.png",
-    "after": "compare/after/report-EvaluationReport--step-2.png"
-   },
-   {
-    "name": "report-EvaluationReport--step-3",
-    "label": "step 3",
-    "before": "compare/before/report-EvaluationReport--step-3.png",
-    "after": "compare/after/report-EvaluationReport--step-3.png"
-   },
-   {
-    "name": "report-EvaluationReport--review",
-    "label": "review",
-    "before": "compare/before/report-EvaluationReport--review.png",
-    "after": "compare/after/report-EvaluationReport--review.png"
+    "before": null,
+    "after": "compare/after/report-WriterValidation.png"
    }
   ],
   "preKit": true,
   "decision": null
  },
  {
-  "slug": "progressreport",
+  "slug": "report-sent",
   "stage": "deliver",
-  "name": "ProgressReport",
-  "mock": "deliver-progress-report.html",
-  "hero": "deliver-progress-report",
-  "summary": "Recurring 12-class report: credit-score dial (baseline to now trend), per-dimension movement, and a Luna parent verdict.",
+  "name": "Report sent",
+  "mock": "report-success--eval.html",
+  "hero": "report-ReportSent--eval",
+  "summary": "Post-send success, both report types: evaluation-sent leads with a green check + a quiet right-aligned schedule upsell, progress-sent is a plain success with no upsell. No fabricated stats.",
   "states": [
    {
-    "name": "report-ProgressReport",
+    "name": "report-ReportSent--eval",
+    "label": "eval",
+    "before": null,
+    "after": "compare/after/report-ReportSent--eval.png"
+   },
+   {
+    "name": "report-ReportSent--progress",
+    "label": "progress",
+    "before": null,
+    "after": "compare/after/report-ReportSent--progress.png"
+   }
+  ],
+  "preKit": true,
+  "decision": null
+ },
+ {
+  "slug": "reports-due-empty",
+  "stage": "deliver",
+  "name": "Reports due (all caught up)",
+  "mock": "report-empty--due.html",
+  "hero": "report-ReportsDueEmpty",
+  "summary": "The positive empty state of the duty ledger - You're all caught up, no CTA (the good empty; a done-and-cleared affirm, not a prompt to act).",
+  "states": [
+   {
+    "name": "report-ReportsDueEmpty",
     "label": "Main",
-    "before": "compare/before/report-ProgressReport.png",
-    "after": "compare/after/report-ProgressReport.png"
+    "before": null,
+    "after": "compare/after/report-ReportsDueEmpty.png"
+   }
+  ],
+  "preKit": true,
+  "decision": null
+ },
+ {
+  "slug": "reports-list",
+  "stage": "deliver",
+  "name": "Reports list (history)",
+  "mock": "tutor-reports-list.html",
+  "hero": "report-ReportsList",
+  "summary": "Sent-reports history - a search field and a picker variant. The read-back entry point into a specific student's evaluation or progress report.",
+  "states": [
+   {
+    "name": "report-ReportsList",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/report-ReportsList.png"
    },
    {
-    "name": "report-ProgressReport--step-1-observation",
-    "label": "step 1 observation",
-    "before": "compare/before/report-ProgressReport--step-1-observation.png",
-    "after": "compare/after/report-ProgressReport--step-1-observation.png"
+    "name": "report-ReportsList--search",
+    "label": "search",
+    "before": null,
+    "after": "compare/after/report-ReportsList--search.png"
    },
    {
-    "name": "report-ProgressReport--step-2-performance",
-    "label": "step 2 performance",
-    "before": "compare/before/report-ProgressReport--step-2-performance.png",
-    "after": "compare/after/report-ProgressReport--step-2-performance.png"
+    "name": "report-ReportsList--picker",
+    "label": "picker",
+    "before": null,
+    "after": "compare/after/report-ReportsList--picker.png"
+   }
+  ],
+  "preKit": true,
+  "decision": null
+ },
+ {
+  "slug": "eval-report-view",
+  "stage": "deliver",
+  "name": "Evaluation report (read-back)",
+  "mock": "tutor-eval-view.html",
+  "hero": "report-EvalView",
+  "summary": "The tutor reading back a sent evaluation - the read strip plus the Resend to parent NEW capability. Read-only view of what the parent received.",
+  "states": [
+   {
+    "name": "report-EvalView",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/report-EvalView.png"
    },
    {
-    "name": "report-ProgressReport--step-3-attitude",
-    "label": "step 3 attitude",
-    "before": "compare/before/report-ProgressReport--step-3-attitude.png",
-    "after": "compare/after/report-ProgressReport--step-3-attitude.png"
+    "name": "report-EvalView--strip",
+    "label": "strip",
+    "before": null,
+    "after": "compare/after/report-EvalView--strip.png"
    },
    {
-    "name": "report-ProgressReport--parent-summary",
-    "label": "parent summary",
-    "before": "compare/before/report-ProgressReport--parent-summary.png",
-    "after": "compare/after/report-ProgressReport--parent-summary.png"
+    "name": "report-EvalView--resend",
+    "label": "resend",
+    "before": null,
+    "after": "compare/after/report-EvalView--resend.png"
+   }
+  ],
+  "preKit": true,
+  "decision": null
+ },
+ {
+  "slug": "progress-report-view",
+  "stage": "deliver",
+  "name": "Progress report (read-back)",
+  "mock": "tutor-progress-view.html",
+  "hero": "report-ProgressView",
+  "summary": "The tutor reading back a sent progress report - a cross-month verdict (How doing, What to work on, Focus next), no sentiment re-summary (that lives in the ledger). Coverage-honest 9 of 12 classes notes stat only.",
+  "states": [
+   {
+    "name": "report-ProgressView",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/report-ProgressView.png"
+   },
+   {
+    "name": "report-ProgressView--strip",
+    "label": "strip",
+    "before": null,
+    "after": "compare/after/report-ProgressView--strip.png"
+   }
+  ],
+  "preKit": true,
+  "decision": null
+ },
+ {
+  "slug": "report-notification",
+  "stage": "deliver",
+  "name": "Report notification",
+  "mock": "notif-report.html",
+  "hero": "report-Notification",
+  "summary": "Report-due reminders in the mixed notification feed - the nudge that drives the tutor back into the writer.",
+  "states": [
+   {
+    "name": "report-Notification",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/report-Notification.png"
+   }
+  ],
+  "preKit": true,
+  "decision": null
+ },
+ {
+  "slug": "learning-ledger",
+  "stage": "deliver",
+  "name": "Learning ledger (notes loop)",
+  "mock": "tutor-learning-ledger.html",
+  "hero": "report-LearningLedger",
+  "summary": "The loop linchpin (founder-locked 13-Jul): an amber focus card 2 classes still need a note leads, a glance dot-row, coverage-honest 9 of 12 classes noted with 7 of the 9 went well (denominator-coherence law: sentiment out of the NOTED subset, coverage out of the period TOTAL), and a timeline with gaps as inline indigo Add note (never red). Footer: these notes feed the next progress report.",
+  "states": [
+   {
+    "name": "report-LearningLedger",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/report-LearningLedger.png"
    }
   ],
   "preKit": true,
@@ -1116,18 +1230,6 @@
     "label": "Main",
     "before": "compare/before/deliver-BackdateEscalationSuccess.png",
     "after": "compare/after/deliver-BackdateEscalationSuccess.png"
-   },
-   {
-    "name": "report-EvaluationReportSuccess",
-    "label": "Main",
-    "before": "compare/before/report-EvaluationReportSuccess.png",
-    "after": "compare/after/report-EvaluationReportSuccess.png"
-   },
-   {
-    "name": "report-ProgressReportSuccess",
-    "label": "Main",
-    "before": "compare/before/report-ProgressReportSuccess.png",
-    "after": "compare/after/report-ProgressReportSuccess.png"
    }
   ],
   "preKit": true,

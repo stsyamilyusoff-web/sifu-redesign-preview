@@ -3,9 +3,9 @@
   "slug": "splash",
   "stage": "acquire",
   "name": "Splash",
-  "mock": "splash-a44.html",
-  "hero": "splash-a44",
-  "summary": "Clean brand-mark flood: shield, Sifututor wordmark, tagline and loader. Boot logic + deep-link routing preserved.",
+  "mock": "splash-kit.html",
+  "hero": "acquire-Splash",
+  "summary": "Kit re-cut (Lane A, founder-approved 13-Jul). Brand-flood background (founder chose it over a photo variant that was built + shown + rejected) + the real production logo sifuwhite centred and undistorted (fixes the live height-stretch bug; replaces the placeholder shield). Boot + deep-link logic preserved (visual layer only).",
   "states": [
    {
     "name": "acquire-Splash",
@@ -14,7 +14,7 @@
     "after": "compare/after/acquire-Splash.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -1634,9 +1634,9 @@
   "slug": "refer-a-friend-referral-earnings",
   "stage": "grow",
   "name": "Refer a friend + Referral earnings",
-  "mock": "earn-refer.html",
-  "hero": "earn-refer",
-  "summary": "De-hyped referral front door (tap-to-copy code, 3 calm steps) plus Referral earnings (retitled from My Referral Earnings): Balance + Claim, Completed/Pending segmented, neutral-initials avatars.",
+  "mock": "earn-refer-kit.html",
+  "hero": "earn-ReferFriend",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). Flat pale-indigo hero referral front door (tap-to-copy code, calm steps, single OS-share button) + a from-kit earnings tracker (neutral balance tile + list-rows + status-pills: completed green / pending neutral grey, never amber/red; indigo as CTA only). BUILD FLAG: the Claim button needs a backend truth-check - if referral money auto-pays, replace it with a paid-into-next-payout line, not a dead button.",
   "states": [
    {
     "name": "earn-ReferFriend",
@@ -1651,7 +1651,7 @@
     "after": "compare/after/earn-MyReferralEarnings.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

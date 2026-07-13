@@ -1994,9 +1994,9 @@
   "slug": "news",
   "stage": "tail",
   "name": "News",
-  "mock": "ref-news.html",
-  "hero": "ref-news",
-  "summary": "News feed on cards (unread brand dot, subject, status subtitle, thumbnail, timestamp) with a rich empty state; the article reader normalises inline links to brand.",
+  "mock": "ref-news-kit.html",
+  "hero": "news-News",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). News feed on cards (unread brand dot, subject, status subtitle, vertically-centered icon, timestamp, feature image) + a rich empty state + an article reader with brand-normalised inline links (no Google-blue). Grounds: Grab #172 feed, Airbnb #288/#359 reader.",
   "states": [
    {
     "name": "news-News--empty",
@@ -2017,7 +2017,7 @@
     "after": "compare/after/news-NewsDetails.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -2060,9 +2060,9 @@
   "slug": "faqs",
   "stage": "tail",
   "name": "FAQs",
-  "mock": "ref-faqs.html",
-  "hero": "ref-faqs",
-  "summary": "Reworked search-first: a search hero + browse-by-topic progressive disclosure + a \"Send a ticket\" deflection footer. Every category and question preserved.",
+  "mock": "ref-faqs-kit.html",
+  "hero": "static-FAQs",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). Search-first FAQ hub + browse-by-topic accordion (topic-expanded state) + a Send-a-ticket deflection footer; categories sentence-case (BUILD NOTE: CMS strings are Title Case today, normalise on render). Every category and question preserved. Grounds: Airbnb #353/#352, UC #164/#137-140.",
   "states": [
    {
     "name": "static-FAQs--topic-expanded",
@@ -2077,16 +2077,16 @@
     "after": "compare/after/static-FAQs.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
   "slug": "legal-reader",
   "stage": "tail",
   "name": "Legal reader",
-  "mock": "ref-legal.html",
-  "hero": "ref-legal",
-  "summary": "Shared policy reader (Privacy, Terms, generic): redesigned chrome (header, last-updated, jump-nav, readable typography, dark mode); the body stays server-driven.",
+  "mock": "ref-legal-kit.html",
+  "hero": "static-PrivacyPolicy",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). Shared policy reader (Privacy + Terms states): redesigned chrome (header, green Current-version pill, jump-nav, readable typography); Terms jump-nav says Payments and fees NOT commission (no-commission rule). Body stays server-driven (illustrative in the mock). Grounds: Airbnb #358-359. Light-only (dark deferred).",
   "states": [
    {
     "name": "static-PrivacyPolicy",
@@ -2101,7 +2101,7 @@
     "after": "compare/after/static-TermAndConditions.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  }
 ]

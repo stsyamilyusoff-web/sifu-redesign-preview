@@ -1754,9 +1754,9 @@
   "slug": "report-an-issue",
   "stage": "grow",
   "name": "Report an issue",
-  "mock": "support-form-complaint.html",
-  "hero": "support-form-complaint",
-  "summary": "The form pattern: grouped sections + a picker sheet + a counted textarea + a sticky Submit-ticket dock.",
+  "mock": "support-form-complaint-kit.html",
+  "hero": "support-SubmitRequestGeneralComplaint",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). Shared support-form grammar: drill-in picker rows + a bottom-sheet category picker (checkmark-selected / greyed-disabled) + a counted textarea + a dashed attachment tile + a sticky Submit dock (clause 10: canvas + hairline). The category sheet's Delete-my-account routes here with subCategory=account_deletion; the actual delete commit is downstream in the exit-flow cluster.",
   "states": [
    {
     "name": "support-SubmitRequestGeneralComplaint",
@@ -1771,16 +1771,16 @@
     "after": "compare/after/support-SubmitRequestGeneralComplaint--category-sheet.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
   "slug": "reschedule-a-class",
   "stage": "grow",
   "name": "Reschedule a class",
-  "mock": "support-form-reschedule.html",
-  "hero": "support-form-reschedule",
-  "summary": "6 fields grouped into 3; files a support ticket and opens the parent-approval gate; auto end-time read-only.",
+  "mock": "support-form-reschedule-kit.html",
+  "hero": "support-SubmitRequestClassReschedule",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). Same support-form grammar: drill-in class picker (request-sheet) + date/time pickers + a read-only computed end-time (greyed, no chevron) + counted reason + sticky Submit dock; files a support ticket and opens the parent-approval gate.",
   "states": [
    {
     "name": "support-SubmitRequestClassReschedule",
@@ -1795,7 +1795,7 @@
     "after": "compare/after/support-SubmitRequestClassReschedule--request-sheet.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

@@ -120,210 +120,6 @@
   "decision": null
  },
  {
-  "slug": "identity-forms-bio-education-emergency",
-  "stage": "activate",
-  "name": "Identity forms (Bio, Education, Emergency)",
-  "mock": "activate-identity-forms.html",
-  "hero": "activate-identity-forms",
-  "summary": "Bio Details (City restored, inline IC age-check, quick-pin home address for verification), Education Details (year picker, backend-driven qualification list), and Emergency Contact (privacy-framed).",
-  "states": [
-   {
-    "name": "activate-BioDetails",
-    "label": "Main",
-    "before": "compare/before/activate-BioDetails.png",
-    "after": "compare/after/activate-BioDetails.png"
-   },
-   {
-    "name": "activate-EducationDetails",
-    "label": "Main",
-    "before": "compare/before/activate-EducationDetails.png",
-    "after": "compare/after/activate-EducationDetails.png"
-   },
-   {
-    "name": "activate-EmergencyContact",
-    "label": "Main",
-    "before": "compare/before/activate-EmergencyContact.png",
-    "after": "compare/after/activate-EmergencyContact.png"
-   }
-  ],
-  "preKit": true,
-  "decision": null
- },
- {
-  "slug": "set-home-location-pin",
-  "stage": "activate",
-  "name": "Set home location (pin)",
-  "mock": "activate-location-pin.html",
-  "hero": "activate-location-pin",
-  "summary": "NEW: quick-pin picker for the Bio home address (Grab pattern), with type-address fallback. Verification/KYC only, not matching.",
-  "states": [
-   {
-    "name": "activate-SetHomeLocationPin",
-    "label": "Main",
-    "before": null,
-    "after": "compare/after/activate-SetHomeLocationPin.png"
-   },
-   {
-    "name": "activate-SetHomeLocationPin--picker",
-    "label": "picker",
-    "before": null,
-    "after": "compare/after/activate-SetHomeLocationPin--picker.png"
-   },
-   {
-    "name": "activate-SetHomeLocationPin--autofilled",
-    "label": "autofilled",
-    "before": null,
-    "after": "compare/after/activate-SetHomeLocationPin--autofilled.png"
-   }
-  ],
-  "preKit": true,
-  "decision": null
- },
- {
-  "slug": "service-preference-3-step-wizard",
-  "stage": "activate",
-  "name": "Service preference (3-step wizard)",
-  "mock": "activate-service-preference.html",
-  "hero": "activate-service-preference",
-  "summary": "What you teach (curricula multi-select, per-language proficiency), Where and how (mode + teaching area + years of experience), and When you teach (availability, Open-to-other-times toggle).",
-  "states": [
-   {
-    "name": "activate-ServicePreferenceStep1",
-    "label": "Main",
-    "before": "compare/before/activate-ServicePreferenceStep1.png",
-    "after": "compare/after/activate-ServicePreferenceStep1.png"
-   },
-   {
-    "name": "activate-ServicePreferenceStep2",
-    "label": "Main",
-    "before": "compare/before/activate-ServicePreferenceStep2.png",
-    "after": "compare/after/activate-ServicePreferenceStep2.png"
-   },
-   {
-    "name": "activate-AvailabilitySlots",
-    "label": "Main",
-    "before": "compare/before/activate-AvailabilitySlots.png",
-    "after": "compare/after/activate-AvailabilitySlots.png"
-   },
-   {
-    "name": "activate-ServicePreferenceStep1--first-run",
-    "label": "first run",
-    "before": "compare/before/activate-ServicePreferenceStep1--first-run.png",
-    "after": "compare/after/activate-ServicePreferenceStep1--first-run.png"
-   }
-  ],
-  "preKit": true,
-  "decision": null
- },
- {
-  "slug": "set-teaching-area-pin-radius",
-  "stage": "activate",
-  "name": "Set teaching area (pin + radius)",
-  "mock": "activate-teaching-area.html",
-  "hero": "activate-teaching-area",
-  "summary": "NEW: pin + travel-radius teaching area (5/10/15/20 km preset chips). Distance-based matching replaces the old city list; gated on In-person/Hybrid mode.",
-  "states": [
-   {
-    "name": "activate-SetTeachingArea",
-    "label": "Main",
-    "before": null,
-    "after": "compare/after/activate-SetTeachingArea.png"
-   },
-   {
-    "name": "activate-SetTeachingArea--set-area",
-    "label": "set area",
-    "before": null,
-    "after": "compare/after/activate-SetTeachingArea--set-area.png"
-   },
-   {
-    "name": "activate-SetTeachingArea--online",
-    "label": "online",
-    "before": null,
-    "after": "compare/after/activate-SetTeachingArea--online.png"
-   }
-  ],
-  "preKit": true,
-  "decision": null
- },
- {
-  "slug": "verification-uploads-docs-video",
-  "stage": "activate",
-  "name": "Verification uploads (docs + video)",
-  "mock": "activate-uploads.html",
-  "hero": "activate-uploads",
-  "summary": "Per-file state treatment (done / uploading / failed+retry), 2 MB doc limit, IC front-only. Intro video reframed around how parents choose you (30-120s, 50 MB).",
-  "states": [
-   {
-    "name": "activate-VerificationDocumentsUpload",
-    "label": "Main",
-    "before": "compare/before/activate-VerificationDocumentsUpload.png",
-    "after": "compare/after/activate-VerificationDocumentsUpload.png"
-   },
-   {
-    "name": "activate-IntroVideoUpload",
-    "label": "Main",
-    "before": "compare/before/activate-IntroVideoUpload.png",
-    "after": "compare/after/activate-IntroVideoUpload.png"
-   },
-   {
-    "name": "activate-TutorVerificationProcess--under-review",
-    "label": "under review",
-    "before": "compare/before/activate-TutorVerificationProcess--under-review.png",
-    "after": "compare/after/activate-TutorVerificationProcess--under-review.png"
-   }
-  ],
-  "preKit": true,
-  "decision": null
- },
- {
-  "slug": "application-submitted",
-  "stage": "activate",
-  "name": "Application submitted",
-  "mock": "activate-application-submitted.html",
-  "hero": "activate-application-submitted",
-  "summary": "One parametrized screen replaces three near-identical success screens. Adds a review timeline and an Activate-to-Participate fit-request nudge.",
-  "states": [
-   {
-    "name": "activate-VerificationSubmittedSuccess",
-    "label": "Main",
-    "before": "compare/before/activate-VerificationSubmittedSuccess.png",
-    "after": "compare/after/activate-VerificationSubmittedSuccess.png"
-   }
-  ],
-  "preKit": true,
-  "decision": null
- },
- {
-  "slug": "verify-gate-unverify",
-  "stage": "activate",
-  "name": "Verify gate (Unverify)",
-  "mock": "activate-unverify-gate.html",
-  "hero": "activate-unverify-gate",
-  "summary": "LOCKED v0.35: value-first gate (numbered group previews, about-15-min) + Fresha pill-card checklist with resume row, optional intro video, and the declaration + submit folded at the bottom.",
-  "states": [
-   {
-    "name": "activate-UnverifyScreen",
-    "label": "Main",
-    "before": "compare/before/activate-UnverifyScreen.png",
-    "after": "compare/after/activate-UnverifyScreen.png"
-   },
-   {
-    "name": "activate-TutorVerificationProcess",
-    "label": "Main",
-    "before": "compare/before/activate-TutorVerificationProcess.png",
-    "after": "compare/after/activate-TutorVerificationProcess.png"
-   },
-   {
-    "name": "activate-TutorVerificationProcess--complete",
-    "label": "complete",
-    "before": "compare/before/activate-TutorVerificationProcess--complete.png",
-    "after": "compare/after/activate-TutorVerificationProcess--complete.png"
-   }
-  ],
-  "preKit": true,
-  "decision": null
- },
- {
   "slug": "tutorrequests",
   "stage": "participate",
   "name": "Student request",
@@ -336,6 +132,192 @@
     "label": "Main",
     "before": "compare/before/participate-TutorRequests.png",
     "after": "compare/after/participate-TutorRequests.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
+  "slug": "verify-gate",
+  "stage": "activate",
+  "name": "Verify gate",
+  "mock": "verify-kit.html",
+  "hero": "activate-VerifyGate",
+  "summary": "Activate reconciliation (locked 12-13 Jul), 5 states - the verification spine. --start reframes the live You-Are-Not-Verified into outcome-framing (Verify to start teaching); the main resume checklist (2-of-5, Continue-with-X + minutes-left recovery); --ready (4-of-5); --submitted consolidates the terminal (review timeline + Participate matching-request nudge, no-SLA, headerless); --loading. Kit re-cut of activate-unverify-gate + application-submitted.",
+  "states": [
+   {
+    "name": "activate-VerifyGate--start",
+    "label": "start",
+    "before": "compare/before/activate-VerifyGate--start.png",
+    "after": "compare/after/activate-VerifyGate--start.png"
+   },
+   {
+    "name": "activate-VerifyGate",
+    "label": "Main",
+    "before": "compare/before/activate-VerifyGate.png",
+    "after": "compare/after/activate-VerifyGate.png"
+   },
+   {
+    "name": "activate-VerifyGate--ready",
+    "label": "ready",
+    "before": null,
+    "after": "compare/after/activate-VerifyGate--ready.png"
+   },
+   {
+    "name": "activate-VerifyGate--submitted",
+    "label": "submitted",
+    "before": "compare/before/activate-VerifyGate--submitted.png",
+    "after": "compare/after/activate-VerifyGate--submitted.png"
+   },
+   {
+    "name": "activate-VerifyGate--loading",
+    "label": "loading",
+    "before": null,
+    "after": "compare/after/activate-VerifyGate--loading.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
+  "slug": "verify-your-details",
+  "stage": "activate",
+  "name": "Your details (step 1)",
+  "mock": "verify-details-kit.html",
+  "hero": "activate-VerifyDetails",
+  "summary": "Activate step 1 (locked 13-Jul), 3 states - prefilled-locked name/phone/email/IC with an inline IC age-check (green you-qualify / earned-red reads-age-16 + Save disabled); --scrolled folds education + emergency contact + home location (State->City cascade + map pin). Folds the live identity-forms + location-pin into one Your-details step.",
+  "states": [
+   {
+    "name": "activate-VerifyDetails",
+    "label": "Main",
+    "before": "compare/before/activate-VerifyDetails.png",
+    "after": "compare/after/activate-VerifyDetails.png"
+   },
+   {
+    "name": "activate-VerifyDetails--icrange",
+    "label": "icrange",
+    "before": null,
+    "after": "compare/after/activate-VerifyDetails--icrange.png"
+   },
+   {
+    "name": "activate-VerifyDetails--scrolled",
+    "label": "scrolled",
+    "before": "compare/before/activate-VerifyDetails--scrolled.png",
+    "after": "compare/after/activate-VerifyDetails--scrolled.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
+  "slug": "verify-what-you-teach",
+  "stage": "activate",
+  "name": "What you teach (step 2)",
+  "mock": "verify-teach-kit.html",
+  "hero": "activate-VerifyTeach",
+  "summary": "Activate step 2 (locked 13-Jul), 4 states - subjects/levels/curricula/languages chips + mode (Online/In-person/Hybrid) + multiple teaching areas + pitch; --online hides the area (no area needed); --areapicker = unified search-or-drag pin + radius (one lat/long+radius model, no dual city-list). Folds the live service-preference + teaching-area. FOUNDER: availability PULLED OUT of verification (relocates to the tutor profile pass).",
+  "states": [
+   {
+    "name": "activate-VerifyTeach",
+    "label": "Main",
+    "before": "compare/before/activate-VerifyTeach.png",
+    "after": "compare/after/activate-VerifyTeach.png"
+   },
+   {
+    "name": "activate-VerifyTeach--online",
+    "label": "online",
+    "before": null,
+    "after": "compare/after/activate-VerifyTeach--online.png"
+   },
+   {
+    "name": "activate-VerifyTeach--scrolled",
+    "label": "scrolled",
+    "before": "compare/before/activate-VerifyTeach--scrolled.png",
+    "after": "compare/after/activate-VerifyTeach--scrolled.png"
+   },
+   {
+    "name": "activate-VerifyTeach--areapicker",
+    "label": "areapicker",
+    "before": null,
+    "after": "compare/after/activate-VerifyTeach--areapicker.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
+  "slug": "verify-documents",
+  "stage": "activate",
+  "name": "Documents (step 3)",
+  "mock": "verify-docs-kit.html",
+  "hero": "activate-VerifyDocs",
+  "summary": "Activate step 3 (locked 13-Jul), 2 states - per-file done/uploading%/dashed-empty, 2MB, IC front-only, parents-never-see-them. Kit re-cut of the docs half of activate-uploads.",
+  "states": [
+   {
+    "name": "activate-VerifyDocs",
+    "label": "Main",
+    "before": "compare/before/activate-VerifyDocs.png",
+    "after": "compare/after/activate-VerifyDocs.png"
+   },
+   {
+    "name": "activate-VerifyDocs--complete",
+    "label": "complete",
+    "before": null,
+    "after": "compare/after/activate-VerifyDocs--complete.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
+  "slug": "verify-intro-video",
+  "stage": "activate",
+  "name": "Intro video (step 4)",
+  "mock": "verify-video-kit.html",
+  "hero": "activate-VerifyVideo",
+  "summary": "Activate step 4 (locked 13-Jul), 2 states - OPTIONAL, reframed how-parents-choose-you; Record/Upload, warm make-it-personal tips, soft no-SLA review, Skip. Kit re-cut of the video half of activate-uploads; founder ruled in-scope + optional.",
+  "states": [
+   {
+    "name": "activate-VerifyVideo",
+    "label": "Main",
+    "before": "compare/before/activate-VerifyVideo.png",
+    "after": "compare/after/activate-VerifyVideo.png"
+   },
+   {
+    "name": "activate-VerifyVideo--recorded",
+    "label": "recorded",
+    "before": null,
+    "after": "compare/after/activate-VerifyVideo--recorded.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
+  "slug": "verify-declaration",
+  "stage": "activate",
+  "name": "Review and declaration (step 5)",
+  "mock": "verify-declaration-kit.html",
+  "hero": "activate-VerifyDeclaration",
+  "summary": "Activate step 5 (locked 13-Jul), 3 states - a recap of the 5 steps + the declaration (text verbatim from live TranslationContext, leading consent checkbox = scoped exception) + --checked + --submitting. NEW screen (founder ruled the declaration a separate screen, not folded).",
+  "states": [
+   {
+    "name": "activate-VerifyDeclaration",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/activate-VerifyDeclaration.png"
+   },
+   {
+    "name": "activate-VerifyDeclaration--checked",
+    "label": "checked",
+    "before": null,
+    "after": "compare/after/activate-VerifyDeclaration--checked.png"
+   },
+   {
+    "name": "activate-VerifyDeclaration--submitting",
+    "label": "submitting",
+    "before": null,
+    "after": "compare/after/activate-VerifyDeclaration--submitting.png"
    }
   ],
   "preKit": false,

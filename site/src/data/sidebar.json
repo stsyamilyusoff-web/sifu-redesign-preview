@@ -182,32 +182,28 @@
       "slug": "tutor/activate"
      },
      {
-      "label": "Identity forms (Bio, Educati…",
-      "slug": "tutor/activate/identity-forms-bio-education-emergency"
+      "label": "Verify gate",
+      "slug": "tutor/activate/verify-gate"
      },
      {
-      "label": "Set home location (pin)",
-      "slug": "tutor/activate/set-home-location-pin"
+      "label": "Your details (step 1)",
+      "slug": "tutor/activate/verify-your-details"
      },
      {
-      "label": "Service preference (3-step w…",
-      "slug": "tutor/activate/service-preference-3-step-wizard"
+      "label": "What you teach (step 2)",
+      "slug": "tutor/activate/verify-what-you-teach"
      },
      {
-      "label": "Set teaching area (pin + rad…",
-      "slug": "tutor/activate/set-teaching-area-pin-radius"
+      "label": "Documents (step 3)",
+      "slug": "tutor/activate/verify-documents"
      },
      {
-      "label": "Verification uploads (docs +…",
-      "slug": "tutor/activate/verification-uploads-docs-video"
+      "label": "Intro video (step 4)",
+      "slug": "tutor/activate/verify-intro-video"
      },
      {
-      "label": "Application submitted",
-      "slug": "tutor/activate/application-submitted"
-     },
-     {
-      "label": "Verify gate (Unverify)",
-      "slug": "tutor/activate/verify-gate-unverify"
+      "label": "Review and declaration (step…",
+      "slug": "tutor/activate/verify-declaration"
      },
      {
       "label": "UpdateProfile",

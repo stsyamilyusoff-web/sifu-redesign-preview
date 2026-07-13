@@ -1194,36 +1194,6 @@
   "decision": null
  },
  {
-  "slug": "success-variants",
-  "stage": "deliver",
-  "name": "Success variants",
-  "mock": "deliver-success-variants.html",
-  "hero": "deliver-success-variants",
-  "summary": "Five confirmation screens brought to one quality floor (varied by design, off-brand drift removed): postpone, schedule added, backdate review with ticket, evaluation, progress.",
-  "states": [
-   {
-    "name": "deliver-ClassPostponeSuccess",
-    "label": "Main",
-    "before": "compare/before/deliver-ClassPostponeSuccess.png",
-    "after": "compare/after/deliver-ClassPostponeSuccess.png"
-   },
-   {
-    "name": "deliver-ClassScheduleAdded",
-    "label": "Main",
-    "before": "compare/before/deliver-ClassScheduleAdded.png",
-    "after": "compare/after/deliver-ClassScheduleAdded.png"
-   },
-   {
-    "name": "deliver-BackdateEscalationSuccess",
-    "label": "Main",
-    "before": "compare/before/deliver-BackdateEscalationSuccess.png",
-    "after": "compare/after/deliver-BackdateEscalationSuccess.png"
-   }
-  ],
-  "preKit": true,
-  "decision": null
- },
- {
   "slug": "students-tasks",
   "stage": "deliver",
   "name": "Students + tasks",

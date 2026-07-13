@@ -1730,9 +1730,9 @@
   "slug": "application-status",
   "stage": "grow",
   "name": "Application status",
-  "mock": "support-application-status.html",
-  "hero": "support-application-status",
-  "summary": "StatusBanner summary + a vertical timeline; deduped so contact and the review timeframe each appear once.",
+  "mock": "support-application-status-kit.html",
+  "hero": "support-ApplicationStatusDetail",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). StatusBanner (banner-toast family, amber in-review) + a vertical temporal stepper (list-rows + badge dots, Airbnb #269 node grammar, convention-flagged); in-review carries a footer contact link, suspended carries a CTA dock. Suspended-state grammar generalised from UC #153 (no direct corpus frame, flagged).",
   "states": [
    {
     "name": "support-ApplicationStatusDetail",
@@ -1747,7 +1747,7 @@
     "after": "compare/after/support-ApplicationStatusDetail--suspended.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

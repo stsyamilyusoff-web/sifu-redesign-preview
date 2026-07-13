@@ -340,6 +340,10 @@
       "slug": "tutor/grow/profilemenu"
      },
      {
+      "label": "My profile",
+      "slug": "tutor/grow/my-profile"
+     },
+     {
       "label": "Payments (money surface)",
       "slug": "tutor/grow/earnings-hub"
      },

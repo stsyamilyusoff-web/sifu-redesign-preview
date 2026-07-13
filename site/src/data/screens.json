@@ -1386,6 +1386,54 @@
   "decision": null
  },
  {
+  "slug": "my-profile",
+  "stage": "grow",
+  "name": "My profile",
+  "mock": "myprofile-kit.html",
+  "hero": "profile-MyProfile",
+  "summary": "Profile family, Direction A storefront (founder-passed 13-Jul, net-new - the live app has no assembled tutor-profile surface, so after-only). Six states. The tutor's PUBLIC profile as a storefront: centred hero (real photo + name + role and coarse location + headline + pitch + trust row), a Reviews section, and public sections (subjects and levels, teaching areas, intro video, education, availability relocated here 13-Jul), each carrying an edit pencil that opens the banked editors (Personal info / What you teach / Documents) - edit in place, reuse not rebuild. FOUNDER RULINGS: real photo on the public profile (law-scope exception to the initials-avatar rule; initials only as the no-photo fallback, shown in --incomplete). Trust row = rating and count + Verified ONLY (response-time removed entirely, no compute path); honest today with a New pill until 3 reviews, --trustlive shows the future (4.9 + count + Verified). Reviews: empty-state today, --trustlive populated (parent initial + date + stars + tag chips + text) + See all + a Report it dispute path. Completeness = a quiet amber '2 of 4 done' checklist nudge (not a percentage ring). --preview is the gated PARENT view (first name + coarse area, full name and exact location shared only after matched, no pencils), essentially the customer-facing tutor profile. Entry: the profile hub identity card taps in.",
+  "states": [
+   {
+    "name": "profile-MyProfile",
+    "label": "Main",
+    "before": null,
+    "after": "compare/after/profile-MyProfile.png"
+   },
+   {
+    "name": "profile-MyProfile--scrolled",
+    "label": "scrolled",
+    "before": null,
+    "after": "compare/after/profile-MyProfile--scrolled.png"
+   },
+   {
+    "name": "profile-MyProfile--preview",
+    "label": "preview",
+    "before": null,
+    "after": "compare/after/profile-MyProfile--preview.png"
+   },
+   {
+    "name": "profile-MyProfile--trustlive",
+    "label": "trustlive",
+    "before": null,
+    "after": "compare/after/profile-MyProfile--trustlive.png"
+   },
+   {
+    "name": "profile-MyProfile--incomplete",
+    "label": "incomplete",
+    "before": null,
+    "after": "compare/after/profile-MyProfile--incomplete.png"
+   },
+   {
+    "name": "profile-MyProfile--loading",
+    "label": "loading",
+    "before": null,
+    "after": "compare/after/profile-MyProfile--loading.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
   "slug": "updateprofile",
   "stage": "activate",
   "name": "UpdateProfile",

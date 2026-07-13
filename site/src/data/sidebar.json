@@ -236,14 +236,6 @@
       "slug": "tutor/participate/my-requests-kit"
      },
      {
-      "label": "Request detail + apply",
-      "slug": "tutor/participate/request-detail-apply"
-     },
-     {
-      "label": "Applied request detail",
-      "slug": "tutor/participate/applied-request-detail"
-     },
-     {
       "label": "Request filters (feed modal)",
       "slug": "tutor/participate/request-filters"
      }

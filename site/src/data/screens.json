@@ -450,42 +450,6 @@
   "decision": null
  },
  {
-  "slug": "request-detail-apply",
-  "stage": "participate",
-  "name": "Request detail + apply",
-  "mock": "wave1-apply-detail.html",
-  "hero": "wave1-apply-detail",
-  "summary": "B-final (hub v0.29), now PARTLY SUPERSEDED: RequestDetailById has its kit re-cut (see Request detail - apply moment, locked 12-Jul, adapted FROM this design at founder direction); RequestDetails + RecommendedRequestDetail still read from this board until their re-cuts. Subject + level lead, parent-ask quote card, Airbnb dock with underlined RM + Apply.",
-  "states": [
-   {
-    "name": "participate-RequestDetails",
-    "label": "Main",
-    "before": "compare/before/participate-RequestDetails.png",
-    "after": "compare/after/participate-RequestDetails.png"
-   }
-  ],
-  "preKit": true,
-  "decision": null
- },
- {
-  "slug": "applied-request-detail",
-  "stage": "participate",
-  "name": "Applied request detail",
-  "mock": "wave1-applied-detail.html",
-  "hero": "wave1-applied-detail",
-  "summary": "B-final read-only variant: approved banner, name + address unlocked on approval, no apply/comment. The file also carries the unavailable state and the Apply confirm sheet.",
-  "states": [
-   {
-    "name": "participate-TutorAppliedRequestDetails--unavailable",
-    "label": "unavailable",
-    "before": "compare/before/participate-TutorAppliedRequestDetails--unavailable.png",
-    "after": "compare/after/participate-TutorAppliedRequestDetails--unavailable.png"
-   }
-  ],
-  "preKit": true,
-  "decision": null
- },
- {
   "slug": "request-filters",
   "stage": "participate",
   "name": "Request filters (feed modal)",
@@ -740,7 +704,7 @@
     "after": "compare/after/report-ReportsDue--eval.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -764,7 +728,7 @@
     "after": "compare/after/report-ReportWriter--eval.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -782,7 +746,7 @@
     "after": "compare/after/report-WriterValidation.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -806,7 +770,7 @@
     "after": "compare/after/report-ReportSent--progress.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -824,7 +788,7 @@
     "after": "compare/after/report-ReportsDueEmpty.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -854,7 +818,7 @@
     "after": "compare/after/report-ReportsList--picker.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -884,7 +848,7 @@
     "after": "compare/after/report-EvalView--resend.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -908,7 +872,7 @@
     "after": "compare/after/report-ProgressView--strip.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -926,7 +890,7 @@
     "after": "compare/after/report-Notification.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -944,7 +908,7 @@
     "after": "compare/after/report-LearningLedger.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {
@@ -1424,7 +1388,7 @@
     "after": "compare/after/deliver-CameraScreen.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

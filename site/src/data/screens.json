@@ -1167,9 +1167,9 @@
   "slug": "parent-approval",
   "stage": "grow",
   "name": "Parent approval (confirm)",
-  "mock": "deliver-class-edit.html",
+  "mock": "parent-approval-kit.html",
   "hero": "activate-ParentApprovalConfirmation",
-  "summary": "PRE-KIT, re-filed 14-Jul (founder-confirmed): the parent-approval friction gate reached from the support-ticket flow (SubmitRequestExtraClass / SubmitRequestClassReschedule to createTicket), NOT class edit (mis-filed originally). Belongs to the Help Centre / SubmitRequest tickets cluster; gets its kit re-cut when that cluster is designed. The class-edit bundle it was extracted from is retired (Extend to the Teaching-now sheet, Postpone to reschedule, both kit).",
+  "summary": "Kit re-cut (Lane B, founder-approved 14-Jul; closes the Help Centre cluster). The friction gate reached from the support-ticket flow (extra-class / reschedule to createTicket). NEUTRAL, red-free (submitting isn't destructive; green checks = positive status): the Wait-let-me-check option is a full-width outline button as easy to tap as the primary I've-confirmed-with-parent, no dark pattern. Checklist shows the ACTUAL values (founder enhancement over the live category-only list).",
   "states": [
    {
     "name": "activate-ParentApprovalConfirmation",
@@ -1178,7 +1178,7 @@
     "after": "compare/after/activate-ParentApprovalConfirmation.png"
    }
   ],
-  "preKit": true,
+  "preKit": false,
   "decision": null
  },
  {

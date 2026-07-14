@@ -334,10 +334,6 @@
       "slug": "tutor/deliver/student-list"
      },
      {
-      "label": "Student report (tutor read-v…",
-      "slug": "tutor/deliver/student-report"
-     },
-     {
       "label": "Clock in (arrival gate)",
       "slug": "tutor/deliver/clock-in"
      },

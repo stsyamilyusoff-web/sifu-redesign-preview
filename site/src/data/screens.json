@@ -1212,30 +1212,6 @@
   "decision": null
  },
  {
-  "slug": "student-report",
-  "stage": "deliver",
-  "name": "Student report (tutor read-view)",
-  "mock": "deliver-student-tasks.html",
-  "hero": "report-StudentReport",
-  "summary": "PRE-KIT (possible small gap, flagged 14-Jul): the tutor-side read-view of a submitted student report. The eval/progress report VIEWS are covered by the kit report family (tutor-eval-view / tutor-progress-view); this combined read-view may be redundant or a minor remaining screen, confirm coverage before a re-cut.",
-  "states": [
-   {
-    "name": "report-StudentReport",
-    "label": "Main",
-    "before": "compare/before/report-StudentReport.png",
-    "after": "compare/after/report-StudentReport.png"
-   },
-   {
-    "name": "report-StudentReport--empty",
-    "label": "empty",
-    "before": "compare/before/report-StudentReport--empty.png",
-    "after": "compare/after/report-StudentReport--empty.png"
-   }
-  ],
-  "preKit": true,
-  "decision": null
- },
- {
   "slug": "clock-in",
   "stage": "deliver",
   "name": "Clock in (arrival gate)",

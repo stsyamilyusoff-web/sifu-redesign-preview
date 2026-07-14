@@ -1625,7 +1625,7 @@
   "name": "Submit a ticket",
   "mock": "support-ticket-picker-kit.html",
   "hero": "support-SubmitRequestPicker",
-  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). Grouped ticket-type picker rows (extra class, reschedule, end engagement, something else) + a Track-your-tickets entry; unverified state gates the class rows behind a lock banner. Pushed nav, list-rows, no invented elements.",
+  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). Grouped ticket-type picker rows (extra class, reschedule, end engagement, something else) + a Track-your-tickets entry; unverified state gates the class rows behind a lock banner. Pushed nav, list-rows, no invented elements. KEPT alongside the Help Centre submit sheet: it carries the --unverified gate the sheet does not.",
   "states": [
    {
     "name": "support-SubmitRequestPicker",
@@ -1638,6 +1638,48 @@
     "label": "unverified",
     "before": "compare/before/support-SubmitRequestPicker--unverified.png",
     "after": "compare/after/support-SubmitRequestPicker--unverified.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
+  "slug": "help-centre",
+  "stage": "grow",
+  "name": "Help Centre",
+  "mock": "help-centre-kit.html",
+  "hero": "support-HelpCentre",
+  "summary": "Kit re-cut (Lane B, founder-approved 14-Jul). The support HUB and deflection entry: self-serve first (search + FAQs, ref-faqs-kit) then ticket status (My tickets), with a Submit-ticket type SHEET (--submit-sheet). Live contact is last + de-emphasised. North star = deflect (request before WhatsApp).",
+  "states": [
+   {
+    "name": "support-HelpCentre",
+    "label": "Main",
+    "before": "compare/before/support-HelpCentre.png",
+    "after": "compare/after/support-HelpCentre.png"
+   },
+   {
+    "name": "support-HelpCentre--submit-sheet",
+    "label": "submit sheet",
+    "before": null,
+    "after": "compare/after/support-HelpCentre--submit-sheet.png"
+   }
+  ],
+  "preKit": false,
+  "decision": null
+ },
+ {
+  "slug": "contact-centre",
+  "stage": "grow",
+  "name": "Contact Centre",
+  "mock": "contact-centre-kit.html",
+  "hero": "support-ContactCentre",
+  "summary": "Kit re-cut (Lane B, founder-approved 14-Jul). The escalation CHANNELS screen, reached only after self-serve: WhatsApp LAST + de-emphasised (neutral grey-tile row, no WhatsApp-green brand card, honest slower-than-a-ticket note); hours demoted to a quiet footnote. Red-free, one accent indigo.",
+  "states": [
+   {
+    "name": "support-ContactCentre",
+    "label": "Main",
+    "before": "compare/before/support-ContactCentre.png",
+    "after": "compare/after/support-ContactCentre.png"
    }
   ],
   "preKit": false,

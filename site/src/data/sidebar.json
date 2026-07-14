@@ -380,6 +380,14 @@
       "slug": "tutor/grow/submit-a-ticket"
      },
      {
+      "label": "Help Centre",
+      "slug": "tutor/grow/help-centre"
+     },
+     {
+      "label": "Contact Centre",
+      "slug": "tutor/grow/contact-centre"
+     },
+     {
       "label": "My tickets",
       "slug": "tutor/grow/my-tickets"
      },

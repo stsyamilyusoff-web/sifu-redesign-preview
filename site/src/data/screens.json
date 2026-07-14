@@ -1596,36 +1596,12 @@
   "decision": null
  },
  {
-  "slug": "submit-a-ticket",
-  "stage": "grow",
-  "name": "Submit a ticket",
-  "mock": "support-ticket-picker-kit.html",
-  "hero": "support-SubmitRequestPicker",
-  "summary": "Kit re-cut (Lane B, founder-approved 13-Jul). Grouped ticket-type picker rows (extra class, reschedule, end engagement, something else) + a Track-your-tickets entry; unverified state gates the class rows behind a lock banner. Pushed nav, list-rows, no invented elements. KEPT alongside the Help Centre submit sheet: it carries the --unverified gate the sheet does not.",
-  "states": [
-   {
-    "name": "support-SubmitRequestPicker",
-    "label": "Main",
-    "before": "compare/before/support-SubmitRequestPicker.png",
-    "after": "compare/after/support-SubmitRequestPicker.png"
-   },
-   {
-    "name": "support-SubmitRequestPicker--unverified",
-    "label": "unverified",
-    "before": "compare/before/support-SubmitRequestPicker--unverified.png",
-    "after": "compare/after/support-SubmitRequestPicker--unverified.png"
-   }
-  ],
-  "preKit": false,
-  "decision": null
- },
- {
   "slug": "help-centre",
   "stage": "grow",
   "name": "Help Centre",
   "mock": "help-centre-kit.html",
   "hero": "support-HelpCentre",
-  "summary": "Kit re-cut (Lane B, founder-approved 14-Jul). The support HUB and deflection entry: self-serve first (search + FAQs, ref-faqs-kit) then ticket status (My tickets), with a Submit-ticket type SHEET (--submit-sheet). Live contact is last + de-emphasised. North star = deflect (request before WhatsApp).",
+  "summary": "Kit re-cut (Lane B, founder-approved 14-Jul). The support HUB and deflection entry: self-serve first (search + FAQs, ref-faqs-kit) then ticket status (My tickets), with a Submit-ticket type SHEET (--submit-sheet) that has a verified state and an --submit-sheet-unverified gate (class options locked behind a padlock with a pale-indigo 'finish verification to request classes' note; ticket still open). This one submit sheet fully SUPERSEDES the old standalone ticket-picker (retired 14-Jul). Live contact is last + de-emphasised. North star = deflect (request before WhatsApp).",
   "states": [
    {
     "name": "support-HelpCentre",
@@ -1638,6 +1614,12 @@
     "label": "submit sheet",
     "before": null,
     "after": "compare/after/support-HelpCentre--submit-sheet.png"
+   },
+   {
+    "name": "support-HelpCentre--submit-sheet-unverified",
+    "label": "submit sheet unverified",
+    "before": null,
+    "after": "compare/after/support-HelpCentre--submit-sheet-unverified.png"
    }
   ],
   "preKit": false,

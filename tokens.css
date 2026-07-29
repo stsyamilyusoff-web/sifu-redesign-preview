@@ -1,0 +1,167 @@
+/* PUBLISHED COPY — do not edit. Source: packages/design-system/tokens.css. Run: npm run publish:tokens */
+/* ============================================================================
+   Sifututor design system, THE SINGLE TOKEN SOURCE (light)
+   ----------------------------------------------------------------------------
+   This file is the distribution mechanism. Every mock and screen links it and
+   reads its values through var(--token). NOTHING re-declares these locally.
+
+   Rule: a screen may use var(--x). A screen may NOT invent a raw hex, px size,
+   shadow, or radius. If a value you need is not here, it gets ADDED here first,
+   then consumed, never inlined in a screen.
+
+   Grounded in: the blessed brand hex (#2B2FBE, founder 2026-07-23), the four
+   approved kit screens (profilehub / tutorrequests / classschedule /
+   studentsdetails), the app's locked type scale (sifututor_tutor
+   constant/tokens.ts textStyles), and the two-tier radius law.
+
+   Values marked  ⚠ GATE  await the founder distribution-stage sign-off, see
+   02-architecture/distribution-mechanism-and-token-consolidation-2026-07-23.md
+   ========================================================================== */
+
+:root {
+
+  /* ── BRAND ──────────────────────────────────────────────────────────────
+     One indigo. Blessed 2026-07-23 (#2B2FBE won on least-churn vs 357 mocks,
+     over spec #243cb3 and live #3b4ee2). This is THE brand hex. */
+  --brand:            #2B2FBE;   /* solid indigo: primary CTA fill, active states, focus */
+  --brand-ink:        #2B2FBE;   /* indigo used as a foreground (icon/label on light) */
+  --on-brand:         #FFFFFF;              /* text/icon ON a solid-brand fill */
+  --on-brand-2:       rgba(255,255,255,.92);/* inverse SECONDARY text on a brand bg (promotional register) */
+  --on-brand-3:       rgba(255,255,255,.68);/* inverse TERTIARY text on a brand bg (promotional register) */
+  /* on-brand-2/3 added 2026-07-28 during the onboarding (promotional) migration — promoted from the
+     approved onboarding-kit; the brand-forward promotional register needs inverse text steps. */
+  /* NOTE: a darker #2A37A8 ("brand-strong") was proposed during the studentsdetails migration,
+     then COLLAPSED to --brand 23-Jul: contrast test = 8.01:1 on the pale tint (WCAG large-text
+     threshold 3:1), so the darker shade earned no legibility. The 153× corpus recurrence was
+     systematic drift from #2B2FBE, not a deliberate shade. Use --brand for monograms on tint. */
+
+  /* ── BRAND TINTS, the ambiguity fix ────────────────────────────────────
+     The old single --tint meant BOTH a pale wash (180 files) AND solid indigo
+     (46 files). Split so the two can never be confused again:
+       --surface-brand = a pale indigo BACKGROUND (chips, selected rows, wells)
+       --fill-brand    = a solid indigo FILL (== --brand; use for emphasis fills)
+     A pale pill uses --surface-brand; a solid pill uses --fill-brand. */
+  --surface-brand:        #EBEDFB;   /* pale indigo wash background */
+  --surface-brand-strong: #E7EAFB;   /* the request/pill wash (was --pill) */
+  --surface-brand-avatar: #EAEEFC;   /* avatar/identity tint (was --avitint) */
+  --fill-brand:           #2B2FBE;   /* solid indigo fill (alias of --brand) */
+
+  /* ── CANVAS & SURFACES ──────────────────────────────────────────────────
+     Depth model is FLAT-BY-DESIGN. Hierarchy comes from surface contrast +
+     the border ladder below, NOT from shadow. Shadow is reserved for true
+     overlays only (see --shadow-overlay). */
+  --canvas:      #EDF0F9;   /* app background (shipped dominant, 232 files) */
+  --card:        #FFFFFF;   /* raised content surface */
+  --field:       #F5F6FA;   /* input well / inset field */
+
+  /* FORM FIELD STATES — added 2026-07-28 during the verify-details (Form register) migration.
+     Values PROMOTED from the approved verify-details-kit (not invented); the base ink ramp did not
+     cover a form's field affordances. Bind every form screen. ⚠ names/values need UX-chat/token-pass
+     confirmation (like --comms was) since they govern all forms. */
+  --field-line:        #D6D9E6;   /* input border / underline */
+  --field-placeholder: #9AA3AE;   /* placeholder text */
+  --field-icon:        #AEB1BE;   /* grey field-affordance icon (chevron, etc.) */
+  --field-disabled:    #C3C5E6;   /* disabled field fill */
+
+  /* ── BORDER / HAIRLINE LADDER, the depth device "flat" left unspecified ──
+     Three weights. This is what replaces shadow: a crisp edge makes a flat
+     card read as raised against the canvas. Faint → strong:
+       --hair        row dividers inside a card (faintest)
+       --card-edge   the 1px border around a card (defines the card)
+       --hair-strong section separation / stronger rule */
+  --hair:        #EEF0F4;
+  --card-edge:   #ECEEF3;
+  --hair-strong: #E2E5EC;
+
+  /* ── INK RAMP (text) ────────────────────────────────────────────────────
+     Four steps, shipped-canonical. */
+  --ink:    #0B0B0C;   /* primary text / headings */
+  --ink-2:  #52525B;   /* secondary text */
+  --ink-3:  #787882;   /* meta / captions / placeholder-ish */
+  --ink-4:  #8A8A8F;   /* tab-inactive / faint meta */
+
+  /* ── SEMANTIC STATUS, colour EARNS meaning (see grammar book L3) ─────────
+     green = success/valid/online · amber = caution · red = validation error +
+     irreversible destructive ONLY. Never decorative. Each ships bg + ink. */
+  --success:      #16A34A;
+  --success-ink:  #166534;
+  --success-bg:   #E4F3E9;
+
+  --caution:      #B45309;   /* amber text is dark for contrast */
+  --caution-ink:  #92400E;
+  --caution-bg:   #FBF0D9;
+
+  --danger:       #E11D48;   /* crimson, FOUNDER-BLESSED 2026-07-23 (over iOS #FF3B30 / rebuild #F14336). Validation error + irreversible destructive ONLY */
+  --danger-on:    #FFFFFF;
+
+  /* neutral fills */
+  --track:        #E7E7EC;   /* progress track / segmented track */
+  --badge-off:    #B4B4BC;   /* inactive badge */
+
+  /* comms affordance — an external BRAND mark, NOT a semantic state. Founder-ruled 2026-07-28:
+     the WhatsApp button is OUTLINE (like Call/Directions); only its ICON carries this green, so a
+     contact affordance never borrows --success (which MEANS valid/online/done). Icon-only, never a fill. */
+  --comms-whatsapp: #25D366;   /* actual WhatsApp brand green */
+
+  /* ── TYPE ───────────────────────────────────────────────────────────────
+     Locked scale from the app (sifututor_tutor textStyles). 7 sizes only.
+     The 49 mock sizes (incl. 8 half-pixel) collapse to these. */
+  --font: 'Circular Std', -apple-system, 'SF Pro Text', system-ui, sans-serif;
+
+  --w-book:   400;   /* Circular Std Book */
+  --w-medium: 500;   /* Circular Std Medium, app "semibold" (600, a banned phantom weight) maps HERE per the type law, nearest legal weight is 500 (derived from the law, not a founder ruling) */
+  --w-bold:   700;   /* Circular Std Bold */
+
+  --fs-xs:  12px;  --lh-xs:  18px;   /* bodySmall / caption */
+  --fs-sm:  14px;  --lh-sm:  20px;   /* bodyMedium / label */
+  --fs-base:16px;  --lh-base:24px;   /* bodyLarge / titleMedium */
+  --fs-lg:  18px;  --lh-lg:  26px;   /* headlineSmall / pushed-header title / button */
+  --fs-xl:  20px;  --lh-xl:  28px;   /* headlineMedium */
+  --fs-2xl: 24px;  --lh-2xl: 32px;   /* displayMedium */
+  --fs-3xl: 30px;  --lh-3xl: 40px;   /* displayLarge / root large-title / currency */
+
+  /* ── SPACING, 4/8 grid (app Space) ─────────────────────────────────────── */
+  --s-1:  2px;  --s-2:  4px;  --s-3:  8px;  --s-4:  12px; --s-5: 16px;
+  --s-6: 20px;  --s-7: 24px;  --s-8: 32px;  --s-9: 40px;  --s-10:48px;
+  --screen-pad: 16px;
+  --hit-min:    44px;   /* HIG minimum tap target */
+
+  /* ── RADIUS, two-tier law ──────────────────────────────────────────────
+     surfaces = 16 · controls = pill · skeleton = 6 (exempt). Intermediate
+     steps kept for compact <80px tiles. */
+  --r-surface: 16px;   /* cards, sheets, wells */
+  --r-tile:    12px;   /* compact tiles <80px */
+  --r-control: 9999px; /* buttons, pills, chips, segmented, FAB */
+  --r-skeleton: 6px;   /* loading skeleton (the ONE exempt radius) */
+
+  /* ── ELEVATION, reserved for TRUE overlays only ────────────────────────
+     Cards do NOT use these; they rely on --card-edge + canvas contrast.
+     One raised token for sheets/menus/toasts that genuinely float. */
+  --shadow-overlay: 0 8px 30px rgba(0,0,0,.16);   /* bottom sheet, menu, toast */
+  --shadow-sheet:   0 -2px 12px rgba(0,0,0,.10);  /* pinned bottom bar / sheet lip */
+  --shadow-cta:     0 6px 18px rgba(43,47,190,.34);/* PROMOTIONAL-register CTA glow ONLY (ruled 2026-07-28: KEEP,
+     scoped). Depth varies per register — promotional may glow; utility/record/form CTAs stay flat (flat-by-design
+     + calm-the-glow hold there). NEVER use --shadow-cta on a non-promotional CTA. See grammar-book Part 4. */
+
+  /* ── MOTION ─────────────────────────────────────────────────────────────
+     ⚠ GATE: durations from the app (200/300/400); easing curves are a
+     grammar-book deliverable, placeholders below pending that pass. */
+  --dur-fast: 200ms;  --dur-base: 300ms;  --dur-slow: 400ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);   /* provisional */
+
+  /* ── ICON ───────────────────────────────────────────────────────────────
+     Source = shipped Phosphor set at viewBox 0 0 256 256, flat fill.
+     _icon-kit.html (Solar duotone) is NOT the source, do not cite it. */
+  --icon-sm: 16px;  --icon-md: 20px;  --icon-lg: 24px;
+}
+
+/* ── DARK, STRUCTURE ONLY, not a completed pass ───────────────────────────
+   ⚠ GATE: dark mode is a later foundation deliverable (58/410 mocks, forked).
+   This block exists so the mechanism supports dark; values are placeholders
+   and must NOT be treated as canonical. Do not migrate screens to dark yet. */
+[data-theme="dark"] {
+  --canvas: #000000;
+  --card:   #1C1C1E;
+  --ink:    #FFFFFF;
+  --brand:  #6064E6;   /* provisional bright indigo */
+}
